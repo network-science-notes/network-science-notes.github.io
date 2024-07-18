@@ -1,0 +1,41 @@
+# Welcome {.unnumbered}
+
+This is a set of notes developed for an undergraduate course in machine learning. The target audience for these notes are undergraduates in computer science who have completed first courses in linear algebra and discrete mathematics. These notes draw on many sources, but are somewhat distinctive in the following ways: 
+
+- The technical focus is almost exclusively on smooth methods for empirical risk minimization in supervised regression and, especially, classification. These notes do not attempt to be a broad survey of all of machine learning. Especially important topics which are largely untreated include decision trees, random forests, and most unsupervised techniques.  
+- The social impacts of automated decision technologies--including bias, fairness, and harm--are considered as first-class topics which occupy a substantial fraction of the notes. 
+- Minimal familiarity with probability is assumed. Continuous probability does not appear explicitly, and discrete probability is introduced "from the ground up" as needed. 
+
+## Pedagogical Features
+
+These notes are explicitly designed for undergraduate instruction in computer science. For this reason: 
+
+- Computational examples are integrated into the text and shown throughout. 
+- Live versions of lecture notes are supplied as downloadable Jupyter Notebooks, with certain code components removed. The purpose is to facilitate live-coding in lectures. 
+
+## Use and Reuse
+
+These notes were written by  [Phil Chodrow](www.philchodrow.prof) for the course CSCI 0451: Machine Learning at Middlebury College. All are welcome to use them for educational purposes. Attribution is appreciated but not expected. 
+
+## Source Texts
+
+These notes draw on several source texts, most of which are available for free online. These are: 
+
+- @hardtPatternsPredictionsActions2022 is the primary influence for the overall arc of the notes. 
+- [A Course in Machine Learning](http://ciml.info/) by Hal Daumé III is an accessible introduction to many of the topics and serves as a useful source of supplementary readings.
+
+Additional useful readings: 
+
+- @abu-mostafaLearningDataShort2012: *[Learning From Data: A Short Course](https://amlbook.com/)* 
+- @barocasFairnessMachineLearning2023 is an advanced text on questions of fairness in automated decision-making for readers who have some background in probability theory. 
+- @bishopPatternRecognitionMachine2006 and @murphyProbabilisticMachineLearning2022a are advanced texts which are most suitable for advanced readers who have already taken at least one course in probability theory.  
+- @deisenrothMathematicsMachineLearning2020 and @kroeseDataScienceMachine2020 are useful readings focusing on some of the mathematical fundamentals. 
+- @zhangDiveDeepLearning2023 tells a helpful story of the fundamentals of deep learning.  
+
+## Acknowledgements
+
+This site was generated using the [Quarto](https://quarto.org/) publishing system. It is hosted on GitHub and published via GitHub Pages. 
+
+## References
+
+

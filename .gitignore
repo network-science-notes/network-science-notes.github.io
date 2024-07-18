@@ -1,0 +1,9 @@
+/.quarto/
+*/.jupyter_cache
+chapters
+!docs/chapters
+*.DS_Store
+*/hidden
+source/*_files
+*/*.vdoc.pyg
+data/.DS_Store

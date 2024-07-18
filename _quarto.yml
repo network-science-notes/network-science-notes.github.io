@@ -1,0 +1,38 @@
+project:
+  type: book
+  output-dir: docs
+  resources:
+    - "lecture-scripts/*"
+    - "assignments"
+    - "lecture-notes/*.ipynb"
+
+book: 
+  title: "Machine Learning"
+  author: "Phil Chodrow"
+  date: "01/15/2024"
+  body-footer: |
+        <br> <br> <span style="color:grey;">&#169; Phil Chodrow, 2024</span>
+
+bibliography: refs.bib
+
+format:
+  html:
+    theme: [cosmo, custom.scss]
+    css: styles.css
+    toc: true
+    number-depth: 0
+    reference-location: margin
+    callout-icon: false;
+    callout-appearance: simple
+
+jupyter: conda-env-ml-0451-py
+
+execute: 
+  cache: false
+
+profile:
+  group: 
+    - [preview, publish]
+
+mermaid: 
+  theme: neutral
