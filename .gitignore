@@ -7,3 +7,4 @@ chapters
 source/*_files
 */*.vdoc.pyg
 data/.DS_Store
+/env/

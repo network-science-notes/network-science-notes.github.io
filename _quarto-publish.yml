@@ -1,19 +1,17 @@
-project: 
-  pre-render: 
-    - scripts/create-ipynb.py
-    - scripts/prep-qmd.py
-
 book: 
   chapters:
     - index.qmd
-    - part: "Introducing Machine Learning"
+    - part: "Network Fundamentals"
       chapters: 
-        - chapters/01-data-and-models.qmd
-        - chapters/02-black-box-classification.qmd
-    - part: "Fundamentals of Prediction"
+        - chapters/01-example.qmd
+    - part: "Measuring Networks"
       chapters: 
-        - chapters/03-score-based-classification.qmd 
-        - chapters/04-decision-theory.qmd 
-    - part: "Discrimination, Disparity, Data"
+        - chapters/02-example.qmd 
+        - chapters/03-example.qmd 
+    - part: "Real-World Networks"
       chapters: 
-        - chapters/10-compas.qmd
+        - chapters/04-example.qmd
+    - part: "Models of Networks"
+      chapters: 
+        - chapters/05-example.qmd 
+    

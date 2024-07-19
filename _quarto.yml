@@ -5,13 +5,12 @@ project:
     - "lecture-scripts/*"
     - "assignments"
     - "lecture-notes/*.ipynb"
-
 book: 
-  title: "Machine Learning"
-  author: "Phil Chodrow"
-  date: "01/15/2024"
+  title: "Network Science: Models, Mathematics, and Computation"
+  author: "Heather Zinn Brooks and Phil Chodrow"
+  date: "07/19/2024"
   body-footer: |
-        <br> <br> <span style="color:grey;">&#169; Phil Chodrow, 2024</span>
+        <br> <br> <span style="color:grey;">&#169; Heather Zinn Brooks and Phil Chodrow, 2024</span>
 
 bibliography: refs.bib
 
@@ -25,10 +24,9 @@ format:
     callout-icon: false;
     callout-appearance: simple
 
-jupyter: conda-env-ml-0451-py
-
 execute: 
   cache: false
+  jupyter: python3
 
 profile:
   group: 
@@ -36,3 +34,4 @@ profile:
 
 mermaid: 
   theme: neutral
+

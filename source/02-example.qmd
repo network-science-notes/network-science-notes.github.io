@@ -1,0 +1,18 @@
+---
+fig-cap-location: margin
+code-fold: false
+jupyter: python3
+---
+
+# Some Stuff About Networks
+
+## References
+
+
+
+
+
+
+
+
+

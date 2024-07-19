@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Data, Patterns, and Models – Machine Learning</title>
+<title>1&nbsp; Some Stuff About Networks – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/02-black-box-classification.html" rel="next">
+<link href="../chapters/02-example.html" rel="next">
 <link href="../index.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -145,7 +165,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-data-and-models.html">Introducing Machine Learning</a></li><li class="breadcrumb-item"><a href="../chapters/01-data-and-models.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data, Patterns, and Models</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-example.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/01-example.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -160,7 +180,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">Machine Learning</a> 
+      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -179,7 +199,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Introducing Machine Learning</span></a>
+ <span class="menu-text">Network Fundamentals</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -187,14 +207,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-data-and-models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data, Patterns, and Models</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-black-box-classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Classification as a Black Box</span></span></a>
+  <a href="../chapters/01-example.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span></a>
   </div>
 </li>
       </ul>
@@ -202,7 +216,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Fundamentals of Prediction</span></a>
+ <span class="menu-text">Measuring Networks</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -210,14 +224,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03-score-based-classification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Score-Based Classification</span></span></a>
+  <a href="../chapters/02-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04-decision-theory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Decision Theory in Classification</span></span></a>
+  <a href="../chapters/03-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span></a>
   </div>
 </li>
       </ul>
@@ -225,7 +239,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Discrimination, Disparity, Data</span></a>
+ <span class="menu-text">Real-World Networks</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -233,8 +247,25 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/10-compas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Introduction to Algorithmic Disparity: COMPAS</span></span></a>
+  <a href="../chapters/04-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Models of Networks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span></a>
   </div>
 </li>
       </ul>
@@ -249,16 +280,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#supervised-learning" id="toc-supervised-learning" class="nav-link active" data-scroll-target="#supervised-learning">Supervised Learning</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-data-and-models.html">Introducing Machine Learning</a></li><li class="breadcrumb-item"><a href="../chapters/01-data-and-models.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data, Patterns, and Models</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-example.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/01-example.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data, Patterns, and Models</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></h1>
 </div>
 
 
@@ -275,171 +306,102 @@ window.Quarto = {
 </header>
 
 
-<p><em>Download the live notebook corresponding to these notes <a href="../live-notebooks/01-data-and-models.ipynb">here</a>.</em></p>
-<p>Broadly, machine learning is the science and practice of building algorithms that learn patterns from data. Here are two synthetic examples of data in which there is some kind visually clear pattern in the data. In the first example (<a href="#fig-examples-1" class="quarto-xref">Figure&nbsp;<span>1.1 (a)</span></a>), we can see that there is a relationship between two quantitative variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. If someone told is the value of <span class="math inline">\(x\)</span>, then we would likely be able to make a reasonable prediction about the value of the number <span class="math inline">\(y\)</span>. This is an example of a <strong>regression</strong> task. In the second example (<a href="#fig-examples-2" class="quarto-xref">Figure&nbsp;<span>1.1 (b)</span></a>), we can observe a relation between the location of each data point in 2d space and a color, which could represent a category or class. If someone told us the location of the point in 2d space, we would likely be able to say which of the two classes it belonged to. This is an example of a <strong>classification</strong> task.</p>
+<p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/01-example.ipynb">here</a>.</em></p>
+<section id="size-of-the-giant-component" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="size-of-the-giant-component">Size of the Giant Component</h4>
+<div class="page-columns page-full"><p>Perhaps surprisingly, while it’s difficult to prove that there is a giant component, it’s not hard at all to estimate its size. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This argument is reproduced from <span class="citation" data-cites="newman2018networks">Newman (<a href="#ref-newman2018networks" role="doc-biblioref">2018</a>)</span>, pages 349-350</span></div></div>
+<p>Let <span class="math inline">\(S\)</span> be the size of the giant component in an Erdős–Rényi random graph, assuming there is one. Then, <span class="math inline">\(s = S/n\)</span> is the probability that a randomly selected node is in the giant component. Let <span class="math inline">\(u = 1 - s\)</span> be the probability that a given node is <em>not</em> in the giant component.</p>
+<p>Let’s take a random node <span class="math inline">\(i\)</span>, and ask it the probability that it’s in the giant component. Well, one answer to that question is just “<span class="math inline">\(u\)</span>.” On the other hand, we can <em>also</em> answer that question by looking at <span class="math inline">\(i\)</span>’s neighbors. If <span class="math inline">\(i\)</span> is not in the giant component, then it can’t be connected to any node that is in the giant component. So, for each other node <span class="math inline">\(j\neq i\)</span>, it must be the case that either:</p>
+<ol type="1">
+<li><span class="math inline">\(i\)</span> is not connected to <span class="math inline">\(j\)</span>. This happens with probability <span class="math inline">\(1-p\)</span>.</li>
+<li><span class="math inline">\(i\)</span> is connected to <span class="math inline">\(j\)</span>, but <span class="math inline">\(j\)</span> is not in the giant component either. <span class="math inline">\(i\)</span> is connected to <span class="math inline">\(j\)</span> with probability <span class="math inline">\(p\)</span>, and <span class="math inline">\(j\)</span> is not in the giant component with probability <span class="math inline">\(u\)</span>.</li>
+</ol>
+<p>There are <span class="math inline">\(n-1\)</span> nodes other than <span class="math inline">\(i\)</span>, and so the probability that <span class="math inline">\(i\)</span> is not connected to any other node in the giant component is <span class="math inline">\((1 - p + pu)^{n-1}\)</span>. We therefore have the equation</p>
+<p><span class="math display">\[
+u = (1 - p + pu)^{n-1}\;.
+\]</span></p>
+<p>Let’s take the righthand side and use <span class="math inline">\(p = c/(n-1)\)</span>: <span class="math display">\[
+\begin{aligned}
+    u &amp;= (1 - p(1-u))^{n-1} \\
+      &amp;= \left(1 - \frac{c(1-u)}{n-1}\right)^{n-1}\;.
+\end{aligned}
+\]</span> This is a good time to go back to precalculus and remember the limit definition of the function <span class="math inline">\(e^x\)</span>: <span class="math display">\[
+e^x = \lim_{n \rightarrow \infty}\left(1 + \frac{x}{n}\right)^{n}\;.
+\]</span> Since we are allowing <span class="math inline">\(n\)</span> to grow large in our application, we approximate</p>
+<p><span class="math display">\[
+u \approx e^{-c(1-u)}\;.
+\]</span> So, now we have a description of the fraction of nodes that <em>aren’t</em> in the giant component. We can get a description of how many nodes <em>are</em> in the giant component by substituting <span class="math inline">\(s = 1-u\)</span>, after which we get the equation we’re really after: <span id="eq-giant-component-size"><span class="math display">\[
+s = 1- e^{-cs}
+\tag{1.1}\]</span></span></p>
+<p>This equation doesn’t have a closed-form solution for <span class="math inline">\(s\)</span>, but we can still plot it and compare the result to simulations (<a href="#fig-giant-component" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>). Not bad!</p>
+<div id="cell-fig-giant-component" class="cell page-columns page-full" data-out.width="80%" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="sourceCode cell-code" id="cb1" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"seaborn-v0_8-whitegrid"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_fig(pattern <span class="op">=</span> <span class="va">False</span>):</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># panel 1: regression</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># experiment: compute the size of the largest connected </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># component as a function of graph size for a range of mean degrees. </span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> <span class="fl">0.3</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.arange(<span class="dv">0</span>, np.pi, <span class="fl">0.01</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.sin(x) <span class="op">+</span> <span class="fl">0.5</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    y_noise <span class="op">=</span> y <span class="op">+</span> np.random.normal(<span class="fl">0.0</span>, noise, size <span class="op">=</span> (<span class="bu">len</span>(x),))</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x, y_noise, s <span class="op">=</span> <span class="dv">20</span>,  facecolors<span class="op">=</span><span class="st">'none'</span>, edgecolors <span class="op">=</span> <span class="st">"darkgrey"</span>, label <span class="op">=</span> <span class="st">"data"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pattern: </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        plt.plot(x, y, label <span class="op">=</span> <span class="st">"pattern"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, color <span class="op">=</span> <span class="st">"black"</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="vs">r"$x$"</span>, ylabel <span class="op">=</span> <span class="vs">r"$y$"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    plt.gca().set_xlim(<span class="op">-</span><span class="dv">0</span>, np.pi)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    plt.gca().set_ylim(<span class="op">-</span><span class="dv">0</span>, np.pi)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    plt.gca().set_aspect(<span class="st">'equal'</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> largest_component(n, p):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.fast_gnp_random_graph(n, p)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> <span class="bu">max</span>(nx.connected_components(G), key<span class="op">=</span><span class="bu">len</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(S) <span class="op">/</span> n</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">50000</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.repeat(np.linspace(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="dv">11</span>), <span class="dv">10</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> np.array([largest_component(n, c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)) <span class="cf">for</span> c <span class="kw">in</span> C])</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># theory: prediction based on Newman 11.16</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">.001</span>, <span class="fl">.6</span>, <span class="dv">101</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>C_theory <span class="op">=</span> <span class="op">-</span>np.log(<span class="dv">1</span><span class="op">-</span>S)<span class="op">/</span>S</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the results to compare</span></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># panel 2: classification</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    noise <span class="op">=</span> <span class="fl">0.2</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    n_points <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.plot(C_theory, </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>         S, </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>         color <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>         label <span class="op">=</span> <span class="st">"Theoretical prediction"</span>)</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> i <span class="op">+</span> np.random.normal(<span class="fl">0.0</span>, noise, size <span class="op">=</span> n_points)</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> i <span class="op">+</span> np.random.normal(<span class="fl">0.0</span>, noise, size <span class="op">=</span> n_points)</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        plt.scatter(x, y, s <span class="op">=</span> <span class="dv">20</span>,  c <span class="op">=</span> i<span class="op">*</span>(np.zeros_like(x) <span class="op">+</span> <span class="dv">1</span>), facecolors <span class="op">=</span> <span class="st">"none"</span>, edgecolors <span class="op">=</span> <span class="st">"darkgrey"</span>, cmap <span class="op">=</span> <span class="st">"BrBG"</span>, label <span class="op">=</span> <span class="ss">f"Category </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>, vmax <span class="op">=</span> <span class="dv">2</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pattern: </span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        plt.plot([<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>], [<span class="fl">1.5</span>, <span class="op">-</span><span class="fl">0.5</span>], label <span class="op">=</span> <span class="st">"pattern"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, color <span class="op">=</span> <span class="st">"black"</span>, zorder <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="vs">r"$x_1$"</span>, ylabel <span class="op">=</span> <span class="vs">r"$x_2$"</span>)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    plt.gca().set_xlim(<span class="op">-</span><span class="fl">1.0</span>, <span class="fl">2.0</span>)</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    plt.gca().set_ylim(<span class="op">-</span><span class="fl">1.0</span>, <span class="fl">2.0</span>)</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    plt.gca().set_aspect(<span class="st">'equal'</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>plot_fig()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>plt.scatter(C, </span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            U, </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            label <span class="op">=</span> <span class="st">"Experiment"</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Mean degree"</span>, </span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>              ylabel <span class="op">=</span> <span class="st">"Proportion of graph in largest component"</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div id="fig-examples" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-examples" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-examples-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-examples-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-data-and-models_files/figure-html/fig-examples-output-1.png" data-ref-parent="fig-examples" width="430" height="423" class="figure-img">
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-giant-component" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-giant-component-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-example_files/figure-html/fig-giant-component-output-1.png" width="581" height="423" class="figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-examples-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) Example data in which we can seek a pattern in the value of <span class="math inline">\(y\)</span> based on the value of <span class="math inline">\(x\)</span>. This task is called <strong>regression</strong>.
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-examples" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-examples-2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-examples-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-data-and-models_files/figure-html/fig-examples-output-2.png" data-ref-parent="fig-examples" width="446" height="428" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-examples-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Example data in which we can seek a pattern in the <strong>category</strong> of a data point (represented by color) based on the value of two variables, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. This task is called <strong>classification.</strong>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-giant-component-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: Each point gives the fraction of an ER graph with 50,000 nodes occupied by the largest component. The mean degree is on the horizontal axis. The black line gives the theoretical prediction of <a href="#eq-giant-component-size" class="quarto-xref">Equation&nbsp;<span>1.1</span></a>.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-examples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.1: Examples of data with visualizable patterns.
-</figcaption>
-</figure>
-</div>
-<p>In examples like these, it’s often possible for us to just use our eyes and spatial reasoning in order to make a reasonable prediction.</p>
-<p>How do we encode this knowledge mathematically, in a way that a computer can understand and use? In each of the two cases, we can express the pattern in the data <strong>as a mathematical function</strong>.</p>
-<ul>
-<li>In the regression example (<a href="#fig-examples-1" class="quarto-xref">Figure&nbsp;<span>1.1 (a)</span></a>), we can encode the pattern in the data as a function <span class="math inline">\(f:\mathbb{R} \rightarrow \mathbb{R}\)</span> that accepts a value of <span class="math inline">\(x\)</span> and returns a modeled or predicted value of <span class="math inline">\(y\)</span>. Such a function is shown in <a href="#fig-examples-with-patterns-1" class="quarto-xref">Figure&nbsp;<span>1.2 (a)</span></a>. The function <span class="math inline">\(f\)</span> is our <em>predictive model</em>. We often write <span class="math inline">\(y \approx f(x)\)</span> to express the qualitative idea that <span class="math inline">\(f\)</span> models the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> in a given data set. We’ll learn how to make this idea much more precise when we study empirical risk minimization later in the notes.</li>
-<li>In the classification example (<a href="#fig-examples-2" class="quarto-xref">Figure&nbsp;<span>1.1 (b)</span></a>), we can again encode the pattern in the data as a function. This time, our model is going to describe an estimated **boundary* between the two classes of points. In this example, a linear boundary is pretty good. The plot shows the plot of the linear equation <span class="math inline">\(x_2 = g(x_1) = 1 - x_1\)</span>. Later in the course, it will be convenient to instead write this equation in the equivalent form <span class="math inline">\(\langle \mathbf{x}, \mathbf{w} \rangle = 0\)</span>, where <span class="math inline">\(\mathbf{x} = (x_1, x_2, 1)^T\)</span> and <span class="math inline">\(\mathbf{w} = (1, 1, -1)^T\)</span>.</li>
-</ul>
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plot_fig(pattern <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div id="fig-examples-with-patterns" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-examples-with-patterns-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-examples-with-patterns" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-examples-with-patterns-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-examples-with-patterns-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-data-and-models_files/figure-html/fig-examples-with-patterns-output-1.png" data-ref-parent="fig-examples-with-patterns" width="430" height="423" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-examples-with-patterns-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) As above, with a plot of the function <span class="math inline">\(f(x) = 2\sin{x} + \frac{1}{2}\)</span>.
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-examples-with-patterns" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-examples-with-patterns-2" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-examples-with-patterns-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-data-and-models_files/figure-html/fig-examples-with-patterns-output-2.png" data-ref-parent="fig-examples-with-patterns" width="446" height="428" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-examples-with-patterns-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) As above, with a plot of the function <span class="math inline">\(g(x_1) = 1 - x_1\)</span>. This plot is the same as the affine subspace defined by the equation <span class="math inline">\(x_1 + x_2 = 1\)</span>.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-examples-with-patterns-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.2: Examples of patterns in data.
-</figcaption>
-</figure>
-</div>
-<section id="supervised-learning" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="supervised-learning">Supervised Learning</h2>
-<p>Our focus in these notes is almost exclusively on <em>supervised</em> learning. In supervised learning, we are able to view some attributes or features of a data point, which we call <strong>predictors</strong>. Traditionally, we collect these attributes into a vector called <span class="math inline">\(\mathbf{x}\)</span>. Each data point then has a <strong>target</strong>, which could be either a scalar number or a categorical label. Traditionally, the target is named <span class="math inline">\(y\)</span>. We aim to predict the target based on the predictors using a <strong>model</strong>, which is a function <span class="math inline">\(f\)</span>. The result of applying the model <span class="math inline">\(f\)</span> to the predictors <span class="math inline">\(\mathbf{x}\)</span> is our <strong>prediction</strong> or <strong>predicted target</strong> <span class="math inline">\(f(\mathbf{x})\)</span>, to which we often give the name <span class="math inline">\(\hat{y}\)</span>. Our goal is to choose <span class="math inline">\(f\)</span> such that the predicted target <span class="math inline">\(\hat{y}\)</span> is equal to, or at least close to, the true target <span class="math inline">\(y\)</span>. We could summarize this with the heuristic statement:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    \text{``}f(\mathbf{x}) = \hat{y} \approx y\;.\text{''}
-\end{aligned}
-\]</span></p>
-<p>How we interpret this heuristic statement depends on context. In regression problems, this statement typically means “<span class="math inline">\(\hat{y}\)</span> is usually close to <span class="math inline">\(y\)</span>”, while in classification problems this statement usually means that “<span class="math inline">\(\hat{y} = y\)</span> exactly most or all of the time.”</p>
-<p>In our regression example from above, we can think of a function <span class="math inline">\(f:\mathbb{R}\rightarrow \mathbb{R}\)</span> that maps the predictor <span class="math inline">\(x\)</span> to the prediction <span class="math inline">\(\hat{y}\)</span>. In the case of classification, things are a little more complicated. Although the function <span class="math inline">\(g(x_1) = 1 - x_1\)</span> is visually very relevant, that function is not itself the model we use for prediction. Instead, our prediction function should return one classification label for points on one side of the line defined by that function, and a different label for points on the other side. If we say that blue points are labeled <span class="math inline">\(0\)</span> and brown points are labeled <span class="math inline">\(1\)</span>, then our predictor function can be written <span class="math inline">\(f:\mathbb{R}^2 \rightarrow \{0, 1\}\)</span>, and it could be written heuristically like this:</p>
-<p><span class="math display">\[
-\begin{aligned}
-    f(\mathbf{x}) &amp;= \mathbb{1}[\mathbf{x} \text{ is above the line}] \\
-                  &amp;= \mathbb{1}[x_1 + x_2 \geq 1] \\
-                  &amp;= \mathbb{1}[x_1 + x_2 - 1\geq 0]\;.
-\end{aligned}
-\]</span></p>
-<p>This last expression looks a little clunky, but we will soon find out that it is the easiest one to generalize to an advanced setting.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-newman2018networks" class="csl-entry" role="listitem">
+Newman, Mark. 2018. <em>Networks</em>. Oxford University Press.
+</div>
+</div>
+</section>
 
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Here, <span class="math inline">\(\mathbb{1}\)</span> is the indicator function which is equal to 1 if its argument is true and 0 otherwise. Formally,</p>
-<p><span class="math display">\[
-\begin{aligned}
-    \mathbb{1}[P] = \begin{cases}
-        1 &amp;\quad P \text{ is true} \\
-        0 &amp;\quad P \text{ is false.}
-        \end{cases}
-\end{aligned}
-\]</span></p>
-</div></div></section>
-
-<p><br> <br> <span style="color:grey;">© Phil Chodrow, 2024</span></p></main> <!-- /main -->
+<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2024</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -867,8 +829,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/02-black-box-classification.html" class="pagination-link" aria-label="Classification as a Black Box">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Classification as a Black Box</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/02-example.html" class="pagination-link" aria-label="Some Stuff About Networks">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

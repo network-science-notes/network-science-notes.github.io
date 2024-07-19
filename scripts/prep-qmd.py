@@ -25,7 +25,9 @@ for f in os.listdir("source"):
             live_path = f"{f.replace('.qmd', '.ipynb')}"
             if live_path in os.listdir("docs/live-notebooks"):
                 
-                link_line = f"*Download the live notebook corresponding to these notes [here](../live-notebooks/{live_path}).* \n"
+                # link_line = f"*Download the live notebook corresponding to these notes [here](../live-notebooks/{live_path}).* \n"
+                
+                link_line = f"*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/{live_path}).* \n"
                 
                 cleaned_lines = cleaned.split("\n")
                 ix = 0
