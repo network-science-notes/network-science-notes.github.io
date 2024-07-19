@@ -16,6 +16,10 @@ publish:
 	quarto render --profile publish
 	python scripts/create-ipynb.py
 
+prep: 
+	python scripts/prep-qmd.py
+	python scripts/create-ipynb.py
+
 preview: 
 	$(VENV_ACTIVATE) 
 	quarto preview --profile preview

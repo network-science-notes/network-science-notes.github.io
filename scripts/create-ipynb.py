@@ -19,6 +19,8 @@ for f in os.listdir("source"):
     
     for cell in notebook["cells"]:
         cell["source"] = re.sub(r"#---[\S\s]*?#---", "", cell["source"])
+        cell["source"] = re.sub(r'(?m)^\#\|.*\n?', "", cell["source"])
+        cell["source"] = re.sub(r"---[\S\s]*?---", "", cell["source"])
         cell["outputs"] = []
         cell["execution_count"] = None
     nb.write(notebook, out_path)

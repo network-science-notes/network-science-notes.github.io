@@ -59,9 +59,13 @@ import networkx as nx
 plt.style.use('seaborn-v0_8-whitegrid')
 
 
+
 # experiment: compute the size of the largest connected 
 # component as a function of graph size for a range of mean degrees. 
+# This experiment is left as a coding exercise in the live notes
 
+
+#---
 def largest_component(n, p):
     G = nx.fast_gnp_random_graph(n, p)
     S = max(nx.connected_components(G), key=len)
@@ -91,6 +95,7 @@ plt.gca().set(xlabel = "Mean degree",
               ylabel = "Proportion of graph in largest component")
 
 plt.legend()
+#---
 
 ```
 
