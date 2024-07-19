@@ -10,14 +10,11 @@ activate:
 	$(VENV_ACTIVATE)
 
 
-publish: prep
+publish: 
 	$(VENV_ACTIVATE)
-	quarto render --profile publish
-
-prep: 
-	$(VENV_ACTIVATE) 
-	python scripts/create-ipynb.py
 	python scripts/prep-qmd.py
+	quarto render --profile publish
+	python scripts/create-ipynb.py
 
 preview: 
 	$(VENV_ACTIVATE) 
@@ -26,3 +23,6 @@ preview:
 clean: 
 	find . -type f -name "* [0-9]*" -delete
 	find . -name "* [0-9]*" -type d -exec rm -r "{}" \;
+	rm -rf docs
+	rm -rf chapters
+
