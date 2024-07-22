@@ -38,11 +38,21 @@ To add a chapter to the site:
 
 You are now ready to write the chapter! Quarto implements standard Markdown and mathematics, as well as computation with Python and some useful tools for cross-references. 
 
-# Preview Site 
+# Previewing and Publishing
+
+Before either previewing or publishing the website, it is necessary to run 
+
+```bash
+source env/bin/activate
+```
+
+in the terminal. 
+
+## Preview Site 
 
 To preview the site, run the command `make preview` in your terminal. This will build a preview version of the site and open it in your default browser. 
 
-# Publish Site 
+## Publish Site 
 
 To publish the site:
 
