@@ -3,15 +3,9 @@ book:
     - index.qmd
     - part: "Network Fundamentals"
       chapters: 
-        - chapters/01-example.qmd
+        - chapters/01-networkrepresentations.qmd
     - part: "Measuring Networks"
-      chapters: 
-        - chapters/02-example.qmd 
-        - chapters/03-example.qmd 
     - part: "Real-World Networks"
-      chapters: 
-        - chapters/04-example.qmd
     - part: "Models of Networks"
-      chapters: 
-        - chapters/05-example.qmd 
+    - part: "Applications and Extensions"
     
