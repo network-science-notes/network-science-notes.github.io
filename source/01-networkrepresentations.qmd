@@ -33,14 +33,10 @@ from matplotlib import pyplot as plt
 import networkx as nx
 plt.style.use('seaborn-v0_8-whitegrid')
 
-#---
-
 G = nx.karate_club_graph()
 nx.draw(G)
 
 print('This graph has', G.number_of_nodes(), 'nodes and', G.number_of_edges(), 'edges.')
-
-#---
 
 ```
 
@@ -70,6 +66,7 @@ from matplotlib import pyplot as plt
 import networkx as nx
 plt.style.use('seaborn-v0_8-whitegrid')
 
+# This is left as a coding exercise in the live notes.
 #---
 
 G = nx.Graph()
@@ -103,6 +100,7 @@ from matplotlib import pyplot as plt
 import networkx as nx
 plt.style.use('seaborn-v0_8-whitegrid')
 
+# This is left as a coding exercise in the live notes.
 #---
 
 G = nx.Graph()
@@ -148,6 +146,7 @@ from matplotlib import pyplot as plt
 import networkx as nx
 plt.style.use('seaborn-v0_8-whitegrid')
 
+# This is left as a coding exercise in the live notes.
 #---
 
 DG = nx.DiGraph()
