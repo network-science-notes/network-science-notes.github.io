@@ -17,9 +17,13 @@ These notes are explicitly designed for undergraduate instruction with students 
 - Computational examples are integrated into the text and shown throughout. 
 - Live versions of lecture notes are supplied as Jupyter Notebooks which can be opened in Google Colab. Certain code components have been removed. The purpose is to facilitate live-coding in lectures. 
 
-## Use and Reuse
+::: {.box}
+
+### Use and Reuse
 
 These notes are free to reuse and adapt for educational purposes. Attribution is appreciated but not required. 
+
+:::
 
 
 ## Source Texts
@@ -30,6 +34,11 @@ These notes draw on several source texts, the most important of which is @newman
 ## Acknowledgements
 
 This site was generated using the [Quarto](https://quarto.org/) publishing system. It is hosted on GitHub and published via GitHub Pages. We thank Mason Porter for inspiration in earlier versions of this course. 
+
+
+
+
+
 
 ## References
 

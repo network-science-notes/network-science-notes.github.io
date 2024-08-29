@@ -4,7 +4,7 @@
 
 Please install Quarto version 1.5 or later. You can run `quarto --version` in the terminal to see what version of Quarto is currently installed. 
 
-## Conda Environment
+## Virtual Environment
 
 To run scripts and build this website, we will use a custom conda environment. 
 

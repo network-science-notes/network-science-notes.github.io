@@ -15,4 +15,3 @@ book:
       chapters: 
         - source/05-example.qmd 
     
-code-summary: "Show code"
