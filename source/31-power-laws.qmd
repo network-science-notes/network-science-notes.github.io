@@ -368,7 +368,7 @@ Prove using induction that $p_d = C d^{-\gamma}$ for some constant $C$, and expl
 
 :::
 
-This concludes our argument. Although this argument contains many approximations, it is also possible to reach the same conclusion using fully rigorous probabilistic arguments.
+This concludes our argument. Although this argument contains many approximations, it is also possible to reach the same conclusion using fully rigorous probabilistic arguments [@bollobasDegreeSequenceScale2001]. 
 
 
 
