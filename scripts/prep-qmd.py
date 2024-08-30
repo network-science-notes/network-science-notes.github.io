@@ -11,10 +11,10 @@ if not os.path.isdir("docs/live-notebooks"):
 if not os.path.isdir("chapters"):
     os.makedirs("chapters", exist_ok=True)
 
-if "hidden" not in os.listdir("chapters"):
-    source_dir = "source/hidden"
-    destination_dir = "chapters/hidden"
-    shutil.copytree(source_dir, destination_dir)
+# if "hidden" not in os.listdir("chapters"):
+#     source_dir = "source/hidden"
+#     destination_dir = "chapters/hidden"
+#     shutil.copytree(source_dir, destination_dir)
 
 for f in os.listdir("source"):
     

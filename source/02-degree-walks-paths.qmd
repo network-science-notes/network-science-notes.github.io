@@ -1,0 +1,31 @@
+---
+fig-cap-location: margin
+code-fold: false
+jupyter: python3
+---
+
+# Degree, Walks, and Paths
+
+
+### Cyclic and acyclic graphs
+
+### Trees
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-tree}
+
+A **tree** is a connected, undirected network that contains no loops. [By "connected", we mean every node is reachable from every other node by traversing a sequence of edges.]{.aside}
+
+:::
+:::
+
+## References
+
+
+
+
+
+
+
+
+

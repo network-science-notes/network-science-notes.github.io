@@ -174,3 +174,17 @@ tr {
       margin-right: 0;
     }
   }
+
+.box {
+  background-color: #e4e4e431;
+  /* border: thin solid #3b3b3b47; */
+  border-top: thin solid #3b3b3b47;
+  border-bottom: thin solid #3b3b3b47;
+  /* border-left: thick solid #377cbc9a; */
+  /* padding: 1rem; */
+  /* border-radius: 5px; */
+}
+
+.exercise {
+  background-color: #e4e4e431;
+}
