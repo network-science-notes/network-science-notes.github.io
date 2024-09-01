@@ -8,3 +8,7 @@ source/*_files
 */*.vdoc.pyg
 data/.DS_Store
 /env/
+docs/full-notes
+source/*.html
+
+
