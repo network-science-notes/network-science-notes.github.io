@@ -293,16 +293,17 @@ window.Quarto = {
 <section id="introduction" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Last time, we studied several properties of real-world networks and compared them to randomized models of those networks in which the degrees were held constant. That is, we were looking at aspects of the structure of real-world networks that <strong>are not captured by the degree distribution alone</strong>. But what about the degree distribution itself? Do real world networks have degree distributions that are especially interesting? What models can account for the degree distributions that we observe?</p>
-<div id="acc5381d" class="cell" data-execution_count="1">
+<div id="9f9a2392" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> factorial</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To observe a degree distribution, let’s take a look at a data set collected from the streaming platform Twitch by <span class="citation" data-cites="musae">Rozemberczki, Allen, and Sarkar (<a href="#ref-musae" role="doc-biblioref">2021</a>)</span>. Nodes are users on Twitch. An edge exists between them if they are mutual friends on the platform. The authors collected data sets for users speaking several different languages; we’ll use the network of English-speaking users. Let’s now download the data (as a Pandas data frame) and convert it into a graph using Networkx.</p>
-<div id="3168089e" class="cell" data-execution_count="2">
+<div id="9a7d9604" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ENGB_edges.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"from"</span>, <span class="st">"to"</span>, create_using<span class="op">=</span>nx.Graph)</span>
@@ -316,7 +317,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="page-columns page-full"><p>Let’s now define some helper functions to extract and visualize the degree distribution of a graph. Our first function extracts the degree distribution for easy computation, while the second creates a variable-width histogram in which each bin has the <em>same width when plotted on a logarithmic horizontal axis</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This is called <em>logarithmic binning</em>.</span></div></div>
-<div id="d8d7d698" class="cell" data-execution_count="3">
+<div id="d43d5a06" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> degree_sequence(G):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    degree_sequence <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
@@ -344,7 +345,7 @@ window.Quarto = {
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> plt.gca()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s use this function to inspect the degree distrubtion of the data:</p>
-<div id="d5d9d979" class="cell" data-execution_count="4">
+<div id="b2c8456a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -356,7 +357,7 @@ window.Quarto = {
 </div>
 <p>There are a few things to notice about this degree distribution. First, most nodes have relatively small degrees, fewer tham the mean of 9.9. However, there are a small number of nodes that have degrees which are <em>much</em> larger: almost two orders of magnitude larger! You can think of these nodes as “super stars” or “hubs” of the network; they may correspond to especially popular or influential accounts.</p>
 <p>Recall that, from our discussion of the Erdős–Rényi model <span class="math inline">\(G(n,p)\)</span>, the degree distribution of a <span class="math inline">\(G(n,p)\)</span> model with mean degree <span class="math inline">\(\bar{d}\)</span> is approximately Poisson with mean <span class="math inline">\(\bar{d}\)</span>. Let’s compare this Poisson distribution to the data.</p>
-<div id="6a8ba6d1" class="cell" data-execution_count="5">
+<div id="fdd55479" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mean_degree  <span class="op">=</span> deg_seq.mean()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">30</span>, <span class="dv">1</span>)</span>
@@ -405,7 +406,7 @@ window.Quarto = {
 \]</span></p>
 <p>So, <span class="math inline">\(\log p_d\)</span> is a linear function of <span class="math inline">\(\log d\)</span> with slope <span class="math inline">\(-\gamma\)</span>.</p>
 <p>Let’s try plotting such a distribution against the data. Since the power law distribution is defined for all <span class="math inline">\(d &gt; d_*\)</span>, we’ll need to choose a cutoff <span class="math inline">\(d_*\)</span> and an exponent <span class="math inline">\(\gamma\)</span>. For now, we’ll do this by eye. If we inspect the plot of the data above, it looks like linear behavior takes over somewhere around <span class="math inline">\(d_* = 10^\frac{3}{2} \approx 30\)</span>.</p>
-<div id="941566ca" class="cell" data-execution_count="6">
+<div id="49979878" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
@@ -458,7 +459,7 @@ window.Quarto = {
 </ol>
 <p>We repeat this process as many times as desired. Intuitively, the preferential attachment model expresses the idea that “the rich get richer”: nodes that already have many connections are more likely to receive new connections.</p>
 <div class="page-columns page-full"><p>Here’s a quick implementation. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Note: this implementation of preferential attachment is useful for illustrating the mathematics and operations with Networkx. It is, however, not efficient.</span></div></div>
-<div id="2a6c64fa" class="cell" data-execution_count="7">
+<div id="180bf279" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initial condition</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph() </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="dv">0</span>, <span class="dv">1</span>) </span>
@@ -484,7 +485,7 @@ window.Quarto = {
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    G.add_edge(u, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s go ahead and plot the result. We’ll add a visualization of the exponent <span class="math inline">\(\gamma\)</span> as well. How do we know the right value of <span class="math inline">\(\gamma\)</span>? It turns out that there is a theoretical estimate based on <span class="math inline">\(\alpha\)</span> which we’ll derive in the next section.</p>
-<div id="7cee6d47" class="cell" data-execution_count="8">
+<div id="27e7f3b6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
@@ -600,10 +601,10 @@ Exercise
 <p>Applying this last approximation, we have shown that, for sufficiently large <span class="math inline">\(d\)</span>,</p>
 <p><span class="math display">\[
 \begin{aligned}
-    p_d \simeq \left(\frac{d-1}{d} \right)^{-\frac{1 + \alpha}{\alpha}} p_{d-1}\;.
+    p_d \simeq \left(\frac{d-1}{d} \right)^{\frac{1 + \alpha}{\alpha}} p_{d-1}\;.
 \end{aligned}
 \]</span></p>
-<p>This recurrence relation, if it were exact, would imply that <span class="math inline">\(p_d = C d^{-\frac{1+\alpha}{\alpha}}\)</span>, as shown by the following exercise:</p>
+<p>This recurrence relation, if it were exact, would imply that <span class="math inline">\(p_d = C d^{\frac{1+\alpha}{\alpha}}\)</span>, as shown by the following exercise:</p>
 <div class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -614,16 +615,29 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Suppose that, for some <span class="math inline">\(d_*\)</span> and for all <span class="math inline">\(d &gt; d_*\)</span>, it holds that</p>
+<p>Suppose that <span class="math inline">\(p_d\)</span> is a probability distribution with the property that, for some <span class="math inline">\(d_*\)</span> and for all <span class="math inline">\(d &gt; d_*\)</span>, it holds that</p>
 <p><span class="math display">\[
 \begin{aligned}
-    p_d = \left(\frac{d-1}{d}\right)^{-\gamma} p_{d-1}\;.
+    p_d = \left(\frac{d-1}{d}\right)^{\gamma} p_{d-1}\;.
 \end{aligned}
 \]</span></p>
 <p>Prove using induction that <span class="math inline">\(p_d = C d^{-\gamma}\)</span> for some constant <span class="math inline">\(C\)</span>, and explain how to compute <span class="math inline">\(C\)</span>.</p>
 </div>
 </div>
-<p>This concludes our argument. Although this argument contains many approximations, it is also possible to reach the same conclusion using fully rigorous probabilistic arguments.</p>
+<div class="hide proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span>Our proof is by induction.</p>
+<p><strong>Base Case:</strong> Since the statement is claimed to hold for all <span class="math inline">\(d &gt; d_*\)</span>, our base case is <span class="math inline">\(d = d_* + 1\)</span>. In this case we have <span class="math inline">\(p_d = \left(\frac{d_*}{d}\right)^{\gamma} p_{d_*} = \left[p_{d_*}d_*^{\gamma}\right]d^{-\gamma}\)</span>. We’ll let <span class="math inline">\(C = p_{d_*}d_*^\gamma\)</span>.</p>
+<p><strong>Inductive Step:</strong> Suppose that the statement holds for some arbitrary <span class="math inline">\(d = \hat{d} &gt; d_*\)</span>. We’ll show that the statement also holds for <span class="math inline">\(d = \hat{d} + 1\)</span>. We can calculate directly</p>
+<p><span class="math display">\[
+\begin{aligned}
+    p_{\hat{d} +  1} &amp;= \left(\frac{\hat{d}}{\hat{d} + 1}\right)^{\gamma} p_{\hat{d}} \\
+    &amp;= C \left(\frac{\hat{d}}{\hat{d} + 1}\right)^{\gamma} \hat{d}^{-\gamma} \\
+    &amp;= C (\hat{d} + 1)^{-\gamma}\;.
+\end{aligned}
+\]</span></p>
+<p>This completes the inductive step and the proof.</p>
+</div>
+<p>This concludes our argument. Although this argument contains many approximations, it is also possible to reach the same conclusion using fully rigorous probabilistic arguments <span class="citation" data-cites="bollobasDegreeSequenceScale2001">(<a href="#ref-bollobasDegreeSequenceScale2001" role="doc-biblioref">Bollobás et al. 2001</a>)</span>.</p>
 </section>
 <section id="sec-power-law-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="sec-power-law-estimation">Estimating Power Laws From Data</h2>
@@ -648,6 +662,9 @@ Exercise
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-barabasiEmergenceScalingRandom1999" class="csl-entry" role="listitem">
 Barabási, Albert-László, and Réka Albert. 1999. <span>“Emergence of <span>Scaling</span> in <span>Random Networks</span>.”</span> <em>Science</em> 286 (5439): 509–12. <a href="https://doi.org/10.1126/science.286.5439.509">https://doi.org/10.1126/science.286.5439.509</a>.
+</div>
+<div id="ref-bollobasDegreeSequenceScale2001" class="csl-entry" role="listitem">
+Bollobás, Bela, Oliver Riordan, Joel Spencer, and Gábor Tusnády. 2001. <span>“The Degree Sequence of a Scale-Free Random Graph Process.”</span> <em>Random Structures &amp; Algorithms</em> 18 (3): 279–90. <a href="https://doi.org/10.1002/rsa.1009">https://doi.org/10.1002/rsa.1009</a>.
 </div>
 <div id="ref-broidoScalefreeNetworksAre2019" class="csl-entry" role="listitem">
 Broido, Anna D., and Aaron Clauset. 2019. <span>“Scale-Free Networks Are Rare.”</span> <em>Nature Communications</em> 10 (1): 1017. <a href="https://doi.org/10.1038/s41467-019-08746-5">https://doi.org/10.1038/s41467-019-08746-5</a>.

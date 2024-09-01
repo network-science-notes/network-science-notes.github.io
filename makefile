@@ -15,6 +15,7 @@ publish:
 	python scripts/prep-qmd.py
 	quarto render --profile publish
 	python scripts/create-ipynb.py
+	python scripts/remove-hidden.py
 
 prep: 
 	python scripts/prep-qmd.py

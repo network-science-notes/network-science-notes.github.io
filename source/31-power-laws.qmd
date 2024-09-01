@@ -3,6 +3,7 @@ code-fold: false
 code-summary: "Show code"
 jupyter: python3
 toc: true
+cache: true
 ---
 
 # Power Law Degree Distributions
@@ -20,6 +21,7 @@ plt.style.use('seaborn-v0_8-whitegrid')
 import numpy as np
 from scipy.special import factorial
 import pandas as pd
+import random
 ```
 
 To observe a degree distribution, let's take a look at a data set collected from the streaming platform Twitch by @musae. Nodes are users on Twitch. An edge exists between them if they are mutual friends on the platform. The authors collected data sets for users speaking several different languages; we'll use the network of English-speaking users. Let's now download the data (as a Pandas data frame) and convert it into a graph using Networkx. 
@@ -346,25 +348,48 @@ Applying this last approximation, we have shown that, for sufficiently large $d$
 
 $$
 \begin{aligned}
-    p_d \simeq \left(\frac{d-1}{d} \right)^{-\frac{1 + \alpha}{\alpha}} p_{d-1}\;.
+    p_d \simeq \left(\frac{d-1}{d} \right)^{\frac{1 + \alpha}{\alpha}} p_{d-1}\;.
 \end{aligned}
 $$
 
-This recurrence relation, if it were exact, would imply that $p_d = C d^{-\frac{1+\alpha}{\alpha}}$, as shown by the following exercise:  
+This recurrence relation, if it were exact, would imply that $p_d = C d^{\frac{1+\alpha}{\alpha}}$, as shown by the following exercise:  
 
 ::: {.callout-important} 
 
 ## Exercise
 
-Suppose that, for some $d_*$ and for all $d > d_*$, it holds that 
+Suppose that $p_d$ is a probability distribution with the property that, for some $d_*$ and for all $d > d_*$, it holds that 
 
 $$
 \begin{aligned}
-    p_d = \left(\frac{d-1}{d}\right)^{-\gamma} p_{d-1}\;.
+    p_d = \left(\frac{d-1}{d}\right)^{\gamma} p_{d-1}\;.
 \end{aligned}
 $$
 
 Prove using induction that $p_d = C d^{-\gamma}$ for some constant $C$, and explain how to compute $C$. 
+
+:::
+
+
+::: {.hide .solution}
+
+Our proof is by induction. 
+
+**Base Case:** Since the statement is claimed to hold for all $d > d_*$, our base case is $d = d_* + 1$. In this case we have $p_d = \left(\frac{d_*}{d}\right)^{\gamma} p_{d_*} = \left[p_{d_*}d_*^{\gamma}\right]d^{-\gamma}$. We'll let $C = p_{d_*}d_*^\gamma$. 
+
+
+
+**Inductive Step:**  Suppose that the statement holds for some arbitrary $d = \hat{d} > d_*$. We'll show that the statement also holds for $d = \hat{d} + 1$. We can calculate directly 
+
+$$
+\begin{aligned}
+    p_{\hat{d} +  1} &= \left(\frac{\hat{d}}{\hat{d} + 1}\right)^{\gamma} p_{\hat{d}} \\ 
+    &= C \left(\frac{\hat{d}}{\hat{d} + 1}\right)^{\gamma} \hat{d}^{-\gamma} \\
+    &= C (\hat{d} + 1)^{-\gamma}\;.
+\end{aligned}
+$$
+
+This completes the inductive step and the proof. 
 
 :::
 

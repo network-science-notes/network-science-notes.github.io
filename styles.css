@@ -188,3 +188,10 @@ tr {
 .exercise {
   background-color: #e4e4e431;
 }
+
+.hide {
+  border-left: thick solid #c251a5;
+  padding-left: 1rem; 
+}
+
+
