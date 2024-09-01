@@ -38,6 +38,24 @@ To add a chapter to the site:
 
 You are now ready to write the chapter! Quarto implements standard Markdown and mathematics, as well as computation with Python and some useful tools for cross-references. 
 
+## Hidden Solutions 
+
+To add hidden solutions to the lecture notes, use the following syntax: 
+
+```markdown
+This is content that will appear in the public lecture notes. 
+
+::: {.hide .solution}
+
+This is a hidden solution which will not appear in the public lecture notes. 
+
+:::
+```
+
+It is possible to add classes other than `.solution`, but the `.hide` class must be present. 
+
+Hidden solutions will not appear in the published online notes, but (after running `make publish`) will be present in the local folder `docs/full-notes`. The notes in this directory can be opened locally and printed to PDF or directly to a printer.  
+
 # Previewing and Publishing
 
 Before either previewing or publishing the website, it is necessary to run 
