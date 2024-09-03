@@ -65,7 +65,7 @@ Let $c$ represent the mean (or expected) degree of a node in an undirected netwo
 In the code below we use NetworkX to find the degrees of all the nodes in an undirected network: by definition using the adjacency matrix, and with the built-in function `nx.degree()`.
 
 ```{python}
-#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
+#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1986cumulated)."
 #| out.width : 80%
 #| fig-cap-location: margin
 #| label: fig-florentine
@@ -154,7 +154,7 @@ Notice that this differs by a factor of 2 from the case of undirected networks.
 #| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
 #| out.width : 80%
 #| fig-cap-location: margin
-#| label: fig-florentine
+#| label: fig-florentine-2
 
 import networkx as nx
 import numpy as np
@@ -243,7 +243,7 @@ Let's compute density in network below using three different strategies:
 #| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
 #| out.width : 80%
 #| fig-cap-location: margin
-#| label: fig-florentine
+#| label: fig-florentine-3
 
 from matplotlib import pyplot as plt
 import networkx as nx
@@ -442,7 +442,7 @@ plt.style.use('seaborn-v0_8-whitegrid')
 
 #---
 def is_cyclic(G):
-    while G.number_of_nodes > 0:
+    while G.number_of_nodes() > 0:
         zero_out_degree = [node for node in G.nodes if G.out_degree(node) == 0]
         # if len(zero_out_degree) == 0:
         #     print('Network is cyclic')
