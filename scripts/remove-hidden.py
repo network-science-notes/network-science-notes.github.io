@@ -23,7 +23,7 @@ for f in os.listdir("docs/chapters"):
         with open(f"docs/full-notes/{f}", "w") as new:
             new.write(html)
         
-        with open(f"source/{f}", "w") as file: 
+        with open(f"docs/chapters/{f}", "w") as file: 
             file.write(cleaned)
             
     else:
