@@ -6,18 +6,295 @@ jupyter: python3
 
 # Degree, Walks, and Paths
 
+In our previous lecture we introduced the fundamentals of different representations of networks: mathematically through graphs and their matrix representations, and computationally through the Python package NetworkX. We're now ready to start measuring some properties of different networks.
 
-### Cyclic and acyclic graphs
+In this lecture we'll focus on two different ways to measure features of connectivity in a network. The first is *degree*, which is a property of a node that gives us information about how many edges are connected to a node. We will also explore the notion of a *walk*, which tells us something about the ways to traverse between nodes.
+
+## Degree
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-degree}
+
+The *degree* of a node in an undirected network is the number of edges connected to it. The degree of node $i$ is, equivalently,
+$$
+    k_i = \sum_{j=1}^n A_{ij} \,.
+$$
+
+:::
+:::
+
+Unsurprisingly, degree is directly related to the number of edges in an undirected network.
+
+::: {.callout-important}
+
+## Exercise
+Use degree to calculate the total number of edges in an undirected network.
+
+:::
+
+::: {.hide .solution}
+
+The key here is to notice that degree counts *ends* of edges (sometimes we call these *stubs*). This means the total number of stubs will be the sum of the degrees of all the nodes. However, each edge is counted twice (each edge has two stubs), so the number of edges $m$ in an undirected network is
+
+$$
+    m = \frac{1}{2}\sum_{i=1^n}k_i = \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n A_{ij}\,.
+$$
+
+This relationship between degree and number of edges is a useful fact!
+
+:::
+
+::: {.callout-important}
+
+## Exercise
+
+Calculate the mean degree of a node in an undirected network.
+
+:::
+
+::: {.hide .solution}
+
+Let $c$ represent the mean (or expected) degree of a node in an undirected network. Using the previous exercise, 
+\begin{align}
+    c &= \frac{1}{n} \sum_{i = 1}^n k_i \,, \\
+    &= \frac{2m}{n} \,.
+\end{align}
+
+:::
+
+> Code to calculate degree undirected network (have students do)
+
+We have to be a little more subtle in how we define degree in a directed network because there is a distinction between in-edges and out-edges in these networks.
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-directeddegree}
+
+In a directed network, the **in-degree** is the number of ingoing edges to a node and the **out-degree** is the number of outgoing edges. That is, the in-degree is defined to be
+$$
+    k_i^{\text{in}} = \sum_{j=1}^n A_{ij}
+$$
+and the out-degree is
+$$
+    k_j^{\text{out}} = \sum_{i=1}^n A_{ij}
+$$
+
+:::
+:::
+
+We will repeat the exercises above for directed networks.
+
+::: {.callout-important}
+
+## Exercise
+
+Use degree to calculate the total number of edges in a directed network, and use this to calculate the mean (expected) in-degree and out-degree of a directed network.
+
+:::
+
+::: {.hide .solution}
+
+The number of edges in a directed network is equal to the total number of ingoing (respectively, outgoing) ends of edges, so,
+
+$$
+    m = \sum_{i=1}^n k_i^{\text{in}} = \sum_{j=1}^n k_i^{\text{out}} = \sum_{i=1}^n \sum_{j=1}^n A_{ij} \,.
+$$
+
+This means that the expected in-degree and expected out-degree are also equal:
+
+\begin{align}
+    c_{\text{in}} &= \frac{1}{n} \sum_{i=1}^n k_i^{\text{in}} \\
+     &= \frac{1}{n}\sum_{j=1}^n k_i^{\text{out}} \\
+    &= c_{\text{out}} \\
+    &= c \,.
+\end{align}
+
+Combining these gives $c = \frac{m}{n}$. 
+
+Notice that this differs by a factor of 2 from the case of undirected networks.
+:::
+
+> Code to calculate degrees in directed networks
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-regulargraph}
+
+A network in which all nodes have the same degree is called a **regular graph** or **regular network**. A regular graph where all nodes have degree $k$ is called **$k$-regular**.
+
+:::
+:::
+
+Some special cases of regular graphs are **lattices** (e.g., a square lattice is 4-regular) and the **complete graph** where every node is connected to every other node (which is $(n-1)$-regular).
+
+### Density and sparsity
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-density}
+
+The **density** or **connectance** $\rho$ of a simple network is the fraction of possible edges that are actually present. That is,
+
+$$
+    \rho = \frac{\text{number of edges}}{\text{possible edges}} = \frac{m}{\binom{n}{2}} \,.
+$$
+
+:::
+:::
+
+One way to interpret density is to think of it as a probability that a pair of nodes picked uniformly at random is connected by an edge.
+
+We can rewrite density in terms of expected degree using our earlier exercises [This simplification comes from the binomial coefficient formula $\binom{n}{k} = \frac{n!}{k!(n-k)!}$. Also, we can notice the cool fact that $n \choose 2$ is equivalent to the sum of the first $n-1$ integers!]{.aside}:
+
+\begin{align}
+    \rho &= \frac{m}{\binom{n}{2}} \\
+    &= \frac{m}{\frac{1}{2}n(n-1)} \\
+    &= \frac{2m}{n(n-1)} \\
+    &= \frac{c}{n-1} \,.
+\end{align}
+
+If a network is sufficiently large, you can approximate the density as $\rho \approx \frac{c}{n}.$
+
+> Code to calculate density
+
+While it's pretty straightforward to calculate the density of a network, it's more complicated to determine whether a network is *dense* or *sparse*. There isn't a universally agreed upon threshold for density below which a real-world network would be considered sparse. However, we can create a definition which applies for certain theoretical models of networks. If we have a model where we can take a formal limit, then such a network is *sparse* if $\rho \to 0$ as $n \to \infty$. In this scenario, the mean degree grows (much) more slowly than the number of nodes.
+
+
+## Walks and paths
+
+We may like to know if it it is possible to reach one node from another by traversing edges. For this task, we introduce the notion of a *walk*.
+
+> Code showing a walk
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-walk}
+
+A **walk** of length $k \geq 2$ is a set of edges $\{ (i_1,j_1), (i_2, j_2), \dots, (i_k, j_k)\}$ with the property that $i_l = j_{l-1}$ for each $2 \leq l \leq k$. We say this is a walk from node $i_1$ to node $j_k.$
+
+The **length** of a walk is the number of edges it contains.
+
+A single edge $(i,j)$ is always considered a walk of length 1 from $i$ to $j$.
+
+:::
+:::
+
+A walk between two nodes is not always well-defined. Consider the example below, where there is no walk from BLAH to BLAH.
+
+>(CODE for network with two components)
+
+A question that pops up a lot in network analysis is "How many walks of length $r$ exist between nodes $i$ and $j$?"
+
+The adjacency matrix gives a concise way to address this question. First, let’s consider $r=1$. That’s just the number of edges from node 
+$j$ to $i$, which is exactly $A_{ij}$. Said another way,
+
+> The $ij$th entry of ${\bf A}^1$ counts the number of walks of length 1 from node $j$ to node $i$.
+
+This observation generalizes by induction.
+
+::: {.callout-tip icon=false collapse=true}
+::: {#thm-walks}
+
+## Counting Walks 
+
+The $ij$th entry of the matrix ${\bf A}^r$ contains the number of walks of length $r$ from $j$ to $i$.
+
+:::
+:::
+
+::: {.hide .proof}
+
+We proceed by induction on walk length $r$. We discussed the base case above: that is, the $ij$th entry of the adjacency matrix ${\bf A}_{ij} =  {\bf A}_{ij}^1$ gives us walks of length 1, by definition.
+
+Now, suppose that ${\bf A}^r$ gives the number of walks of length $r$; we will show that ${\bf A}^{r+1}$ gives the number of walks of length ${r+1}$. By definition, ${\bf A}^{r+1} = {\bf A}^{r}{\bf A}.$ Thinking about matrix multiplication as an inner product, we see that the $ij$ entry can be written
+
+$$
+    A_{ij}^{r+1} = \sum_{l=1}^n A_{il}^rA_{lj} \,,
+$$
+
+that is, entry $ij$ comes from summing the componentwise product of the $i$th row of ${\bf A}^r$ with the $j$th column of ${\bf A}.$
+
+The number of walks from node $j$ to $i$ of length $r+1$ is equivalent to the number of walks of length $r$ from $j$ to $l$ multiplied by the number of length $1$ walks from $l$ to $i$, which is exactly the quantity we have written above. This completes the proof. 
+
+:::
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-path}
+
+A **path** is a walk that is not self-intersecting. That is, any edge $(i,j)$ shows up in a path at most once.
+
+A **geodesic path** or **shortest path** is from $i$ to $j$ is a walk fom 
+$i$ to $j$ of minimum length; i.e. a walk such that no other walk has shorter length. 
+
+The length of a geodesic path is called the **(geodesic) distance** between $i$ and $j$ If two nodes are not path-connected, their geodesic distance is undefined.
+
+:::
+:::
+
+Remarks
+
+- Shortest paths are not necessarily unique.
+- Shortest paths are self-avoiding. This is because if a shortest path intersected itself, this would create a loop which could be removed to create a shorter path.
+
+## Cyclic and acyclic graphs
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-cyle}
+
+A **cycle** is a path from a node $i$ to itself.
+
+A network with no cycles is **acyclic**.
+
+:::
+:::
+
+By our definition, self-edges are cycles of length 1.
+
+::: {.callout-important}
+
+## Exercise
+
+What is the number of cycles of length $r$ in a network starting and ending at node $i$? 
+
+:::
+
+::: {.hide .solution}
+
+Since a cycle can be represented as a walk from a node $i$ to itself, this is the diagonal element $A_{ii}^r$ from the theorem we proved earlier.
+
+Be careful: this quantity separately counts cycles where the same nodes are visited in a different order. For example, the cycle $1 \to 2 \to 3 \to 1$ is counted separately as the cycle $1 \to 3 \to 2 \to 1.$ To count *distinct* cycles, you need to divide by the number of combinations.
+
+:::
+
+While the formula above is very useful to look for cycles of a specific length, it could be quite inefficient to use to detect whether we have a cycle of any length (because we may have to check the diagonal entries of ${\bf A}^r$ for all possible cycle lengths $r$). We can construct a simple algorithm to determine computationally whether a network is cyclic or acyclic.
+
+Use the sketch below to write this algorithm.
+
+- Find a node with no out-edges.
+- If no such node exists, the network is cyclic. Otherwise, remove the node and repeat the process.
+- If all nodes can be removed using the strategy above, the network is acyclic.
+
+> Code block here
+
+This algorithm has a nice mathematical consequence. If we label the nodes in an acyclic network according to the order we removed them, we will end up with an adjacency matrix that is *strictly upper triangular*. [This is because each node that is removed could only have out-edges that were already removed previously, i.e., nonzero entries of the $i$th column could only occur between columns 1 and $i-1$.]{.aside} There exists at least one such labeling for any acyclic network.
 
 ### Trees
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-tree}
 
-A **tree** is a connected, undirected network that contains no loops. [By "connected", we mean every node is reachable from every other node by traversing a sequence of edges.]{.aside}
+A **tree** is a connected, acyclic, undirected network. [By "connected", we mean every node is reachable from every other node by traversing a sequence of edges, i.e., there exists a walk between any two nodes]{.aside}
 
 :::
 :::
+
+Trees are often drawn as *rooted trees* with a *root node* at the top and *leaf nodes* below.
+
+A few remarks:
+
+- Topologically, the root of a tree is not unique
+- All trees are necessarily simple graphs, because self- and multiedges would create cycles.
+
+Trees play important roles, especially in math and computer science. Trees have several useful properties that we can exploit for network analysis:
+
+- Because trees have no cycles, there is exactly one path between any pair of nodes (as long as we don't allow ``backtracking'''). Many calculations on networks with this property are simple(r).
+- A tree of $n$ nodes has exactly $n-1$ edges. Furthermore, any connected network with $n-1$ edges and $n$ nodes is a tree.
 
 ## References
 
