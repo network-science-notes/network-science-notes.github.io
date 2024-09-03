@@ -17,7 +17,7 @@ for f in os.listdir("docs/chapters"):
         with open(f"docs/chapters/{f}", "r") as file: 
             html = file.read()
         
-        regex = r'<div class=[\S\s]*?hide[\S\s]*?">[\S\s]*?</div>'
+        regex = r'<div class=.*?hide.*?">[\S\s]*?</div>'
         cleaned = re.sub(regex, "", html)
         
         with open(f"docs/full-notes/{f}", "w") as new:
