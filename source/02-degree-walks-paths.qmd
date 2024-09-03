@@ -62,7 +62,44 @@ Let $c$ represent the mean (or expected) degree of a node in an undirected netwo
 
 :::
 
-> Code to calculate degree undirected network (have students do)
+In the code below we use NetworkX to find the degrees of all the nodes in an undirected network: by definition using the adjacency matrix, and with the built-in function `nx.degree()`.
+
+```{python}
+#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-florentine
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+# This is a coding exercise in the live notes.
+
+G = nx.florentine_families_graph()
+
+nx.draw(G, with_labels = True)
+
+# Create and print a numpy array of node degrees directly from the adjacency matrix
+
+#---
+A = nx.adjacency_matrix(G)
+
+print('Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
+
+#---
+
+# Print the degrees using the built in function in NetworkX. 
+
+#---
+degree_vec = G.degree()
+
+print('Built-in NetworkX:', degree_vec)
+
+#----
+
+```
 
 We have to be a little more subtle in how we define degree in a directed network because there is a distinction between in-edges and out-edges in these networks.
 
@@ -113,7 +150,51 @@ Combining these gives $c = \frac{m}{n}$.
 Notice that this differs by a factor of 2 from the case of undirected networks.
 :::
 
-> Code to calculate degrees in directed networks
+```{python}
+#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-florentine
+
+import networkx as nx
+import numpy as np
+import pandas as pd
+
+# import data for our directed network
+df = pd.read_csv("https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv", 
+names = ["mentioner", "mentioned"])
+
+df = df[df["mentioner"] != df["mentioned"]]
+
+G = nx.from_pandas_edgelist(df, 
+                            source = "mentioner", 
+                            target = "mentioned", 
+                            edge_attr=None, 
+                            create_using=nx.DiGraph())
+
+# This is a coding exercise in the live notes.
+
+nx.draw(G, with_labels = True)
+
+# Create and print a numpy array of node degrees directly from the adjacency matrix
+
+#---
+A = nx.adjacency_matrix(G)
+
+print('Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
+
+#---
+
+# Print the degrees using the built in function in NetworkX. 
+
+#---
+degree_vec = G.degree()
+
+print('Built-in NetworkX:', degree_vec)
+
+#----
+
+```
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-regulargraph}
@@ -152,7 +233,68 @@ We can rewrite density in terms of expected degree using our earlier exercises [
 
 If a network is sufficiently large, you can approximate the density as $\rho \approx \frac{c}{n}.$
 
-> Code to calculate density
+Let's compute density in network below using three different strategies:
+
+- Calculating directly using number of edges and number of nodes;
+- Calculating directly using mean degree and number of nodes;
+- Using the built-in NetworkX function `nx.density()`.
+
+```{python}
+#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-florentine
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+# This is a coding exercise in the live notes.
+
+G = nx.les_miserables_graph()
+
+nx.draw(G)
+
+# Calculate density directly using number of edges and number of nodes
+
+#---
+n = G.number_of_nodes()
+m = G.number_of_edges()
+
+print('Density using nodes and edges: ', 2*m/(n*(n-1)))
+
+#---
+
+# Calculate density directly using mean degree and number of nodes
+# Hint: you may want to calculate degree from the adjacency matrix so that you can calculate mean using numpy
+
+#---
+A = nx.adjacency_matrix(G)
+print(G.degree())
+degree = np.sum(A, axis = 1)
+
+print(degree)
+c = np.mean(degree)
+print(2*m/n)
+
+print(c)
+
+print('Calculating using mean degree', c/(n-1))
+
+#----
+
+# Use the built-in NetworkX function nx.density()
+
+#---
+
+density = nx.density(G)
+
+print('Density with NetworkX built-in:', density)
+
+#---
+
+```
 
 While it's pretty straightforward to calculate the density of a network, it's more complicated to determine whether a network is *dense* or *sparse*. There isn't a universally agreed upon threshold for density below which a real-world network would be considered sparse. However, we can create a definition which applies for certain theoretical models of networks. If we have a model where we can take a formal limit, then such a network is *sparse* if $\rho \to 0$ as $n \to \infty$. In this scenario, the mean degree grows (much) more slowly than the number of nodes.
 
@@ -175,9 +317,24 @@ A single edge $(i,j)$ is always considered a walk of length 1 from $i$ to $j$.
 :::
 :::
 
-A walk between two nodes is not always well-defined. Consider the example below, where there is no walk from BLAH to BLAH.
+A walk between two nodes is not always well-defined. Consider the example below, where there is no walk from node 7 to node 3.
 
->(CODE for network with two components)
+```{python}
+#| fig-cap : "Not all pairs of nodes in this network have a walk between them."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-walk-nonexample
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+graph_dict = {1: [2], 2: [1, 3], 3:[2], 4:[5,6], 7: [4]}
+G = nx.Graph(graph_dict) 
+nx.draw(G, with_labels = True, font_color = 'white', font_weight = 'bold')
+
+```
 
 A question that pops up a lot in network analysis is "How many walks of length $r$ exist between nodes $i$ and $j$?"
 
@@ -270,7 +427,36 @@ Use the sketch below to write this algorithm.
 - If no such node exists, the network is cyclic. Otherwise, remove the node and repeat the process.
 - If all nodes can be removed using the strategy above, the network is acyclic.
 
-> Code block here
+```{python}
+#| fig-cap : "Directed graph"
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-check-acyclic
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+# Implement the algorithm described above to check whether the Hamilton network is cyclic.
+
+#---
+def is_cyclic(G):
+    while G.number_of_nodes > 0:
+        zero_out_degree = [node for node in G.nodes if G.out_degree(node) == 0]
+        # if len(zero_out_degree) == 0:
+        #     print('Network is cyclic')
+        G.remove_nodes_from(zero_out_degree)
+    else: 
+        print('Network is acyclic')
+
+G = nx.binomial_tree(4, create_using = nx.DiGraph)
+nx.draw(G)
+is_cyclic(G)
+
+#---
+
+```
 
 This algorithm has a nice mathematical consequence. If we label the nodes in an acyclic network according to the order we removed them, we will end up with an adjacency matrix that is *strictly upper triangular*. [This is because each node that is removed could only have out-edges that were already removed previously, i.e., nonzero entries of the $i$th column could only occur between columns 1 and $i-1$.]{.aside} There exists at least one such labeling for any acyclic network.
 
