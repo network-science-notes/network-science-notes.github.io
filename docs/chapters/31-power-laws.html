@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.5.53">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Some Stuff About Networks – Network Science: Models, Mathematics, and Computation</title>
+<title>3&nbsp; Power Law Degree Distributions – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +84,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../source/31-power-laws.html" rel="next">
-<link href="../source/02-degree-walks-paths.html" rel="prev">
+<link href="../chapters/30-real-world.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,157 +122,102 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/02-degree-walks-paths.html">Measuring Networks</a></li><li class="breadcrumb-item"><a href="../source/03-example.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../source/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../source/01-example.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Measuring Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../source/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../source/03-example.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Real-World Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../source/31-power-laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Models of Networks</span></span>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
-  </ul>
-</nav>
-    </div>
-<!-- main -->
-<main class="content" id="quarto-document-content">
+    
+<p>This concludes our argument. Although this argument contains many approximations, it is also possible to reach the same conclusion using fully rigorous probabilistic arguments <span class="citation" data-cites="bollobasDegreeSequenceScale2001">(<a href="#ref-bollobasDegreeSequenceScale2001" role="doc-biblioref">Bollobás et al. 2001</a>)</span>.</p>
+</section>
+<section id="sec-power-law-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="sec-power-law-estimation">Estimating Power Laws From Data</h2>
+<p>After the publication of <span class="citation" data-cites="barabasiEmergenceScalingRandom1999">Barabási and Albert (<a href="#ref-barabasiEmergenceScalingRandom1999" role="doc-biblioref">1999</a>)</span>, there was a proliferation of papers purporting to find power-law degree distributions in empirical networks. For a time, the standard method for estimating the exponent <span class="math inline">\(\gamma\)</span> was to use the key visual signature of power laws – power laws are linear on log-log axes. This suggests performing linear regression in log-log space; the slope of the regression line is the estimate of <span class="math inline">\(\gamma\)</span>. This approach, however, is badly flawed: errors can be large, and uncertainty quantification is not reliably available. <span class="citation" data-cites="clausetPowerLawDistributionsEmpirical2009">Clauset, Shalizi, and Newman (<a href="#ref-clausetPowerLawDistributionsEmpirical2009" role="doc-biblioref">2009</a>)</span> discuss this problem in greater detail, and propose an alternative scheme based on maximum likelihood estimation and goodness-of-fit tests. Although the exact maximum-likelihood estimate of <span class="math inline">\(\gamma\)</span> is the output of a maximization problem and is not available in closed form, the authors supply a relatively accurate approximation:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \hat{\gamma} = 1 + n\left(\sum_{i=1}^n \log \frac{d_i}{d_*}\right)^{-1}\;.
+\end{aligned}
+\]</span></p>
+<p>As they show, this estimate and related methods are much more reliable estimators of <span class="math inline">\(\gamma\)</span> than the linear regression method.</p>
+<p>An important cautionary note: the estimate <span class="math inline">\(\hat{\gamma}\)</span> can be formed regardless of whether or not the power law is a good descriptor of the data. Supplementary methods such as goodness-of-fit tests are necessary to determine whether a power law is appropriate at all. <span class="citation" data-cites="clausetPowerLawDistributionsEmpirical2009">Clauset, Shalizi, and Newman (<a href="#ref-clausetPowerLawDistributionsEmpirical2009" role="doc-biblioref">2009</a>)</span> give some guidance on such methods as well.</p>
+<section id="preferential-attachment-in-growing-graphs" class="level3">
+<h3 class="anchored" data-anchor-id="preferential-attachment-in-growing-graphs">Preferential Attachment in Growing Graphs</h3>
+<p>What if we are able to observe more than the degree distribution of a network? What if we could also observe the growth of the network, and actually know which edges were added at which times? Under such circumstances, it is possible to estimate more directly the extent to which a graph might grow via the preferential attachment mechanism, possibly alongside additional mechanisms. <span class="citation" data-cites="overgoorChoosingGrowGraph2019">Overgoor, Benson, and Ugander (<a href="#ref-overgoorChoosingGrowGraph2019" role="doc-biblioref">2019</a>)</span> supply details on how to estimate the parameters of a general class of models, including preferential attachment, from observed network growth.</p>
+</section>
+</section>
+<section id="are-power-laws-good-descriptors-of-real-world-networks" class="level2">
+<h2 class="anchored" data-anchor-id="are-power-laws-good-descriptors-of-real-world-networks">Are Power Laws Good Descriptors of Real-World Networks?</h2>
+<p>Are power laws <em>really</em> that common in empirical data? <span class="citation" data-cites="broidoScalefreeNetworksAre2019">Broido and Clauset (<a href="#ref-broidoScalefreeNetworksAre2019" role="doc-biblioref">2019</a>)</span> controversially claimed that <em>scale free networks are rare</em>. In a bit more detail, the authors compare power-law distributions to several competing distributions as models of real-world network degree sequences. The authors find that that the competing models—especially <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">lognormal distributions</a>, which also have heavy tails—are often better fits to observed data than power laws. This paper stirred considerable controversy, which is briefly documented by <span class="citation" data-cites="holmeRareEverywherePerspectives2019">Holme (<a href="#ref-holmeRareEverywherePerspectives2019" role="doc-biblioref">2019</a>)</span>.</p>
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/02-degree-walks-paths.html">Measuring Networks</a></li><li class="breadcrumb-item"><a href="../source/03-example.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Some Stuff About Networks</span></h1>
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-barabasiEmergenceScalingRandom1999" class="csl-entry" role="listitem">
+Barabási, Albert-László, and Réka Albert. 1999. <span>“Emergence of <span>Scaling</span> in <span>Random Networks</span>.”</span> <em>Science</em> 286 (5439): 509–12. <a href="https://doi.org/10.1126/science.286.5439.509">https://doi.org/10.1126/science.286.5439.509</a>.
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-
-
+<div id="ref-bollobasDegreeSequenceScale2001" class="csl-entry" role="listitem">
+Bollobás, Bela, Oliver Riordan, Joel Spencer, and Gábor Tusnády. 2001. <span>“The Degree Sequence of a Scale-Free Random Graph Process.”</span> <em>Random Structures &amp; Algorithms</em> 18 (3): 279–90. <a href="https://doi.org/10.1002/rsa.1009">https://doi.org/10.1002/rsa.1009</a>.
+</div>
+<div id="ref-broidoScalefreeNetworksAre2019" class="csl-entry" role="listitem">
+Broido, Anna D., and Aaron Clauset. 2019. <span>“Scale-Free Networks Are Rare.”</span> <em>Nature Communications</em> 10 (1): 1017. <a href="https://doi.org/10.1038/s41467-019-08746-5">https://doi.org/10.1038/s41467-019-08746-5</a>.
+</div>
+<div id="ref-clausetPowerLawDistributionsEmpirical2009" class="csl-entry" role="listitem">
+Clauset, Aaron, Cosma Rohilla Shalizi, and M. E. J. Newman. 2009. <span>“Power-<span>Law Distributions</span> in <span>Empirical Data</span>.”</span> <em>SIAM Review</em> 51 (4): 661–703. <a href="https://doi.org/10.1137/070710111">https://doi.org/10.1137/070710111</a>.
+</div>
+<div id="ref-holmeRareEverywherePerspectives2019" class="csl-entry" role="listitem">
+Holme, Petter. 2019. <span>“Rare and Everywhere: <span>Perspectives</span> on Scale-Free Networks.”</span> <em>Nature Communications</em> 10 (1): 1016. <a href="https://doi.org/10.1038/s41467-019-09038-8">https://doi.org/10.1038/s41467-019-09038-8</a>.
+</div>
+<div id="ref-mitzenmacherBriefHistoryGenerative2004" class="csl-entry" role="listitem">
+Mitzenmacher, Michael. 2004. <span>“A <span>Brief History</span> of <span>Generative Models</span> for <span>Power Law</span> and <span>Lognormal Distributions</span>.”</span> <em>Internet Mathematics</em> 1 (2): 226–51. <a href="https://doi.org/10.1080/15427951.2004.10129088">https://doi.org/10.1080/15427951.2004.10129088</a>.
+</div>
+<div id="ref-overgoorChoosingGrowGraph2019" class="csl-entry" role="listitem">
+Overgoor, Jan, Austin Benson, and Johan Ugander. 2019. <span>“Choosing to <span>Grow</span> a <span>Graph</span>: <span>Modeling Network Formation</span> as <span>Discrete Choice</span>.”</span> In <em>The <span>World Wide Web Conference</span></em>, 1409–20. San Francisco CA USA: ACM. <a href="https://doi.org/10.1145/3308558.3313662">https://doi.org/10.1145/3308558.3313662</a>.
+</div>
+<div id="ref-price1976general" class="csl-entry" role="listitem">
+Price, Derek de Solla. 1976. <span>“A General Theory of Bibliometric and Other Cumulative Advantage Processes.”</span> <em>Journal of the American Society for Information Science</em> 27 (5): 292–306.
+</div>
+<div id="ref-musae" class="csl-entry" role="listitem">
+Rozemberczki, Benedek, Carl Allen, and Rik Sarkar. 2021. <span>“<span>Multi-Scale Attributed Node Embedding</span>.”</span> <em>Journal of Complex Networks</em> 9 (2).
+</div>
+<div id="ref-simonClassSkewDistribution1955" class="csl-entry" role="listitem">
+Simon, Herbert A. 1955. <span>“On a <span>Class</span> of <span>Skew Distribution Functions</span>.”</span> <em>Biometrika</em> 42 (3-4): 425–40. <a href="https://doi.org/10.1093/biomet/42.3-4.425">https://doi.org/10.1093/biomet/42.3-4.425</a>.
+</div>
+<div id="ref-yuleMathematicalTheoryEvolution1925" class="csl-entry" role="listitem">
+Yule. 1925. <span>“A Mathematical Theory of Evolution, Based on the Conclusions of <span>Dr</span>. <span>J</span>. <span>C</span>. <span>Willis</span>, <span>F</span>. <span>R</span>. <span>S</span>.”</span> <em>Philosophical Transactions of the Royal Society of London. Series B, Containing Papers of a Biological Character</em> 213 (402-410): 21–87. <a href="https://doi.org/10.1098/rstb.1925.0002">https://doi.org/10.1098/rstb.1925.0002</a>.
+</div>
+</div>
 </section>
 
 <p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2024</span></p></main> <!-- /main -->
@@ -645,14 +643,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../source/02-degree-walks-paths.html" class="pagination-link" aria-label="Degree, Walks, and Paths">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span>
+      <a href="../chapters/30-real-world.html" class="pagination-link" aria-label="Structure of Empirical Networks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../source/31-power-laws.html" class="pagination-link" aria-label="Power Law Degree Distributions">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
