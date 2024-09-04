@@ -37,7 +37,7 @@ Use degree to calculate the total number of edges in an undirected network.
 The key here is to notice that degree counts *ends* of edges (sometimes we call these *stubs*). This means the total number of stubs will be the sum of the degrees of all the nodes. However, each edge is counted twice (each edge has two stubs), so the number of edges $m$ in an undirected network is
 
 $$
-    m = \frac{1}{2}\sum_{i=1^n}k_i = \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n A_{ij}\,.
+    m = \frac{1}{2}\sum_{i=1}^n k_i = \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n A_{ij}\,.
 $$
 
 This relationship between degree and number of edges is a useful fact!
@@ -65,10 +65,10 @@ Let $c$ represent the mean (or expected) degree of a node in an undirected netwo
 In the code below we use NetworkX to find the degrees of all the nodes in an undirected network: by definition using the adjacency matrix, and with the built-in function `nx.degree()`.
 
 ```{python}
-#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
+#| fig-cap : "A network of coappearances of characters in the book Les Miserables by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter."
 #| out.width : 80%
 #| fig-cap-location: margin
-#| label: fig-florentine
+#| label: fig-lesmis
 
 from matplotlib import pyplot as plt
 import networkx as nx
@@ -77,26 +77,28 @@ plt.style.use('seaborn-v0_8-whitegrid')
 
 # This is a coding exercise in the live notes.
 
-G = nx.florentine_families_graph()
+# Create an unweighted version of the Les Mis network
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
 
-nx.draw(G, with_labels = True)
+G_LesMis = unweight(nx.les_miserables_graph())
+
+nx.draw(G_LesMis)
 
 # Create and print a numpy array of node degrees directly from the adjacency matrix
 
 #---
-A = nx.adjacency_matrix(G)
-
+A = nx.adjacency_matrix(G_LesMis)
 print('Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
-
 #---
 
 # Print the degrees using the built in function in NetworkX. 
 
 #---
-degree_vec = G.degree()
-
+degree_vec = G_LesMis.degree()
 print('Built-in NetworkX:', degree_vec)
-
 #----
 
 ```
@@ -151,47 +153,46 @@ Notice that this differs by a factor of 2 from the case of undirected networks.
 :::
 
 ```{python}
-#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
+#| fig-cap : "A network of mentions in the musical Hamilton. Nodes represent characters; there is an edge from character $i$ to character $j$ if $i$ mentions $j$."
 #| out.width : 80%
 #| fig-cap-location: margin
-#| label: fig-florentine
+#| label: fig-hamilton
 
 import networkx as nx
 import numpy as np
 import pandas as pd
 
 # import data for our directed network
-df = pd.read_csv("https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv", 
+df = pd.read_csv("../data/hamilton-data.csv", 
 names = ["mentioner", "mentioned"])
 
 df = df[df["mentioner"] != df["mentioned"]]
 
-G = nx.from_pandas_edgelist(df, 
+G_Hamilton = nx.from_pandas_edgelist(df, 
                             source = "mentioner", 
                             target = "mentioned", 
                             edge_attr=None, 
                             create_using=nx.DiGraph())
 
+nx.draw(G_Hamilton)
+
 # This is a coding exercise in the live notes.
 
-nx.draw(G, with_labels = True)
-
-# Create and print a numpy array of node degrees directly from the adjacency matrix
+# Create and print a numpy array of node in-degrees and out-degrees directly from the adjacency matrix
 
 #---
-A = nx.adjacency_matrix(G)
-
-print('Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
-
+A = nx.adjacency_matrix(G_Hamilton)
+print('In-Degrees computed from adjacency matrix:', np.sum(A, axis = 0))
+print('Out-Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
 #---
 
-# Print the degrees using the built in function in NetworkX. 
+# Print the in- and out-degrees using the built in function in NetworkX. 
 
 #---
-degree_vec = G.degree()
-
-print('Built-in NetworkX:', degree_vec)
-
+out_degree_vec = G_Hamilton.out_degree()
+in_degree_vec = G_Hamilton.in_degree()
+print('In-degrees built-in NetworkX:', in_degree_vec)
+print('Out-degrees built-in NetworkX:', out_degree_vec)
 #----
 
 ```
@@ -240,30 +241,23 @@ Let's compute density in network below using three different strategies:
 - Using the built-in NetworkX function `nx.density()`.
 
 ```{python}
-#| fig-cap : "A graph of the marriage relations of fifteenth-century Florentine families (@breiger1968cumulated)."
-#| out.width : 80%
-#| fig-cap-location: margin
-#| label: fig-florentine
 
 from matplotlib import pyplot as plt
 import networkx as nx
 import numpy as np
 plt.style.use('seaborn-v0_8-whitegrid')
 
+# Create an unweighted version of the Les Mis network
+G = G_LesMis
+
 # This is a coding exercise in the live notes.
-
-G = nx.les_miserables_graph()
-
-nx.draw(G)
 
 # Calculate density directly using number of edges and number of nodes
 
 #---
 n = G.number_of_nodes()
 m = G.number_of_edges()
-
 print('Density using nodes and edges: ', 2*m/(n*(n-1)))
-
 #---
 
 # Calculate density directly using mean degree and number of nodes
@@ -271,27 +265,16 @@ print('Density using nodes and edges: ', 2*m/(n*(n-1)))
 
 #---
 A = nx.adjacency_matrix(G)
-print(G.degree())
 degree = np.sum(A, axis = 1)
-
-print(degree)
 c = np.mean(degree)
-print(2*m/n)
-
-print(c)
-
 print('Calculating using mean degree', c/(n-1))
-
 #----
 
 # Use the built-in NetworkX function nx.density()
 
 #---
-
 density = nx.density(G)
-
 print('Density with NetworkX built-in:', density)
-
 #---
 
 ```
@@ -438,23 +421,27 @@ import networkx as nx
 import numpy as np
 plt.style.use('seaborn-v0_8-whitegrid')
 
-# Implement the algorithm described above to check whether the Hamilton network is cyclic.
+# Implement the algorithm above to create a function is_cyclic(G). Your function should take a NetworkX graph G as an argument and print out whether a graph G is cyclic or acyclic.
 
 #---
 def is_cyclic(G):
-    while G.number_of_nodes > 0:
+    while G.number_of_nodes() > 0:
         zero_out_degree = [node for node in G.nodes if G.out_degree(node) == 0]
-        # if len(zero_out_degree) == 0:
-        #     print('Network is cyclic')
+        if len(zero_out_degree) == 0:
+            print('Network is cyclic')
+            return
         G.remove_nodes_from(zero_out_degree)
     else: 
         print('Network is acyclic')
-
-G = nx.binomial_tree(4, create_using = nx.DiGraph)
-nx.draw(G)
-is_cyclic(G)
-
+        return
 #---
+
+print('Binomial Tree:')
+G_Tree = nx.binomial_tree(4, create_using = nx.DiGraph)
+is_cyclic(G_Tree)
+
+print('Hamilton Network:')
+is_cyclic(G_Hamilton)
 
 ```
 
