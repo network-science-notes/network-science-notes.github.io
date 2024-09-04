@@ -163,7 +163,7 @@ import numpy as np
 import pandas as pd
 
 # import data for our directed network
-df = pd.read_csv("../data/hamilton-data.csv", 
+df = pd.read_csv("https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv", 
 names = ["mentioner", "mentioned"])
 
 df = df[df["mentioner"] != df["mentioned"]]
