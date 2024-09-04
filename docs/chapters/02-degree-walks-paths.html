@@ -253,7 +253,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#trees" id="toc-trees" class="nav-link" data-scroll-target="#trees">Trees</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -279,7 +278,6 @@ window.Quarto = {
 </header>
 
 
-<p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/02-degree-walks-paths.ipynb">here</a>.</em></p>
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/02-degree-walks-paths.ipynb">here</a>.</em></p>
 <p>In our previous lecture we introduced the fundamentals of different representations of networks: mathematically through graphs and their matrix representations, and computationally through the Python package NetworkX. We’re now ready to start measuring some properties of different networks.</p>
 <p>In this lecture we’ll focus on two different ways to measure features of connectivity in a network. The first is <em>degree</em>, which is a property of a node that gives us information about how many edges are connected to a node. We will also explore the notion of a <em>walk</em>, which tells us something about the ways to traverse between nodes.</p>
@@ -509,7 +507,7 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div id="b3585719" class="cell" data-execution_count="3">
+<div id="a825b675" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -667,7 +665,7 @@ Exercise
 <li>If no such node exists, the network is cyclic. Otherwise, remove the node and repeat the process.</li>
 <li>If all nodes can be removed using the strategy above, the network is acyclic.</li>
 </ul>
-<div id="fig-check-acyclic" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-execution_count="5" data-fig-cap-location="margin" data-out.width="80%">
+<div id="fig-check-acyclic" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-cap-location="margin" data-out.width="80%" data-execution_count="5">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-check-acyclic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -732,12 +730,9 @@ Figure&nbsp;2.4
 <li>Because trees have no cycles, there is exactly one path between any pair of nodes (as long as we don’t allow ``backtracking’’’). Many calculations on networks with this property are simple(r).</li>
 <li>A tree of <span class="math inline">\(n\)</span> nodes has exactly <span class="math inline">\(n-1\)</span> edges. Furthermore, any connected network with <span class="math inline">\(n-1\)</span> edges and <span class="math inline">\(n\)</span> nodes is a tree.</li>
 </ul>
-</section>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
 
 
+</section>
 </section>
 
 <p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2024</span></p></main> <!-- /main -->

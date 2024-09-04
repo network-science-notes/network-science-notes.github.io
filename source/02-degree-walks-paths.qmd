@@ -6,8 +6,6 @@ jupyter: python3
 
 # Degree, Walks, and Paths
 
-*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/02-degree-walks-paths.ipynb).* 
-
 In our previous lecture we introduced the fundamentals of different representations of networks: mathematically through graphs and their matrix representations, and computationally through the Python package NetworkX. We're now ready to start measuring some properties of different networks.
 
 In this lecture we'll focus on two different ways to measure features of connectivity in a network. The first is *degree*, which is a property of a node that gives us information about how many edges are connected to a node. We will also explore the notion of a *walk*, which tells us something about the ways to traverse between nodes.
@@ -457,14 +455,3 @@ Trees play important roles, especially in math and computer science. Trees have 
 
 - Because trees have no cycles, there is exactly one path between any pair of nodes (as long as we don't allow ``backtracking'''). Many calculations on networks with this property are simple(r).
 - A tree of $n$ nodes has exactly $n-1$ edges. Furthermore, any connected network with $n-1$ edges and $n$ nodes is a tree.
-
-## References
-
-
-
-
-
-
-
-
-
