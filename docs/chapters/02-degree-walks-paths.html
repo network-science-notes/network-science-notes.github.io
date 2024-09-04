@@ -354,8 +354,7 @@ Exercise
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the degrees using the built in function in NetworkX. </span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>degree_vec <span class="op">=</span> G_LesMis.degree()</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Built-in NetworkX:'</span>, degree_vec)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Built-in NetworkX:'</span>, degree_vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre data-cap-location="margin"><code>Degrees computed from adjacency matrix: [ 1 10  3  3  1  1  1  1  1  1 36  1  2  1  1  1  7  9  7  7  7  7  7 15
  11 16 11 17  4  8  2  4  1  2  6  6  6  6  6  3  1 11  3  3  2  1  2  1
@@ -440,8 +439,7 @@ Exercise
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>out_degree_vec <span class="op">=</span> G_Hamilton.out_degree()</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>in_degree_vec <span class="op">=</span> G_Hamilton.in_degree()</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'In-degrees built-in NetworkX:'</span>, in_degree_vec)</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Out-degrees built-in NetworkX:'</span>, out_degree_vec)</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Out-degrees built-in NetworkX:'</span>, out_degree_vec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre data-cap-location="margin"><code>In-Degrees computed from adjacency matrix: [13 14  1  4  1  1  1  1 10  1  6  1  2  2  7  6  4  1  9  9  1  1  2  4
   1  2  3  1  4  2  1  1  0  0  1  0  0  1  1  1  1  1  1  1  0  0]
@@ -508,7 +506,7 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div id="16c72082" class="cell" data-execution_count="3">
+<div id="e6c0329c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -532,12 +530,11 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>degree <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> np.mean(degree)</span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Calculating using mean degree'</span>, c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#----</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the built-in NetworkX function nx.density()</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>density <span class="op">=</span> nx.density(G)</span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Density with NetworkX built-in:'</span>, density)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the built-in NetworkX function nx.density()</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>density <span class="op">=</span> nx.density(G)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Density with NetworkX built-in:'</span>, density)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Density using nodes and edges:  0.08680792891319207
 Calculating using mean degree 0.08680792891319207

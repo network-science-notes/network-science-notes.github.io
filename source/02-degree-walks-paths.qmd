@@ -99,7 +99,7 @@ print('Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
 #---
 degree_vec = G_LesMis.degree()
 print('Built-in NetworkX:', degree_vec)
-#----
+#---
 
 ```
 
@@ -193,7 +193,7 @@ out_degree_vec = G_Hamilton.out_degree()
 in_degree_vec = G_Hamilton.in_degree()
 print('In-degrees built-in NetworkX:', in_degree_vec)
 print('Out-degrees built-in NetworkX:', out_degree_vec)
-#----
+#---
 
 ```
 
@@ -268,7 +268,7 @@ A = nx.adjacency_matrix(G)
 degree = np.sum(A, axis = 1)
 c = np.mean(degree)
 print('Calculating using mean degree', c/(n-1))
-#----
+#---
 
 # Use the built-in NetworkX function nx.density()
 
