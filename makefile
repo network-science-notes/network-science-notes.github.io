@@ -31,3 +31,6 @@ clean:
 	rm -rf docs
 	rm -rf chapters
 
+scrub: 
+	find . -type f -name "* [0-9]*" -delete
+

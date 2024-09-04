@@ -9,6 +9,7 @@ book:
         - chapters/02-degree-walks-paths.qmd
     - part: "Real-World Networks"
       chapters: 
+        - chapters/30-real-world.qmd
         - chapters/31-power-laws.qmd
     - part: "Models of Networks"
     - part: "Applications and Extensions"

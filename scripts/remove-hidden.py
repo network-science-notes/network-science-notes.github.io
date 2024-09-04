@@ -17,13 +17,13 @@ for f in os.listdir("docs/chapters"):
         with open(f"docs/chapters/{f}", "r") as file: 
             html = file.read()
         
-        regex = r'<div class=[\S\s]*?hide[\S\s]*?">[\S\s]*?</div>'
+        regex = r'<div class=.*?hide.*?">[\S\s]*?</div>'
         cleaned = re.sub(regex, "", html)
         
         with open(f"docs/full-notes/{f}", "w") as new:
             new.write(html)
         
-        with open(f"source/{f}", "w") as file: 
+        with open(f"docs/chapters/{f}", "w") as file: 
             file.write(cleaned)
             
     else:

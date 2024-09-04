@@ -4,13 +4,12 @@ book:
     - part: "Network Fundamentals"
       chapters: 
         - source/01-networkrepresentations.qmd
-        - source/01-example.qmd
     - part: "Measuring Networks"
       chapters: 
         - source/02-degree-walks-paths.qmd
-        - source/03-example.qmd 
     - part: "Real-World Networks"
       chapters: 
+        - source/30-real-world.qmd
         - source/31-power-laws.qmd
     - part: "Models of Networks"   
 code-summary: "Show code"
