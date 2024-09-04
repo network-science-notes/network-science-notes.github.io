@@ -89,11 +89,14 @@ nx.draw(G_LesMis)
 
 # Create and print a numpy array of node degrees directly from the adjacency matrix
 
+#---
 A = nx.adjacency_matrix(G_LesMis)
 print('Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
+#---
 
 # Print the degrees using the built in function in NetworkX. 
 
+#---
 degree_vec = G_LesMis.degree()
 print('Built-in NetworkX:', degree_vec)
 #----
@@ -177,12 +180,15 @@ nx.draw(G_Hamilton)
 
 # Create and print a numpy array of node in-degrees and out-degrees directly from the adjacency matrix
 
+#---
 A = nx.adjacency_matrix(G_Hamilton)
 print('In-Degrees computed from adjacency matrix:', np.sum(A, axis = 0))
 print('Out-Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
+#---
 
 # Print the in- and out-degrees using the built in function in NetworkX. 
 
+#---
 out_degree_vec = G_Hamilton.out_degree()
 in_degree_vec = G_Hamilton.in_degree()
 print('In-degrees built-in NetworkX:', in_degree_vec)
@@ -248,13 +254,16 @@ G = G_LesMis
 
 # Calculate density directly using number of edges and number of nodes
 
+#---
 n = G.number_of_nodes()
 m = G.number_of_edges()
 print('Density using nodes and edges: ', 2*m/(n*(n-1)))
+#---
 
 # Calculate density directly using mean degree and number of nodes
 # Hint: you may want to calculate degree from the adjacency matrix so that you can calculate mean using numpy
 
+#---
 A = nx.adjacency_matrix(G)
 degree = np.sum(A, axis = 1)
 c = np.mean(degree)
@@ -263,8 +272,10 @@ print('Calculating using mean degree', c/(n-1))
 
 # Use the built-in NetworkX function nx.density()
 
+#---
 density = nx.density(G)
 print('Density with NetworkX built-in:', density)
+#---
 
 ```
 
@@ -412,6 +423,7 @@ plt.style.use('seaborn-v0_8-whitegrid')
 
 # Implement the algorithm above to create a function is_cyclic(G). Your function should take a NetworkX graph G as an argument and print out whether a graph G is cyclic or acyclic.
 
+#---
 def is_cyclic(G):
     while G.number_of_nodes() > 0:
         zero_out_degree = [node for node in G.nodes if G.out_degree(node) == 0]
@@ -422,6 +434,7 @@ def is_cyclic(G):
     else: 
         print('Network is acyclic')
         return
+#---
 
 print('Binomial Tree:')
 G_Tree = nx.binomial_tree(4, create_using = nx.DiGraph)
@@ -455,3 +468,14 @@ Trees play important roles, especially in math and computer science. Trees have 
 
 - Because trees have no cycles, there is exactly one path between any pair of nodes (as long as we don't allow ``backtracking'''). Many calculations on networks with this property are simple(r).
 - A tree of $n$ nodes has exactly $n-1$ edges. Furthermore, any connected network with $n-1$ edges and $n$ nodes is a tree.
+
+## References
+
+
+
+
+
+
+
+
+
