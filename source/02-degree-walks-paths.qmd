@@ -1,6 +1,6 @@
 ---
 fig-cap-location: margin
-code-fold: false
+code-fold: true
 jupyter: python3
 ---
 

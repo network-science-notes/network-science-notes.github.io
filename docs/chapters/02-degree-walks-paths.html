@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/31-power-laws.html" rel="next">
+<link href="../chapters/30-real-world.html" rel="next">
 <link href="../chapters/01-networkrepresentations.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -145,7 +145,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html">Measuring Networks</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -191,17 +191,6 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
   </div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Measuring Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link active">
@@ -209,6 +198,10 @@ window.Quarto = {
   </div>
 </li>
       </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Measuring Networks</span></span>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
@@ -221,8 +214,14 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapters/30-real-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapters/31-power-laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,7 +260,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html">Measuring Networks</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></h1>
 </div>
@@ -313,13 +312,7 @@ Exercise
 <p>Use degree to calculate the total number of edges in an undirected network.</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>The key here is to notice that degree counts <em>ends</em> of edges (sometimes we call these <em>stubs</em>). This means the total number of stubs will be the sum of the degrees of all the nodes. However, each edge is counted twice (each edge has two stubs), so the number of edges <span class="math inline">\(m\)</span> in an undirected network is</p>
-<p><span class="math display">\[
-    m = \frac{1}{2}\sum_{i=1}^n k_i = \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n A_{ij}\,.
-\]</span></p>
-<p>This relationship between degree and number of edges is a useful fact!</p>
-</div>
+
 <div class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -333,14 +326,11 @@ Exercise
 <p>Calculate the mean degree of a node in an undirected network.</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>Let <span class="math inline">\(c\)</span> represent the mean (or expected) degree of a node in an undirected network. Using the previous exercise, <span class="math display">\[\begin{align}
-    c &amp;= \frac{1}{n} \sum_{i = 1}^n k_i \,, \\
-    &amp;= \frac{2m}{n} \,.
-\end{align}\]</span></p>
-</div>
+
 <p>In the code below we use NetworkX to find the degrees of all the nodes in an undirected network: by definition using the adjacency matrix, and with the built-in function <code>nx.degree()</code>.</p>
 <div id="cell-fig-lesmis" class="cell page-columns page-full" data-out.width="80%" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -368,6 +358,7 @@ Exercise
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>degree_vec <span class="op">=</span> G_LesMis.degree()</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Built-in NetworkX:'</span>, degree_vec)</span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre data-cap-location="margin"><code>Degrees computed from adjacency matrix: [ 1 10  3  3  1  1  1  1  1  1 36  1  2  1  1  1  7  9  7  7  7  7  7 15
  11 16 11 17  4  8  2  4  1  2  6  6  6  6  6  3  1 11  3  3  2  1  2  1
@@ -419,22 +410,10 @@ Exercise
 <p>Use degree to calculate the total number of edges in a directed network, and use this to calculate the mean (expected) in-degree and out-degree of a directed network.</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>The number of edges in a directed network is equal to the total number of ingoing (respectively, outgoing) ends of edges, so,</p>
-<p><span class="math display">\[
-    m = \sum_{i=1}^n k_i^{\text{in}} = \sum_{j=1}^n k_i^{\text{out}} = \sum_{i=1}^n \sum_{j=1}^n A_{ij} \,.
-\]</span></p>
-<p>This means that the expected in-degree and expected out-degree are also equal:</p>
-<p><span class="math display">\[\begin{align}
-    c_{\text{in}} &amp;= \frac{1}{n} \sum_{i=1}^n k_i^{\text{in}} \\
-     &amp;= \frac{1}{n}\sum_{j=1}^n k_i^{\text{out}} \\
-    &amp;= c_{\text{out}} \\
-    &amp;= c \,.
-\end{align}\]</span></p>
-<p>Combining these gives <span class="math inline">\(c = \frac{m}{n}\)</span>.</p>
-<p>Notice that this differs by a factor of 2 from the case of undirected networks.</p>
-</div>
+
 <div id="cell-fig-hamilton" class="cell page-columns page-full" data-out.width="80%" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -468,6 +447,7 @@ Exercise
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'In-degrees built-in NetworkX:'</span>, in_degree_vec)</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Out-degrees built-in NetworkX:'</span>, out_degree_vec)</span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#----</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre data-cap-location="margin"><code>In-Degrees computed from adjacency matrix: [13 14  1  4  1  1  1  1 10  1  6  1  2  2  7  6  4  1  9  9  1  1  2  4
   1  2  3  1  4  2  1  1  0  0  1  0  0  1  1  1  1  1  1  1  0  0]
@@ -534,7 +514,9 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div id="f2d13656" class="cell" data-execution_count="3">
+<div id="52b294f3" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -564,6 +546,7 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>density <span class="op">=</span> nx.density(G)</span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Density with NetworkX built-in:'</span>, density)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Density using nodes and edges:  0.08680792891319207
 Calculating using mean degree 0.08680792891319207
@@ -595,6 +578,8 @@ Density with NetworkX built-in: 0.08680792891319207</code></pre>
 </div>
 <p>A walk between two nodes is not always well-defined. Consider the example below, where there is no walk from node 7 to node 3.</p>
 <div id="cell-fig-walk-nonexample" class="cell page-columns page-full" data-out.width="80%" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -603,6 +588,7 @@ Density with NetworkX built-in: 0.08680792891319207</code></pre>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>graph_dict <span class="op">=</span> {<span class="dv">1</span>: [<span class="dv">2</span>], <span class="dv">2</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="dv">3</span>:[<span class="dv">2</span>], <span class="dv">4</span>:[<span class="dv">5</span>,<span class="dv">6</span>], <span class="dv">7</span>: [<span class="dv">4</span>]}</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph(graph_dict) </span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels <span class="op">=</span> <span class="va">True</span>, font_color <span class="op">=</span> <span class="st">'white'</span>, font_weight <span class="op">=</span> <span class="st">'bold'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-display page-columns page-full">
 <div id="fig-walk-nonexample" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
@@ -634,15 +620,7 @@ Figure&nbsp;2.3: Not all pairs of nodes in this network have a walk between them
 </div>
 </div>
 </div>
-<div class="hide proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We proceed by induction on walk length <span class="math inline">\(r\)</span>. We discussed the base case above: that is, the <span class="math inline">\(ij\)</span>th entry of the adjacency matrix <span class="math inline">\({\bf A}_{ij} =  {\bf A}_{ij}^1\)</span> gives us walks of length 1, by definition.</p>
-<p>Now, suppose that <span class="math inline">\({\bf A}^r\)</span> gives the number of walks of length <span class="math inline">\(r\)</span>; we will show that <span class="math inline">\({\bf A}^{r+1}\)</span> gives the number of walks of length <span class="math inline">\({r+1}\)</span>. By definition, <span class="math inline">\({\bf A}^{r+1} = {\bf A}^{r}{\bf A}.\)</span> Thinking about matrix multiplication as an inner product, we see that the <span class="math inline">\(ij\)</span> entry can be written</p>
-<p><span class="math display">\[
-    A_{ij}^{r+1} = \sum_{l=1}^n A_{il}^rA_{lj} \,,
-\]</span></p>
-<p>that is, entry <span class="math inline">\(ij\)</span> comes from summing the componentwise product of the <span class="math inline">\(i\)</span>th row of <span class="math inline">\({\bf A}^r\)</span> with the <span class="math inline">\(j\)</span>th column of <span class="math inline">\({\bf A}.\)</span></p>
-<p>The number of walks from node <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span> of length <span class="math inline">\(r+1\)</span> is equivalent to the number of walks of length <span class="math inline">\(r\)</span> from <span class="math inline">\(j\)</span> to <span class="math inline">\(l\)</span> multiplied by the number of length <span class="math inline">\(1\)</span> walks from <span class="math inline">\(l\)</span> to <span class="math inline">\(i\)</span>, which is exactly the quantity we have written above. This completes the proof.</p>
-</div>
+
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -692,10 +670,7 @@ Exercise
 <p>What is the number of cycles of length <span class="math inline">\(r\)</span> in a network starting and ending at node <span class="math inline">\(i\)</span>?</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>Since a cycle can be represented as a walk from a node <span class="math inline">\(i\)</span> to itself, this is the diagonal element <span class="math inline">\(A_{ii}^r\)</span> from the theorem we proved earlier.</p>
-<p>Be careful: this quantity separately counts cycles where the same nodes are visited in a different order. For example, the cycle <span class="math inline">\(1 \to 2 \to 3 \to 1\)</span> is counted separately as the cycle <span class="math inline">\(1 \to 3 \to 2 \to 1.\)</span> To count <em>distinct</em> cycles, you need to divide by the number of combinations.</p>
-</div>
+
 <p>While the formula above is very useful to look for cycles of a specific length, it could be quite inefficient to use to detect whether we have a cycle of any length (because we may have to check the diagonal entries of <span class="math inline">\({\bf A}^r\)</span> for all possible cycle lengths <span class="math inline">\(r\)</span>). We can construct a simple algorithm to determine computationally whether a network is cyclic or acyclic.</p>
 <p>Use the sketch below to write this algorithm.</p>
 <ul>
@@ -703,9 +678,8 @@ Exercise
 <li>If no such node exists, the network is cyclic. Otherwise, remove the node and repeat the process.</li>
 <li>If all nodes can be removed using the strategy above, the network is acyclic.</li>
 </ul>
-<div id="fig-check-acyclic" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-out.width="80%" data-fig-cap-location="margin" data-execution_count="5">
-<figure class="quarto-float quarto-float-fig figure page-columns page-full">
-<div aria-describedby="fig-check-acyclic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -730,6 +704,10 @@ Exercise
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hamilton Network:'</span>)</span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>is_cyclic(G_Hamilton)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-check-acyclic" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-cap-location="margin" data-out.width="80%" data-execution_count="5">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-check-acyclic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-stdout">
 <pre><code>Binomial Tree:
 Network is acyclic
@@ -1204,8 +1182,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/31-power-laws.html" class="pagination-link" aria-label="Power Law Degree Distributions">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/30-real-world.html" class="pagination-link" aria-label="Structure of Empirical Networks">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -6,8 +6,6 @@ book:
         - chapters/01-networkrepresentations.qmd
         - chapters/02-degree-walks-paths.qmd
     - part: "Measuring Networks"
-      chapters:
-        - chapters/02-degree-walks-paths.qmd
     - part: "Real-World Networks"
       chapters: 
         - chapters/30-real-world.qmd
