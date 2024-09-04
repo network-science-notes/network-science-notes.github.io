@@ -286,8 +286,6 @@ While it's pretty straightforward to calculate the density of a network, it's mo
 
 We may like to know if it it is possible to reach one node from another by traversing edges. For this task, we introduce the notion of a *walk*.
 
-> Code showing a walk
-
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-walk}
 
