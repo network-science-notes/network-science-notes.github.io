@@ -56,6 +56,10 @@ There are many reasonable answers to this question, and we'll explore several of
 The following code constructs a random synthetic counterpart graph for each of our empirical graphs. It then adds all of these to a dictionary so that we can easily access both the real and synthetic graphs later. 
 
 ```{python}
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+
 def random_counterpart(G):
     degrees = [deg for (node, deg) in G.degree()]
     # G_random = nx.configuration_model(degrees, create_using=nx.Graph)
@@ -64,7 +68,7 @@ def random_counterpart(G):
     return G_random
 
 def add_to_dataset_dict(dataset_dict, G, name):
-
+    unweight(G)
     dataset_dict[name] = {
         "graph" : G,
         "random" : random_counterpart(G)
@@ -75,7 +79,6 @@ add_to_dataset_dict(dataset_dict, G_twitch, "twitch")
 add_to_dataset_dict(dataset_dict, G_chameleon, "chameleon")
 add_to_dataset_dict(dataset_dict, G_karate, "karate")
 add_to_dataset_dict(dataset_dict, G_les_mis, "les_mis")
-
 ```
 
 To help us compute and compare measurements on these graphs, we'll define the following function which will manage these computations and organize the result as a table. This function takes as an argument a function `fun` which accepts a graph as an input and returns a scalar value. 
@@ -126,7 +129,6 @@ Let's move on to something more complex. Take a moment and think of two of your 
 #| fig-width: 2
 #| fig-height: 2
 #| echo: false
-
 fig, ax = plt.subplots(1, 1, figsize = (3, 3))
 G = nx.Graph()
 G.add_edges_from([("A", "B"), ("A", "You"), ("B", "You")])
@@ -160,13 +162,14 @@ G.add_edges_from([ ("A", "You"), ("B", "You")])
 nx.draw(G, with_labels = True, node_size = 700, node_color = "lightblue", ax = ax)
 ```
 
+
 Let's write a function to compute the transitivity of a graph. 
 
 ```{python}
 #---
 def my_transitivity(G):
-    A = nx.adjacency_matrix(G).A
-    A = 1*(A >= 1) # convert to unweighted form
+    A = nx.adjacency_matrix(G).toarray()
+    # A = 1*(A >= 1) # convert to unweighted form
 
     # numerator
     num_triangles = np.trace(A @ A @ A)

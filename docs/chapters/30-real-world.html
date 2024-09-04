@@ -304,7 +304,7 @@ window.Quarto = {
 <li><code>karate</code>: The Zachary Karate Club social network <span class="citation" data-cites="zachary1977information">(<a href="#ref-zachary1977information" role="doc-biblioref">Zachary 1977</a>)</span>, which is packaged with NetworkX.</li>
 <li><code>les_mis</code>: A network of character interactions in the novel <em>Les Miserables</em> by Victor Hugo, also packaged with NetworkX.</li>
 </ul>
-<div id="578abea0" class="cell" data-execution_count="1">
+<div id="73d764f8" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -336,29 +336,33 @@ window.Quarto = {
 </blockquote>
 <div class="page-columns page-full"><p>There are many reasonable answers to this question, and we’ll explore several of them when we come to the study of random graphs. For now, we are going to compare each of our real networks to a <em>synthetic random graph with a similar degree sequence</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Technically, we are using a model that reproduces the degree sequence <em>approximately and in expectation</em>. This model is due to <span class="citation" data-cites="chung2002connected">Chung and Lu (<a href="#ref-chung2002connected" role="doc-biblioref">2002</a>)</span>.</span></div></div>
 <p>The following code constructs a random synthetic counterpart graph for each of our empirical graphs. It then adds all of these to a dictionary so that we can easily access both the real and synthetic graphs later.</p>
-<div id="a8726d9a" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_counterpart(G):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> [deg <span class="cf">for</span> (node, deg) <span class="kw">in</span> G.degree()]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># G_random = nx.configuration_model(degrees, create_using=nx.Graph)</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    G_random <span class="op">=</span> nx.expected_degree_graph(degrees, selfloops<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    G_random.remove_edges_from(nx.selfloop_edges(G_random))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G_random</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_to_dataset_dict(dataset_dict, G, name):</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    dataset_dict[name] <span class="op">=</span> {</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"graph"</span> : G,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"random"</span> : random_counterpart(G)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>dataset_dict <span class="op">=</span> {}</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_twitch, <span class="st">"twitch"</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_chameleon, <span class="st">"chameleon"</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_karate, <span class="st">"karate"</span>)</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_les_mis, <span class="st">"les_mis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7e8a48ad" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_counterpart(G):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> [deg <span class="cf">for</span> (node, deg) <span class="kw">in</span> G.degree()]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># G_random = nx.configuration_model(degrees, create_using=nx.Graph)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    G_random <span class="op">=</span> nx.expected_degree_graph(degrees, selfloops<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    G_random.remove_edges_from(nx.selfloop_edges(G_random))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G_random</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_to_dataset_dict(dataset_dict, G, name):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    unweight(G)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    dataset_dict[name] <span class="op">=</span> {</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"graph"</span> : G,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"random"</span> : random_counterpart(G)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>dataset_dict <span class="op">=</span> {}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_twitch, <span class="st">"twitch"</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_chameleon, <span class="st">"chameleon"</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_karate, <span class="st">"karate"</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_les_mis, <span class="st">"les_mis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To help us compute and compare measurements on these graphs, we’ll define the following function which will manage these computations and organize the result as a table. This function takes as an argument a function <code>fun</code> which accepts a graph as an input and returns a scalar value.</p>
-<div id="f0415837" class="cell" data-execution_count="3">
+<div id="b3fa9a20" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metric(fun <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">0</span>, compare <span class="op">=</span> <span class="va">True</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Data Set"</span> <span class="op">+</span> <span class="st">" "</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="st">"Real"</span>, end <span class="op">=</span> <span class="st">""</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> compare: </span>
@@ -381,7 +385,7 @@ window.Quarto = {
 <section id="node-and-edge-counts" class="level2">
 <h2 class="anchored" data-anchor-id="node-and-edge-counts">Node and Edge Counts</h2>
 <p>Let’s start with something simple: how many nodes and edges are in each graph?</p>
-<div id="4cd33b7f" class="cell" data-execution_count="4">
+<div id="5c126edb" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of nodes"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: x.number_of_nodes())</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of edges"</span>)</span>
@@ -398,10 +402,10 @@ les_mis          77.00           77.00
 Number of edges
 Data Set          Real          Random
 ----------------------------------------
-twitch        63462.00        61832.00
-chameleon     31421.00        30774.00
-karate           78.00           85.00
-les_mis         254.00          229.00</code></pre>
+twitch        63462.00        61698.00
+chameleon     31421.00        31103.00
+karate           78.00           69.00
+les_mis         254.00          243.00</code></pre>
 </div>
 </div>
 <p>Although the number of nodes agree exactly in the real and random networks, there are some small discrepancies in the edge counts. This is due to the fact that our procedure for constructing random graphs (a) only preserves the degrees <em>in expectation</em> rather than exactly and (b) can create some self-loops, which get discarded.</p>
@@ -409,7 +413,7 @@ les_mis         254.00          229.00</code></pre>
 <section id="clustering-coefficient" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="clustering-coefficient">Clustering Coefficient</h2>
 <p>Let’s move on to something more complex. Take a moment and think of two of your friends, whom we’ll call <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Are <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> themselves friends with each other? If they do, then we say that there is a <em>triad</em> or <em>triangle</em> in the network.</p>
-<div id="e098a22f" class="cell page-columns page-full" data-fig-height="2" data-fig-width="2" data-execution_count="5">
+<div id="bc68b145" class="cell page-columns page-full" data-fig-height="2" data-fig-width="2" data-execution_count="5">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -428,7 +432,7 @@ les_mis         254.00          229.00</code></pre>
 \]</span></p>
 <p>Here, <span class="math inline">\(\mathbf{A}\)</span> is the adjacency matrix of <span class="math inline">\(G\)</span> and <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>.</p>
 <p>The numerator of this expression is proportional to the number of triangles in the network (technically, it is off by a factor of 6) and the denominator is proportional to the number of paths of length two in the network. You can think of a triplet as a possible triangle: just add one more edge and a triangle forms. bn</p>
-<div id="bd10367f" class="cell page-columns page-full" data-fig-height="1" data-fig-width="1" data-execution_count="6">
+<div id="c350908d" class="cell page-columns page-full" data-fig-height="1" data-fig-width="1" data-execution_count="6">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -439,10 +443,10 @@ les_mis         254.00          229.00</code></pre>
 </div>
 </div></div></div>
 <p>Let’s write a function to compute the transitivity of a graph.</p>
-<div id="c276c73b" class="cell" data-execution_count="7">
+<div id="2af01dec" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_transitivity(G):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.adjacency_matrix(G).A</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>(A <span class="op">&gt;=</span> <span class="dv">1</span>) <span class="co"># convert to unweighted form</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.adjacency_matrix(G).toarray()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># A = 1*(A &gt;= 1) # convert to unweighted form</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># numerator</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    num_triangles <span class="op">=</span> np.trace(A <span class="op">@</span> A <span class="op">@</span> A)</span>
@@ -454,29 +458,23 @@ les_mis         254.00          229.00</code></pre>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> num_triangles <span class="op">/</span> num_triplets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s compare our function to the built-in function supplied by NetworkX.</p>
-<div id="5feecc0d" class="cell" data-execution_count="8">
+<div id="740e0316" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_transitivity(G_karate))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nx.transitivity(G_karate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0.2556818181818182
 0.2556818181818182</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/Users/philchodrow/opt/anaconda3/envs/ml-0451/lib/python3.9/site-packages/scipy/sparse/_base.py:752: VisibleDeprecationWarning:
-
-Please use `.todense()` instead
-</code></pre>
-</div>
 </div>
 <p>Looks good! We’ll move forward with the NetworkX version, as it is substantially faster on larger graphs.</p>
-<div id="afd354d1" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.transitivity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2d90d6c2" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.transitivity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
 ----------------------------------------
 twitch            0.12            0.15
 chameleon         0.31            0.12
-karate            0.26            0.28
+karate            0.26            0.21
 les_mis           0.50            0.24</code></pre>
 </div>
 </div>
@@ -485,15 +483,15 @@ les_mis           0.50            0.24</code></pre>
 <section id="connected-components" class="level2">
 <h2 class="anchored" data-anchor-id="connected-components">Connected Components</h2>
 <p>What about the number of connected components in the network?</p>
-<div id="9cf789f1" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">list</span>(nx.connected_components(x))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="40121b2b" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">list</span>(nx.connected_components(x))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
 ----------------------------------------
-twitch            1.00           73.00
-chameleon         1.00           57.00
+twitch            1.00           56.00
+chameleon         1.00           61.00
 karate            1.00            4.00
-les_mis           1.00           11.00</code></pre>
+les_mis           1.00           10.00</code></pre>
 </div>
 </div>
 <p>Recall that we’ve engineered all of our real networks to have only one connected component, filtering if necessary. On the other hand, the random networks tend to have multiple connected components.</p>
@@ -509,15 +507,15 @@ les_mis           1.00           11.00</code></pre>
 \]</span></p>
 <div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">If you are familiar with probability and statistics, this formula is equivalent to <span class="math inline">\(C = \frac{\mathrm{cov}(K_1,K_2)}{\sqrt{\mathrm{var}(K_1)\mathrm{var}(K_2)}}\)</span>, where <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span> are the degrees of the nodes at the ends of an edge selected uniformly at random from <span class="math inline">\(G\)</span>. This is also the Pearson correlation coefficient between <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span>.</span></div></div>
 <p>An <em>assortative</em> network (with high assortativity) is one in which nodes of high degree tend to connect to each other frequently. A <em>disassortative</em> network (with negative assortativity) is one in which nodes of high degree tend to connect to nodes of low degree. Let’s take a look at the assortativity values in our networks:</p>
-<div id="c2ee3177" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.degree_assortativity_coefficient)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5105dad7" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.degree_assortativity_coefficient)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
 ----------------------------------------
 twitch           -0.23           -0.10
 chameleon        -0.20           -0.06
-karate           -0.48           -0.22
-les_mis          -0.17           -0.14</code></pre>
+karate           -0.48           -0.15
+les_mis          -0.17           -0.13</code></pre>
 </div>
 </div>
 <p>It looks like all of our networks are disassortative, and somewhat moreso than their random counterparts. Disassortativity is a common feature of many networks, and it is often attributed to the presence of <em>hubs</em> in the network. Hubs are nodes with very high degree, and they tend to connect to many other nodes. Since there are only a few hubs, they are more likely to connect to nodes of low degree than to other hubs.</p>
@@ -526,8 +524,8 @@ les_mis          -0.17           -0.14</code></pre>
 <h2 class="anchored" data-anchor-id="shortest-path-lengths">Shortest Path Lengths</h2>
 <p>In a famous study, Stanley <span class="citation" data-cites="milgram1967small">Milgram (<a href="#ref-milgram1967small" role="doc-biblioref">1967</a>)</span> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> asked participants to ensure that a letter reached a target person, whom they did not know, in a US city. However, the participants were only allowed to send the letter to someone they knew on a first-name basis. That person could then send the letter to another person they knew on a first-name basis, and so on, until the letter was delivered (or lost). Perhaps surprisingly, many participants were able to reach the target person in only a few steps, on average. This experiment is the origin of the famous phrase <em>six degrees of separation</em>: in many social networks, most individuals are separated by relatively few links, even when the network is very large.</p>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Yes, <a href="https://en.wikipedia.org/wiki/Milgram_experiment"><em>that</em> Milgram</a> <span class="citation" data-cites="milgram1963behavioral">(<a href="#ref-milgram1963behavioral" role="doc-biblioref">Milgram 1963</a>)</span>.</p></div></div><p>To test this in our networks, we’ll compute the length of the shortest path between a pair of nodes, averaged across all possible pairs. This quantity isn’t defined for the random counterpart networks that have multiple disconnected components (why?), and so we’ll stick to calculating it on the real-world networks.</p>
-<div id="8177db8e" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.average_shortest_path_length, compare <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="41f6c900" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.average_shortest_path_length, compare <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real
 ----------------------
