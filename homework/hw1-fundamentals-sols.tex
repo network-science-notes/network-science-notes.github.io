@@ -1,0 +1,333 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage, graphicx, amssymb, amsmath, amsfonts, amsthm, mathtools, tcolorbox, enumitem, hyperref, cleveref}
+
+\setenumerate[0]{label=(\Alph*)}
+\newtheorem{thm}{Theorem}
+
+\parskip = .2in
+\parindent  = 0in
+\pagestyle{empty}
+
+
+%==========
+
+%==========
+
+\begin{document}
+
+\begin{titlepage}
+
+HMC Math 189 with Prof. Heather\\ 
+Homework: Network Science Fundamentals
+
+\bigskip
+
+Name:
+
+\bigskip
+Collaborators: 
+
+\subsection*{Specifications Grading}
+
+Before starting on this assignment, it's a good idea to consult the \href{https://harveymuddcollege.instructure.com/courses/1418/assignments/syllabus}{syllabus} on Canvas. 
+Here are the key points that you should keep in mind when working on this assignment.
+\begin{itemize}
+    \item There is no partial credit on homework problems. You receive credit for a problem by completing the entire problem (including all parts, if applicable), to a high standard of correctness and communication. 
+    This standard is enumerated by \emph{specifications}. 
+    \item You will have \textbf{multiple attempts} to complete each problem. 
+    After the initial submission by the first due date, your assignment will be assessed. 
+    Problems that meet specifications will receive credit. 
+    If you've attempted some problems but not met specifications, you can revise your solutions and resubmit them. 
+    If they now meet specs, you get credit! 
+    \item If you submitted a problem by the deadline with less than 50\% of the problem completed, as determined by the professor, then you can resubmit for 50\% credit. 
+    This policy is here to incentivize you to do your best on the problems by the stated deadline, which keeps you on track and keeps my workload manageable. 
+    \item You don't actually have to do all homework problems assigned: you have the equivalent of 5 homework problem drops throughout the semester. 
+    It's still a good idea to attempt all problems though, as this will allow you to make up for, say, a rough day on the midterm exam. 
+    The syllabus has details on how your final grade will be calculated. 
+\end{itemize}
+
+\pagebreak
+
+\subsection*{Specifications}
+
+This is the list of specifications that you should meet for most problems in order to receive credit. 
+These specifications apply to all problems that request you to write a \textbf{proof} or \textbf{argument} for a mathematical statement. 
+
+You can think of this like a checklist: if, for a given problem, you can check of each item, then you should expect to receive credit! 
+Going down this checklist is exactly what the TA will do to grade your work. 
+
+Please remember that \textbf{these specifications apply to every part of a problem}. 
+To receive credit on a problem with parts (a), (b), and (c), you need to meet the specifications on all three parts.  
+
+These specifications are the ones to use when a problem asks you to support a mathematical claim through proof, argument, or calculation.
+
+\subsection*{Correctness}
+\begin{itemize}
+    \item Each direction in the problem statement is followed.
+        Note: You are required to follow only directions, not hints. That said, I include the hints with the intention of making your life easier!
+    \item The overall structure is mathematically sound and supports the required result.
+\end{itemize}
+
+\subsection*{Exposition}
+\begin{itemize}
+    \item Each step is carefully justified. Resources that can always be cited include the course notes or lectures, the course text, and standard theorems in linear algebra and probability. Other sources are often acceptable with citation.
+    \item The proof or argument is presented using clear and engaging prose. The proof or argument is written in complete sentences. The submission follows our departmental standards for mathematical communication. Grammar and spelling errors are acceptable provided that the meaning is clear.
+\end{itemize}
+
+\subsubsection*{Other}
+
+We'll also see problems in which you are expected to write some code, show a plot, write a brief reflection, or perform some other task. 
+In this case, the specifications will be included with the problem statement. 
+
+
+\end{titlepage}
+
+%==========
+\begin{tcolorbox}[title = 1. Network Examples (Newman 6.1)]
+Which word or words from the following list describe each of the five networks below: {\em directed, undirected, cyclic, acyclic, approximately acyclic, planar, approximately planar, tree, approximate tree.}
+
+\begin{itemize}
+    \item The internet, at the level of autonomous systems
+    \item A food web
+    \item The stem and branches of a plant
+    \item A spider web
+    \item A complete clique of four nodes
+\end{itemize}
+
+Give one real-life example of each of the following types of networks, not including the five examples above:
+\begin{itemize}
+    \item An acyclic (or approximately acyclic) directed network
+    \item A cyclic directed network
+    \item A tree (or approximate tree)
+    \item A planar (or approximately planar) network
+    \item A bipartite network
+\end{itemize}
+Describe briefly one empirical technique that could be used to measure the structure of each of the following networks (i.e., to fully determine the positions of all the edges):
+\begin{itemize}
+    \item The World Wide Web
+    \item A citation of scientific papers
+    \item A food web
+    \item A network of friendships between a group of co-workers
+    \item A power grid
+\end{itemize}
+\end{tcolorbox}
+
+Answers will vary.
+
+\newpage
+%==========
+\begin{tcolorbox}[title = 2. (Newman 6.4)]
+    Let $\bf{A}$ be the adjacency matrix of an undirected network and $\bf{1}$ be the column vector whose elements are all 1. In terms of these quantities, write expressions for
+    \begin{enumerate}
+        \item The vector $\bf{k}$ whose elements are the degrees $k_i$ of the nodes;
+        \item The number $m$ of edges in the network;
+        \item The matrix ${\bf N}$ whose element $N_{ij}$ is equal to the number of common neighbors of nodes $i$ and $j$;
+        \item The total number of triangles in the network, where a triangle means three nodes each connected by edges to both of the others.
+    \end{enumerate}
+\end{tcolorbox}
+
+\begin{enumerate}
+    \item Since the degree of node $i$ is $\sum_j A_{ij}$, we can write the vector containing all node degrees as 
+    \[
+        {\bf k} = {\bf A} {\bf 1} \,.
+    \]
+    \item First, note that the degree of a node gives us the number of edges that contain that node. We extend this idea by summing up the degree of all nodes in the network (using the previous part), which is ${\bf 1}^T {\bf A} {\bf 1}$. However, using this strategy counts each edge twice (since an edge is an ordered pair), so the number of edges is
+    \[
+        m = \frac{1}{2}{\bf 1}^T {\bf A} {\bf 1} \,.
+    \]
+    \item The list of neighbors of node $i$ is encoded in the $i$th column of the adjacency matrix; call it ${
+    \bf a}_i$. Therefore, the number of shared neighbors of nodes $i$ and $j$ is ${\bf a}_i^T{\bf a}_j = {\bf a}_i \cdot {\bf a}_j$; we would like this value to be contained in our matrix element $N_{ij}$. Fortunately, we notice this corresponds exactly to the $i,j$th entry of the matrix multiplication of ${\bf A}$ with itself. Thus
+    \[
+        {\bf N} = {\bf A}^2 \,.
+    \]
+    An alternative argument is that every walk of length 2 necessarily involves a shared neighbor between two end nodes. The elements of the matrix ${\bf A}^2$ contain the number of walks of length 2 between nodes $i$ and $j.$
+    \item Using an argument similar to part (C), elements of the matrix ${\bf A}^3$ contain the number of walks of length 3 between nodes $i$ and $j.$ Triangles are walks of length 3 from a node to itself, and so are contained in the diagonal entries. The sum is tr(${\bf A}^3$). However, each triangle is counted 6 times here. All permutations of the ordered triple $(i,j,k)$ represents the triangle containing nodes $i, j$ and $k$ but are counted distinctly in the trace. Thus, the total number of distinct triangles is
+    \[
+        \frac{1}{6}\text{tr}({\bf A}^3).
+    \]
+\end{enumerate}
+
+\newpage
+
+%==========
+\begin{tcolorbox}[title = 3. (Newman 6.6)]
+    A ``star graph'' consists of a single central node with $n-1$ other nodes connected to it. See the example below:
+    \begin{center}
+        \includegraphics[scale=0.2]{./homework/figures/star.pdf}
+    \end{center}
+What is the largest (most positive) eigenvalue of the adjacency matrix of a star graph with $n$ nodes?
+\end{tcolorbox}
+
+It is useful to first calculate some small examples and look for a pattern. We will take the central node to have the label 1.\\ 
+For $n=2:$ \[ A= \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \,, \] which has the characteristic polynomial $p_2(\lambda) = \lambda^2 - 1.$ \\
+For $n=3:$ \[ A= \begin{pmatrix} 0 & 1 & 1 \\ 1 & 0 & 0 \\ 1 & 0 & 0 \end{pmatrix} \,, \] which has the characteristic polynomial $p_3(\lambda) = \lambda-\lambda p_2(\lambda) = \lambda -\lambda(\lambda^2-1) =  -\lambda^3 +2\lambda.$ \\
+For $n=4:$ \[ A = \begin{pmatrix} 0 & 1 & 1 & 1 \\ 1 & 0 & 0 & 0\\1 & 0 & 0 & 0 \\1 & 0 & 0 & 0 \end{pmatrix} \,, \] which has the characteristic polynomial $p_4(\lambda) = -\lambda^2+\lambda p_3(\lambda) = \lambda^4 -3\lambda^2.$ \\
+So, we might conjecture that $p_n(\lambda) = -1(-\lambda)^{n-2} -\lambda p_{n-1}(\lambda) = (-1)^n \left(\lambda^{n} - (n-1)\lambda^{n-2}\right)$. \\
+
+We can prove this conjecture via induction. We have already shown the base case in the examples above, so it only remains to show the induction step. Assume that $p_n(\lambda) = -1(-\lambda)^{n-2} -\lambda p_{n-1}(\lambda) = (-1)^n \left(\lambda^{n} - (n-1)\lambda^{n-2}\right)$. We know that the adjacency matrix for $n+1$ nodes is
+\begin{align*} &A = \begin{pmatrix} 0 & 1 & 1 & \dots & 1 \\ 1 & 0 & 0 & \dots & 0 \\ 1 & 0 & 0 & \dots & 0 \\ \vdots & & & \ddots & \vdots  \end{pmatrix}  \
+ \Rightarrow \ p_{n+1} = \mathrm{Det}\underbrace{\begin{pmatrix} -\lambda & 1 & 1 & \dots & 1 \\ 1 & -\lambda & 0 & \dots & 0 \\ 1 & 0 & -\lambda & \dots & 0 \\ \vdots & & & \ddots & \vdots  \end{pmatrix}}_{(n+1)\times(n+1)} \\ = 
+ &-1\cdot \underbrace{\mathrm{Det}\begin{pmatrix} 1 & 1 & 1 & \dots & 1 \\ 0 & -\lambda & 0 & \dots & 0 \\ 0 & 0 & -\lambda & \dots & 0 \\ \vdots & & & \ddots & \vdots  \end{pmatrix}}_{-\lambda^{n-1}}
+  - \lambda \cdot \underbrace{\mathrm{Det} \begin{pmatrix} -\lambda & 1 & 1 & \dots & 1 \\ 1 & -\lambda & 0 & \dots & 0 \\ 1 & 0 & -\lambda & \dots & 0 \\ \vdots & & & \ddots & \vdots  \end{pmatrix}}_{p_n(\lambda)}\,.
+ \end{align*}
+ That is, 
+ \begin{align*}
+ 	p_{n+1} &= -1(\lambda)^{n-1}-\lambda p_n(\lambda) \quad \text{(from above; confirms first part of conjecture)} \\
+			&= (-1)^n\left(\lambda^{n-1}\right) - \lambda (-1)^n \left(\lambda^{n} - (n-1)\lambda^{n-2}\right) \quad \text{(sub in $p_n$)} \\
+			&=(-1)^{n+1} \left( -\lambda^{n-1} + \lambda^{n+1} - (n-1)\lambda^{n-1}\right) \quad \text{(factor out $(-1)^{n+1}$)} \\
+			& = (-1)^{n+1} \left(\lambda^{n+1} - n\lambda^{n-1}\right) \,. \quad \text{(confirms second part of conjecture)}
+ \end{align*}
+ Therefore, we have proven the general form of the characteristic polynomial for the adjacency matrix of a star graph with $n$ nodes. From here, we can see that the eigenvalues must satisfy
+ \begin{align*}
+ 	 0 &= (-1)^n \left(\lambda^{n} - (n-1)\lambda^{n-2}\right) =(-1)^n \lambda^{n-2}\left(\lambda^2 - (n-1) \right), \\ 
+ &\Rightarrow \lambda = \pm \sqrt{n-1}, \ 0 \ \text{(multiplicity $n-2$)}.
+	 \end{align*}
+So the largest eigenvalue is $\lambda_1 = \sqrt{n-1}.$
+
+\newpage
+
+%==========
+\begin{tcolorbox}[title = 4. Eigenpairs of symmetric matrices and optimization]
+Recall the algebraic definition of the eigenvalues and eigenvectors of a matrix $\mathbf{A}$ as solutions to the equation $\mathbf{A}\mathbf{v} = \lambda \mathbf{v}$. 
+In this problem, we will prove an additional viewpoint on eigenvalues and eigenvectors that is especially important in network science and many other fields of applied mathematics: 
+\begin{quote}
+    \emph{For symmetric matrices, eigenpairs are solutions of optimization problems.} 
+\end{quote}
+Let $\lVert\mathbf{v} \rVert$ be the Euclidean norm of a vector $\mathbf{v}$. 
+Here's our theorem: 
+\begin{thm} \label{thm:variational}
+    Let $\mathbf{A} \in \mathbb{R}^{n\times n}$ be a symmetric matrix. 
+    Let $\lambda_1,\ldots,\lambda_n$ be the eigenvalues of $\mathbf{A}$ ordered from smallest ($\lambda_1$) to largest ($\lambda_n$).  
+    Then, 
+    \begin{align*}
+        \lambda_n = \max_{\mathbf{v} \in \mathbb{R}^n} \left\{\mathbf{v}^T\mathbf{A}\mathbf{v} \;\big|\; \lVert{\mathbf{v}}\rVert = 1\right\} \;.
+    \end{align*}
+\end{thm}
+In words, the largest value of the function $f(\mathbf{v}) = \mathbf{v}^T\mathbf{A}\mathbf{v}$ that can be obtained by picking a vector $\mathbf{v} \in \mathbb{R}^n$ satisfying $\lVert \mathbf{v} \rVert = 1$ is $\lambda_n$. 
+The reason that \Cref{thm:variational} matters from an applied standpoint is that many network science and data analysis tasks correspond to maximizing functions that look like $f(\mathbf{v}) = \mathbf{v}^T\mathbf{A}\mathbf{v}$.  
+
+\begin{enumerate}
+    \item 
+    Prove \Cref{thm:variational} in three steps. 
+    \begin{itemize}
+        \item Expand $\mathbf{A}$ in an orthonormal basis of eigenvectors: 
+        \begin{align*}
+            \mathbf{A} = \sum_{i = 1}^n \lambda_i\mathbf{u}_i\mathbf{u}_i^T\;,
+        \end{align*}
+        where each $\mathbf{u}_i$ is an eigenvector $\mathbf{A}$ with eigenvalue $\lambda_i$. 
+        As a reminder, orthonormality means that $\lVert \mathbf{u}_i \rVert = 1$ and $\mathbf{u}_i^T \mathbf{u}_j = 1$ if $i = j$ and $0$ otherwise.   
+        Explain carefully why you are allowed to perform this expansion (cite a theorem). 
+        \item Write $\mathbf{v} = \sum_{i = 1}^n \alpha_i \mathbf{u}_i$ for some undetermined coefficients $\{\alpha_i\}$, and explain why you are allowed to do this. 
+        Compute $\lVert \mathbf{v}\rVert$ in terms of the coefficients $\{\alpha_i\}$, and determine what the constraint $\lVert \mathbf{v} \rVert = 1$ implies about $\{\alpha_i\}$. 
+        \item Finally, use the first two steps to compute $\mathbf{v}^T\mathbf{A}\mathbf{v}$ directly in terms of $\{\lambda_i\}$ and $\{\alpha_i\}$. 
+        Show that the result is maximized when $\alpha_n = 1$ and $\alpha_i = 0$ for $i < n$. 
+        Include a closing sentence to help your reader connect this final result to \Cref{thm:variational}. 
+    \end{itemize}
+    
+    \item 
+    Using \Cref{thm:variational}, give an \emph{extremely short} proof that
+    \begin{align*}
+        \lambda_1 = \min_{\mathbf{v} \in \mathbb{R}^n} \left\{\mathbf{v}^T\mathbf{A}\mathbf{v} \;\big|\; \lVert{\mathbf{v}}\rVert = 1\right\} \;.
+    \end{align*} 
+
+    \item 
+    Suppose that $\mathbf{u}_n$ is an eigenvector of $\mathbf{A}$ with eigenvalue $\lambda_n$. 
+    Prove that 
+    \begin{align*}
+        \lambda_{n-1} = \max_{\mathbf{v} \in \mathbb{R}^n} \left\{\mathbf{v}^T\mathbf{A}\mathbf{v} \;\big|\; \lVert{\mathbf{v}}\rVert = 1\;, \; \mathbf{v}^T\mathbf{u}_n = 0\right\}\;. 
+    \end{align*}
+\end{enumerate}
+\end{tcolorbox}
+
+% Your solution here
+
+\subsection*{Part A}
+
+Since $\mathbf{A}$ is symmetric, the spectral theorem implies that we can write $\mathbf{A} = \mathbf{U}\Lambda \mathbf{U}^T$, where $\mathbf{U}$ is an orthogonal matrix and $\Lambda$ is a the diagonal matrix containing the eigenvalues of $\mathbf{A}$. This matrix product separates into a term for each eigenvalue, which gives the decomposition
+\begin{align*}
+    \mathbf{A} = \sum_{i = 1}^n \lambda_i\mathbf{u}_i\mathbf{u}_i^T\;,
+\end{align*}
+where each $\mathbf{u}_i$ is a column of $\mathbf{U}$. 
+
+Since $\mathbf{U}$ is orthogonal, the columns of $\mathbf{U}$ span $\mathbb{R}^n$. 
+Any $\mathbf{v} \in \mathbb{R}^n$ can therefore be written $\mathbf{v} = \sum_{i = 1}^n \alpha_i \mathbf{u}_i$ for some coefficients $\{\alpha_i\}$. 
+We then have 
+\begin{align*}
+    \lVert  \mathbf{v}\rVert^2 &= \mathbf{v}^T\mathbf{v} \\ 
+    &= \left(\sum_{i = 1}^n \alpha_i \mathbf{u}_i \right)^T\left(\sum_{j = 1}^n  \alpha_j \mathbf{u}_j \right) \\ 
+    &= \sum_{i = 1}^n\sum_{j = 1}^n \alpha_i \alpha_j \mathbf{u}_i^T \mathbf{u}_j \\ 
+    &= \sum_{i = 1}^n \alpha_i^2\;.
+\end{align*}
+In the final line, we have used the orthonormality relation 
+\begin{align*}
+    \mathbf{u}_i^T\mathbf{u}_j = \begin{cases}
+        1 &\quad i = j \\ 
+        0 &\quad \text{otherwise}\;. 
+    \end{cases}
+\end{align*}
+The condition $\lVert \mathbf{v} \rVert \mathbf{v}$ is therefore equivalent to the condition $\sum_{i = 1}^n \alpha_i^2 = 1$. 
+
+We are now ready to compute $\mathbf{v}^T\mathbf{A}\mathbf{v}$. 
+We obtain 
+\begin{align*}
+\mathbf{v}^T\mathbf{A}\mathbf{v} &= \left(\sum_{i = 1}^n \alpha_i \mathbf{u}_i \right)^T \left(\sum_{k = 1}^n \lambda_k\mathbf{u}_k\mathbf{u}_k^T\right) \left(\sum_{j = 1}^n  \alpha_j \mathbf{u}_j \right) \\ 
+&= \sum_{i = 1}^n \sum_{j = 1}^n \sum_{k = 1}^n \alpha_i \alpha_j \lambda_k \mathbf{u}_i^T \mathbf{u}_k \mathbf{u}_k^T \mathbf{u}_j \\ 
+&= \sum_{k = 1}^n \alpha_k^2 \lambda_k\;,
+\end{align*}
+where in the final line we have again used orthonormality. 
+
+We are finally ready to maximize this expression. 
+Since $\lambda_n \geq \lambda_i$ for all $i < n$, we can make this expression largest simply by allocating all of the ``mass'' of the coefficients $\alpha$ onto $\lambda_n$. 
+The constraint $\sum_{i = 1}^n \alpha_i^2 = 1$ says that the largest $\alpha_n$ can be is 1, so we find that $\alpha_n = 1$ and $\alpha_i = 0$ for $i < n$ is the maximizing solution, with maximum value $\lambda_n$. 
+This completes the proof. 
+
+\subsection*{Part B}
+
+Let $\mathbf{B} = - \mathbf{A}$ and apply \Cref{thm:variational}. 
+
+\subsection*{Part C}
+
+Let's start from the expression 
+\begin{align*}
+    \mathbf{v}^T\mathbf{A}\mathbf{v} &= \mathbf{v}^T \left(\sum_{k = 1}^n \lambda_k\mathbf{u}_k\mathbf{u}_k^T\right) \mathbf{v} \\ 
+    &= \sum_{k = 1}^n \lambda_k\mathbf{v}^T\mathbf{u}_k\mathbf{u}_k^T\mathbf{v}\;.
+\end{align*}
+If we require the additional constraint $\mathbf{v}^T\mathbf{u}_n = 0$, the term $k = n$ will vanish and we therefore have 
+\begin{align*}
+    \mathbf{v}^T\mathbf{A}\mathbf{v} 
+    &= \sum_{k = 1}^{n-1} \lambda_k\mathbf{v}^T\mathbf{u}_k\mathbf{u}_k^T\mathbf{v}\;.
+\end{align*}
+If we now expand $\mathbf{v}$ as in Part A, we will find that  
+\begin{align*}
+\mathbf{v}^T\mathbf{A}\mathbf{v}
+&= \sum_{k = 1}^{n-1} \alpha_k^2 \lambda_k\;,
+\end{align*}
+As in Part A, we can maximize the expression by allocating all of the ``mass'' of $\alpha$ onto the largest remaining eigenvalue, which is now $\lambda_{n-1}$. 
+
+\newpage
+
+%==========
+{\bf Specifications for this problem:}
+\begin{itemize}
+    \item Respond to all parts of the prompt.
+    \item Responses are written in clear and complete sentences. Grammar and spelling errors are acceptable provided that the meaning is clear.
+\end{itemize}
+
+\begin{tcolorbox}[title = 5. About You]
+The purpose for this problem is for me to get to know more about you and your goals for the course.
+
+\begin{enumerate}
+    \item What is your preferred name and pronouns for this class?
+    \item What do you hope to get out of this class?
+    \item Describe a time that you had a positive, empowering, or otherwise awesome experience in mathematics. What were some features of that experience that made it so positive?
+    \item What else I should know about you?
+\end{enumerate}
+\end{tcolorbox}
+
+Answers will vary.
+
+\newpage
+
+%==========
+\end{document}  

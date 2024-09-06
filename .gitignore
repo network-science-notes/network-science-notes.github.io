@@ -10,5 +10,11 @@ data/.DS_Store
 /env/
 docs/full-notes
 source/*.html
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
 
 

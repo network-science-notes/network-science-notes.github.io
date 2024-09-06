@@ -1,0 +1,246 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage, graphicx, amssymb, amsmath, amsfonts, amsthm, mathtools, tcolorbox, enumitem, hyperref, cleveref, tikz}
+
+\setenumerate[0]{label=(\Alph*)}
+\newtheorem{thm}{Theorem}
+
+\parskip = .2in
+\parindent  = 0in
+\pagestyle{empty}
+
+
+%==========
+
+%==========
+
+\begin{document}
+
+\begin{titlepage}
+
+HMC Math 189 with Prof. Heather\\ 
+Homework: Degree, Graph Laplacian, and Intro Centrality
+
+\bigskip
+
+Name:
+
+\bigskip
+Collaborators: 
+
+\subsection*{Specifications Grading}
+
+Before starting on this assignment, it's a good idea to consult the \href{https://harveymuddcollege.instructure.com/courses/1418/assignments/syllabus}{syllabus} on Canvas. 
+Here are the key points that you should keep in mind when working on this assignment.
+\begin{itemize}
+    \item There is no partial credit on homework problems. You receive credit for a problem by completing the entire problem (including all parts, if applicable), to a high standard of correctness and communication. 
+    This standard is enumerated by \emph{specifications}. 
+    \item You will have \textbf{multiple attempts} to complete each problem. 
+    After the initial submission by the first due date, your assignment will be assessed. 
+    Problems that meet specifications will receive credit. 
+    If you've attempted some problems but not met specifications, you can revise your solutions and resubmit them. 
+    If they now meet specs, you get credit! 
+    \item If you submitted a problem by the deadline with less than 50\% of the problem completed, as determined by the professor, then you can resubmit for 50\% credit. 
+    This policy is here to incentivize you to do your best on the problems by the stated deadline, which keeps you on track and keeps my workload manageable. 
+    \item You don't actually have to do all homework problems assigned: you have the equivalent of 5 homework problem drops throughout the semester. 
+    It's still a good idea to attempt all problems though, as this will allow you to make up for, say, a rough day on the midterm exam. 
+    The syllabus has details on how your final grade will be calculated. 
+\end{itemize}
+
+\pagebreak
+
+\subsection*{Specifications}
+
+This is the list of specifications that you should meet for most problems in order to receive credit. 
+These specifications apply to all problems that request you to write a \textbf{proof} or \textbf{argument} for a mathematical statement. 
+
+You can think of this like a checklist: if, for a given problem, you can check of each item, then you should expect to receive credit! 
+Going down this checklist is exactly what the TA will do to grade your work. 
+
+Please remember that \textbf{these specifications apply to every part of a problem}. 
+To receive credit on a problem with parts (a), (b), and (c), you need to meet the specifications on all three parts.  
+
+These specifications are the ones to use when a problem asks you to support a mathematical claim through proof, argument, or calculation.
+
+\subsection*{Correctness}
+\begin{itemize}
+    \item Each direction in the problem statement is followed.
+        Note: You are required to follow only directions, not hints. That said, I include the hints with the intention of making your life easier!
+    \item The overall structure is mathematically sound and supports the required result.
+\end{itemize}
+
+\subsection*{Exposition}
+\begin{itemize}
+    \item Each step is carefully justified. Resources that can always be cited include the course notes or lectures, the course text, and standard theorems in linear algebra and probability. Other sources are often acceptable with citation.
+    \item The proof or argument is presented using clear and engaging prose. The proof or argument is written in complete sentences. The submission follows our departmental standards for mathematical communication. Grammar and spelling errors are acceptable provided that the meaning is clear.
+\end{itemize}
+
+\subsubsection*{Other}
+
+We'll also see problems in which you are expected to write some code, show a plot, write a brief reflection, or perform some other task. 
+In this case, the specifications will be included with the problem statement. 
+
+
+\end{titlepage}
+
+%==========
+\begin{tcolorbox}[title = 1. Trees]
+Recall from lecture that a \emph{tree} is a connected graph that contains no cycles. 
+
+\begin{enumerate}
+    \item 
+    Prove that a tree with $n$ nodes has exactly $n-1$ edges.
+
+    \item 
+    Prove that any connected network with exactly $n-1$ edges and $n$ nodes is a tree.
+
+    \item
+    Prove that, between any two nodes $i$ and $j$ in a tree, there exists exactly one path. 
+\end{enumerate}
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+%==========
+\begin{tcolorbox}[title = 2. Degree and connectivity]
+In class we have seen that for a simple undirected network the algebraic multiplicity of the eigenvalue $0$ of the Laplacian is equal to the number of its components. For connected networks, the second smallest eigenvalue of the Laplacian is strictly greater than zero, and this eigenvalue also gives some information about the connectivity of the network. In this problem you will verify this via an example. 
+
+Consider the following network:
+\[
+\begin{tikzpicture}
+\node (1) at (0,0) {$\bullet$};
+\node (2) at (2,0) {$\bullet$};
+\node (3) at (1,1) {$\bullet$};
+\node (4) at (1,-1) {$\bullet$};
+\node (5) at (2,-2) {$\bullet$};
+\node (6) at (5,0) {$\bullet$};
+\node (7) at (7,0) {$\bullet$};
+\node (8) at (6,1) {$\bullet$};
+\node (9) at (6,-2) {$\bullet$};
+\path[-]
+(0,0) edge (2,0)
+(1,1) edge (2,0)
+(1,-1) edge (2,0)
+(2,-2) edge (2,0)
+(2,-2) edge (1,-1)
+(6,-2) edge (6,1)
+(6,-2) edge (7,0)
+(6,-2) edge (5,0)
+(5,0) edge (6,1)
+(7,0) edge (6,1)
+;
+\end{tikzpicture}
+\]
+
+\begin{enumerate}
+    \item 
+    Compute the second smallest eigenvalue of its Laplacian. What is it?
+
+    \item
+    Next, join two vertices in the two components of the network so that the network will have just one component. How does the value of the second smallest eigenvalue change, as you choose different vertices in the two components? Compute the value of the second smallest eigenvalue for three different choices of nodes. \\
+\end{enumerate}
+
+{\em Hint: the degree of the nodes plays a crucial role.}
+
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+%==========
+\begin{tcolorbox}[title = 3. Node-incidence matrix and the Laplacian]
+The \emph{node-edge incidence matrix} of a graph with $n$ nodes and $m$ edges is a matrix $\mathbf{B} \in \mathbb{R}^{2m\times n}$. 
+There are two rows of $\mathbf{B}$ for each edge $e$. 
+If $e$ links nodes $j$ and $\ell$, then there is a row for the $j\rightarrow \ell$ ``direction'' and a row for the $\ell \rightarrow j$ ``direction''. 
+So, we can write an individual entry of $\mathbf{B}$ as $b_{(j\rightarrow \ell), i}$. 
+These entries are given by: 
+\begin{align*}
+    b_{(j \rightarrow \ell), i} = \begin{cases}
+        -1 &\quad i = j \\ 
+        +1 &\quad i = \ell \\ 
+        0 &\quad \text{otherwise.}
+    \end{cases}
+\end{align*}
+
+\begin{enumerate}
+    \item
+    The Laplacian matrix $\mathbf{L}$ of a graph is defined in eq. (6.29) of Newman. 
+    Prove using direct matrix multiplication that $\mathbf{L}$ can be computed using one of the two formulae below (and figure out which one): 
+    \begin{align*}
+        \mathbf{L} = \frac{1}{2}\mathbf{B}^T\mathbf{B} \quad \text{or} \quad \mathbf{L} = \frac{1}{2}\mathbf{B}\mathbf{B}^T\;. 
+    \end{align*}
+
+    \item
+    Use your result from Part (a) to give a very short proof that $\mathbf{L}$ is a positive-semidefinite matrix. 
+\end{enumerate}
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+%==========
+\begin{tcolorbox}[title = 4. Partioning and the Laplacian]
+In section 6.14.1, Newman considers the role of the Laplacian $\mathbf{L}$ in partitioning or ``cutting'' graphs into groups.
+Let's focus on the two-group case.
+In eq. (6.37), Newman defines an objective function 
+\begin{align}
+    R(\mathbf{s}) = \frac{1}{4}\mathbf{s}^T\mathbf{L}\mathbf{s}\;,
+\end{align}
+where $\mathbf{s}\in \mathbb{R}^n$ is the vector with entries 
+\begin{align}
+    s_i = \begin{cases}
+        +1 &\quad \text{node } i \text{ is in group 1,} \\ 
+        -1 &\quad \text{node } i \text{ is in group 2.}
+    \end{cases}
+\end{align}
+The idea is that a choice of $\mathbf{s}$ corresponds to a choice of groups for the nodes. 
+Newman writes---somewhat uncarefully---that ``... our goal is to find the vector $\mathbf{s}$ that minimizes the cut size (6.37) for given $\mathbf{L}$.''
+
+Assume throughout this problem that we are considering the Laplacian matrix $\mathbf{L}$ of a connected graph. 
+
+\begin{enumerate}
+    \item
+    Find the vector $\mathbf{s}$ that minimizes $R(\mathbf{s})$. 
+
+    {\em Hint:
+    There are multiple ways to do this, but carefully reading Chapter 6, section 14 of Newman is one. 
+    }
+
+    \item
+    Comment briefly (2-3 sentences is fine) on whether this vector is useful in the context of the graph partitioning problem. 
+\end{enumerate}
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+%==========
+{\bf Specifications for this problem:}
+\begin{itemize}
+    \item Respond to all parts of the prompt.
+    \item Responses are written in clear and complete sentences. Grammar and spelling errors are acceptable provided that the meaning is clear.
+    \item Ideas from the paper are described accurately/correctly while not directly repeating content in the paper.
+\end{itemize}
+
+\begin{tcolorbox}[title = 5. Reading: Axioms of Centrality, parbox = false]
+Read sections 1 (Introduction), 2 (A Historical Account), and 4 (Axioms for Centrality) of the following paper:
+
+{\em
+Boldi, P., \& Vigna, S. (2014). \href{https://arxiv.org/pdf/1308.2140}{Axioms for centrality}. Internet Mathematics, 10(3-4), 222-262.
+}
+
+After reading the assigned sections, write reflections on each of the following prompts.
+
+\begin{enumerate}
+    \item 
+    What is the purpose/main goal(s) of the paper? What are the authors trying to communicate or address?
+    \item 
+    Briefly describe each of the authors' centrality axioms in your own words.
+\end{enumerate}
+For this assignment, you only need to read the three sections listed above, not the whole paper.
+\end{tcolorbox}
+
+% Your response here
+
+\end{document}  

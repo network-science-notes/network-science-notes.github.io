@@ -1,0 +1,229 @@
+\documentclass[11pt]{article}
+
+\usepackage{fullpage, graphicx, amssymb, amsmath, amsfonts, amsthm, mathtools, tcolorbox, enumitem, hyperref, cleveref}
+
+\setenumerate[0]{label=(\Alph*)}
+\newtheorem{thm}{Theorem}
+
+\parskip = .2in
+\parindent  = 0in
+\pagestyle{empty}
+
+
+%==========
+
+%==========
+
+\begin{document}
+
+\begin{titlepage}
+
+HMC Math 189 with Prof. Heather\\ 
+Homework: Network Fundamentals
+
+\bigskip
+
+Name:
+
+\bigskip
+Collaborators: 
+
+\subsection*{Specifications Grading}
+
+Before starting on this assignment, it's a good idea to consult the \href{https://harveymuddcollege.instructure.com/courses/1418/assignments/syllabus}{syllabus} on Canvas. 
+Here are the key points that you should keep in mind when working on this assignment.
+\begin{itemize}
+    \item There is no partial credit on homework problems. You receive credit for a problem by completing the entire problem (including all parts, if applicable), to a high standard of correctness and communication. 
+    This standard is enumerated by \emph{specifications}. 
+    \item You will have \textbf{multiple attempts} to complete each problem. 
+    After the initial submission by the first due date, your assignment will be assessed. 
+    Problems that meet specifications will receive credit. 
+    If you've attempted some problems but not met specifications, you can revise your solutions and resubmit them. 
+    If they now meet specs, you get credit! 
+    \item If you submitted a problem by the deadline with less than 50\% of the problem completed, as determined by the professor, then you can resubmit for 50\% credit. 
+    This policy is here to incentivize you to do your best on the problems by the stated deadline, which keeps you on track and keeps my workload manageable. 
+    \item You don't actually have to do all homework problems assigned: you have the equivalent of 5 homework problem drops throughout the semester. 
+    It's still a good idea to attempt all problems though, as this will allow you to make up for, say, a rough day on the midterm exam. 
+    The syllabus has details on how your final grade will be calculated. 
+\end{itemize}
+
+\pagebreak
+
+\subsection*{Specifications}
+
+This is the list of specifications that you should meet for most problems in order to receive credit. 
+These specifications apply to all problems that request you to write a \textbf{proof} or \textbf{argument} for a mathematical statement. 
+
+You can think of this like a checklist: if, for a given problem, you can check of each item, then you should expect to receive credit! 
+Going down this checklist is exactly what the TA will do to grade your work. 
+
+Please remember that \textbf{these specifications apply to every part of a problem}. 
+To receive credit on a problem with parts (a), (b), and (c), you need to meet the specifications on all three parts.  
+
+These specifications are the ones to use when a problem asks you to support a mathematical claim through proof, argument, or calculation.
+
+\subsection*{Correctness}
+\begin{itemize}
+    \item Each direction in the problem statement is followed.
+        Note: You are required to follow only directions, not hints. That said, I include the hints with the intention of making your life easier!
+    \item The overall structure is mathematically sound and supports the required result.
+\end{itemize}
+
+\subsection*{Exposition}
+\begin{itemize}
+    \item Each step is carefully justified. Resources that can always be cited include the course notes or lectures, the course text, and standard theorems in linear algebra and probability. Other sources are often acceptable with citation.
+    \item The proof or argument is presented using clear and engaging prose. The proof or argument is written in complete sentences. The submission follows our departmental standards for mathematical communication. Grammar and spelling errors are acceptable provided that the meaning is clear.
+\end{itemize}
+
+\subsubsection*{Other}
+
+We'll also see problems in which you are expected to write some code, show a plot, write a brief reflection, or perform some other task. 
+In this case, the specifications will be included with the problem statement. 
+
+
+\end{titlepage}
+
+%==========
+\begin{tcolorbox}[title = 1. Network Examples (Newman 6.1)]
+Which word or words from the following list describe each of the five networks below: {\em directed, undirected, cyclic, acyclic, approximately acyclic, planar, approximately planar, tree, approximate tree.}
+
+\begin{itemize}
+    \item The internet, at the level of autonomous systems
+    \item A food web
+    \item The stem and branches of a plant
+    \item A spider web
+    \item A complete clique of four nodes
+\end{itemize}
+
+Give one real-life example of each of the following types of networks, not including the five examples above:
+\begin{itemize}
+    \item An acyclic (or approximately acyclic) directed network
+    \item A cyclic directed network
+    \item A tree (or approximate tree)
+    \item A planar (or approximately planar) network
+    \item A bipartite network
+\end{itemize}
+Describe briefly one empirical technique that could be used to measure the structure of each of the following networks (i.e., to fully determine the positions of all the edges):
+\begin{itemize}
+    \item The World Wide Web
+    \item A citation of scientific papers
+    \item A food web
+    \item A network of friendships between a group of co-workers
+    \item A power grid
+\end{itemize}
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+%==========
+\begin{tcolorbox}[title = 2. (Newman 6.4)]
+    Let $\bf{A}$ be the adjacency matrix of an undirected network and $\bf{1}$ be the column vector whose elements are all 1. In terms of these quantities, write expressions for
+    \begin{enumerate}
+        \item The vector $\bf{k}$ whose elements are the degrees $k_i$ of the nodes;
+        \item The number $m$ of edges in the network;
+        \item The matrix $N$ whose element $N_{ij}$ is equal to the number of common neighbors of nodes $i$ and $j$;
+        \item The total number of triangles in the network, where a triangle means three nodes each connected by edges to both of the others.
+    \end{enumerate}
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+
+%==========
+\begin{tcolorbox}[title = 3. (Newman 6.6)]
+    A ``star graph'' consists of a single central node with $n-1$ other nodes connected to it. See the example below:
+    \begin{center}
+        \includegraphics[scale=0.2]{star}
+    \end{center}
+What is the largest (most positive) eigenvalue of the adjacency matrix of a star graph with $n$ nodes?
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+
+%==========
+\begin{tcolorbox}[title = 4. Eigenpairs of symmetric matrices and optimization]
+Recall the algebraic definition of the eigenvalues and eigenvectors of a matrix $\mathbf{A}$ as solutions to the equation $\mathbf{A}\mathbf{v} = \lambda \mathbf{v}$. 
+In this problem, we will prove an additional viewpoint on eigenvalues and eigenvectors that is especially important in network science and many other fields of applied mathematics: 
+\begin{quote}
+    \emph{For symmetric matrices, eigenpairs are solutions of optimization problems.} 
+\end{quote}
+Let $\lVert\mathbf{v} \rVert$ be the Euclidean norm of a vector $\mathbf{v}$. 
+Here's our theorem: 
+\begin{thm} \label{thm:variational}
+    Let $\mathbf{A} \in \mathbb{R}^{n\times n}$ be a symmetric matrix. 
+    Let $\lambda_1,\ldots,\lambda_n$ be the eigenvalues of $\mathbf{A}$ ordered from smallest ($\lambda_1$) to largest ($\lambda_n$).  
+    Then, 
+    \begin{align*}
+        \lambda_n = \max_{\mathbf{v} \in \mathbb{R}^n} \left\{\mathbf{v}^T\mathbf{A}\mathbf{v} \;\big|\; \lVert{\mathbf{v}}\rVert = 1\right\} \;.
+    \end{align*}
+\end{thm}
+In words, the largest value of the function $f(\mathbf{v}) = \mathbf{v}^T\mathbf{A}\mathbf{v}$ that can be obtained by picking a vector $\mathbf{v} \in \mathbb{R}^n$ satisfying $\lVert \mathbf{v} \rVert = 1$ is $\lambda_n$. 
+The reason that \Cref{thm:variational} matters from an applied standpoint is that many network science and data analysis tasks correspond to maximizing functions that look like $f(\mathbf{v}) = \mathbf{v}^T\mathbf{A}\mathbf{v}$.  
+
+\begin{enumerate}
+    \item 
+    Prove \Cref{thm:variational} in three steps. 
+    \begin{itemize}
+        \item Expand $\mathbf{A}$ in an orthonormal basis of eigenvectors: 
+        \begin{align*}
+            \mathbf{A} = \sum_{i = 1}^n \lambda_i\mathbf{u}_i\mathbf{u}_i^T\;,
+        \end{align*}
+        where each $\mathbf{u}_i$ is an eigenvector $\mathbf{A}$ with eigenvalue $\lambda_i$. 
+        As a reminder, orthonormality means that $\lVert \mathbf{u}_i \rVert = 1$ and $\mathbf{u}_i^T \mathbf{u}_j = 1$ if $i = j$ and $0$ otherwise.   
+        Explain carefully why you are allowed to perform this expansion (cite a theorem). 
+        \item Write $\mathbf{v} = \sum_{i = 1}^n \alpha_i \mathbf{u}_i$ for some undetermined coefficients $\{\alpha_i\}$, and explain why you are allowed to do this. 
+        Compute $\lVert \mathbf{v}\rVert$ in terms of the coefficients $\{\alpha_i\}$, and determine what the constraint $\lVert \mathbf{v} \rVert = 1$ implies about $\{\alpha_i\}$. 
+        \item Finally, use the first two steps to compute $\mathbf{v}^T\mathbf{A}\mathbf{v}$ directly in terms of $\{\lambda_i\}$ and $\{\alpha_i\}$. 
+        Show that the result is maximized when $\alpha_n = 1$ and $\alpha_i = 0$ for $i < n$. 
+        Include a closing sentence to help your reader connect this final result to \Cref{thm:variational}. 
+    \end{itemize}
+    
+    \item 
+    Using \Cref{thm:variational}, give an \emph{extremely short} proof that
+    \begin{align*}
+        \lambda_1 = \min_{\mathbf{v} \in \mathbb{R}^n} \left\{\mathbf{v}^T\mathbf{A}\mathbf{v} \;\big|\; \lVert{\mathbf{v}}\rVert = 1\right\} \;.
+    \end{align*} 
+
+    \item 
+    Suppose that $\mathbf{u}_n$ is an eigenvector of $\mathbf{A}$ with eigenvalue $\lambda_n$. 
+    Prove that 
+    \begin{align*}
+        \lambda_{n-1} = \max_{\mathbf{v} \in \mathbb{R}^n} \left\{\mathbf{v}^T\mathbf{A}\mathbf{v} \;\big|\; \lVert{\mathbf{v}}\rVert = 1\;, \; \mathbf{v}^T\mathbf{u}_n = 0\right\}\;. 
+    \end{align*}
+    \emph{Hint}: This is a very short proof if you use one of the previous parts, although not quite as short as Part (B). 
+\end{enumerate}
+\end{tcolorbox}
+
+% Your solution here
+
+\newpage
+
+%==========
+{\bf Specifications for this problem:}
+\begin{itemize}
+    \item Respond to all parts of the prompt.
+    \item Responses are written in clear and complete sentences. Grammar and spelling errors are acceptable provided that the meaning is clear.
+\end{itemize}
+
+\begin{tcolorbox}[title = 5. About You]
+The purpose for this problem is for me to get to know more about you and your goals for the course.
+
+\begin{enumerate}
+    \item What is your preferred name and pronouns for this class?
+    \item What do you hope to get out of this class?
+    \item Describe a time that you had a positive, empowering, or otherwise awesome experience in mathematics. What were some features of that experience that made it so positive?
+    \item What else I should know about you?
+\end{enumerate}
+\end{tcolorbox}
+
+
+% Your solution here
+
+\newpage
+
+%==========
+\end{document}
