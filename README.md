@@ -52,7 +52,7 @@ This is a hidden solution which will not appear in the public lecture notes.
 :::
 ```
 
-It is possible to add classes other than `.solution`, but the `.hide` class must be present. 
+It is possible to add classes other than `.solution`, but the `.hide` class must be present. For example, we have added a `.proof` class.
 
 Hidden solutions will not appear in the published online notes, but (after running `make publish`) will be present in the local folder `docs/full-notes`. The notes in this directory can be opened locally and printed to PDF or directly to a printer.  
 
