@@ -115,7 +115,7 @@ Consider the combinatorial graph Laplacian ${\bf L}$ as defined above for an und
 - The eigenvalues of ${\bf L}$ are real and nonnegative.
 - The Laplacian always has at least one zero eigenvalue with corresponding eigenvector ${\bf 1}.$
 - The Laplacian is not invertible.
-- A network has $c$ components if and only if its graph Laplacian has $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
+- A network has $c$ components if and only if its graph Laplacian has exactly $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
 
 :::
 :::
