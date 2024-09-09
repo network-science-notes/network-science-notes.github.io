@@ -7,6 +7,8 @@ book:
         - chapters/02-degree-walks-paths.qmd
         - chapters/03-components-laplacian.qmd
     - part: "Measuring Networks"
+      chapters: 
+        - chapters/11-viz.qmd
     - part: "Real-World Networks"
       chapters: 
         - chapters/30-real-world.qmd

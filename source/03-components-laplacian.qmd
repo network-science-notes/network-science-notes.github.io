@@ -124,15 +124,15 @@ We will save the proofs of these properties for homework.
 
 ## The Graph Laplacian as a Diffusion Operator
 
-One of the many important properties of the graph Laplacian is that it describes many *spreading* or *diffusion* processes that take place on networks. Here's an example: suppose that we "heat up" a single node on the network, and then allow heat to flow along the network edges. The Laplacian matrix gives a concise description of how this heat spreads over the network. Let $\mathbf{x} \in \mathbb{R}^n$ be the vector whose $i$th entry gives the amount of heat currently on node $i$. Then, the vector $\delta \mathbf{x} = -\mathbf{Lx}$ is proportional to rate of change of heat at each node, so that 
+One of the many important properties of the graph Laplacian is that it describes many *spreading* or *diffusion* processes that take place on networks. Here's an example: suppose that we "heat up" a single node on the network, and then allow heat to flow along the network edges. The Laplacian matrix gives a concise description of how this heat spreads over the network. Let $\mathbf{x} \in \mathbb{R}^n$ be the vector whose $i$th entry gives the amount of heat currently on node $i$. Then, the vector $\delta \mathbf{x} = -\mathbf{Lx}$ is proportional to rate of change of heat at each node. If we imagine that heat moves in discrete time, our update would be 
 
 $$
 \begin{aligned}
-\frac{d}{dt} \mathbf{x} & = -\alpha\mathbf{Lx} \,,
+\mathbf{x} \gets \mathbf{x} -\alpha\mathbf{Lx} \,,
 \end{aligned}
 $$
 
-where $\alpha$ is some constant that describes the rate of heat transfer. We've used a continuous-time description of this process, but we can still check out a few discrete-time snapshots:
+where $\alpha$ is some constant that describes the rate of heat transfer. Let's see how this looks: 
 
 ```{python}
 #| fig-cap : "Snapshots of heat diffusion on a network. Colors are shown on a logarithmic scale for visualization purposes."

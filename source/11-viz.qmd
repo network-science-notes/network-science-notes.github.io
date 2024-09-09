@@ -2,6 +2,7 @@
 fig-cap-location: margin
 code-fold: true
 jupyter: python3
+cache: true
 ---
 
 # Visualizing Networks, and Why You Shouldn't
@@ -41,25 +42,44 @@ In this set of notes, we'll develop from scratch an algorithm for producing reas
 
 ## Network Drawing as Minimizing Mean Edge Lengths
 
+In Section 6.14.2, @newman2018networks gives some heuristic reasons to suggest that our friend the Laplacian matrix can give a good guide to the quality of a network drawing. This suggests a natural idea: why not just use the graph Laplacian itself to draw the network? *Laplacian spectral embedding* gives us a way to do this. To implement Laplacian spectral embedding, we: 
+
+1. Form the Laplacian matrix $\mathbf{L} = \mathbf{D} - \mathbf{A}$. 
+2. Find the *second* and *third* smallest eigenvalues of the Laplacian.[Recall that, if $G$ is connected, then the very smallest eigenvalue of the Laplacian is always equal to 0 and corresponds to an eigenvector with constant entries.]{.aside}. Let $\mathbf{v}_2$ and $\mathbf{v}_3$ be their corresponding eigenvectors.
+3. Position the nodes in $\mathbb{R}^2$ according to the values of these eigenvectors: the first coordinate is given by the entries of $\mathbf{v}_2$, and the second coordinate is given by the entries of $\mathbf{v}_3$.
+
+This elegant algorithm is important enough to be implemented in NetworkX: it's `nx.spectral_layout`. But we can implement a full version (for connected graphs) of it ourselves. 
+
 ```{python}
+#---
 A = nx.to_numpy_array(G)
 D = np.diag(np.sum(A, axis = 1))
 L = D - A
-E = np.linalg.eig(L)
+E = tuple(np.linalg.eig(L)) # compatibility with numpy 2.0.0
 
-_, i, j = np.argsort(E.eigenvalues)[:3]
+_, i, j = np.argsort(E[0])[:3]
 
-X1 = E.eigenvectors[:, i]
-X2 = E.eigenvectors[:, j]
+v_1 = E[1][:, i]
+v_2 = E[1][:, j]
 
-X = np.column_stack([X1, X2])
-
-nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)
+v = np.column_stack([v_1, v_2])
+#---
 ```
+
+How'd we do?
+
+```{python}
+nx.draw(G, pos = {i: v[i] for i in range(G.number_of_nodes())}, **draw_kwargs)
+```
+
+Oh dear, that doesn't look very good at all! This is a good mini-lesson in applied mathematics: sometimes the most elegant solution is outstanding, and sometimes it just doesn't work very well in computational practice. 
+
+
+
 
 ## Network Drawing as Isometry Approximation
 
-We're going to view network drawing primarily as the problem of *placing the nodes*. This corresponds to the following problem: 
+Let's try a better approach. We're going to view network drawing primarily as the problem of *placing the nodes*. This corresponds to the following problem: 
 [For drawing on a computer screen or chalkboard, $d = 2$. The general task of placing nodes in Euclidean space is often called *graph embedding*, and has applications in deep learning for much higher values of $d$.]{.aside}
 
 > To each node $i \in N$, assign a vector $\mathbf{x}_i \in \mathbb{R}^d$. 
