@@ -122,6 +122,57 @@ Consider the combinatorial graph Laplacian ${\bf L}$ as defined above for an und
 
 We will save the proofs of these properties for homework.
 
+## The Graph Laplacian as a Diffusion Operator
+
+One of the many important properties of the graph Laplacian is that it describes many *spreading* or *diffusion* processes that take place on networks. Here's an example: suppose that we "heat up" a single node on the network, and then allow heat to flow along the network edges. The Laplacian matrix gives a concise description of how this heat spreads over the network. Let $\mathbf{x} \in \mathbb{R}^n$ be the vector whose $i$th entry gives the amount of heat currently on node $i$. Then, the vector $\delta \mathbf{x} = -\mathbf{Lx}$ is proportional to rate of change of heat at each node, so that 
+
+$$
+\begin{aligned}
+\frac{d}{dt} \mathbf{x} & = -\alpha\mathbf{Lx} \,,
+\end{aligned}
+$$
+
+where $\alpha$ is some constant that describes the rate of heat transfer. We've used a continuous-time description of this process, but we can still check out a few discrete-time snapshots:
+
+```{python}
+#| fig-cap : "Snapshots of heat diffusion on a network. Colors are shown on a logarithmic scale for visualization purposes."
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+
+fig, axarr = plt.subplots(1, 4, figsize = (8, 1.7))
+
+# create a network for visualization and set up a layout
+n = 50
+rad = 0.25
+G = nx.random_geometric_graph(n, rad, seed = 1234)
+
+layout = nx.kamada_kawai_layout(G)
+
+# construct the Laplacian matrix
+A = nx.to_numpy_array(G)
+D = np.diag(np.sum(A, axis = 1))
+L = D - A
+
+# rate of heat transfer
+rate = 0.05
+
+# initial condition: all heat on a single node
+x = np.zeros(n)
+x[20] = 1
+
+# main loop
+for i, ax in enumerate(axarr.flatten()):
+    nx.draw(G, ax = ax, node_size = 20, edge_color = 'gray', node_color = np.log(x + 1e-4), width = 0.5, pos = layout, cmap = "coolwarm", vmax = 0.5)
+    ax.set_title("$t = " + str(i) + "$")
+
+    # Laplacian dynamical update
+    x -= rate*L@x
+```
+
+The Laplacian operator also has many other applications in network science, many of which we will study later in these notes. 
+
 ## References
 
 
