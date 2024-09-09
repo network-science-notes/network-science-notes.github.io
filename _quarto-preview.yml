@@ -5,6 +5,7 @@ book:
       chapters: 
         - source/01-networkrepresentations.qmd
         - source/02-degree-walks-paths.qmd
+        - source/03-components-laplacian.qmd
     - part: "Measuring Networks"
       chapters: 
         - source/02-degree-walks-paths.qmd

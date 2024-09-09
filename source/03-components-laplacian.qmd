@@ -1,0 +1,134 @@
+---
+code-fold: true
+code-summary: "Show code"
+jupyter: python3
+---
+
+# Components and the Graph Laplacian
+
+In the last lecture, we discovered that the notion of connectivity could tell us something important about graph structure. 
+
+## Components
+
+Many networks have parts that are disconnected from each other. These parts are called **components**. As we saw in an example from the previous lecture, there is no path between any pair of nodes in different components of a network.
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-component}
+
+Two nodes $i$ and $j$ are **path-connected** if there exists a path between $i$ and $j$. The maximal set of nodes $j$ such that $i$ is path-connected to $j$ is called the **connected component** of $i$. [We say *maximal* in this definition because we want a connected component to be the biggest subset with this property. Another way to say this is that there are no additional nodes and edges we could include in the set without breaking the path-connected property.]{.aside}
+
+A network is **connected** if it has only one connected component. Otherwise, we say the network is **disconnected**.
+
+:::
+:::
+
+If we have nodes that are **singletons** --- that is, nodes that have no edges connecting to them --- then we consider that node a connected component.
+
+As we saw with degree, the definition of connected components requires a bit more subtlety if we consider directed networks. 
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-strongly-weakly-connected}
+
+In a directed network, two nodes $i$ and $j$ are **strongly connected** if there exists a path from $i$ to $j$ and a path from $j$ to $i$. A maximal subset of nodes such that all pairs of nodes are strongly connected is called the **strongly connected component**. 
+
+If we relax the requirement to consider the maximal subset of node pairs $(i,j)$ such that there exists either a path from $i$ to $j$ or from $j$ to $i$, then this is a **weakly connected component**.
+
+:::
+:::
+
+::: {.callout-important}
+
+## Exercise
+
+Identify the strongly connected components and the weakly connected components in the network below.
+
+:::
+
+```{python}
+#| fig-cap : "Identify the strongly connected components in this directed network."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-strong-component-exercise
+
+from matplotlib import pyplot as plt
+import networkx as nx
+plt.style.use('seaborn-v0_8-whitegrid')
+
+DG = nx.DiGraph()
+DG.add_edges_from([(1, 2), (2, 3), (2,5), (2,6), (3, 4), (3, 7), (4, 3), (4, 8), (5, 1), (5, 6), (6, 7), (7, 6), (8, 4), (8, 7)])
+
+nx.draw(DG, with_labels = True, arrowsize = 20, font_color = 'white', font_weight = 'bold')
+
+```
+
+::: {.hide .solution}
+
+This network has three strongly connected components: $\{1,2,5\}, \ \{3, 4, 8\},$ and $\{6, 7\}$.
+
+The network has only one weakly connected component (this set contains all the nodes). Thus we would say the entire network is weakly connected.
+
+:::
+
+In directed networks, we can also define individual node properties that describe all nodes that could reach or be reached by our node of interest.
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-in-out-component}
+
+An **in-component** of node $i$ is the set of nodes $j$ such that there is a directed path from $j$ to $i$.
+
+An **out-component** of node $i$ is the set of nodes $j$ such that there is a directed path from $i$ to $j$.
+
+We include the node $i$ itself as a member of its own in- and out-components.
+
+:::
+:::
+
+## The Graph Laplacian
+
+The graph Laplacian [There are mutiple matrices that use this name; the one we introduce here is sometimes called the Combinatorial Graph Laplacian.]{.aside} is another important matrix representation of a network. It's useful in studying random walks and dynamics, for clustering and data analysis, for graph visualization, partitioning, and more! 
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-laplacian}
+
+The **(combinatorial) graph Laplacian $L$** of an undirected graph with adjacency matrix $A$ is
+
+$$
+{\bf L} = {\bf D} - {\bf A} \,
+$$
+
+where ${\bf D}$ is the diagonal matrix whose diagonal entries $D_{ii} = k_i$ contain the degree of node $i$.
+
+:::
+:::
+
+The definition given above generalizes in a straightforward way for weighted networks with positive weights. There are also variants for directed graphs (including using in-degree or out-degree matrices to build an in-degree Laplacian or an out-degree Laplacian), but some properties may not be preserved with this approach.
+
+::: {.callout-tip icon=false collapse=true}
+::: {#thm-laplacian}
+
+## Properties of the graph Laplacian
+
+Consider the combinatorial graph Laplacian ${\bf L}$ as defined above for an undirected network. Let ${\bf 1}$ be the vector containing all ones. The matrix ${\bf L}$ has the following properties:
+
+- ${\bf L}$ is real and symmetric.
+- ${\bf L}{\bf 1} = 0.$ That is, every row sums to 0.
+- The eigenvalues of ${\bf L}$ are real and nonnegative.
+- The Laplacian always has at least one zero eigenvalue with corresponding eigenvector ${\bf 1}.$
+- The Laplacian is not invertible.
+- A network has $c$ components if and only if its graph Laplacian has $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
+
+:::
+:::
+
+We will save the proofs of these properties for homework.
+
+## References
+
+
+
+
+
+
+
+
+
