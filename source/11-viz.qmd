@@ -39,6 +39,24 @@ Which of these drawings look better to you? Which do you feel better helps you u
 [![](https://www.data-imaginist.com/assets/img/edge_meme_wide.jpg) *Image credit: [Thomas Lin Pedersen](https://www.data-imaginist.com/posts/2017-02-16-ggraph-introduction-edges/)*]{.column-margin}
 In this set of notes, we'll develop from scratch an algorithm for producing reasonably attractive visualizations of networks. We'll then discuss some of the significant limitations associated with drawing networks as points connected by line segments, and consider some alternatives. 
 
+## Network Drawing as Minimizing Mean Edge Lengths
+
+```{python}
+A = nx.to_numpy_array(G)
+D = np.diag(np.sum(A, axis = 1))
+L = D - A
+E = np.linalg.eig(L)
+
+_, i, j = np.argsort(E.eigenvalues)[:3]
+
+X1 = E.eigenvectors[:, i]
+X2 = E.eigenvectors[:, j]
+
+X = np.column_stack([X1, X2])
+
+nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)
+```
+
 ## Network Drawing as Isometry Approximation
 
 We're going to view network drawing primarily as the problem of *placing the nodes*. This corresponds to the following problem: 
@@ -102,7 +120,7 @@ def optimization_layout(G, grad_fun = grad_f, alpha = 0.1, n_iter = 100):
             X[k] -= alpha * grad_fun(X, D, k)
     return X
 
-X = optimization_layout(G, grad_fun = grad_f, alpha = 0.01, n_iter = 100)
+X = optimization_layout(G, grad_fun = grad_f, alpha = 0.01, n_iter = 500)
 #---
 ```
 
@@ -119,7 +137,7 @@ The results are not always reliable; if we check the Les Miserables graph, we mi
 
 ```{python}
 G = nx.convert_node_labels_to_integers(nx.les_miserables_graph())
-X = optimization_layout(G, grad_fun = grad_f, alpha = 0.01, n_iter = 100)
+X = optimization_layout(G, grad_fun = grad_f, alpha = 0.01, n_iter = 500)
 nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)
 ```
 
@@ -153,7 +171,7 @@ def grad_f_weighted(X, D, k):
         grad += (np.linalg.norm(X[k] - X[j]) - D[k, j]) * (X[k] - X[j]) / np.linalg.norm(X[k] - X[j]) / D[k,j]**2
     return 2 * grad
 
-X = optimization_layout(G, grad_fun = grad_f_weighted, alpha = 0.01, n_iter = 1000)
+X = optimization_layout(G, grad_fun = grad_f_weighted, alpha = 0.02, n_iter = 500)
 
 nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)
 ```
