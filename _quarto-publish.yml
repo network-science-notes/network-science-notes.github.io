@@ -8,6 +8,7 @@ book:
         - chapters/03-components-laplacian.qmd
     - part: "Measuring Networks"
       chapters: 
+        - chapters/04-centrality.qmd
         - chapters/11-viz.qmd
     - part: "Real-World Networks"
       chapters: 

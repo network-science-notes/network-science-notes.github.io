@@ -140,7 +140,13 @@ $$
 If $I-\alpha A$ is invertible, then we will be able to write a nice expression for ${\bf c}_{Katz}$.
 We know this matrix is not invertible when $det(I-\alpha A) = 0$, which is equivalent to the scalar multiple $det(\frac{1}{\alpha}I - A) = 0$. We deduce that this occurs when $\lambda = \frac{1}{\alpha}$, where $\lambda$ are the eigenvalues of the adjacency matrix.
 
-Thus, if we want to be safe and guarantee convergence of our centrality measure, then we should choose $\alpha < {1}{\lambda_1}$, where $\lambda_1$ is the largest (most positive) eigenvalue of $A$. Then we are guaranteed convergence for $0 < \alpha < \frac{1}{\lambda_1}$.
+Thus, if we want to be safe and guarantee convergence of our centrality measure, then we should choose $\alpha < {1}{\lambda_1}$, where $\lambda_1$ is the largest (most positive) eigenvalue of $A$. Then we are guaranteed convergence for $0 < \alpha < \frac{1}{\lambda_1}$. With an appropriate choice of $\lambda$, we can write our **Katz centrality** in the form
+
+$$
+    {\bf c}_{Katz} = \beta (I-\alpha A)^{-1} {\bf 1}
+$$
+
+Often, we will choose to set $\beta = 1$, since it doesn't have any impact on the relative ordering of our centrality scores.
 
 Notice that within this constraint, $\alpha$ acts like a tunable parameter: As $\alpha \to 0$, all the nodes have the same centrality. As $\alpha \to \frac{1}{\lambda_1}$, we recover eigenvector centrality.
 
@@ -149,5 +155,82 @@ Notice that within this constraint, $\alpha$ acts like a tunable parameter: As $
 Katz centrality keeps several of the nice features of eigenvector centrality while avoiding the zero-centrality pitfalls. It's also relatively quick to calculate.
 
 However, if a node with high Katz centrality points to many other nodes in a directed network, then they will all "inherit" this high centrality as well, which may be undesirable.
+
+### PageRank
+
+Neither eigenvector nor Katz centrality measures penalize high-centrality nodes with a large number of edges. Suppose we wanted to think more of centrality like currency: each node has an allotted amount that it may divide among its edges, so that if you were sharing with more edges, you would have to give a smaller amount to each. This idea would essentially "dilute" centrality based on the number of out-edges. This might be relevant in the example of webpages: Just because a page is linked from a very popular site (say, Wikipedia) does not mean that linked page is itself important. Wikipedia links to many, many, many pages!  
+
+We implement this idea with a small modification to Katz centrality, where we divide by out-degree of each node.
+
+$$
+    x_i = \alpha \sum_j A_{ij} \frac{x_j}{k_{j}^{out}} + \beta 
+$$
+
+where we define $k_j^{out} = 1$ for nodes that have no out-edges to make our mathematical expression well-defined. [Defining $k_j^{out}=1$ in this ad hoc way might seem shady, but in fact it is an equivalent expression to the original desired system because $A_{ij}=0$ if a node j has no out-edges.]{.aside}
+
+Following the same arguments as for Katz centrality, this means we can write our PageRank centrality ${\bf c}_{PR}$ as 
+$$
+    {\bf c}_{PR} = \alpha A D^{-1} {\bf c}_{PR} + \beta {\bf 1} \,,
+$$
+
+where $D$ is the diagonal matrix with diagonal elements $D_{ii} = \max\{k_i^{out}, 1\}$. If we set $\beta = 1$ and as long as we have chosen $\alpha$ appropriately (using similar arguments as before), we can write **PageRank centrality** in the following closed form:
+
+$$
+    {\bf c}_{PR} = \left(I-\alpha A D^{-1}\right)^{-1} {\bf 1} \,.
+$$
+
+The name PageRank comes from Google, who used this idea as a basis of their original web search algorithm. We will explore PageRank further in future lectures.
+
+## Summary
+
+We have derived a family of centrality measures that are all centered around degree. We could provide a neat summary of these four measures we've seen so far in the table below.
+
+| | With Constant | Without Constant |
+| ----- | -------| ------ |
+| **Divide by out-degree** | PageRank: ${\bf c} = \left(I-\alpha D^{-1}\right)^{-1}{\bf 1}$ | Degree: ${\bf c} = AD^{-1} {\bf c}$ |
+| **No division** | Katz: ${\bf c} = (I-\alpha A)^{-1}{\bf 1}$ | Eigenvector: ${\bf c} = r A {\bf c}$ |
+
+```{python}
+#| fig-cap : "Compute centralities of this network and visualize."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-centrality-exercise
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
+
+G = unweight(nx.karate_club_graph())
+
+## Degree
+#---
+deg = nx.degree_centrality(G)
+deg = np.array([deg[i] for i in deg.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*deg, node_color = deg, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black")
+#---
+
+## Eigenvector
+#---
+eig = nx.eigenvector_centrality(G)
+eig = np.array([eig[i] for i in eig.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*eig, node_color = eig, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black")
+#---
+
+## Katz
+#---
+# maximum value for alpha: can't be larger than the inverse of the largest eigenvalue
+#---
+
+## PageRank
+#---
+#---
+
+```
 
 ## References
