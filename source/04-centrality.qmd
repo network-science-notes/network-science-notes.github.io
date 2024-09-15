@@ -12,7 +12,7 @@ The first question we'll tackle is *importance*: Which nodes are the most import
 
 **Centrality measures** quantify the relative importance of nodes in a network by assigning numbers to each node; these numbers are sometimes called **centrality scores**. A node's centrality score allows for comparison with another node in the same network. 
 
-Depending on the application, having good answers to the question of importance could help determine how to target interventions, predict how diseases or information might spread, or create rankings and search algorithms.
+Depending on the application, having good answers to the question of importance could help determine how to target interventions, predict how diseases or information might spread, or create rankings and search algorithms. @boldi2014axioms provide a good historical account of centrality measures, as well as a useful mathematical exploration of their properties.
 
 ## Degree-based Centrality Measures
 
@@ -29,6 +29,33 @@ $$
 where ${\bf 1}$ is the vector containing all ones.
 
 For a directed network, we could use either in- or out-degree as centrality measures, depending on what is useful for the context or application.
+
+```{python}
+#| fig-cap : "Visualiation of degree centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-degree-centrality
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
+
+G = unweight(nx.karate_club_graph())
+
+## Degree
+#---
+deg = nx.degree_centrality(G)
+deg = np.array([deg[i] for i in deg.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*deg, node_color = deg, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black", pos=nx.kamada_kawai_layout(G))
+#---
+
+```
 
 #### Advantages and Disadvantages
 
@@ -90,6 +117,35 @@ where $r$ is the leading eigenvalue of $A$. That is, the eigenvector centrality 
 
 If you have multiple strongly connected components, the second statement of the theorem will not hold. However, you can still calculate the eigenvector centrality of each component separately, as each strongly connected component satisfies all conditions for the theorem.
 
+Let's implement eigenvector centrality for the same network
+
+```{python}
+#| fig-cap : "Visualiation of eigevector centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. Compare and contrast with the visualization for degree centrality in the same network. What do you notice?"
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-eig-centrality
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
+
+G = unweight(nx.karate_club_graph())
+
+## Eigenvector
+#---
+eig = nx.eigenvector_centrality(G)
+eig = np.array([eig[i] for i in eig.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*eig, node_color = eig, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black", pos = nx.kamada_kawai_layout(G))
+#---
+
+```
+
 #### Complications with directed networks
 
 - Should this centrality use in-edges or out-edges? This depends on the context! In-edges correspond to right eigenvectors; and out-edges correspond to left eigenvectors.
@@ -103,7 +159,7 @@ $$
 
 
 ```{python}
-#| fig-cap : "Calculate the eigenvector centrality of this network."
+#| fig-cap : "Calculate the eigenvector centrality of this network by hand. Can you see a potential problem with eigenvector centrality in directed networks?"
 #| out.width : 80%
 #| fig-cap-location: margin
 #| label: fig-strong-component-exercise
@@ -131,7 +187,7 @@ $$
 
 where $\alpha, \beta >0$ are constant. The first term follows the form we derived for eigenvector centrality, and the second is the baseline level of centrality (the "free centrality").
 
-Writing in matrix-vector form, our Katz centrality ${\bf c}_{Katz}$ is 
+Writing in matrix-vector form, we arrive at a centrality measure ${\bf c}_{Katz}$ due to @katz1953new:
 
 $$
     {\bf c}_{Katz} = \alpha A {\bf c}_{Katz} + \beta {\bf 1} \,.
@@ -140,15 +196,55 @@ $$
 If $I-\alpha A$ is invertible, then we will be able to write a nice expression for ${\bf c}_{Katz}$.
 We know this matrix is not invertible when $det(I-\alpha A) = 0$, which is equivalent to the scalar multiple $det(\frac{1}{\alpha}I - A) = 0$. We deduce that this occurs when $\lambda = \frac{1}{\alpha}$, where $\lambda$ are the eigenvalues of the adjacency matrix.
 
-Thus, if we want to be safe and guarantee convergence of our centrality measure, then we should choose $\alpha < {1}{\lambda_1}$, where $\lambda_1$ is the largest (most positive) eigenvalue of $A$. Then we are guaranteed convergence for $0 < \alpha < \frac{1}{\lambda_1}$. With an appropriate choice of $\lambda$, we can write our **Katz centrality** in the form
+Thus, if we want to be safe and guarantee convergence of our centrality measure, then we should choose $\alpha < \frac{1}{\lambda_1}$, where $\lambda_1$ is the largest (most positive) eigenvalue of $A$. 
 
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-katz}
+
+Let ${\bf A}$ be the $n \times n$ adjacency matrix, ${\bf 1}$ be the $n \times 1$ vector containing all ones, and $\beta > 0$ constant. **Katz centrality** ${\bf c}_{Katz}$ is
 $$
-    {\bf c}_{Katz} = \beta (I-\alpha A)^{-1} {\bf 1}
+    {\bf c}_{Katz} = \beta \left({\bf I}-\alpha {\bf A}\right)^{-1} {\bf 1} \,.
 $$
+We are guaranteed convergence for $0 < \alpha < \frac{1}{\lambda_1}$, where $\lambda_1$ is the leading eigenvalue of ${\bf A}.$
+
+:::
+:::
 
 Often, we will choose to set $\beta = 1$, since it doesn't have any impact on the relative ordering of our centrality scores.
 
 Notice that within this constraint, $\alpha$ acts like a tunable parameter: As $\alpha \to 0$, all the nodes have the same centrality. As $\alpha \to \frac{1}{\lambda_1}$, we recover eigenvector centrality.
+
+Now let's implement Katz centrality in NetworkX. Calculate an appropriate range for $\alpha$, and then explore how varying $\alpha$ changes the centrality scores.
+
+```{python}
+#| fig-cap : "Visualiation of Katz centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. We can again compare and contrast with our previous centrality measures."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-katz
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
+
+G = unweight(nx.karate_club_graph())
+
+## Katz centrality
+#---
+beta = 1
+A = nx.to_numpy_array(G)
+alpha_max = min(np.abs(1/np.linalg.eig(A)[0]))
+katz = nx.katz_centrality(G, 0.5*alpha_max, beta)
+katz = np.array([katz[i] for i in katz.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*katz, node_color = katz, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black", pos = nx.kamada_kawai_layout(G))
+#---
+
+```
 
 #### Advantages and disadvantages
 
@@ -173,28 +269,27 @@ $$
     {\bf c}_{PR} = \alpha A D^{-1} {\bf c}_{PR} + \beta {\bf 1} \,,
 $$
 
-where $D$ is the diagonal matrix with diagonal elements $D_{ii} = \max\{k_i^{out}, 1\}$. If we set $\beta = 1$ and as long as we have chosen $\alpha$ appropriately (using similar arguments as before), we can write **PageRank centrality** in the following closed form:
+where $D$ is the diagonal matrix with diagonal elements $D_{ii} = \max\{k_i^{out}, 1\}$. If we set $\beta = 1$ and as long as we have chosen $\alpha$ appropriately (using similar arguments as before), we can write **PageRank centrality** in closed form.
 
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-pagerank}
+
+Let ${\bf A}$ be the $n \times n$ adjacency matrix, ${\bf D}$ is the $n \times n$ diagonal matrix with diagonal elements $D_{ii} = \max\{k_i^{out}, 1\}$, and ${\bf 1}$ be the $n \times 1$ vector containing all ones. **PageRank centrality** ${\bf c}_{PR}$ is
 $$
-    {\bf c}_{PR} = \left(I-\alpha A D^{-1}\right)^{-1} {\bf 1} \,.
+    {\bf c}_{PR} = \left({\bf I}-\alpha {\bf A} {\bf D}^{-1}\right)^{-1} {\bf 1} \,,
 $$
+where $\alpha$ is a parameter chosen so that ${\bf I}-\alpha {\bf A} {\bf D}^{-1}$ is invertible.
 
-The name PageRank comes from Google, who used this idea as a basis of their original web search algorithm. We will explore PageRank further in future lectures.
+:::
+:::
 
-## Summary
-
-We have derived a family of centrality measures that are all centered around degree. We could provide a neat summary of these four measures we've seen so far in the table below.
-
-| | With Constant | Without Constant |
-| ----- | -------| ------ |
-| **Divide by out-degree** | PageRank: ${\bf c} = \left(I-\alpha D^{-1}\right)^{-1}{\bf 1}$ | Degree: ${\bf c} = AD^{-1} {\bf c}$ |
-| **No division** | Katz: ${\bf c} = (I-\alpha A)^{-1}{\bf 1}$ | Eigenvector: ${\bf c} = r A {\bf c}$ |
+The name PageRank comes from Google, who used this idea as a basis of their original web search algorithm. See @langville2005survey for a survey on PageRank and related methods. We will explore PageRank further in future lectures.
 
 ```{python}
-#| fig-cap : "Compute centralities of this network and visualize."
+#| fig-cap : "Visualiation of PageRank centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. We can again compare and contrast with our previous centrality measures."
 #| out.width : 80%
 #| fig-cap-location: margin
-#| label: fig-centrality-exercise
+#| label: fig-pagerank
 
 from matplotlib import pyplot as plt
 import networkx as nx
@@ -208,29 +303,144 @@ def unweight(G):
 
 G = unweight(nx.karate_club_graph())
 
-## Degree
-#---
-deg = nx.degree_centrality(G)
-deg = np.array([deg[i] for i in deg.keys()])
-nx.draw(G, with_labels = True, node_size = 1000*deg, node_color = deg, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black")
-#---
-
-## Eigenvector
-#---
-eig = nx.eigenvector_centrality(G)
-eig = np.array([eig[i] for i in eig.keys()])
-nx.draw(G, with_labels = True, node_size = 1000*eig, node_color = eig, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black")
-#---
-
-## Katz
-#---
-# maximum value for alpha: can't be larger than the inverse of the largest eigenvalue
-#---
-
 ## PageRank
 #---
+A = nx.to_numpy_array(G)
+D_inv = np.diag(1/np.sum(A, axis = 1))
+alpha_max = min(np.abs(1/np.linalg.eig(np.dot(A,D_inv))[0]))
+pr = nx.pagerank(G, 0.85*alpha_max)
+pr = np.array([pr[i] for i in pr.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*pr, node_color = pr, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black", pos = nx.kamada_kawai_layout(G))
 #---
 
 ```
+
+## Summary
+
+We have derived a family of centrality measures that are all centered around degree. We could provide a neat summary of these four measures we've seen so far in the table below.
+
+| | With Constant | Without Constant |
+| ----- | -------| ------ |
+| **Divide by out-degree** | PageRank: ${\bf c} = \left(I-\alpha D^{-1}\right)^{-1}{\bf 1}$ | Degree: ${\bf c} = AD^{-1} {\bf c}$ |
+| **No division** | Katz: ${\bf c} = (I-\alpha A)^{-1}{\bf 1}$ | Eigenvector: ${\bf c} = r A {\bf c}$ |
+
+## Path-based Centrality Measures
+
+All of the centrality measures we've explored thus far are built off variations on the theme of scoring importance based on the number of adjacent nodes. However, an alternate way to think about importance is through a node's impact on network connectivity through paths.
+
+### Closeness Centrality
+
+One way to encode this type of importance would be to start with the assumption that a node should have high centrality if it was a small distance to many other nodes. This might be important in transportation or geographic networks, for example.
+
+Consider a connected graph $G$. Suppose $d_{ij}$ is the shortest (geodesic) distance from node $i$ to node $j$ (that is, the walk of minimum length from $i$ to $j$). Then, the mean shortest distance $l_i$ from node $i$ to any other node in the network is 
+
+$$
+    l_i = \frac{1}{n-1} \sum_{j=1}^n d_{ij} \,.
+$$
+
+Notice that the qualitative behavior of this quantity is the opposite of what we might usually define for centrality: it has small values for nodes that are separated by others only a short distance (on average) and larger values for longer average distances. If we want our centrality score to be larger for nodes that are close to many other nodes, one way to achieve this is to take the reciprocal. This strategy gives the **closeness centrality** $c_i = \frac{1}{l_i}$ of node $i$. This centrality measure dates back to (at least) 1950 from @bavelas1950communication.
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-closeness}
+
+Consider a (strongly) connected network. Let $d_{ij}$ be the geodesic distance between node $i$ and node $j$. We define the **closeness centrality** of node $i$ as
+$$
+    c_i = \frac{n-1}{\sum_{j\neq i} d_{ij}}\,.
+$$
+
+:::
+:::
+
+```{python}
+#| fig-cap : "Visualiation of Closeness centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. What do you notice about this centrality measure?"
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-closeness
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
+
+G = unweight(nx.karate_club_graph())
+
+## Closeness
+#---
+closeness = nx.closeness_centrality(G)
+closeness = np.array([closeness[i] for i in closeness.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*closeness, node_color = closeness, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black", pos = nx.kamada_kawai_layout(G))
+#---
+
+```
+
+This centrality measure has a clear disadvantage for directed or disconnected networks, as it requires the geodesic distance to be defined for all nodes. One simple strategy to fix this would be to compute closeness by only summing geodesic distance to nodes in the same (strongly) connected component. However, be aware that you may not be able to compare centralities between components if you use this strategy: nodes in smaller components will tend to have higher closeness than they would in larger components.
+
+Another strategy is to compute the reciprocal of the harmonic mean of the distances, which is a modification by @beauchamp1965improved sometimes referred to as **harmonic centrality**:
+
+$$
+    c_i = \frac{1}{n-1} \sum_{j \neq i, \ d_{ij}<\infty} \frac{1}{d_{ij}}
+$$
+where we take the convention $\frac{1}{d_{ij}} = 0$ if $i$ and $j$ are not path-connected.
+
+### Betweenness Centrality
+
+Another possibility in using paths to measure importance is to encode the idea that a node is important if it lies on paths between many other nodes. Nodes like this might be important because their removal could disrupt paths. Depending on the application, nodes that lie on many paths may have information, goods, data, etc. that pass through frequently.
+
+Let's start by considering an undirected network with at most one shortest path between nodes. Let $n_{st}^i = 1$ if node $i$ lies on the shortest path from node $s$ to node $t$ and 0 otherwise. Then, we could sum the number of these unique shortest paths for node $i$ as 
+
+$$
+    x_i = \sum_s \sum_t n_{st}^i \,.
+$$
+[Notice that this counts the path from $s$ to $t$ and the path from $t$ to $s$ as two separate paths. In undirected networks, this doesn't make a difference in the centrality score because it's only the relative ranking that matters. It also applies as written to directed networks.]{.aside}
+
+Accounting for the fact that shortest paths may not be unique gives us our definition of betweenness centrality below.
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-betweenness}
+
+Let $n_{st}^i$ be the number of shortest paths from $s$ to $t$ that pass through $i$, and let $g_{st} = \max\{1,\ \text{number of shortest paths from } s \text{ to } t\}.$ Then the **betweenness centrality** of node $i$ is
+
+$$
+    c_i = \sum_s \sum_t \frac{n_{st}^i}{g_{st}^i} \,.
+$$
+
+:::
+:::
+
+Direction of travel is accounted for in this definition, and so this can be used without modification in directed networks.
+
+```{python}
+#| fig-cap : "Visualiation of Betweenness centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. What do you notice about this centrality measure?"
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-betweenness
+
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np
+plt.style.use('seaborn-v0_8-whitegrid')
+
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
+
+G = unweight(nx.karate_club_graph())
+
+## Betweenness
+#---
+betweenness = nx.betweenness_centrality(G)
+betweenness = np.array([betweenness[i] for i in betweenness.keys()])
+nx.draw(G, with_labels = True, node_size = 1000*betweenness, node_color = betweenness, cmap = "Blues", font_size = 8, edge_color = "gray", edgecolors = "black", pos = nx.kamada_kawai_layout(G))
+#---
+
+```
+
+This centrality measure seems to have originated from @freeman1977set. There are many additional variants and generalizations of betweenness centrality that can be found in the literature.
 
 ## References
