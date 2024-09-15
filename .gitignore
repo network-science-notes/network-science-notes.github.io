@@ -16,5 +16,6 @@ source/*.html
 *.log
 *.out
 *.synctex.gz
+scratch/
 
 
