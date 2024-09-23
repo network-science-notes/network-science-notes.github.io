@@ -9,7 +9,8 @@ book:
     - part: "Measuring Networks"
       chapters: 
         - source/04-centrality.qmd
-        - source/11-viz.qmd
+        - source/05-viz.qmd
+        - source/06-modularity.qmd
     - part: "Real-World Networks"
       chapters: 
         - source/30-real-world.qmd

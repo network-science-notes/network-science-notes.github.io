@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Power Law Degree Distributions – Network Science: Models, Mathematics, and Computation</title>
+<title>8&nbsp; Power Law Degree Distributions – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -164,7 +164,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/30-real-world.html">Real-World Networks</a></li><li class="breadcrumb-item"><a href="../chapters/31-power-laws.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/30-real-world.html">Real-World Networks</a></li><li class="breadcrumb-item"><a href="../chapters/31-power-laws.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -241,8 +241,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/11-viz.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks, and Why You Shouldn’t</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Homophily, assortativity, and modularity</span></span></a>
   </div>
 </li>
       </ul>
@@ -259,13 +265,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/30-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/31-power-laws.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
   </div>
 </li>
       </ul>
@@ -307,9 +313,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/30-real-world.html">Real-World Networks</a></li><li class="breadcrumb-item"><a href="../chapters/31-power-laws.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/30-real-world.html">Real-World Networks</a></li><li class="breadcrumb-item"><a href="../chapters/31-power-laws.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></h1>
 </div>
 
 
@@ -424,18 +430,18 @@ window.Quarto = {
 </div>
 <div class="callout-body-container">
 <div id="def-power-law" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 7.1 (Power Law Distribution)</strong></span> A random variable <span class="math inline">\(D\)</span> has a <em>discrete power law distribution</em> with cutoff <span class="math inline">\(d_*\)</span> and exponent <span class="math inline">\(\gamma &gt; 1\)</span> if its probability mass function is has the form</p>
+<p><span class="theorem-title"><strong>Definition 8.1 (Power Law Distribution)</strong></span> A random variable <span class="math inline">\(D\)</span> has a <em>discrete power law distribution</em> with cutoff <span class="math inline">\(d_*\)</span> and exponent <span class="math inline">\(\gamma &gt; 1\)</span> if its probability mass function is has the form</p>
 <p><span id="eq-power-law"><span class="math display">\[
 \begin{aligned}
     p_d \triangleq \mathbb{P}[D = d] = C d^{-\gamma}\;,
 \end{aligned}
-\tag{7.1}\]</span></span></p>
+\tag{8.1}\]</span></span></p>
 <p>for all <span class="math inline">\(d &gt; d_*\)</span>. Here, <span class="math inline">\(C\)</span> is a normalizing constant that ensures that the distribution sums to <span class="math inline">\(1\)</span>. The entries of the distribution for <span class="math inline">\(d \leq d_*\)</span> are are arbitrary.</p>
 </div>
 </div>
 </div>
 </div>
-<p>An important intuitive insight about power law distributions is that they are <em>linear on log-log axes</em>. To see this, we can take the logarithm of both sides in <a href="#eq-power-law" class="quarto-xref">Equation&nbsp;<span>7.1</span></a>:</p>
+<p>An important intuitive insight about power law distributions is that they are <em>linear on log-log axes</em>. To see this, we can take the logarithm of both sides in <a href="#eq-power-law" class="quarto-xref">Equation&nbsp;<span>8.1</span></a>:</p>
 <p><span class="math display">\[
 \begin{aligned}
     \log p_d = \log C - \gamma \log d\;.
@@ -461,7 +467,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div class="page-columns page-full"><p>The power law appears to be a much better fit than the Poisson to the tail of the distribution, making apparently reasonable predictions about the numbers of nodes with very high degrees. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Where do the parameters for the power law come from? Here we performed a fit “by eye”, but we discuss some systematic approaches in <a href="#sec-power-law-estimation" class="quarto-xref"><span>Section 7.5</span></a></span></div></div>
+<div class="page-columns page-full"><p>The power law appears to be a much better fit than the Poisson to the tail of the distribution, making apparently reasonable predictions about the numbers of nodes with very high degrees. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Where do the parameters for the power law come from? Here we performed a fit “by eye”, but we discuss some systematic approaches in <a href="#sec-power-law-estimation" class="quarto-xref"><span>Section 8.5</span></a></span></div></div>
 <p>The claim that a given network “follows a power law” is a bit murky: like other models, power laws are idealizations that no real data set matches exactly. The idea of a power law is also fundamentally asymptotic in nature: the power law that we fit to the data also predicts that we should see nodes of degree <span class="math inline">\(10^3\)</span>, <span class="math inline">\(10^4\)</span>, or <span class="math inline">\(10^5\)</span> if we were to allow the network to keep growing. Since the network can’t keep growing (it’s data, we have a finite amount of it), we have to view the power law’s predictions about very high-degree nodes as extrapolations toward an idealized, infinite-size data set to which we obviously do not have access.</p>
 <section id="statistical-properties-of-power-laws" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-properties-of-power-laws">Statistical Properties of Power Laws</h3>
@@ -1145,7 +1151,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/30-real-world.html" class="pagination-link" aria-label="Structure of Empirical Networks">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

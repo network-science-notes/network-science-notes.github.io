@@ -6,6 +6,14 @@ jupyter: python3
 
 # Some Stuff About Networks
 
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-name}
+
+Definition
+
+:::
+:::
+
 ## References
 
 
