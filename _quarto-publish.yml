@@ -13,8 +13,10 @@ book:
         - chapters/06-modularity.qmd
     - part: "Real-World Networks"
       chapters: 
-        - chapters/30-real-world.qmd
-        - chapters/31-power-laws.qmd
+        - chapters/07-real-world.qmd
+        - chapters/08-power-laws.qmd
     - part: "Models of Networks"
+      chapters:
+        - chapters/09-random-graphs.qmd
     - part: "Applications and Extensions"
     
