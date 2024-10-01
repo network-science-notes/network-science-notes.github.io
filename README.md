@@ -6,7 +6,7 @@ Please install Quarto version 1.5 or later. You can run `quarto --version` in th
 
 ## Virtual Environment
 
-To run scripts and build this website, we will use a custom conda environment. 
+To run scripts and build this website, we will use a custom virtual environment. 
 
 To create the environment, run the following command:
 
