@@ -343,7 +343,7 @@ window.Quarto = {
 
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/05-viz.ipynb">here</a>.</em></p>
 <p>We’ve drawn networks several times in this course so far. Here’s one of our favorite running examples, the Karate Club graph. Here’s two ways to draw it. On the right, we’ve drawn the graph by assigning every node to a location in the unit square <span class="math inline">\([0,1]^2\)</span> uniformly at random. On the right, we have used the default layout algorithm in NetworkX, which is invoked automatically when we call <code>nx.draw</code>.</p>
-<div id="c31041d7" class="cell" data-execution_count="1">
+<div id="c31041d7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt </span>
@@ -387,7 +387,7 @@ window.Quarto = {
 <li>Position the nodes in <span class="math inline">\(\mathbb{R}^2\)</span> according to the values of these eigenvectors: the first coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_2\)</span>, and the second coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_3\)</span>.</li>
 </ol>
 <div class="no-row-height column-margin column-container"><span class="margin-aside">Recall that, if <span class="math inline">\(G\)</span> is connected, then the very smallest eigenvalue of the Laplacian is always equal to 0 and corresponds to an eigenvector with constant entries.</span></div><p>This elegant algorithm is important enough to be implemented in NetworkX: it’s <code>nx.spectral_layout</code>. But we can implement a full version (for connected graphs) of it ourselves.</p>
-<div id="024e2cf2" class="cell" data-execution_count="2">
+<div id="024e2cf2" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A</span>
@@ -401,7 +401,7 @@ window.Quarto = {
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.column_stack([v_1, v_2])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How’d we do?</p>
-<div id="608ea8fe" class="cell" data-execution_count="3">
+<div id="608ea8fe" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: v[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -434,7 +434,7 @@ window.Quarto = {
 \end{aligned}
 \]</span></p>
 <p>This objective function is also sometimes called an “energy” of the problem. Let’s implement a function that computes the energy, given a matrix of distances <span class="math inline">\(\mathbf{D}\)</span> and a matrix of node positions <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<div id="078c5403" class="cell" data-execution_count="4">
+<div id="078c5403" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy(X, D):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n)])</span>
@@ -448,7 +448,7 @@ window.Quarto = {
 <li>We minimize <span class="math inline">\(k\)</span>’s contribution to the energy, which is <span class="math inline">\(\sum_{j \in N\setminus k} \left( \lVert \mathbf{x}_k - \mathbf{x}_j \rVert - d^g_{kj} \right)^2\)</span>.</li>
 </ol>
 <p>We cycle through all the nodes, updating each of them, and then we repeat the process for some specified number of iterations. First, let’s visualize how this looks. Then, we’ll implement this algorithm ourselves.</p>
-<div id="8fa2a7bc" class="cell" data-execution_count="5">
+<div id="8fa2a7bc" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -459,7 +459,7 @@ window.Quarto = {
 </div>
 <p>Note that the energy very quickly shrinks after the first iteration. The structure of the visualization is resolved fairly clearly after just a small number of iterations.</p>
 <p>Ok, time to implement!</p>
-<div id="c85ca331" class="cell" data-execution_count="6">
+<div id="c85ca331" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">100</span>): </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> nx.floyd_warshall_numpy(G) <span class="co"># matrix of Euclidean distances</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> random_layout(G) <span class="co"># initialization</span></span>
@@ -481,7 +481,7 @@ window.Quarto = {
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try it out:</p>
-<div id="6744c8b6" class="cell" data-execution_count="7">
+<div id="6744c8b6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -506,7 +506,7 @@ Current energy : 303.8874052753832</code></pre>
 </div>
 <p>Our result looks pretty reasonable. Nodes that “should” be close to each other do indeed appear to be drawn close together in the graph.</p>
 <p>The results are not always reliable; if we check the Les Miserables graph, we might argue that a lot of the nodes in the dense center of the graph are a little too squished together:</p>
-<div id="c09e6a96" class="cell" data-execution_count="8">
+<div id="c09e6a96" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(nx.les_miserables_graph())</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -539,7 +539,7 @@ Current energy : 6709.439236062464</code></pre>
 \end{aligned}
 \]</span></p>
 <p>The implementation here is very similar to our unweighted implementation:</p>
-<div id="d163c101" class="cell" data-execution_count="9">
+<div id="d163c101" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy_weighted(X, D):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span><span class="op">/</span>D[i, j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">if</span> j <span class="op">!=</span> i])</span>
@@ -606,7 +606,7 @@ Current energy : 10270.70726247274</code></pre>
 <section id="what-you-should-do-instead" class="level2">
 <h2 class="anchored" data-anchor-id="what-you-should-do-instead">What You Should Do Instead</h2>
 <p>The right way to visualize the structure of your network is <em>very</em> context-dependent, and there are many, many possibilities. Here we’ll point out just one: the adjacency matrix. This is a common strategy for visualizing networks that separate into one or more distinct clusters, sometimes also called “communities.” For example, simply inspecting the adjacency matrix of the Les Miserables graph can reveal a lot about its structure:</p>
-<div id="b18a99b1" class="cell" data-execution_count="10">
+<div id="b18a99b1" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(G)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span>

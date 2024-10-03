@@ -316,14 +316,14 @@ After a long setup, this looks much more manageable! Our next step is to solve f
 $$
 \begin{aligned}
     p_d &\doteq \frac{\alpha  \frac{d-1}{2} + (1-\alpha)}{1 + \alpha \frac{d}{2} + (1-\alpha)} p_{d-1} \\ 
-    &= \frac{2(1-\alpha) + (d-1)\alpha}{2(1-\alpha) + 1 + d\alpha }p_{d-1} \\
-    &= \left(1 - \frac{1 + \alpha }{2(1-\alpha) + 1 + d\alpha }\right)p_{d-1}\;.
+    &= \frac{2(1-\alpha) + (d-1)\alpha}{2(1-\alpha) + 2 + d\alpha }p_{d-1} \\
+    &= \left(1 - \frac{2 + \alpha }{2(1-\alpha) + 2 + d\alpha }\right)p_{d-1}\;.
 \end{aligned}
 $$
 When $d$ grows large, this expression is approximately 
 $$
 \begin{aligned}
-    p_d \simeq \left(1 - \frac{1}{d}\frac{1+\alpha}{\alpha}\right) p_{d-1}\;.
+    p_d \simeq \left(1 - \frac{1}{d}\frac{2+\alpha}{\alpha}\right) p_{d-1}\;.
 \end{aligned}
 $$
 
@@ -331,7 +331,7 @@ Now for a trick "out of thin air." As $d$ grows large,
 
 $$
 \begin{aligned}
-    1 - \frac{1}{d}\frac{1+\alpha}{\alpha} \rightarrow \left(\frac{d-1}{d} \right)^{-\frac{1 + \alpha}{\alpha}}
+    1 - \frac{1}{d}\frac{2+\alpha}{\alpha} \rightarrow \left(\frac{d-1}{d} \right)^{\frac{2 + \alpha}{\alpha}}
 \end{aligned}
 $$
 
@@ -339,7 +339,31 @@ $$
 
 ## Exercise
 
-Justify the approximation above. To do this, Taylor-expand the function $f(x) = x^{-\gamma}$ to first order around the point $x_0 = 1$ and use this expansion to estimate the value of $1 + \frac{1}{d}$
+Justify the approximation above. To do this, Taylor-expand the function $f(x) = x^{\gamma}$ to first order around the point $x_0 = 1$ and use this expansion to estimate the value of $1 - \frac{1}{d}$.
+
+:::
+
+::: {.hide .solution}
+
+We will use a Taylor expansion to find a first-order approximation about $x_0 = 1$:
+
+The Taylor expansion to first order is
+$$
+f(x) \approx f(x_0) + f'(x_0)(x-x_0).
+$$
+
+Let $f(x) = x^{\gamma}$. Then $f'(x) = \gamma x ^{\gamma - 1}.$ This means that
+
+$$
+f(x) \approx 1 +\gamma (x-1).
+$$
+
+Furthermore, note that $\frac{1}{d} <<1$ for $d$ large. Substituting in $x = 1-\frac{1}{d}$ and $\gamma = \frac{2+\alpha}{\alpha}$ gives
+$$
+f(1-\frac{1}{d}) \approx 1-\frac{1}{d} \frac{2+\alpha}{\alpha}.
+$$
+
+This justifies the approximation: the expression we derived could be thought of as a first-order approximation of the function $\left(\frac{d - 1}{d}\right)^{\frac{2+\alpha}{\alpha}}.$
 
 :::
 
@@ -348,11 +372,11 @@ Applying this last approximation, we have shown that, for sufficiently large $d$
 
 $$
 \begin{aligned}
-    p_d \simeq \left(\frac{d-1}{d} \right)^{\frac{1 + \alpha}{\alpha}} p_{d-1}\;.
+    p_d \simeq \left(\frac{d-1}{d} \right)^{\frac{2 + \alpha}{\alpha}} p_{d-1}\;.
 \end{aligned}
 $$
 
-This recurrence relation, if it were exact, would imply that $p_d = C d^{\frac{1+\alpha}{\alpha}}$, as shown by the following exercise:  
+This recurrence relation, if it were exact, would imply that $p_d = C d^{-\frac{2+\alpha}{\alpha}}$, as shown by the following exercise:  
 
 ::: {.callout-important} 
 
