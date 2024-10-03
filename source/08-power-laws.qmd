@@ -217,8 +217,8 @@ Let's go ahead and plot the result. We'll add a visualization of the exponent $\
 deg_seq = degree_sequence(G)
 cutoff  = 10
 d_      = np.arange(cutoff, deg_seq.max(), 1)
-gamma   = (1 + alpha) / alpha
-power_law = .15*d_**(-gamma)
+gamma   = (2 + alpha) / alpha
+power_law = 10*d_**(-gamma)
 
 ax = plot_degree_distribution(G, interval = 2, num_bins = 30)
 ax.plot(d_, power_law,  linewidth = 1, label = fr"Power law: $\gamma = {gamma:.2f}$" , color = "grey", linestyle = "--")
@@ -226,6 +226,7 @@ ax.legend()
 ```
 
 This fit is somewhat noisy, reflecting the fact that we simulated a relatively small number of preferential attachment steps. 
+
 
 
 ## Analyzing Preferential Attachment
