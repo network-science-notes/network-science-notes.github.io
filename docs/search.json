@@ -604,7 +604,7 @@
     "href": "source/10-configuration-model.html",
     "title": "10  Configuration models",
     "section": "",
-    "text": "Types of configuration models\nSimilar to \\(G(n,p)\\) models, we can understand a configuration model by understanding what is fixed (and what is random).\nOne way to set up a configuration model is to fix a degree sequence \\(\\{k_1, \\dots, k_n\\}\\). Note that this also fixes the number of edges: \\[\n    m = \\frac{1}{2} \\sum_j k_j \\,.\n\\]\nThe classic algorithmic strategy for sampling from such a configuration model is through stub-matching. Recall that each edge has two ends of edges, or stubs. This means that node \\(i\\) has \\(k_i\\) stubs.\nThe stub-matching algorithm can produce multi-edges and self-loops, which can cause the graph to not be simple. However, Bollobás (1980) proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. Another challenge with this algorithm is we require an even number of stubs to get a graph realization that exactly matches the degree sequence.",
+    "text": "Types of configuration models\nSimilar to \\(G(n,p)\\) models, we can understand a configuration model by understanding what is fixed (and what is random).",
     "crumbs": [
       "Models of Networks",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Configuration models</span>"
@@ -615,7 +615,7 @@
     "href": "source/10-configuration-model.html#references",
     "title": "10  Configuration models",
     "section": "References",
-    "text": "References\n\n\n\n\nBollobás, Béla. 1980. “A Probabilistic Proof of an Asymptotic Formula for the Number of Labelled Regular Graphs.” European Journal of Combinatorics 1 (4): 311–16.",
+    "text": "References\n\n\n\n\nBollobás, Béla. 1980. “A Probabilistic Proof of an Asymptotic Formula for the Number of Labelled Regular Graphs.” European Journal of Combinatorics 1 (4): 311–16.\n\n\nFosdick, Bailey K, Daniel B Larremore, Joel Nishimura, and Johan Ugander. 2018. “Configuring Random Graph Models with Fixed Degree Sequences.” Siam Review 60 (2): 315–55.",
     "crumbs": [
       "Models of Networks",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Configuration models</span>"
@@ -626,7 +626,7 @@
     "href": "source/10-configuration-model.html#types-of-configuration-models",
     "title": "10  Configuration models",
     "section": "",
-    "text": "Definition 10.1 Consider a graph with \\(n\\) nodes. Let \\({\\bf k} \\in \\mathbb{N}^n\\) be the degree sequence, where \\(k_i\\) is the degree of node \\(i\\).\nA configuration model is a uniform distribution over graphs with degree sequence \\({\\bf k}.\\)\n\n\n\n\n\n\nChoose two stubs uniformly at random and connect these stubs to form an edge.\nChoose another pair from the remaining unmatched stubs; repeat the process until all stubs are matched.",
+    "text": "Fixing a degree sequence\nOne way to set up a configuration model is to fix a degree sequence \\(\\{k_1, \\dots, k_n\\}\\). Note that this also fixes the number of edges: \\[\n    m = \\frac{1}{2} \\sum_j k_j \\,.\n\\]\n\n\n\n\n\n\n\nDefinition 10.1 Consider a graph with \\(n\\) nodes. Let \\({\\bf k} \\in \\mathbb{N}^n\\) be the degree sequence, where \\(k_i\\) is the degree of node \\(i\\).\nA configuration model is a uniform distribution over graphs with degree sequence \\({\\bf k}.\\)\n\n\n\n\nThis strategy is particularly useful as a degree-preserving null model for an empirical graph.\nThe classic algorithmic strategy for sampling from such a configuration model is through stub-matching. Recall that each edge has two ends of edges, or stubs. This means that node \\(i\\) has \\(k_i\\) stubs.\n\nChoose two stubs uniformly at random and connect these stubs to form an edge.\nChoose another pair from the remaining unmatched stubs; repeat the process until all stubs are matched.\n\nThe stub-matching algorithm can produce multiedges and self-loops, which can cause the graph to not be simple. However, Bollobás (1980) proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. Another challenge with this algorithm is we require an even number of stubs to get a graph realization that exactly matches the degree sequence.\nFosdick et al. (2018) discuss the subtleties that arise due to whether we allow or disallow multiedges and self-loops and whether we choose to label stubs distinctly (as opposed to only labeling vertices). These choices result in different spaces of graphs from which we are sampling.\n\n\nFixing a degree distribution\nWhen making mathematical arguments, it may be important to sample from a particular degree distribution \\(p_k\\) instead of sampling graphs with a particular degree sequence \\(k\\).",
     "crumbs": [
       "Models of Networks",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Configuration models</span>"

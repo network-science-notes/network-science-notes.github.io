@@ -275,7 +275,11 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#types-of-configuration-models" id="toc-types-of-configuration-models" class="nav-link active" data-scroll-target="#types-of-configuration-models">Types of configuration models</a></li>
+  <li><a href="#types-of-configuration-models" id="toc-types-of-configuration-models" class="nav-link active" data-scroll-target="#types-of-configuration-models">Types of configuration models</a>
+  <ul class="collapse">
+  <li><a href="#fixing-a-degree-sequence" id="toc-fixing-a-degree-sequence" class="nav-link" data-scroll-target="#fixing-a-degree-sequence">Fixing a degree sequence</a></li>
+  <li><a href="#fixing-a-degree-distribution" id="toc-fixing-a-degree-distribution" class="nav-link" data-scroll-target="#fixing-a-degree-distribution">Fixing a degree distribution</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -307,6 +311,8 @@ window.Quarto = {
 <section id="types-of-configuration-models" class="level2">
 <h2 class="anchored" data-anchor-id="types-of-configuration-models">Types of configuration models</h2>
 <p>Similar to <span class="math inline">\(G(n,p)\)</span> models, we can understand a configuration model by understanding what is fixed (and what is random).</p>
+<section id="fixing-a-degree-sequence" class="level3">
+<h3 class="anchored" data-anchor-id="fixing-a-degree-sequence">Fixing a degree sequence</h3>
 <p>One way to set up a configuration model is to fix a degree sequence <span class="math inline">\(\{k_1, \dots, k_n\}\)</span>. Note that this also fixes the number of edges: <span class="math display">\[
     m = \frac{1}{2} \sum_j k_j \,.
 \]</span></p>
@@ -323,12 +329,19 @@ window.Quarto = {
 </div>
 </div>
 </div>
+<p>This strategy is particularly useful as a degree-preserving null model for an empirical graph.</p>
 <p>The classic algorithmic strategy for sampling from such a configuration model is through <em>stub-matching</em>. Recall that each edge has two ends of edges, or <em>stubs</em>. This means that node <span class="math inline">\(i\)</span> has <span class="math inline">\(k_i\)</span> stubs.</p>
 <ol type="1">
 <li>Choose two stubs uniformly at random and connect these stubs to form an edge.</li>
 <li>Choose another pair from the remaining unmatched stubs; repeat the process until all stubs are matched.</li>
 </ol>
-<p>The stub-matching algorithm can produce multi-edges and self-loops, which can cause the graph to not be simple. However, <span class="citation" data-cites="bollobas1980probabilistic">Bollobás (<a href="#ref-bollobas1980probabilistic" role="doc-biblioref">1980</a>)</span> proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. Another challenge with this algorithm is we require an even number of stubs to get a graph realization that exactly matches the degree sequence.</p>
+<p>The stub-matching algorithm can produce multiedges and self-loops, which can cause the graph to not be simple. However, <span class="citation" data-cites="bollobas1980probabilistic">Bollobás (<a href="#ref-bollobas1980probabilistic" role="doc-biblioref">1980</a>)</span> proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. Another challenge with this algorithm is we require an even number of stubs to get a graph realization that exactly matches the degree sequence.</p>
+<p><span class="citation" data-cites="fosdick2018configuring">Fosdick et al. (<a href="#ref-fosdick2018configuring" role="doc-biblioref">2018</a>)</span> discuss the subtleties that arise due to whether we allow or disallow multiedges and self-loops and whether we choose to label stubs distinctly (as opposed to only labeling vertices). These choices result in different spaces of graphs from which we are sampling.</p>
+</section>
+<section id="fixing-a-degree-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="fixing-a-degree-distribution">Fixing a degree distribution</h3>
+<p>When making mathematical arguments, it may be important to sample from a particular degree distribution <span class="math inline">\(p_k\)</span> instead of sampling graphs with a particular degree sequence <span class="math inline">\(k\)</span>.</p>
+</section>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
@@ -337,6 +350,9 @@ window.Quarto = {
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bollobas1980probabilistic" class="csl-entry" role="listitem">
 Bollobás, Béla. 1980. <span>“A Probabilistic Proof of an Asymptotic Formula for the Number of Labelled Regular Graphs.”</span> <em>European Journal of Combinatorics</em> 1 (4): 311–16.
+</div>
+<div id="ref-fosdick2018configuring" class="csl-entry" role="listitem">
+Fosdick, Bailey K, Daniel B Larremore, Joel Nishimura, and Johan Ugander. 2018. <span>“Configuring Random Graph Models with Fixed Degree Sequences.”</span> <em>Siam Review</em> 60 (2): 315–55.
 </div>
 </div>
 </section>
