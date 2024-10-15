@@ -15,8 +15,8 @@ book:
       chapters: 
         - source/07-real-world.qmd
         - source/08-power-laws.qmd
-        - source/19-spectral-clustering.qmd
     - part: "Models of Networks" 
       chapters: 
         - source/09-random-graphs.qmd 
+        - source/10-configuration-model.qmd
 code-summary: "Show code"

@@ -35,6 +35,8 @@ These notes draw on several source texts, the most important of which is @newman
 
 This site was generated using the [Quarto](https://quarto.org/) publishing system. It is hosted on GitHub and published via GitHub Pages. We thank Mason Porter for inspiration in earlier versions of this course. 
 
+HZB was funded in part by the National Science Foundation (grant DMS-2109239) through
+their program on Applied Mathematics.
 
 
 

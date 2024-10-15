@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Components and the Graph Laplacian – Network Science: Models, Mathematics, and Computation</title>
+<title>10&nbsp; Configuration models – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
 }
-</style>
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -64,8 +50,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/04-centrality.html" rel="next">
-<link href="../chapters/02-degree-walks-paths.html" rel="prev">
+<link href="../source/09-random-graphs.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -136,7 +121,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-sidebar floating slimcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -145,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/03-components-laplacian.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../source/10-configuration-model.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -187,19 +172,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link active">
+  <a href="../source/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
   </div>
 </li>
@@ -216,19 +201,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/04-centrality.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/05-viz.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks, and Why You Shouldn’t</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/06-modularity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Homophily, assortativity, and modularity</span></span></a>
   </div>
 </li>
@@ -245,13 +230,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/07-real-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-power-laws.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/08-power-laws.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
   </div>
 </li>
@@ -268,15 +253,17 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/09-random-graphs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../source/10-configuration-model.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
+  </div>
+</li>
       </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Applications and Extensions</span></span>
   </li>
     </ul>
     </div>
@@ -288,19 +275,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#components" id="toc-components" class="nav-link active" data-scroll-target="#components">Components</a></li>
-  <li><a href="#the-graph-laplacian" id="toc-the-graph-laplacian" class="nav-link" data-scroll-target="#the-graph-laplacian">The Graph Laplacian</a></li>
-  <li><a href="#the-graph-laplacian-as-a-diffusion-operator" id="toc-the-graph-laplacian-as-a-diffusion-operator" class="nav-link" data-scroll-target="#the-graph-laplacian-as-a-diffusion-operator">The Graph Laplacian as a Diffusion Operator</a></li>
+  <li><a href="#types-of-configuration-models" id="toc-types-of-configuration-models" class="nav-link active" data-scroll-target="#types-of-configuration-models">Types of configuration models</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/03-components-laplacian.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../source/10-configuration-model.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></h1>
 </div>
 
 
@@ -317,196 +302,43 @@ window.Quarto = {
 </header>
 
 
-<p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/03-components-laplacian.ipynb">here</a>.</em></p>
-<p>In the last lecture, we discovered that the notion of connectivity could tell us something important about graph structure.</p>
-<section id="components" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="components">Components</h2>
-<p>Many networks have parts that are disconnected from each other. These parts are called <strong>components</strong>. As we saw in an example from the previous lecture, there is no path between any pair of nodes in different components of a network.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-component" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.1</strong></span> Two nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are <strong>path-connected</strong> if there exists a path between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>. The maximal set of nodes <span class="math inline">\(j\)</span> such that <span class="math inline">\(i\)</span> is path-connected to <span class="math inline">\(j\)</span> is called the <strong>connected component</strong> of <span class="math inline">\(i\)</span>. </p>
-<p>A network is <strong>connected</strong> if it has only one connected component. Otherwise, we say the network is <strong>disconnected</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="no-row-height column-margin column-container"><span class="margin-aside callout-margin-content callout-margin-content-simple">We say <em>maximal</em> in this definition because we want a connected component to be the biggest subset with this property. Another way to say this is that there are no additional nodes and edges we could include in the set without breaking the path-connected property.</span></div><p>If we have nodes that are <strong>singletons</strong> — that is, nodes that have no edges connecting to them — then we consider that node a connected component.</p>
-<p>As we saw with degree, the definition of connected components requires a bit more subtlety if we consider directed networks.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-strongly-weakly-connected" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.2</strong></span> In a directed network, two nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are <strong>strongly connected</strong> if there exists a path from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> and a path from <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span>. A maximal subset of nodes such that all pairs of nodes are strongly connected is called the <strong>strongly connected component</strong>.</p>
-<p>If we relax the requirement to consider the maximal subset of node pairs <span class="math inline">\((i,j)\)</span> such that there exists either a path from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> or from <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span>, then this is a <strong>weakly connected component</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Exercise
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Identify the strongly connected components and the weakly connected components in the network below.</p>
-</div>
-</div>
-<div id="cell-fig-strong-component-exercise" class="cell page-columns page-full" data-out.width="80%" data-execution_count="1">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb1" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>DG <span class="op">=</span> nx.DiGraph()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>DG.add_edges_from([(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">2</span>,<span class="dv">5</span>), (<span class="dv">2</span>,<span class="dv">6</span>), (<span class="dv">3</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">7</span>), (<span class="dv">4</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="dv">8</span>), (<span class="dv">5</span>, <span class="dv">1</span>), (<span class="dv">5</span>, <span class="dv">6</span>), (<span class="dv">6</span>, <span class="dv">7</span>), (<span class="dv">7</span>, <span class="dv">6</span>), (<span class="dv">8</span>, <span class="dv">4</span>), (<span class="dv">8</span>, <span class="dv">7</span>)])</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>nx.draw(DG, with_labels <span class="op">=</span> <span class="va">True</span>, arrowsize <span class="op">=</span> <span class="dv">20</span>, font_color <span class="op">=</span> <span class="st">'white'</span>, font_weight <span class="op">=</span> <span class="st">'bold'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-strong-component-exercise" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin">
-<figure class="quarto-float quarto-float-fig figure page-columns page-full">
-<div aria-describedby="fig-strong-component-exercise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="03-components-laplacian_files/figure-html/fig-strong-component-exercise-output-1.png" width="691" height="499" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-strong-component-exercise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3.1: Identify the strongly connected components in this directed network.
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-
-<p>In directed networks, we can also define individual node properties that describe all nodes that could reach or be reached by our node of interest.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-in-out-component" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.3</strong></span> An <strong>in-component</strong> of node <span class="math inline">\(i\)</span> is the set of nodes <span class="math inline">\(j\)</span> such that there is a directed path from <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span>.</p>
-<p>An <strong>out-component</strong> of node <span class="math inline">\(i\)</span> is the set of nodes <span class="math inline">\(j\)</span> such that there is a directed path from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>.</p>
-<p>We include the node <span class="math inline">\(i\)</span> itself as a member of its own in- and out-components.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="the-graph-laplacian" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="the-graph-laplacian">The Graph Laplacian</h2>
-<div class="page-columns page-full"><p>The graph Laplacian  is another important matrix representation of a network. It’s useful in studying random walks and dynamics, for clustering and data analysis, for graph visualization, partitioning, and more!</p><div class="no-row-height column-margin column-container"><span class="margin-aside">There are mutiple matrices that use this name; the one we introduce here is sometimes called the Combinatorial Graph Laplacian.</span></div></div>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-laplacian" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 3.4</strong></span> The <strong>(combinatorial) graph Laplacian <span class="math inline">\(L\)</span></strong> of an undirected graph with adjacency matrix <span class="math inline">\(A\)</span> is</p>
-<p><span class="math display">\[
-{\bf L} = {\bf D} - {\bf A} \,
+<p><strong>Configuration models</strong> are models of random graphs with a given degree sequence.</p>
+<p>From a mathematical perspective, the idea of a configuration model is elegant and flexible. However, sampling from these models can be challenging and subtle. There are two primary strategies for thinking about configuration models.</p>
+<section id="types-of-configuration-models" class="level2">
+<h2 class="anchored" data-anchor-id="types-of-configuration-models">Types of configuration models</h2>
+<p>Similar to <span class="math inline">\(G(n,p)\)</span> models, we can understand a configuration model by understanding what is fixed (and what is random).</p>
+<p>One way to set up a configuration model is to fix a degree sequence <span class="math inline">\(\{k_1, \dots, k_n\}\)</span>. Note that this also fixes the number of edges: <span class="math display">\[
+    m = \frac{1}{2} \sum_j k_j \,.
 \]</span></p>
-<p>where <span class="math inline">\({\bf D}\)</span> is the diagonal matrix whose diagonal entries <span class="math inline">\(D_{ii} = k_i\)</span> contain the degree of node <span class="math inline">\(i\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<p>The definition given above generalizes in a straightforward way for weighted networks with positive weights. There are also variants for directed graphs (including using in-degree or out-degree matrices to build an in-degree Laplacian or an out-degree Laplacian), but some properties may not be preserved with this approach.</p>
-<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-laplacian" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 3.1 (Properties of the graph Laplacian)</strong></span> Consider the combinatorial graph Laplacian <span class="math inline">\({\bf L}\)</span> as defined above for an undirected network. Let <span class="math inline">\({\bf 1}\)</span> be the vector containing all ones. The matrix <span class="math inline">\({\bf L}\)</span> has the following properties:</p>
-<ul>
-<li><span class="math inline">\({\bf L}\)</span> is real and symmetric.</li>
-<li><span class="math inline">\({\bf L}{\bf 1} = {\bf 0}.\)</span> That is, every row sums to 0.</li>
-<li>The eigenvalues of <span class="math inline">\({\bf L}\)</span> are real and nonnegative.</li>
-<li>The Laplacian always has at least one zero eigenvalue with corresponding eigenvector <span class="math inline">\({\bf 1}.\)</span></li>
-<li>The Laplacian is not invertible.</li>
-<li>A network has <span class="math inline">\(c\)</span> components if and only if its graph Laplacian has exactly <span class="math inline">\(c\)</span> zero eigenvalues (that is, the eigenvalue <span class="math inline">\(\lambda = 0\)</span> has algebraic multiplicity <span class="math inline">\(c\)</span>.)</li>
-</ul>
+<div id="def-config-model-sequence" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 10.1</strong></span> Consider a graph with <span class="math inline">\(n\)</span> nodes. Let <span class="math inline">\({\bf k} \in \mathbb{N}^n\)</span> be the degree sequence, where <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>.</p>
+<p>A <strong>configuration model</strong> is a uniform distribution over graphs with degree sequence <span class="math inline">\({\bf k}.\)</span></p>
 </div>
 </div>
 </div>
 </div>
-<p>We will save the proofs of these properties for homework.</p>
-</section>
-<section id="the-graph-laplacian-as-a-diffusion-operator" class="level2">
-<h2 class="anchored" data-anchor-id="the-graph-laplacian-as-a-diffusion-operator">The Graph Laplacian as a Diffusion Operator</h2>
-<p>One of the many important properties of the graph Laplacian is that it describes many <em>spreading</em> or <em>diffusion</em> processes that take place on networks. Here’s an example: suppose that we “heat up” a single node on the network, and then allow heat to flow along the network edges. The Laplacian matrix gives a concise description of how this heat spreads over the network. Let <span class="math inline">\(\mathbf{x} \in \mathbb{R}^n\)</span> be the vector whose <span class="math inline">\(i\)</span>th entry gives the amount of heat currently on node <span class="math inline">\(i\)</span>. Then, the vector <span class="math inline">\(\delta \mathbf{x} = -\mathbf{Lx}\)</span> is proportional to rate of change of heat at each node. If we imagine that heat moves in discrete time, our update would be</p>
-<p><span class="math display">\[
-\begin{aligned}
-\mathbf{x} \gets \mathbf{x} -\alpha\mathbf{Lx} \,,
-\end{aligned}
-\]</span></p>
-<p>where <span class="math inline">\(\alpha\)</span> is some constant that describes the rate of heat transfer. Let’s see how this looks:</p>
-<div id="94bf12cb" class="cell" data-execution_count="2">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="fl">1.7</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a network for visualization and set up a layout</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>rad <span class="op">=</span> <span class="fl">0.25</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.random_geometric_graph(n, rad, seed <span class="op">=</span> <span class="dv">1234</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.kamada_kawai_layout(G)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># construct the Laplacian matrix</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># rate of heat transfer</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>rate <span class="op">=</span> <span class="fl">0.05</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># initial condition: all heat on a single node</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.zeros(n)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">20</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># main loop</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">enumerate</span>(axarr.flatten()):</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, ax <span class="op">=</span> ax, node_size <span class="op">=</span> <span class="dv">20</span>, edge_color <span class="op">=</span> <span class="st">'gray'</span>, node_color <span class="op">=</span> np.log(x <span class="op">+</span> <span class="fl">1e-4</span>), width <span class="op">=</span> <span class="fl">0.5</span>, pos <span class="op">=</span> layout, cmap <span class="op">=</span> <span class="st">"coolwarm"</span>, vmax <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"$t = "</span> <span class="op">+</span> <span class="bu">str</span>(i) <span class="op">+</span> <span class="st">"$"</span>)</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Laplacian dynamical update</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    x <span class="op">-=</span> rate<span class="op">*</span>L<span class="op">@</span>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="03-components-laplacian_files/figure-html/cell-3-output-1.png" width="614" height="164" class="figure-img"></p>
-<figcaption>Snapshots of heat diffusion on a network. Colors are shown on a logarithmic scale for visualization purposes.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The Laplacian operator also has many other applications in network science, many of which we will study later in these notes.</p>
+<p>The classic algorithmic strategy for sampling from such a configuration model is through <em>stub-matching</em>. Recall that each edge has two ends of edges, or <em>stubs</em>. This means that node <span class="math inline">\(i\)</span> has <span class="math inline">\(k_i\)</span> stubs.</p>
+<ol type="1">
+<li>Choose two stubs uniformly at random and connect these stubs to form an edge.</li>
+<li>Choose another pair from the remaining unmatched stubs; repeat the process until all stubs are matched.</li>
+</ol>
+<p>The stub-matching algorithm can produce multi-edges and self-loops, which can cause the graph to not be simple. However, <span class="citation" data-cites="bollobas1980probabilistic">Bollobás (<a href="#ref-bollobas1980probabilistic" role="doc-biblioref">1980</a>)</span> proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. Another challenge with this algorithm is we require an even number of stubs to get a graph realization that exactly matches the degree sequence.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bollobas1980probabilistic" class="csl-entry" role="listitem">
+Bollobás, Béla. 1980. <span>“A Probabilistic Proof of an Asymptotic Formula for the Number of Labelled Regular Graphs.”</span> <em>European Journal of Combinatorics</em> 1 (4): 311–16.
+</div>
+</div>
 </section>
 
 <p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2024</span></p></main> <!-- /main -->
@@ -932,14 +764,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/02-degree-walks-paths.html" class="pagination-link" aria-label="Degree, Walks, and Paths">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span>
+      <a href="../source/09-random-graphs.html" class="pagination-link" aria-label="Random Graphs: Erdős–Rényi">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/04-centrality.html" class="pagination-link" aria-label="Centrality">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
