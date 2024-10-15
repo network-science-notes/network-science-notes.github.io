@@ -308,7 +308,7 @@ Finally, we'll assume stationarity:
 
 $$
 \begin{aligned}
-    (n+1)p_d - np_d^{(t)} \doteq \left[\alpha  \frac{d-1}{2} + (1-\alpha)\right]p_{d-1} - \left[\alpha \frac{d}{2} + (1-\alpha)\right]p_{d}\;.
+    (n+1)p_d - np_d \doteq \left[\alpha  \frac{d-1}{2} + (1-\alpha)\right]p_{d-1} - \left[\alpha \frac{d}{2} + (1-\alpha)\right]p_{d}\;.
 \end{aligned}
 $$
 
