@@ -14,8 +14,6 @@ From a mathematical perspective, the idea of a configuration model is elegant an
 
 Similar to $G(n,p)$ models, we can understand a configuration model by understanding what is fixed (and what is random). 
 
-### Fixing a degree sequence
-
 One way to set up a configuration model is to fix a degree sequence $\{k_1, \dots, k_n\}$. Note that this also fixes the number of edges:
 $$
     m = \frac{1}{2} \sum_j k_j \,.
@@ -30,8 +28,6 @@ A **configuration model** is a uniform distribution over graphs with degree sequ
 
 :::
 :::
-
-This strategy is particularly useful as a degree-preserving null model for an empirical graph.
 
 The classic algorithmic strategy for sampling from such a configuration model is through *stub-matching*. Recall that each edge has two ends of edges, or *stubs*. This means that node $i$ has $k_i$ stubs.
 

@@ -19,4 +19,7 @@ book:
       chapters: 
         - source/09-random-graphs.qmd 
         - source/10-configuration-model.qmd
+    - part: "Network Algorithms"
+      chapters:
+        - source/19-spectral-clustering.qmd
 code-summary: "Show code"
