@@ -12,6 +12,7 @@ $$
 \newcommand{\mA}{\mathbf{A}}
 \newcommand{\mD}{\mathbf{D}}
 \newcommand{\mL}{\mathbf{L}}
+\newcommand{\mY}{\mathbf{Y}}
 \newcommand{\vz}{\mathbf{z}}
 \newcommand{\vy}{\mathbf{y}}
 \newcommand{\vx}{\mathbf{x}}
@@ -20,6 +21,7 @@ $$
 \newcommand{\vones}{\mathbb{1}}
 \newcommand{\vzero}{\mathbb{0}}
 \newcommand{\braces}[1]{\left\{#1\right\}}
+\newcommand{\brackets}[1]{\left[#1\right]}
 \newcommand{\paren}[1]{\left(#1\right)}
 \newcommand{\R}{\mathbb{R}}
 
@@ -65,16 +67,13 @@ $$
 
 :::
 
-Let's implement the cut and volume functions in Python given an adjacency matrix $\mA$ and a partition $(C_0, C_1)$ encoded as a vector $\vz \in \braces{0,1}^n$.
+Let's implement the cut and volume functions in Python given an adjacency matrix $\mA$ and a partition $(C_0, C_1)$ encoded as a vector $\vz \in \braces{0,1}^n$. First, we'll load some libraries and grab a graph for clustering: 
 
 ```{python}
 from matplotlib import pyplot as plt
 import networkx as nx
 import numpy as np 
 plt.style.use('seaborn-v0_8-whitegrid')
-```
-
-```{python}
 
 def unweight(G):
     for source, target in G.edges():
@@ -84,6 +83,8 @@ def unweight(G):
 G = unweight(nx.karate_club_graph())
 A = nx.to_numpy_array(G)
 ```
+
+Now we'll implement the cut and volume. 
 
 ```{python}
 #---
@@ -95,27 +96,35 @@ def vol(A, z, i):
 #---
 ```
 
+To get a feel for things, let's see how cut scores look for two clusterings, one of which looks "visually pretty good" and one of which is completely random. 
+
+
 
 ```{python}
 
+# get a "pretty good" set of clusters using a built-in algorithm. 
 partition = nx.algorithms.community.louvain.louvain_communities(G, resolution = 0.4)
-
 z = np.array([0 if node in partition[0] else 1 for node in G.nodes()])
 
+# random clusters
 z_rand = np.random.randint(0, 2, 34)
+
+# plot the two clusterings side-by-side
 pos = nx.spring_layout(G)
 
-fig, ax = plt.subplots(1, 2, figsize = (10, 4))
+fig, ax = plt.subplots(1, 2, figsize = (9, 3.75))
 nx.draw(G, pos, ax = ax[0], node_color = z, cmap = plt.cm.BrBG, node_size = 100, vmin = -0.5, vmax = 1.5, edgecolors = 'black')
 nx.draw(G, pos, ax = ax[1], node_color = z_rand, cmap = plt.cm.BrBG, node_size = 100, vmin = -0.5, vmax = 1.5, edgecolors = 'black')
 
-ax[0].set_title(fr'"Good" clustering: $cut(C_0, C_1)$ = {cut(A, z):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z, 0):.0f},   $vol(C_1)$ = {vol(A, z, 1):.0f}')
-ax[1].set_title(fr'Random clustering: $cut(C_0, C_1)$ = {cut(A, z_rand):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z_rand, 0):.0f},   $vol(C_1)$ = {vol(A, z_rand, 1):.0f}')
+t = ax[0].set_title(fr'"Good" clustering: $cut(C_0, C_1)$ = {cut(A, z):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z, 0):.0f},   $vol(C_1)$ = {vol(A, z, 1):.0f}')
+t = ax[1].set_title(fr'Random clustering: $cut(C_0, C_1)$ = {cut(A, z_rand):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z_rand, 0):.0f},   $vol(C_1)$ = {vol(A, z_rand, 1):.0f}')
 ```
+
+The visually appealing clustering has a substantially lower cut score than the random clustering.
 
 ## Engineering an Objective Function
 
-Our general idea is to seek a biclustering $(C_0, C_1)$ that that minimizes some function $f(C_0, C_1)$ defined in terms of the cut and volume: 
+How can we use the cut and volume to find useful clusterings? Our general idea is to seek a biclustering $(C_0, C_1)$ that that minimizes some function $f(C_0, C_1)$ defined in terms of the cut and volume: 
 
 $$
 \begin{aligned}
@@ -137,7 +146,7 @@ The problem with this approach is that it encourages us to put every node in the
 
 A general intuition that guides many approaches to the clustering problem is: 
 
-> A good clustering produces a small cut with relatively large volumes. 
+> A good clustering produces a small cut while maintaining relatively large volumes for all clusters. 
 
 That is, we want $f(C_0, C_1)$ to be small when $\cut{C_0}{C_1}$ is small and $\vol{C_0}$ and $\vol{C_1}$ are large.
 
@@ -150,7 +159,7 @@ $$
 $$
 
 Observe that this function $f$ has two counterbalancing terms. The first term is small when the cut term is small, while the second term is small when the two clusters $C_0$ and $C_1$ have similar volumes, and vanishes in the case when the two clusters have identical volumes. 
-In fact, this function $f$ is the modularity in disguise. As shown by @gleich2016mining, minimizing $f$ is equivalent to maximizing the modularity.
+In fact, this function $f$ is a disguised form of the modularity, [which we have previously seen](06-modularity.qmd). As shown by @gleich2016mining, minimizing $f$ is equivalent to maximizing the modularity.
 
 Since we've already seen modularity maximization, let's consider a different way of managing the tradeoff between cut and volume. Consider the objective function 
 
@@ -196,15 +205,84 @@ $$ {#eq-y}
 
 The vector $\vy$ is as good as $\vz$ for the purposes of clustering: the sign of $y_i$ completely determines the cluster of node $i$. 
 
-::: {.callout-note}
+::: {.callout-important}
 
 ## Exercise
 
 Prove the following properties of $\vy$:
 
-1. **Objective**: $\mathrm{NormCut}(C_0, C_1) = 2m\vy^T \mL \vy$, where $\mD$ is the diagonal matrix with entries $d_{ii} = k_i$, the degree of node $i$, and $\mL = \mD - \mA$ is our good friend the combinatorial graph Laplacian. 
-2. **Normalization**: $\vy^T\mD\vy = 1$. 
-2. **Orthogonality**: $\vy^T\mD \vones = 0$, where $\vones$ is the all-ones vector.
+1. **Normalization**: $\vy^T\mD\vy = 1$. 
+2. **Objective**: $\mathrm{NormCut}(C_0, C_1) = \vy^T \mL \vy$, where $\mD$ is the diagonal matrix with entries $d_{ii} = k_i$, the degree of node $i$, and $\mL = \mD - \mA$ is our good friend the combinatorial graph Laplacian. 
+3. **Orthogonality**: $\vy^T\mD \vones = 0$, where $\vones$ is the all-ones vector.
+
+:::
+
+::: {.hide .solution}
+
+It's convenient to first check normalization. We have 
+$$
+\begin{aligned}
+    \vy^T\mD\vy &= \sum_{1 \leq i,j \leq n} d_{ij} y_i y_j \\ 
+    &= \sum_{1 \leq i \leq n} k_{i}y_i^2 \quad \text{($\mD$ is diagonal)}\\ 
+    &= \sum_{i \in C_0} k_{i}y_i^2 + \sum_{i \in C_0} k_{i}y_i^2 &\\ 
+    &= \frac{1}{2m}\brackets{ \frac{\vol{C_1}}{\vol{C_0}} \sum_{i \in C_0} k_{i} +  \frac{\vol{C_0}}{\vol{C_1}} \sum_{i \in C_1} k_{i}} \\ 
+    &= \frac{1}{2m}\brackets{ \frac{\vol{C_1}}{\vol{C_0}} \vol{C_0} +  \frac{\vol{C_0}}{\vol{C_1}} \vol{C_1}} &\quad \text{(def. of $\vol{C}$)} \\
+    &= \frac{1}{2m}\brackets{\vol{C_0} + \vol{C_1}} \\ 
+    &= \frac{1}{2m} 2m\\ 
+    &= 1 \;.
+\end{aligned}
+$$
+
+Now let's check the objective. Since $\vy^T\mL\vy = \vy^T\mD\vy - \vy^T\mA\vy$, we only need to compute $\vy^T\mA\vy$. It's helpful to keep in mind here that 
+$$
+\begin{aligned}
+    y_iy_j = \begin{cases}
+        -\frac{1}{2m} & \text{if } i \in C_0, j \in C_1 \text{ or } i \in C_1, j \in C_0\;, \\
+        \frac{1}{2m} \frac{\vol{C_1}}{\vol{C_0}} & \text{if } i, j \in C_0\;, \\
+        \frac{1}{2m} \frac{\vol{C_0}}{\vol{C_1}} & \text{if } i, j \in C_1\;.
+    \end{cases}
+\end{aligned}
+$$
+
+Another pair of useful identities is 
+
+$$
+\begin{aligned}
+    \sum_{i \in C_0, j \in C_0}a_{ij} &= \sum_{i \in C_0, j \in N} a_{ij} - \sum_{i \in C_0, j \in C_1} a_{ij} = \vol{C_0} - \cut{C_0}{C_1} \\ 
+    \sum_{i \in C_1, j \in C_1}a_{ij} &= \sum_{i \in C_1, j \in N} a_{ij} - \sum_{i \in C_1, j \in C_0} a_{ij} = \vol{C_1} - \cut{C_0}{C_1}\;.
+\end{aligned}
+$$
+
+
+We'll now proceed with the computation: 
+
+$$
+\begin{aligned}
+\vy^T \mA \vy &= \sum_{1 \leq i, j \leq n} a_{ij} y_i y_j \\ 
+&= \sum_{i \in C_0, j \in C_1} a_{ij} y_i y_j + \sum_{i \in C_1, j \in C_0} a_{ij} y_i y_j + \sum_{i \in C_0, j \in C_0} a_{ij} y_i y_j + \sum_{i \in C_1, j \in C_1} a_{ij} y_i y_j \\
+&= \frac{1}{2m} \brackets{-\sum_{i \in C_0, j \in C_1} a_{ij} - \sum_{i \in C_1, j \in C_0} a_{ij} + \frac{\vol{C_1}}{\vol{C_0}} \sum_{i \in C_0, j \in C_0}a_{ij} + \frac{\vol{C_0}}{\vol{C_1}} \sum_{i \in C_1, j \in C_1} a_{ij} } \\ 
+&= \frac{1}{2m} \brackets{-2\cut{C_0}{C_1} + \frac{\vol{C_1}}{\vol{C_0}} \paren{\vol{C_0} - \cut{C_0}{C_1}} + \frac{\vol{C_0}}{\vol{C_1}} \paren{\vol{C_1} - \cut{C_0}{C_1}} }\\  
+&= \frac{1}{2m} \brackets{-2\cut{C_0}{C_1} + \vol{C_1} + \vol{C_0} - \cut{C_0}{C_1} \paren{\frac{\vol{C_1}}{\vol{C_0}} + \frac{\vol{C_0}}{\vol{C_1}}}} \\
+&= \frac{1}{2m} \brackets{2m - \cut{C_0}{C_1} \paren{2 + \frac{\vol{C_1}}{\vol{C_0}} + \frac{\vol{C_0}}{\vol{C_1}}}} \\
+&= 1 - \frac{1}{2m} \cut{C_0}{C_1} \paren{\frac{\vol{C_0} + \vol{C_1}}{\vol{C_0}} + \frac{\vol{C_1} + \vol{C_0}}{\vol{C_1}}} \\ 
+&= 1 - \frac{1}{2m} \cut{C_0}{C_1} \paren{\frac{2m}{\vol{C_0}} + \frac{2m}{\vol{C_1}}} \\ 
+&= 1 - \mathrm{NormCut}(C_0, C_1)\;. 
+\end{aligned}
+$$
+
+It follows that $\vy^T\mL\vy = \vy^T \mD\vy - \vy^T\mA\vy = \mathrm{NormCut}(C_0, C_1)$, as was to be shown. 
+
+Now onto orthogonality: we can calculate 
+
+$$
+\begin{aligned}
+    \vy^T\mD\vones &= \sum_{i \in N} k_i y_i = \sum_{i \in C_0} k_i y_i + \sum_{i \in C_1} k_i y_i \\ 
+    &= \frac{1}{2m}\brackets{\vol{C_0} \sqrt{\frac{\vol{C_1}}{\vol{C_0}}} - \vol{C_1} \sqrt{\frac{\vol{C_0}}{\vol{C_1}}}} \\ 
+    &= \frac{1}{2m}\brackets{\sqrt{\vol{C_1}\vol{C_0}} - \sqrt{\vol{C_1}\vol{C_0}}} \\ 
+    &= 0\;.
+\end{aligned}
+$$
+
 
 :::
 
@@ -212,7 +290,7 @@ These  properties tell us something important about $\vy$:
 
 1. The NormCut objective function can be expressed as a quadratic form in $\vy$; we want to find a choice of $\vy$ that minimizes this objective. 
 2. The vector $\vy$ has a natural scale; it always satisfies $\vy^T\mD\vy = 1$. 
-2. The vector $\vy\mD$ is orthogonal to the all-ones vector $\vones$. This is an expression of the idea that the volumes of the two clusters shouldn't be too different; we must have $\sum_{i \in C_0} y_i d_{i} = \sum_{i \in C_1} y_i d_{i}$.
+2. The vector $\vy\mD$ is orthogonal to the all-ones vector $\vones$. This is an expression of the idea that the volumes of the two clusters shouldn't be too different; we must have $\sum_{i \in C_0} y_i k_{i} = \sum_{i \in C_1} y_i k_{i}$.
 
 So, the problem of minimizing the NormCut objective is the same as the problem [We've ignored the factor of $2m$ in the objective function since it wouldn't change our choice of optimal $\vy$.]{.aside}
 
@@ -253,6 +331,33 @@ where we have defined $\tilde{\mL} = \mD^{-1/2} \mL \mD^{-1/2}$.
 Prove that the vector $\mD^{1/2}\vones$ is an eigenvector of the matrix $\tilde{\mL}$ with eigenvalue $0$. Explain why this is the smallest eigenvalue of $\tilde{\mL}$. 
 
 :::
+
+::: {.hide .solution}
+
+We can calculate directly that 
+
+$$
+\begin{aligned}
+    \tilde{\mL} \mD^{1/2}\vones &= \mD^{-1/2} \mL \mD^{-1/2} \mD^{1/2}\vones \\ 
+    &= \mD^{-1/2} \mL \vones \\ 
+    &= \mD^{-1/2} \vzero \\ 
+    &= \vzero\;.
+\end{aligned}
+$$
+
+We know that this is the smallest eigenvalue of $\tilde{\mL}$ because $\mL$ is positive semidefinite, so for any $\vx$, 
+
+$$
+\begin{aligned}
+    \vx^T \tilde{\mL} \vx = \vx^T \mD^{-1/2} \mL \mD^{-1/2} \vx =  \paren{\vx^T \mD^{-1/2}} \mL \paren{\mD^{-1/2} \vx} \geq 0. 
+\end{aligned}
+$$
+
+
+
+:::
+
+
 
 The previous exercise shows that [Problem @eq-optimization-relaxed-transformed] involves minimizing the quadratic form $\vx^T \tilde{\mL} \vx$ subject to the constraint $\norm{\vx} = 1$ and the requirement that $\vx$ be orthogonal to the smallest eigenvalue of $\tilde{\mL}$. We proved on a homework assignment a while back that the solution to this problem is the eigenvector $\vx^*$ corresponding to the *second-smallest eigenvalue* $\lambda_2$ of $\tilde{\mL}$. [A more general version of this result is called the *Courant-Fischer-Weyl theorem*.]{.aside}
 
@@ -298,9 +403,26 @@ Prove that the eigenvalues of $\hat{\mL}$ are the same as the eigenvalues of $\t
 
 :::
 
+::: {.hide .solution}
+
+
+Suppose that $\vx$ is an eigenvector of $\tilde{\mL}$ with eigenvalue $\lambda$. Then, $\tilde{\mL} \vx= \lambda \vx$, or $\mD^{-1/2} \mL \mD^{-1/2}  \vx =  \lambda \vx$. If we multiply both sides by the (invertible) matrix $\mD^{-1/2}$, we find that 
+
+$$
+\begin{aligned}
+    \hat{\mL}\mD^{-1/2}\vx = \lambda \mD^{-1/2}\vx\;,
+\end{aligned}
+$$
+
+which shows that $\mD^{-1/2}\vx$ is an eigenvector of $\hat{\mL}$ with eigenvalue $\lambda$. Since $\mD^{-1/2}$ is invertible, we can also pursue the same calculation in the other direction to show that any eigenvalue of $\hat{\mL}$ is also an eigenvalue of $\tilde{\mL}$.
+
+:::
+
+
+
 The signs of the entries of $\vy$ then give us a guide to the clusters in which we should place nodes. 
 
-## The Spectral Clustering Algorithm
+## The Spectral Biclustering Algorithm
 
 We have come a long way to derive a relatively simple algorithm. Spectral clustering says that, to find a good clustering of a (connected) graph, we should: 
 
@@ -328,8 +450,12 @@ Let's try computing the Fiedler eigenvector on the karate club graph:
 #---
 fiedler = fiedler_eigenvector(G)
 #---
+```
 
-fig, ax = plt.subplots(1, 1, figsize = (5, 4))
+And now let's visualize it! 
+
+```{python}
+fig, ax = plt.subplots(1, 1, figsize = (4.5, 3.75))
 nx.draw(G, pos, ax = ax, node_color = fiedler, cmap = plt.cm.BrBG, node_size = 100, edgecolors = 'black', vmin = -0.2, vmax = 0.2)
 ```
 
@@ -338,15 +464,62 @@ We can think of the Fiedler eigenvector as returning a "soft" clustering that gi
 ```{python}
 z_fiedler = 1*(fiedler > 0)
 
-fig, ax = plt.subplots(1, 1, figsize = (5, 4))
+fig, ax = plt.subplots(1, 1, figsize = (4.5, 4))
 nx.draw(G, pos, ax = ax, node_color = z_fiedler, cmap = plt.cm.BrBG, node_size = 100, edgecolors = 'black', vmin = -0.5, vmax = 1.5)
 
-t = ax.set_title(fr'"Laplacian clustering: $cut(C_0, C_1)$ = {cut(A, z_fiedler):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z_fiedler, 0):.0f},   $vol(C_1)$ = {vol(A, z_fiedler, 1):.0f}')
+t = ax.set_title(fr'Laplacian clustering: $cut(C_0, C_1)$ = {cut(A, z_fiedler):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z_fiedler, 0):.0f},   $vol(C_1)$ = {vol(A, z_fiedler, 1):.0f}')
 ```
 
-This clustering looks pretty reasonable! 
+This clustering looks pretty reasonable! Since we are only *approximately* solving the NormCut problem, it is not strictly guaranteed that this clustering is the best possible one in any sense. 
 
+## Multiway Spectral Clustering
 
+It is also possible to use spectral clustering to split a graph into more than two pieces. The general idea is that, when $k$ clusters are desired, we should compute the eigenvectors corresponding to the $k$ smallest eigenvalues of the matrix $\hat{\mL}$ and collect them in a matrix 
+
+$$
+\begin{aligned}
+    \mY = \begin{bmatrix} \vy_1 & \vy_2 & \cdots & \vy_k \end{bmatrix}\;.
+\end{aligned}
+$$
+
+The row $\vy_i = [v_{i1}, v_{i2}, \ldots, v_{ik}]$ of $\mY$ can be thought of as a set of spatial (Euclidean) coordinates for node $i$. We can then use a Euclidean clustering algorithm like $k$-means in the space of these coordinates in order to obtain a final clustering. 
+
+```{python}
+
+from sklearn.cluster import KMeans
+
+def multiway_spectral(G, k):
+
+    # same as before
+    A = nx.to_numpy_array(G)
+    D = np.diag(np.sum(A, axis = 1))
+    L = D - A
+    L_hat = np.linalg.inv(D) @ L
+    eigvals, eigvecs = np.linalg.eig(L_hat)
+
+    # Now we get the eigenvectors from the second to the k-th smallest
+    idx = np.argsort(eigvals)
+    Y = eigvecs[:, idx[0:k]]
+    
+    # cluster in the Euclidean space 
+    KM = KMeans(n_clusters = k)
+    KM.fit(Y)
+    return KM.labels_
+```
+
+Let's try this on the Les Mis graph! 
+
+```{python}
+G = unweight(nx.les_miserables_graph())
+
+labels = multiway_spectral(G, 5)
+
+fig, ax = plt.subplots(1, 1, figsize = (6, 5))
+
+nx.draw(G, ax = ax, cmap = plt.cm.Set3, node_color = labels, node_size = 100, edgecolors = 'black')
+```
+
+Visually, the results look fairly reasonable. Multiway spectral clustering can also be justified in terms of approximate normalized cut minimization; see @luxburgTutorialSpectralClustering2007 for details.
 
 
 

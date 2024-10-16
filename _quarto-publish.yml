@@ -18,5 +18,9 @@ book:
     - part: "Models of Networks"
       chapters:
         - chapters/09-random-graphs.qmd
+        - chapters/10-configuration-model.qmd
+    - part: "Network Algorithms"
+      chapters:
+        - chapters/19-spectral-clustering.qmd
     - part: "Applications and Extensions"
     
