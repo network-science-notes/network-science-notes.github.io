@@ -2,9 +2,247 @@
 code-fold: true
 code-summary: "Show code"
 jupyter: python3
+bibliography: ../refs.bib
 ---
 
 # Spectral Clustering
+
+::: {.hidden}
+
+$$
+\newcommand{\mA}{\mathbf{A}}
+\newcommand{\mD}{\mathbf{D}}
+\newcommand{\mL}{\mathbf{L}}
+\newcommand{\vz}{\mathbf{z}}
+\newcommand{\vy}{\mathbf{y}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\vones}{\mathbb{1}}
+\newcommand{\vzero}{\mathbb{0}}
+\newcommand{\braces}[1]{\left\{#1\right\}}
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\cut}[2]{\mathrm{\mathbf{{cut}}}\paren{#1,#2}}
+\newcommand{\vol}[1]{\mathrm{\mathbf{{vol}}}\paren{#1}}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+$$
+
+:::
+
+We continue our study of the clustering problem. We'll focus today on the problem of splitting a graph into two pieces. Suppose we have a graph $G = (N,E)$ with adjacency matrix $\mA \in \R^n$. Our aim is to determine a vector $\vz \in \braces{0,1}^n$ that splits the graph into two clusters: $C_0 = \braces{i \in N  : z_i = 0}$ and $C_1 = \braces{i \in N: z_i = 1}$. We aim for these clusters to be "good" in some sense, which usually means that there are many edges within each $C_i$ but relatively few edges between $C_0$ and $C_1$. [The problem of splitting a graph into two clusters is sometimes called the *biclustering problem*.]{.aside}
+
+In this set of notes, we'll introduce *Laplacian spectral clustering*, which we'll usually just abbreviate to *spectral clustering*. Spectral clustering is an eigenvector-based method for determining such a vector $\vz$, or, equivalently, the  two sets $C_0$ and $C_1$. 
+
+## Defining the Spectral Clustering Objective
+
+Many clustering algorithms proceed by optimizing or approximately optimizing a certain objective function.[^1] Spectral clustering is one such approximate optimization approach. In order to define the objective function for spectral clustering, we first need to introduce some notation. 
+
+[^1]: Modularity maximization is an example we've seen before.
+
+
+::: {#def-cut-and-vol}
+
+## Cut and Volume
+
+The *cut* of a partition $(C_0, C_1)$ on a graph $G$, written $\cut{C_0}{C_1}$, is  the number of edges with an edge in each cluster:  
+$$
+\begin{aligned}
+    \cut{C_0}{C_1} &\triangleq \sum_{i \in C_0, j \in C_1} a_{ij}
+\end{aligned}
+$$
+
+The *volume* of a set $C\subseteq N$ is the sum of the degrees of the nodes in $C$:
+
+$$
+\begin{aligned}
+    \vol{C} &\triangleq \sum_{i \in C} k_i = \sum_{i \in C} \sum_{j \in N} a_{ij}\;.
+\end{aligned}
+$$
+
+:::
+
+Let's implement the cut and volume functions in Python given an adjacency matrix $\mA$ and a partition $(C_0, C_1)$ encoded as a vector $\vz \in \braces{0,1}^n$.
+
+```{python}
+from matplotlib import pyplot as plt
+import networkx as nx
+import numpy as np 
+plt.style.use('seaborn-whitegrid')
+```
+
+```{python}
+
+def unweight(G):
+    for source, target in G.edges():
+        G[source][target]['weight'] = 1
+    return G
+
+G = unweight(nx.karate_club_graph())
+A = nx.to_numpy_array(G)
+```
+
+```{python}
+#---
+def cut(A, z):
+    return np.sum(A[z == 0][:, z == 1])
+
+def vol(A, z, i):
+    return np.sum(A[z == i])
+#---
+```
+
+
+```{python}
+
+partition = nx.algorithms.community.louvain.louvain_communities(G, resolution = 0.4)
+
+z = np.array([0 if node in partition[0] else 1 for node in G.nodes()])
+
+z_rand = np.random.randint(0, 2, 34)
+pos = nx.spring_layout(G)
+
+fig, ax = plt.subplots(1, 2, figsize = (10, 4))
+nx.draw(G, pos, ax = ax[0], node_color = z, cmap = plt.cm.BrBG, node_size = 100, vmin = -0.5, vmax = 1.5, edgecolors = 'black')
+nx.draw(G, pos, ax = ax[1], node_color = z_rand, cmap = plt.cm.BrBG, node_size = 100, vmin = -0.5, vmax = 1.5, edgecolors = 'black')
+
+ax[0].set_title(fr'"Good" clustering: $cut(C_0, C_1)$ = {cut(A, z):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z, 0):.0f},   $vol(C_1)$ = {vol(A, z, 1):.0f}')
+ax[1].set_title(fr'Random clustering: $cut(C_0, C_1)$ = {cut(A, z_rand):.0f}' + "\n" +   fr'$vol(C_0)$ = {vol(A, z_rand, 0):.0f},   $vol(C_1)$ = {vol(A, z_rand, 1):.0f}')
+```
+
+## Engineering an Objective Function
+
+Our general idea is to seek a biclustering $(C_0, C_1)$ that that minimizes some function $f(C_0, C_1)$ defined in terms of the cut and volume: 
+
+$$
+\begin{aligned}
+    C_0^*, C_1^* = \argmin_{C_0, C_1} f(C_0, C_1)\;.
+\end{aligned}
+$$
+
+The function $f$ should be small when $(C_0, C_1)$ is a "good" clustering and large when $(C_0, C_1)$ is a "bad" clustering. How can we combine the cut and volume in order to express this idea? 
+
+One initially appealing idea is to simply let $f$ be the cut size: 
+
+$$
+\begin{aligned}
+    f(C_0, C_1) = \cut{C_0}{C_1}\;.
+\end{aligned}
+$$
+
+The problem with this approach is that it encourages us to put every node in the same cluster. For example, if $C_0 = N$ and $C_1 = \emptyset$, then all nodes have label $0$ and $\cut{C_0}{C_1} = 0$. This is the smallest realizable cut size, but isn't a very useful solution to the clustering problem! 
+
+A general intuition that guides many approaches to the clustering problem is: 
+
+> A good clustering produces a small cut with relatively large volumes. 
+
+That is, we want $f(C_0, C_1)$ to be small when $\cut{C_0}{C_1}$ is small and $\vol{C_0}$ and $\vol{C_1}$ are large.
+
+Here's one candidate $f$ that encodes this intuition. Let $\vol{G} = \sum_{i \in N} k_i = 2m$ be the total volume of the graph. Then, let 
+
+$$
+\begin{aligned}
+    f(C_0, C_1) = \cut{C_0}{C_1} + \frac{1}{4\vol{G}}\paren{\vol{C_0} - \vol{C_1}}^2\;.
+\end{aligned}
+$$
+
+Observe that this function $f$ has two counterbalancing terms. The first term is small when the cut term is small, while the second term is small when the two clusters $C_0$ and $C_1$ have similar volumes, and vanishes in the case when the two clusters have identical volumes. 
+In fact, this function $f$ is the modularity in disguise. As shown by @gleich2016mining, minimizing $f$ is equivalent to maximizing the modularity.
+
+Since we've already seen modularity maximization, let's consider a different way of managing the tradeoff between cut and volume. Consider the objective function 
+
+$$
+\begin{aligned}
+    f(C_0, C_1) = \cut{C_0}{C_1}\paren{\frac{1}{\vol{C_0}} + \frac{1}{\vol{C_1}}}\;.
+\end{aligned}
+$$
+
+This is the *normalized cut* or *NormCut* objective function, and its minimization is the problem that will guide our development of spectral clustering. [Our choice of the NormCut objective function will guide us towards the spectral clustering algorithm of @shi2000normalized. There are alternative objective functions which also lead to forms of Laplacian spectral clustering;  @luxburgTutorialSpectralClustering2007 offer a comprehensive discussion.]{.aside}
+
+Let's implement the normalized cut and check that it gives a lower score to the "good" clustering than to the random clustering: 
+
+```{python}
+#---
+def norm_cut(A, z):
+    return cut(A, z)*(1/vol(A, z, 0) + 1/vol(A, z, 1))
+#---
+```
+
+
+```{python}
+print(f"NormCut of good clustering: {norm_cut(A, z):.2f}")
+print(f"NormCut of random clustering: {norm_cut(A, z_rand):.2f}")
+```
+
+As expected, the normcut of the good clustering is much lower than the normcut of the random clustering.
+
+## The Need for Approximation
+
+Is that it? Are we done? Could we simply define a clustering algorithm that finds clusters which minimize the NormCut? Unfortunately, this appealing idea isn't practical: the problem of finding the partition that minimizes the normalized cut is NP-hard [@wagner1993between]. So, in order to work with large instances, we need to find an *approximate* solution of the NormCut minimization problem that admits an efficient solution. [Our development in the remainder of these notes closely follows that of @luxburgTutorialSpectralClustering2007, which in turn follows the original development of @shi2000normalized.]{.aside}
+
+Our strategy is to express the NormCut objective in linear algebraic terms. To do this, define the vector $\vy \in \R^n$ with entries [Recall that the condition $i \in C_0$ is equivalent to $z_i = 0$.]{.aside}
+
+$$
+\begin{aligned}
+    y_i = \begin{cases}
+        &\frac{1}{\vol{C_0}} & \text{if } i \in C_0\;, \\
+        -&\frac{1}{\vol{C_1}} & \text{if } i \in C_1\;.
+    \end{cases} 
+\end{aligned}
+$$ {#eq-y}
+
+The vector $\vy$ is as good as $\vz$ for the purposes of clustering: the sign of $y_i$ completely determines the cluster of node $i$. 
+
+::: {.callout-info}
+
+## Exercise
+
+Prove the following properties of $\vy$:
+
+1. **Objective**: $\mathrm{NormCut}(C_0, C_1) = \frac{\vy^T \mL \vy}{\vy^T\mD\vy}$, where $\mD$ is the diagonal matrix with entries $d_{ii} = k_i$, the degree of node $i$, and $\mL = \mD - \mA$ is our good friend the combinatorial graph Laplacian. 
+2. **Orthogonality**: $\vy\mD \vones = 0$, where $\vones$ is the all-ones vector.
+
+:::
+
+These two properties tell us something important about $\vy$: 
+
+1. The NormCut objective function can be expressed as a ratio of quadratic forms in $\vy$; we want to find a choice of $\vy$ that minimizes this objective. 
+2. The vector $\vy\mD$ is orthogonal to the all-ones vector $\vones$. This is an expression of the idea that the volumes of the two clusters shouldn't be too different; we must have $\sum_{i \in C_0} y_i d_{i} = \sum_{i \in C_1} y_i d_{i}$.
+
+So, the problem of minimizing the NormCut objective is the same as the problem 
+
+$$
+\begin{aligned}
+    \vy^* = \argmin_{\vy\in \cY} \; \frac{\vy^T \mL \vy}{\vy^T\mD\vy} \quad \text{subject to} \quad \vy\mD \vones = 0\;,
+\end{aligned}
+$$ {#eq-optimization}
+
+where $\cY$ is the set of all vectors $\vy$ of the form specified by @eq-y for some choice of $\vz$.
+
+Let's now change our perspective a bit: rather than requiring that $\vy \in \cY$ have the exact form described above, we'll instead treat $\vy$ as an arbitrary unknown vector in $\R^n$ and attempt to minimize over this domain instead: 
+
+$$
+\begin{aligned}
+    \vy^* = \argmin_{\vy\in \R^n} \; \frac{\vy^T \mL \vy}{\vy^T\mD\vy} \quad \text{subject to} \quad  \vy\mD \vones = 0\;,
+\end{aligned}
+$$ {#eq-optimization-relaxed}
+
+This is an approximation to the original problem, and the approach is common enough to have a name: [Problem @eq-optimization-relaxed] is the *continuous relaxation* of [Problem @eq-optimization]. This relaxed problem is the problem solved by Laplacian spectral clustering. 
+
+It's now time to explain the "spectral" in "Laplacian spectral clustering." The function $g(\vy) = \frac{\vy^T \mL \vy}{\vy^T\mD\vy}$ is called a *Rayleigh quotient* defined by the two matrices $\mL$ and $\mD$. The critical points of the Rayleigh quotient (the vectors $\vy^*$ for which $\nabla_{\vy} g(\vy^*) = \vzero$) are exactly the eigenvectors of the matrix $\mD^{-1}\mL$. [Here is the outline of a proof that the critical points correspond to the eigenvectors. Since $g(\vy)$ is invariant under scaling (i.e. $g(\vy) = g(\alpha \vy)$ for any $\alpha \neq 0$), we can always choose $\vy$ so that $\vy^T\mD\vy = 1$. This means that minimizing the Rayleigh quotient is equivalent to minimizing $\vy^T\mL\vy$ subject to $\vy^T\mD\vy = 1$. Using the method of Lagrange multipliers to identify critical points results in the generalized eigenvalue equation $\mL\vy = \lambda \mD\vy$; multiplying by $\mD^{-1}$ gives the result.]{.aside} This would suggest choosing the eigenvector of $\mD^{-1}\mL$ with the smallest eigenvalue in order to minimize the Rayleigh quotient. We must, however, take into account the orthogonality constraint $\vy\mD\vones = 0$. This rules out the smallest eigenvector $\vones$ of $\mD^{-1}\mL$ as a solution to [Problem @eq-optimization-relaxed], since $\vones^T\mD\vones = \sum_{i\in N } k_i = 2m > 0$. The minimizing choice of $\vy$ which solves the constrained optimization  [Problem @eq-optimization-relaxed] must therefore be the eigenvector corresponding to the *second* smallest eigenvalue of $\mD^{-1}\mL$. 
+
+
+[MIGHT NEED A SLIGHTLY MORE CAREFUL/TEDIOUS ARGUMENT HERE]
+
+
+
+
+
+
+
+
+
 
 
 
