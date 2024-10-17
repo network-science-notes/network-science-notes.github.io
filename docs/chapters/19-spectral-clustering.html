@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.11">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; Spectral Clustering – Network Science: Models, Mathematics, and Computation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/10-configuration-model.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c2c6eee373d77cf925a3f90242822aa2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Network Fundamentals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Measuring Networks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks, and Why You Shouldn’t</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Homophily, assortativity, and modularity</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Real-World Networks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/08-power-laws.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Models of Networks</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Network Algorithms</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Applications and Extensions</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#defining-the-spectral-clustering-objective" id="toc-defining-the-spectral-clustering-objective" class="nav-link active" data-scroll-target="#defining-the-spectral-clustering-objective">Defining the Spectral Clustering Objective</a></li>
+  <li><a href="#engineering-an-objective-function" id="toc-engineering-an-objective-function" class="nav-link" data-scroll-target="#engineering-an-objective-function">Engineering an Objective Function</a></li>
+  <li><a href="#from-normcut-to-eigenvectors" id="toc-from-normcut-to-eigenvectors" class="nav-link" data-scroll-target="#from-normcut-to-eigenvectors">From NormCut to Eigenvectors</a></li>
+  <li><a href="#the-spectral-biclustering-algorithm" id="toc-the-spectral-biclustering-algorithm" class="nav-link" data-scroll-target="#the-spectral-biclustering-algorithm">The Spectral Biclustering Algorithm</a></li>
+  <li><a href="#multiway-spectral-clustering" id="toc-multiway-spectral-clustering" class="nav-link" data-scroll-target="#multiway-spectral-clustering">Multiway Spectral Clustering</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/19-spectral-clustering.ipynb">here</a>.</em></p>
+<div class="hidden">
+$$
+<p>$$</p>
+</div>
+<div class="page-columns page-full"><p>We continue our study of the clustering problem. We’ll focus today on the problem of splitting a graph into two pieces. Suppose we have a graph <span class="math inline">\(G = (N,E)\)</span> with adjacency matrix <span class="math inline">\(\mathbf{A}\in \mathbb{R}^n\)</span>. Our aim is to determine a vector <span class="math inline">\(\mathbf{z}\in \left\{0,1\right\}^n\)</span> that splits the graph into two clusters: <span class="math inline">\(C_0 = \left\{i \in N  : z_i = 0\right\}\)</span> and <span class="math inline">\(C_1 = \left\{i \in N: z_i = 1\right\}\)</span>. We aim for these clusters to be “good” in some sense, which usually means that there are many edges within each <span class="math inline">\(C_i\)</span> but relatively few edges between <span class="math inline">\(C_0\)</span> and <span class="math inline">\(C_1\)</span>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The problem of splitting a graph into two clusters is sometimes called the <em>biclustering problem</em>.</span></div></div>
+<p>In this set of notes, we’ll introduce <em>Laplacian spectral clustering</em>, which we’ll usually just abbreviate to <em>spectral clustering</em>. Spectral clustering is an eigenvector-based method for determining such a vector <span class="math inline">\(\mathbf{z}\)</span>, or, equivalently, the two sets <span class="math inline">\(C_0\)</span> and <span class="math inline">\(C_1\)</span>.</p>
+<section id="defining-the-spectral-clustering-objective" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="defining-the-spectral-clustering-objective">Defining the Spectral Clustering Objective</h2>
+<p>Many clustering algorithms proceed by optimizing or approximately optimizing a certain objective function.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Spectral clustering is one such approximate optimization approach. In order to define the objective function for spectral clustering, we first need to introduce some notation.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Modularity maximization is an example we’ve seen before.</p></div></div><div id="def-cut-and-vol" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 11.1 (Cut and Volume)</strong></span> The <em>cut</em> of a partition <span class="math inline">\((C_0, C_1)\)</span> on a graph <span class="math inline">\(G\)</span>, written <span class="math inline">\(\mathrm{\mathbf{{cut}}}\left(C_0,C_1\right)\)</span>, is the number of edges with an edge in each cluster:<br>
+<span class="math display">\[
+\begin{aligned}
+    \mathrm{\mathbf{{cut}}}\left(C_0,C_1\right) &amp;\triangleq \sum_{i \in C_0, j \in C_1} a_{ij}
+\end{aligned}
+\]</span></p>
+<p>The <em>volume</em> of a set <span class="math inline">\(C\subseteq N\)</span> is the sum of the degrees of the nodes in <span class="math inline">\(C\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \mathrm{\mathbf{{vol}}}\left(C\right) &amp;\triangleq \sum_{i \in C} k_i = \sum_{i \in C} \sum_{j \in N} a_{ij}\;.
+\end{aligned}
+\]</span></p>
+</div>
+<p>Let’s implement the cut and volume functions in Python given an adjacency matrix <span class="math inline">\(\mathbf{A}\)</span> and a partition <span class="math inline">\((C_0, C_1)\)</span> encoded as a vector <span class="math inline">\(\mathbf{z}\in \left\{0,1\right\}^n\)</span>. First, we’ll load some libraries and grab a graph for clustering:</p>
+<div id="201ad0c4" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.karate_club_graph())</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we’ll implement the cut and volume.</p>
+<div id="72617d95" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cut(A, z):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> <span class="dv">0</span>][:, z <span class="op">==</span> <span class="dv">1</span>])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vol(A, z, i):</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To get a feel for things, let’s see how cut scores look for two clusterings, one of which looks “visually pretty good” and one of which is completely random.</p>
+<div id="ed064d00" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get a "pretty good" set of clusters using a built-in algorithm. </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>partition <span class="op">=</span> nx.algorithms.community.louvain.louvain_communities(G, resolution <span class="op">=</span> <span class="fl">0.4</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.array([<span class="dv">0</span> <span class="cf">if</span> node <span class="kw">in</span> partition[<span class="dv">0</span>] <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> node <span class="kw">in</span> G.nodes()])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># random clusters</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>z_rand <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">34</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the two clusterings side-by-side</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="fl">3.75</span>))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax[<span class="dv">0</span>], node_color <span class="op">=</span> z, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, vmax <span class="op">=</span> <span class="fl">1.5</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax[<span class="dv">1</span>], node_color <span class="op">=</span> z_rand, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, vmax <span class="op">=</span> <span class="fl">1.5</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax[<span class="dv">0</span>].set_title(<span class="vs">fr'"Good" clustering: $cut(C_0, C_1)$ = </span><span class="sc">{</span>cut(A, z)<span class="sc">:.0f}</span><span class="vs">'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span>   <span class="vs">fr'$vol(C_0)$ = </span><span class="sc">{</span>vol(A, z, <span class="dv">0</span>)<span class="sc">:.0f}</span><span class="vs">,   $vol(C_1)$ = </span><span class="sc">{</span>vol(A, z, <span class="dv">1</span>)<span class="sc">:.0f}</span><span class="vs">'</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax[<span class="dv">1</span>].set_title(<span class="vs">fr'Random clustering: $cut(C_0, C_1)$ = </span><span class="sc">{</span>cut(A, z_rand)<span class="sc">:.0f}</span><span class="vs">'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span>   <span class="vs">fr'$vol(C_0)$ = </span><span class="sc">{</span>vol(A, z_rand, <span class="dv">0</span>)<span class="sc">:.0f}</span><span class="vs">,   $vol(C_1)$ = </span><span class="sc">{</span>vol(A, z_rand, <span class="dv">1</span>)<span class="sc">:.0f}</span><span class="vs">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="19-spectral-clustering_files/figure-html/cell-4-output-1.png" width="689" height="337" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The visually appealing clustering has a substantially lower cut score than the random clustering.</p>
+</section>
+<section id="engineering-an-objective-function" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="engineering-an-objective-function">Engineering an Objective Function</h2>
+<p>How can we use the cut and volume to find useful clusterings? Our general idea is to seek a biclustering <span class="math inline">\((C_0, C_1)\)</span> that that minimizes some function <span class="math inline">\(f(C_0, C_1)\)</span> defined in terms of the cut and volume:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    C_0^*, C_1^* = \mathop{\mathrm{arg\,min}}_{C_0, C_1} f(C_0, C_1)\;.
+\end{aligned}
+\]</span></p>
+<p>The function <span class="math inline">\(f\)</span> should be small when <span class="math inline">\((C_0, C_1)\)</span> is a “good” clustering and large when <span class="math inline">\((C_0, C_1)\)</span> is a “bad” clustering. How can we combine the cut and volume in order to express this idea?</p>
+<p>One initially appealing idea is to simply let <span class="math inline">\(f\)</span> be the cut size:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    f(C_0, C_1) = \mathrm{\mathbf{{cut}}}\left(C_0,C_1\right)\;.
+\end{aligned}
+\]</span></p>
+<p>The problem with this approach is that it encourages us to put every node in the same cluster. For example, if <span class="math inline">\(C_0 = N\)</span> and <span class="math inline">\(C_1 = \emptyset\)</span>, then all nodes have label <span class="math inline">\(0\)</span> and <span class="math inline">\(\mathrm{\mathbf{{cut}}}\left(C_0,C_1\right) = 0\)</span>. This is the smallest realizable cut size, but isn’t a very useful solution to the clustering problem!</p>
+<p>A general intuition that guides many approaches to the clustering problem is:</p>
+<blockquote class="blockquote">
+<p>A good clustering produces a small cut while maintaining relatively large volumes for all clusters.</p>
+</blockquote>
+<p>That is, we want <span class="math inline">\(f(C_0, C_1)\)</span> to be small when <span class="math inline">\(\mathrm{\mathbf{{cut}}}\left(C_0,C_1\right)\)</span> is small and <span class="math inline">\(\mathrm{\mathbf{{vol}}}\left(C_0\right)\)</span> and <span class="math inline">\(\mathrm{\mathbf{{vol}}}\left(C_1\right)\)</span> are large.</p>
+<p>Here’s one candidate <span class="math inline">\(f\)</span> that encodes this intuition. Let <span class="math inline">\(\mathrm{\mathbf{{vol}}}\left(G\right) = \sum_{i \in N} k_i = 2m\)</span> be the total volume of the graph. Then, let</p>
+<p><span class="math display">\[
+\begin{aligned}
+    f(C_0, C_1) = \mathrm{\mathbf{{cut}}}\left(C_0,C_1\right) + \frac{1}{4\mathrm{\mathbf{{vol}}}\left(G\right)}\left(\mathrm{\mathbf{{vol}}}\left(C_0\right) - \mathrm{\mathbf{{vol}}}\left(C_1\right)\right)^2\;.
+\end{aligned}
+\]</span></p>
+<p>Observe that this function <span class="math inline">\(f\)</span> has two counterbalancing terms. The first term is small when the cut term is small, while the second term is small when the two clusters <span class="math inline">\(C_0\)</span> and <span class="math inline">\(C_1\)</span> have similar volumes, and vanishes in the case when the two clusters have identical volumes. In fact, this function <span class="math inline">\(f\)</span> is a disguised form of the modularity, <a href="../chapters/06-modularity.html">which we have previously seen</a>. As shown by <span class="citation" data-cites="gleich2016mining">Gleich and Mahoney (<a href="#ref-gleich2016mining" role="doc-biblioref">2016</a>)</span>, minimizing <span class="math inline">\(f\)</span> is equivalent to maximizing the modularity.</p>
+<p>Since we’ve already seen modularity maximization, let’s consider a different way of managing the tradeoff between cut and volume. Consider the objective function</p>
+<p><span class="math display">\[
+\begin{aligned}
+    f(C_0, C_1) = \mathrm{\mathbf{{cut}}}\left(C_0,C_1\right)\left(\frac{1}{\mathrm{\mathbf{{vol}}}\left(C_0\right)} + \frac{1}{\mathrm{\mathbf{{vol}}}\left(C_1\right)}\right)\;.
+\end{aligned}
+\]</span></p>
+<div class="page-columns page-full"><p>This is the <em>normalized cut</em> or <em>NormCut</em> objective function, and its minimization is the problem that will guide our development of spectral clustering. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Our choice of the NormCut objective function will guide us towards the spectral clustering algorithm of <span class="citation" data-cites="shi2000normalized">Shi and Malik (<a href="#ref-shi2000normalized" role="doc-biblioref">2000</a>)</span>. There are alternative objective functions which also lead to forms of Laplacian spectral clustering; <span class="citation" data-cites="luxburgTutorialSpectralClustering2007">Luxburg (<a href="#ref-luxburgTutorialSpectralClustering2007" role="doc-biblioref">2007</a>)</span> offer a comprehensive discussion.</span></div></div>
+<p>Let’s implement the normalized cut and check that it gives a lower score to the “good” clustering than to the random clustering:</p>
+<div id="860b2969" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> norm_cut(A, z):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cut(A, z)<span class="op">*</span>(<span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="1fd5e2c4" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of good clustering: </span><span class="sc">{</span>norm_cut(A, z)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of random clustering: </span><span class="sc">{</span>norm_cut(A, z_rand)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>NormCut of good clustering: 0.26
+NormCut of random clustering: 1.08</code></pre>
+</div>
+</div>
+<p>As expected, the normcut of the good clustering is much lower than the normcut of the random clustering.</p>
+</section>
+<section id="from-normcut-to-eigenvectors" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="from-normcut-to-eigenvectors">From NormCut to Eigenvectors</h2>
+<div class="page-columns page-full"><p>Is that it? Are we done? Could we simply define a clustering algorithm that finds clusters which minimize the NormCut? Unfortunately, this appealing idea isn’t practical: the problem of finding the partition that minimizes the normalized cut is NP-hard <span class="citation" data-cites="wagner1993between">(<a href="#ref-wagner1993between" role="doc-biblioref">Wagner and Wagner 1993</a>)</span>. So, in order to work with large instances, we need to find an <em>approximate</em> solution of the NormCut minimization problem that admits an efficient solution. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Our development in the remainder of these notes closely follows that of <span class="citation" data-cites="luxburgTutorialSpectralClustering2007">Luxburg (<a href="#ref-luxburgTutorialSpectralClustering2007" role="doc-biblioref">2007</a>)</span>, which in turn follows the original development of <span class="citation" data-cites="shi2000normalized">Shi and Malik (<a href="#ref-shi2000normalized" role="doc-biblioref">2000</a>)</span>.</span></div></div>
+<div class="page-columns page-full"><p>Our strategy is to express the NormCut objective in linear algebraic terms. To do this, define the vector <span class="math inline">\(\mathbf{y}\in \mathbb{R}^n\)</span> with entries </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Recall that the condition <span class="math inline">\(i \in C_0\)</span> is equivalent to <span class="math inline">\(z_i = 0\)</span>.</span></div></div>
+<p><span id="eq-y"><span class="math display">\[
+\begin{aligned}
+    y_i = \begin{cases}
+        &amp;\frac{1}{\sqrt{2m}}\sqrt{\frac{\mathrm{\mathbf{{vol}}}\left(C_1\right)}{\mathrm{\mathbf{{vol}}}\left(C_0\right)}} &amp; \text{if } i \in C_0\;, \\
+        -&amp;\frac{1}{\sqrt{2m}}\sqrt{\frac{\mathrm{\mathbf{{vol}}}\left(C_0\right)}{\mathrm{\mathbf{{vol}}}\left(C_1\right)}} &amp; \text{if } i \in C_1\;.
+    \end{cases}
+\end{aligned}
+\tag{11.1}\]</span></span></p>
+<p>The vector <span class="math inline">\(\mathbf{y}\)</span> is as good as <span class="math inline">\(\mathbf{z}\)</span> for the purposes of clustering: the sign of <span class="math inline">\(y_i\)</span> completely determines the cluster of node <span class="math inline">\(i\)</span>.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prove the following properties of <span class="math inline">\(\mathbf{y}\)</span>:</p>
+<ol type="1">
+<li><strong>Normalization</strong>: <span class="math inline">\(\mathbf{y}^T\mathbf{D}\mathbf{y}= 1\)</span>.</li>
+<li><strong>Objective</strong>: <span class="math inline">\(\mathrm{NormCut}(C_0, C_1) = \mathbf{y}^T \mathbf{L}\mathbf{y}\)</span>, where <span class="math inline">\(\mathbf{D}\)</span> is the diagonal matrix with entries <span class="math inline">\(d_{ii} = k_i\)</span>, the degree of node <span class="math inline">\(i\)</span>, and <span class="math inline">\(\mathbf{L}= \mathbf{D}- \mathbf{A}\)</span> is our good friend the combinatorial graph Laplacian.</li>
+<li><strong>Orthogonality</strong>: <span class="math inline">\(\mathbf{y}^T\mathbf{D}\mathbb{1}= 0\)</span>, where <span class="math inline">\(\mathbb{1}\)</span> is the all-ones vector.</li>
+</ol>
+</div>
+</div>
+
+<p>These properties tell us something important about <span class="math inline">\(\mathbf{y}\)</span>:</p>
+<ol type="1">
+<li>The NormCut objective function can be expressed as a quadratic form in <span class="math inline">\(\mathbf{y}\)</span>; we want to find a choice of <span class="math inline">\(\mathbf{y}\)</span> that minimizes this objective.</li>
+<li>The vector <span class="math inline">\(\mathbf{y}\)</span> has a natural scale; it always satisfies <span class="math inline">\(\mathbf{y}^T\mathbf{D}\mathbf{y}= 1\)</span>.</li>
+<li>The vector <span class="math inline">\(\mathbf{y}\mathbf{D}\)</span> is orthogonal to the all-ones vector <span class="math inline">\(\mathbb{1}\)</span>. This is an expression of the idea that the volumes of the two clusters shouldn’t be too different; we must have <span class="math inline">\(\sum_{i \in C_0} y_i k_{i} = \sum_{i \in C_1} y_i k_{i}\)</span>.</li>
+</ol>
+<div class="page-columns page-full"><p>So, the problem of minimizing the NormCut objective is the same as the problem </p><div class="no-row-height column-margin column-container"><span class="margin-aside">We’ve ignored the factor of <span class="math inline">\(2m\)</span> in the objective function since it wouldn’t change our choice of optimal <span class="math inline">\(\mathbf{y}\)</span>.</span></div></div>
+<p><span id="eq-optimization"><span class="math display">\[
+\begin{aligned}
+    \mathbf{y}^* = \mathop{\mathrm{arg\,min}}_{\mathbf{y}\in \mathcal{Y}} \; \mathbf{y}^T \mathbf{L}\mathbf{y}\quad \text{ subject to } \quad \mathbf{y}^T\mathbf{D}\mathbf{y}= 1 \quad \text{and} \quad \mathbf{y}\mathbf{D}\mathbb{1}= 0\;,
+\end{aligned}
+\tag{11.2}\]</span></span></p>
+<p>where <span class="math inline">\(\mathcal{Y}\)</span> is the set of all vectors <span class="math inline">\(\mathbf{y}\)</span> of the form specified by <a href="#eq-y" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> for some choice of <span class="math inline">\(\mathbf{z}\)</span>.</p>
+<p>Let’s now change our perspective a bit: rather than requiring that <span class="math inline">\(\mathbf{y}\in \mathcal{Y}\)</span> have the exact form described above, we’ll instead treat <span class="math inline">\(\mathbf{y}\)</span> as an arbitrary unknown vector in <span class="math inline">\(\mathbb{R}^n\)</span> and attempt to minimize over this domain instead:</p>
+<p><span id="eq-optimization-relaxed"><span class="math display">\[
+\begin{aligned}
+    \mathbf{y}^* = \mathop{\mathrm{arg\,min}}_{\mathbf{y}\in \mathbb{R}^n} \; \mathbf{y}^T \mathbf{L}\mathbf{y}\quad \text{ subject to } \quad \mathbf{y}^T\mathbf{D}\mathbf{y}= 1 \quad \text{and} \quad \mathbf{y}\mathbf{D}\mathbb{1}= 0\;,
+\end{aligned}
+\tag{11.3}\]</span></span></p>
+<p>This is an approximation to the original problem and the approach is common enough to have a name: <a href="#eq-optimization-relaxed" class="quarto-xref">Problem&nbsp;<span>11.3</span></a> is the <em>continuous relaxation</em> of <a href="#eq-optimization" class="quarto-xref">Problem&nbsp;<span>11.2</span></a>. This relaxed problem is the problem solved by Laplacian spectral clustering.</p>
+<p>It is now time to explain the word “spectral” in “Laplacian spectral clustering.” As you may remember, “spectral methods” are methods which rely on the eigenvalues and eigenvectors of matrices. So, our claim is that we are going to solve <a href="#eq-optimization-relaxed" class="quarto-xref">Problem&nbsp;<span>11.3</span></a> by finding the eigenvector of a certain matrix. Let’s see why.</p>
+<p>Let’s make a small change of variables. Define <span class="math inline">\(\mathbf{x}= \mathbf{D}^{1/2} \mathbf{y}\)</span>. Then, we can rewrite the objective function as a function of <span class="math inline">\(\mathbf{x}\)</span>:</p>
+<p><span id="eq-optimization-relaxed-transformed"><span class="math display">\[
+\begin{aligned}
+    \mathbf{x}^* =  \mathop{\mathrm{arg\,min}}_{\mathbf{x}\in \mathbb{R}^n} \; \mathbf{x}^T \tilde{\mathbf{L}} \mathbf{x}\quad \text{subject to} \quad \lVert \mathbf{x} \rVert = 1\quad  \text{and} \quad \mathbf{x}^T \mathbf{D}^{1/2} \mathbb{1}= 0\;,
+\end{aligned}
+\tag{11.4}\]</span></span></p>
+<p>where we have defined <span class="math inline">\(\tilde{\mathbf{L}} = \mathbf{D}^{-1/2} \mathbf{L}\mathbf{D}^{-1/2}\)</span>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prove that the vector <span class="math inline">\(\mathbf{D}^{1/2}\mathbb{1}\)</span> is an eigenvector of the matrix <span class="math inline">\(\tilde{\mathbf{L}}\)</span> with eigenvalue <span class="math inline">\(0\)</span>. Explain why this is the smallest eigenvalue of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>.</p>
+</div>
+</div>
+
+<div class="page-columns page-full"><p>The previous exercise shows that <a href="#eq-optimization-relaxed-transformed" class="quarto-xref">Problem&nbsp;<span>11.4</span></a> involves minimizing the quadratic form <span class="math inline">\(\mathbf{x}^T \tilde{\mathbf{L}} \mathbf{x}\)</span> subject to the constraint <span class="math inline">\(\lVert \mathbf{x} \rVert = 1\)</span> and the requirement that <span class="math inline">\(\mathbf{x}\)</span> be orthogonal to the smallest eigenvalue of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>. We proved on a homework assignment a while back that the solution to this problem is the eigenvector <span class="math inline">\(\mathbf{x}^*\)</span> corresponding to the <em>second-smallest eigenvalue</em> <span class="math inline">\(\lambda_2\)</span> of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">A more general version of this result is called the <em>Courant-Fischer-Weyl theorem</em>.</span></div></div>
+<p>Remember that <span class="math inline">\(\mathbf{x}^*\)</span> wasn’t actually the vector we wanted; we were looking for <span class="math inline">\(\mathbf{y}^* = \mathbf{D}^{-1/2} \mathbf{x}^*\)</span>. What can we say about <span class="math inline">\(\mathbf{y}^*\)</span>? Consider the eigenvalue relation for <span class="math inline">\(\mathbf{x}^*\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \tilde{\mathbf{L}} \mathbf{x}^* = \lambda_2 \mathbf{x}^*\;.
+\end{aligned}
+\]</span></p>
+<p>Let’s replace <span class="math inline">\(\mathbf{x}^*\)</span> with <span class="math inline">\(\mathbf{D}^{1/2} \mathbf{y}^*\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \tilde{\mathbf{L}} \mathbf{D}^{1/2} \mathbf{y}^* = \lambda_2 \mathbf{D}^{1/2} \mathbf{y}^*\;.
+\end{aligned}
+\]</span></p>
+<p>Finally, let’s multiply on both sides by <span class="math inline">\(\mathbf{D}^{-1/2}\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \mathbf{D}^{-1/2} \tilde{\mathbf{L}} \mathbf{D}^{1/2} \mathbf{y}^* = \lambda_2 \mathbf{y}^*\;.
+\end{aligned}
+\]</span></p>
+<p>The lefthand side simplifies, since <span class="math inline">\(\tilde{\mathbf{L}} = \mathbf{D}^{-1/2} \mathbf{L}\mathbf{D}^{-1/2}\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \lambda_2 \mathbf{y}^* = \mathbf{D}^{-1/2} \tilde{\mathbf{L}} \mathbf{D}^{1/2} \mathbf{y}^* = \mathbf{D}^{-1}\mathbf{L}\mathbf{y}^*\;.
+\end{aligned}
+\]</span></p>
+<p>That is, the optimal vector <span class="math inline">\(\mathbf{y}^*\)</span> is an eigenvector of the matrix <span class="math inline">\(\hat{\mathbf{L}} = \mathbf{D}^{-1}\mathbf{L}\)</span> with eigenvalue <span class="math inline">\(\lambda_2\)</span>. The matrix <span class="math inline">\(\hat{\mathbf{L}}\)</span> is sometimes called the <em>random-walk Laplacian</em> and indeed has applications in the study of random walks on graphs.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prove that the eigenvalues of <span class="math inline">\(\hat{\mathbf{L}}\)</span> are the same as the eigenvalues of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>. In particular, <span class="math inline">\(\lambda_2\)</span> is <em>also</em> the second-smallest eigenvalue of <span class="math inline">\(\hat{\mathbf{L}}\)</span>.</p>
+</div>
+</div>
+
+<p>The signs of the entries of <span class="math inline">\(\mathbf{y}\)</span> then give us a guide to the clusters in which we should place nodes.</p>
+</section>
+<section id="the-spectral-biclustering-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="the-spectral-biclustering-algorithm">The Spectral Biclustering Algorithm</h2>
+<p>We have come a long way to derive a relatively simple algorithm. Spectral clustering says that, to find a good clustering of a (connected) graph, we should:</p>
+<ol type="1">
+<li>Form the matrix <span class="math inline">\(\hat{\mathbf{L}} = D^{-1}(D - \mathbf{A})\)</span>.</li>
+<li>Compute the eigenvector <span class="math inline">\(\mathbf{y}_2\)</span> corresponding to the second-smallest eigenvalue <span class="math inline">\(\lambda_2\)</span>.</li>
+<li>Assign node <span class="math inline">\(i\)</span> to cluster <span class="math inline">\(0\)</span> if <span class="math inline">\(y_i &lt; 0\)</span> and cluster <span class="math inline">\(1\)</span> if <span class="math inline">\(y_i \geq 0\)</span>.</li>
+</ol>
+<p>Let’s go ahead and implement this algorithm. The centerpiece of our implementation is a function that accepts a graph <span class="math inline">\(G\)</span> and returns the eigenvector <span class="math inline">\(\mathbf{y}_2\)</span>. This eigenvector is often called the <em>Fielder eigenvector</em> of the graph after <a href="https://en.wikipedia.org/wiki/Miroslav_Fiedler">Miroslav Fiedler</a>, who pioneered the idea that the eigenvalues of the Laplacian could be used to study the connectivity structure of graphs.</p>
+<div id="6f955ef5" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fiedler_eigenvector(G):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> D <span class="op">-</span> A</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    L_hat <span class="op">=</span> np.linalg.inv(D) <span class="op">@</span> L</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L_hat)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> eigvecs[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s try computing the Fiedler eigenvector on the karate club graph:</p>
+<div id="5f240eae" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fiedler <span class="op">=</span> fiedler_eigenvector(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And now let’s visualize it!</p>
+<div id="59db1456" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="fl">3.75</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax, node_color <span class="op">=</span> fiedler, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, vmax <span class="op">=</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="19-spectral-clustering_files/figure-html/cell-9-output-1.png" width="354" height="296" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can think of the Fiedler eigenvector as returning a “soft” clustering that gives each node a score rather than a fixed label. We can obtain labels by thresholding according to sign:</p>
+<div id="229052a4" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>z_fiedler <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>(fiedler <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="dv">4</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax, node_color <span class="op">=</span> z_fiedler, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, vmax <span class="op">=</span> <span class="fl">1.5</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.set_title(<span class="vs">fr'Laplacian clustering: $cut(C_0, C_1)$ = </span><span class="sc">{</span>cut(A, z_fiedler)<span class="sc">:.0f}</span><span class="vs">'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span>   <span class="vs">fr'$vol(C_0)$ = </span><span class="sc">{</span>vol(A, z_fiedler, <span class="dv">0</span>)<span class="sc">:.0f}</span><span class="vs">,   $vol(C_1)$ = </span><span class="sc">{</span>vol(A, z_fiedler, <span class="dv">1</span>)<span class="sc">:.0f}</span><span class="vs">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="19-spectral-clustering_files/figure-html/cell-10-output-1.png" width="354" height="355" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This clustering looks pretty reasonable! Since we are only <em>approximately</em> solving the NormCut problem, it is not strictly guaranteed that this clustering is the best possible one in any sense.</p>
+</section>
+<section id="multiway-spectral-clustering" class="level2">
+<h2 class="anchored" data-anchor-id="multiway-spectral-clustering">Multiway Spectral Clustering</h2>
+<p>It is also possible to use spectral clustering to split a graph into more than two pieces. The general idea is that, when <span class="math inline">\(k\)</span> clusters are desired, we should compute the eigenvectors corresponding to the <span class="math inline">\(k\)</span> smallest eigenvalues of the matrix <span class="math inline">\(\hat{\mathbf{L}}\)</span> and collect them in a matrix</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \mathbf{Y}= \begin{bmatrix} \mathbf{y}_1 &amp; \mathbf{y}_2 &amp; \cdots &amp; \mathbf{y}_k \end{bmatrix}\;.
+\end{aligned}
+\]</span></p>
+<p>The row <span class="math inline">\(\mathbf{y}_i = [v_{i1}, v_{i2}, \ldots, v_{ik}]\)</span> of <span class="math inline">\(\mathbf{Y}\)</span> can be thought of as a set of spatial (Euclidean) coordinates for node <span class="math inline">\(i\)</span>. We can then use a Euclidean clustering algorithm like <span class="math inline">\(k\)</span>-means in the space of these coordinates in order to obtain a final clustering.</p>
+<div id="962e0fd1" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiway_spectral(G, k):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># same as before</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> D <span class="op">-</span> A</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    L_hat <span class="op">=</span> np.linalg.inv(D) <span class="op">@</span> L</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L_hat)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Now we get the eigenvectors from the second to the k-th smallest</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> np.argsort(eigvals)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> eigvecs[:, idx[<span class="dv">0</span>:k]]</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cluster in the Euclidean space </span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    KM <span class="op">=</span> KMeans(n_clusters <span class="op">=</span> k)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    KM.fit(Y)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> KM.labels_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s try this on the Les Mis graph!</p>
+<div id="f923e33d" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.les_miserables_graph())</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> multiway_spectral(G, <span class="dv">5</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">5</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, cmap <span class="op">=</span> plt.cm.Set3, node_color <span class="op">=</span> labels, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="19-spectral-clustering_files/figure-html/cell-12-output-1.png" width="466" height="389" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Visually, the results look fairly reasonable. Multiway spectral clustering can also be justified in terms of approximate normalized cut minimization; see <span class="citation" data-cites="luxburgTutorialSpectralClustering2007">Luxburg (<a href="#ref-luxburgTutorialSpectralClustering2007" role="doc-biblioref">2007</a>)</span> for details.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-gleich2016mining" class="csl-entry" role="listitem">
+Gleich, David F, and Michael W Mahoney. 2016. <span>“Mining Large Graphs.”</span> In <em>Handbook of Big Data</em>.
+</div>
+<div id="ref-luxburgTutorialSpectralClustering2007" class="csl-entry" role="listitem">
+Luxburg, Ulrike von. 2007. <span>“A <span>Tutorial</span> on <span>Spectral Clustering</span>.”</span> arXiv. <a href="https://arxiv.org/abs/0711.0189">https://arxiv.org/abs/0711.0189</a>.
+</div>
+<div id="ref-shi2000normalized" class="csl-entry" role="listitem">
+Shi, Jianbo, and Jitendra Malik. 2000. <span>“Normalized Cuts and Image Segmentation.”</span> <em>IEEE Transactions on Pattern Analysis and Machine Intelligence</em> 22 (8): 888–905.
+</div>
+<div id="ref-wagner1993between" class="csl-entry" role="listitem">
+Wagner, Dorothea, and Frank Wagner. 1993. <span>“Between Min Cut and Graph Bisection.”</span> In <em>Mathematical Foundations of Computer Science 1993: 18th International Symposium, MFCS’93 Gda<span>ń</span>sk, Poland, August 30–September 3, 1993 Proceedings 18</em>, 744–50. Springer.
+</div>
+</div>
+</section>
+
+
+<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2024</span></p></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/10-configuration-model.html" class="pagination-link" aria-label="Configuration models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

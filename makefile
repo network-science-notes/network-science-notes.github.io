@@ -2,9 +2,6 @@
 
 SHELL = /bin/zsh
 
-
-	
-
 VENV_ACTIVATE = . env/bin/activate
 activate: 
 	$(VENV_ACTIVATE)
