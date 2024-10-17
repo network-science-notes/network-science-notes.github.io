@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.11">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c2c6eee373d77cf925a3f90242822aa2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -281,6 +281,23 @@ window.Quarto = {
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Network Algorithms</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
  <span class="menu-text">Applications and Extensions</span></span>
   </li>
@@ -362,13 +379,7 @@ Exercise
 <p>Use degree to calculate the total number of edges in an undirected network.</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>The key here is to notice that degree counts <em>ends</em> of edges (sometimes we call these <em>stubs</em>). This means the total number of stubs will be the sum of the degrees of all the nodes. However, each edge is counted twice (each edge has two stubs), so the number of edges <span class="math inline">\(m\)</span> in an undirected network is</p>
-<p><span class="math display">\[
-    m = \frac{1}{2}\sum_{i=1}^n k_i = \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n A_{ij}\,.
-\]</span></p>
-<p>This relationship between degree and number of edges is a useful fact!</p>
-</div>
+
 <div class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -382,12 +393,7 @@ Exercise
 <p>Calculate the mean degree of a node in an undirected network.</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>Let <span class="math inline">\(c\)</span> represent the mean (or expected) degree of a node in an undirected network. Using the previous exercise, <span class="math display">\[\begin{align}
-    c &amp;= \frac{1}{n} \sum_{i = 1}^n k_i \,, \\
-    &amp;= \frac{2m}{n} \,.
-\end{align}\]</span></p>
-</div>
+
 <p>In the code below we use NetworkX to find the degrees of all the nodes in an undirected network: by definition using the adjacency matrix, and with the built-in function <code>nx.degree()</code>.</p>
 <div id="cell-fig-lesmis" class="cell page-columns page-full" data-out.width="80%" data-execution_count="1">
 <details class="code-fold">
@@ -471,21 +477,7 @@ Exercise
 <p>Use degree to calculate the total number of edges in a directed network, and use this to calculate the mean (expected) in-degree and out-degree of a directed network.</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>The number of edges in a directed network is equal to the total number of ingoing (respectively, outgoing) ends of edges, so,</p>
-<p><span class="math display">\[
-    m = \sum_{i=1}^n k_i^{\text{in}} = \sum_{j=1}^n k_i^{\text{out}} = \sum_{i=1}^n \sum_{j=1}^n A_{ij} \,.
-\]</span></p>
-<p>This means that the expected in-degree and expected out-degree are also equal:</p>
-<p><span class="math display">\[\begin{align}
-    c_{\text{in}} &amp;= \frac{1}{n} \sum_{i=1}^n k_i^{\text{in}} \\
-     &amp;= \frac{1}{n}\sum_{j=1}^n k_i^{\text{out}} \\
-    &amp;= c_{\text{out}} \\
-    &amp;= c \,.
-\end{align}\]</span></p>
-<p>Combining these gives <span class="math inline">\(c = \frac{m}{n}\)</span>.</p>
-<p>Notice that this differs by a factor of 2 from the case of undirected networks.</p>
-</div>
+
 <div id="cell-fig-hamilton" class="cell page-columns page-full" data-out.width="80%" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
@@ -589,7 +581,7 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div id="93ed6315" class="cell" data-execution_count="3">
+<div id="0cc0c0c1" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -692,15 +684,7 @@ Figure&nbsp;2.3: Not all pairs of nodes in this network have a walk between them
 </div>
 </div>
 </div>
-<div class="hide proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We proceed by induction on walk length <span class="math inline">\(r\)</span>. We discussed the base case above: that is, the <span class="math inline">\(ij\)</span>th entry of the adjacency matrix <span class="math inline">\({\bf A}_{ij} =  {\bf A}_{ij}^1\)</span> gives us walks of length 1, by definition.</p>
-<p>Now, suppose that <span class="math inline">\({\bf A}^r\)</span> gives the number of walks of length <span class="math inline">\(r\)</span>; we will show that <span class="math inline">\({\bf A}^{r+1}\)</span> gives the number of walks of length <span class="math inline">\({r+1}\)</span>. By definition, <span class="math inline">\({\bf A}^{r+1} = {\bf A}^{r}{\bf A}.\)</span> Thinking about matrix multiplication as an inner product, we see that the <span class="math inline">\(ij\)</span> entry can be written</p>
-<p><span class="math display">\[
-    A_{ij}^{r+1} = \sum_{l=1}^n A_{il}^rA_{lj} \,,
-\]</span></p>
-<p>that is, entry <span class="math inline">\(ij\)</span> comes from summing the componentwise product of the <span class="math inline">\(i\)</span>th row of <span class="math inline">\({\bf A}^r\)</span> with the <span class="math inline">\(j\)</span>th column of <span class="math inline">\({\bf A}.\)</span></p>
-<p>The number of walks from node <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span> of length <span class="math inline">\(r+1\)</span> is equivalent to the number of walks of length <span class="math inline">\(r\)</span> from <span class="math inline">\(j\)</span> to <span class="math inline">\(l\)</span> multiplied by the number of length <span class="math inline">\(1\)</span> walks from <span class="math inline">\(l\)</span> to <span class="math inline">\(i\)</span>, which is exactly the quantity we have written above. This completes the proof.</p>
-</div>
+
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -750,10 +734,7 @@ Exercise
 <p>What is the number of cycles of length <span class="math inline">\(r\)</span> in a network starting and ending at node <span class="math inline">\(i\)</span>?</p>
 </div>
 </div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>Since a cycle can be represented as a walk from a node <span class="math inline">\(i\)</span> to itself, this is the diagonal element <span class="math inline">\(A_{ii}^r\)</span> from the theorem we proved earlier.</p>
-<p>Be careful: this quantity separately counts cycles where the same nodes are visited in a different order. For example, the cycle <span class="math inline">\(1 \to 2 \to 3 \to 1\)</span> is counted separately as the cycle <span class="math inline">\(1 \to 3 \to 2 \to 1.\)</span> To count <em>distinct</em> cycles, you need to divide by the number of combinations.</p>
-</div>
+
 <p>While the formula above is very useful to look for cycles of a specific length, it could be quite inefficient to use to detect whether we have a cycle of any length (because we may have to check the diagonal entries of <span class="math inline">\({\bf A}^r\)</span> for all possible cycle lengths <span class="math inline">\(r\)</span>). We can construct a simple algorithm to determine computationally whether a network is cyclic or acyclic.</p>
 <p>Use the sketch below to write this algorithm.</p>
 <ul>
@@ -788,7 +769,7 @@ Exercise
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hamilton Network:'</span>)</span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>is_cyclic(G_Hamilton)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div id="fig-check-acyclic" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-cap-location="margin" data-out.width="80%" data-execution_count="5">
+<div id="fig-check-acyclic" class="cell quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-out.width="80%" data-execution_count="5" data-fig-cap-location="margin">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-check-acyclic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-stdout">
