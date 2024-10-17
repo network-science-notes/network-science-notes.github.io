@@ -21,7 +21,7 @@ To install packages in this environment:
 ```bash
 source env/bin/activate
 
-python3 -m pip install numpy pandas matplotlib seaborn mesa jupyter networkx scikit-learn scipy jupyter-cache
+python3 -m pip install numpy pandas matplotlib seaborn mesa jupyter networkx scikit-learn scipy jupyter-cache ipykernel
 ```
 
 Most other packages can be installed in the same way. 
