@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.11">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -57,10 +91,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c2c6eee373d77cf925a3f90242822aa2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -302,6 +336,10 @@ window.Quarto = {
   <li><a href="#fixing-a-degree-distribution" id="toc-fixing-a-degree-distribution" class="nav-link" data-scroll-target="#fixing-a-degree-distribution">Fixing a degree distribution</a></li>
   <li><a href="#fixing-a-degree-sequence-in-expectation-chunglu-model" id="toc-fixing-a-degree-sequence-in-expectation-chunglu-model" class="nav-link" data-scroll-target="#fixing-a-degree-sequence-in-expectation-chunglu-model">Fixing a degree sequence in expectation (Chung–Lu model)</a></li>
   </ul></li>
+  <li><a href="#excess-degree-distribution" id="toc-excess-degree-distribution" class="nav-link" data-scroll-target="#excess-degree-distribution">Excess Degree Distribution</a>
+  <ul class="collapse">
+  <li><a href="#the-friendship-paradox" id="toc-the-friendship-paradox" class="nav-link" data-scroll-target="#the-friendship-paradox">The Friendship Paradox</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -355,6 +393,51 @@ window.Quarto = {
 <li>Choose two stubs uniformly at random and connect these stubs to form an edge.</li>
 <li>Choose another pair from the remaining unmatched stubs; repeat the process until all stubs are matched.</li>
 </ol>
+<div id="cell-fig-config-model" class="cell" data-fig-height="4" data-fig-width="8" data-fig.cap="Configuration model from an empirical network." data-out.width="100%" data-execution_count="1" data-cap-location="undefined">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb1" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>G_Karate <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Karate, ax <span class="op">=</span> axarr[<span class="dv">0</span>], node_size <span class="op">=</span> <span class="dv">80</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">## Follow the steps below to create a stub-matching algorithm for a configuration model based on the Karate Club Graph.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Get degree sequence for Karate club graph</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>degree_sequence <span class="op">=</span> [d <span class="cf">for</span> n, d <span class="kw">in</span> G_Karate.degree()]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create new edgelist via stub matching algorithm</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>stubs <span class="op">=</span> np.repeat(np.arange(<span class="bu">len</span>(degree_sequence)), degree_sequence)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>mixed_stubs <span class="op">=</span> np.random.permutation(stubs)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>edge_list <span class="op">=</span> mixed_stubs.reshape(<span class="bu">len</span>(mixed_stubs)<span class="op">//</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a network G from your edgelist</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.MultiGraph()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edge_list)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize our configuration model graph</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>nx.draw(G, node_size <span class="op">=</span> <span class="dv">80</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Configuration Model Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-config-model" class="quarto-float quarto-figure quarto-figure-center anchored" height="409" width="540">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-config-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-configuration-model_files/figure-html/fig-config-model-output-1.png" id="fig-config-model" width="540" height="409" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-config-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <p>The stub-matching algorithm can produce multiedges and self-loops, which can cause the graph to not be simple. However, <span class="citation" data-cites="bollobas1980probabilistic">Bollobás (<a href="#ref-bollobas1980probabilistic" role="doc-biblioref">1980</a>)</span> proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. Another challenge with this algorithm is we require an even number of stubs to get a graph realization that exactly matches the degree sequence; although in practice if we are working from an empirical network this should not be a problem.</p>
 <p><span class="citation" data-cites="fosdick2018configuring">Fosdick et al. (<a href="#ref-fosdick2018configuring" role="doc-biblioref">2018</a>)</span> discuss the subtleties that arise due to whether we allow or disallow multiedges and self-loops and whether we choose to label stubs distinctly (as opposed to only labeling vertices). These choices result in different spaces of graphs from which we are sampling.</p>
 <section id="fixing-a-degree-distribution" class="level3">
@@ -387,6 +470,54 @@ window.Quarto = {
     \mathbb{P}_{ij} = k_i \left( \frac{k_j}{2m-k_i} \right) \approx \frac{k_ik_j}{2m}\,.
 \]</span></p>
 <div class="page-columns page-full"><p>We might notice that this feels a little similar to the <span class="math inline">\(G(n,p)\)</span> model, and in fact, this is by construction. The degree of node <span class="math inline">\(i\)</span> will be Poisson distributed with mean <span class="math inline">\(k_i\)</span> under the assumptions given above.  This means that, instead of stub-matching, we can use an algorithm like for a <span class="math inline">\(G(n,p)\)</span> network by placing an edge between two nodes with probability <span class="math inline">\(\mathbb{P}_{ij}\)</span>.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">Another assumption required here is that the maximum degree is not too large.</span></div></div>
+</section>
+</section>
+<section id="excess-degree-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="excess-degree-distribution">Excess Degree Distribution</h2>
+<p>Consider a configuration model with degree distribution <span class="math inline">\(p_k\)</span> (so a fraction <span class="math inline">\(p_k\)</span> of nodes have degree <span class="math inline">\(k\)</span>). This means that <span class="math inline">\(p_k\)</span> can be viewed as the probability that a node chosen uniformly at random from our network has degree <span class="math inline">\(k\)</span>.</p>
+<p>Now, suppose we choose a node uniformly at random and follow an edges to this node’s neighbor (if it has one). What is the probability that the neighbor will have degree <span class="math inline">\(k\)</span>?</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Explain why the probability that the neighbor has degree <span class="math inline">\(k\)</span> is <strong>not</strong> also <span class="math inline">\(p_k.\)</span></p>
+</div>
+</div>
+
+<p>First, let’s calculate the probability that we have a stub connected to a particular degree <span class="math inline">\(k\)</span> node. A node with degree <span class="math inline">\(k\)</span> has <span class="math inline">\(k\)</span> stubs, and there are <span class="math inline">\(2m-1\)</span> possible stubs.</p>
+<p><span class="math display">\[
+    \mathbb{P}(\text{edge ends at particular degree $k$ node}) = \frac{k}{2m-1} \,.
+\]</span></p>
+<p>Thus, because in expectation there are <span class="math inline">\(np_k\)</span> nodes of degree <span class="math inline">\(k\)</span>, we have</p>
+<p><span class="math display">\[
+    \mathbb{P}(\text{edge ends at any degree $k$ node}) = \frac{k}{2m-1}n p_k \approx \frac{k}{2m}np_k \,.
+\]</span></p>
+<p>Noting that our mean degree is <span class="math inline">\(c = \frac{2m}{n},\)</span> we have that the probability that we reach a node of degree <span class="math inline">\(k\)</span> is approximately <span class="math inline">\(\frac{1}{c}k p_k.\)</span> In other words, this probability is proportional to <span class="math inline">\(kp_k\)</span> (not <span class="math inline">\(p_k\)</span> as we might expect).</p>
+<section id="the-friendship-paradox" class="level3">
+<h3 class="anchored" data-anchor-id="the-friendship-paradox">The Friendship Paradox</h3>
+<p>Suppose we model a social network of friends with a configuration model. How many friends does your friend have?</p>
+<p>To see this, let’s calculate the average degree of a neighbor of a randomly chosen node:</p>
+<p><span class="math display">\[
+    \sum_k k \frac{1}{c}kp_k = \frac{\langle k^2 \rangle}{c}\,.
+\]</span> where <span class="math inline">\(\langle k^2 \rangle = \frac{1}{n} \sum_i k_i^2\)</span>.</p>
+<p>Let’s compare this value to the expected degree of a randomly chosen node:</p>
+<p><span class="math display">\[
+    \frac{\langle k^2 \rangle}{c} - c = \frac{1}{c}\left(\langle k^2 \rangle - c^2\right) = \frac{\sigma_k^2}{c}\,,
+\]</span> where <span class="math inline">\(\sigma_k^2\)</span> is the variance of the degree distribution.</p>
+<p>Unless we have a <span class="math inline">\(k\)</span>-regular network, <span class="math inline">\(\sigma_k^2 &gt;0.\)</span> Thus,</p>
+<p><span class="math display">\[\begin{align}
+    \frac{\sigma_k^2}{c} &amp;&gt; 0, \\
+    \Rightarrow \frac{\langle k^2 \rangle}{c} - c &amp;&gt; 0, \\
+    \Rightarrow \frac{\langle k^2 \rangle}{c} &gt; c \,.
+\end{align}\]</span></p>
+<p>That is, the expected degree of a node’s neighbor is greater than the expected node degree <span class="math inline">\(c\)</span> … in other words, your friends have more friends than you do!</p>
+<p>The intuition behind this idea is that a node with degree <span class="math inline">\(k\)</span> appears as a neighbor to <span class="math inline">\(k\)</span> other nodes, so high degree nodes are over-represented in the calculations.</p>
 </section>
 </section>
 <section id="references" class="level2">
