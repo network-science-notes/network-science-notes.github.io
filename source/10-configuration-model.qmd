@@ -151,7 +151,13 @@ $$
     \mathbb{P}(\text{edge ends at any degree $k$ node}) = \frac{k}{2m-1}n p_k \approx \frac{k}{2m}np_k \,.
 $$
 
-Noting that our mean degree is $c = \frac{2m}{n},$ we have that the probability that we reach a node of degree $k$ is approximately $\frac{1}{c}k p_k.$ In other words, this probability is proportional to $kp_k$ (not $p_k$ as we might expect).
+Noting that our mean degree is $c = \frac{2m}{n},$ we have that the probability that we reach a node of degree $k$ is approximately $\frac{1}{c}k p_k.$ In other words, this probability is proportional to $kp_k$ (not $p_k$ as we might expect). This quantity is called the **edge-biased degree distribution.**
+
+We can calculate the additional number of edges attached to a neighbor *other* than the edge we arrived along using the process described above, which gives
+$$
+    q_k = \frac{(k+1)p_{k+1}}{c} \,.
+$$
+This quantity is called the **excess degree distribution.**
 
 ### The Friendship Paradox
 
@@ -160,9 +166,15 @@ Suppose we model a social network of friends with a configuration model. How man
 To see this, let's calculate the average degree of a neighbor of a randomly chosen node:
 
 $$
-    \sum_k k \frac{1}{c}kp_k = \frac{\langle k^2 \rangle}{c}\,.
+    \sum_k k \frac{1}{c}kp_k = \frac{1}{c}\sum_k k^2 p_k\,.
 $$
-where $\langle k^2 \rangle = \frac{1}{n} \sum_i k_i^2$.
+Let $n$ be the total number of nodes and $n_k$ be the number of nodes of degree $k$. Then, $p_k = \frac{1}{n}n_k.$ 
+
+Now we'll simplify our expression by doing a clever re-indexing trick. As written, we've indexed over node degrees $k$, but we could choose to index over node labels $i$ instead. 
+$$
+    \frac{1}{c}\sum_k k^2 \frac{1}{n}n_k = \frac{1}{cn}\sum_i k_i^2 =  \frac{\langle k^2 \rangle}{c}\,,
+$$
+where $\langle k^2 \rangle = \frac{1}{n} \sum_i k_i^2$. To get the second equality, we notice that the set $\{n_1, (2)^2n_2, (3)^2n_3, \dots, (k_{max})^2 n_{k_{max}}\}$ has the same sum as $\{k_1^2, k_2^2, ..., k_n^2\}$.
 
 Let's compare this value to the expected degree of a randomly chosen node:
 
@@ -182,6 +194,7 @@ Unless we have a $k$-regular network, $\sigma_k^2 >0.$ Thus,
 That is, the expected degree of a node's neighbor is greater than the expected node degree $c$ ... in other words, your friends have more friends than you do!
 
 The intuition behind this idea is that a node with degree $k$ appears as a neighbor to $k$ other nodes, so high degree nodes are over-represented in the calculations.
+
 
 ## References
 

@@ -298,6 +298,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -312,7 +318,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
   </div>
 </li>
       </ul>
@@ -501,10 +507,10 @@ window.Quarto = {
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored" height="431" width="606">
+<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored" height="431" width="597">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="606" height="431" class="figure-img">
+<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="597" height="431" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.1
@@ -727,7 +733,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div id="eab69286" class="cell" data-execution_count="2">
+<div id="1d3b668b" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -749,7 +755,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 5.19.
+Average over experiments is 4.80.
 
 Theoretical expectation is 5.00.
 </code></pre>

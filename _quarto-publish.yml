@@ -19,6 +19,7 @@ book:
       chapters:
         - chapters/09-random-graphs.qmd
         - chapters/10-configuration-model.qmd
+        - chapters/11-generating-functions.qmd
     - part: "Network Algorithms"
       chapters:
         - chapters/19-spectral-clustering.qmd

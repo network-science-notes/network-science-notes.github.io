@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Spectral Clustering – Network Science: Models, Mathematics, and Computation</title>
+<title>12&nbsp; Spectral Clustering – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/10-configuration-model.html" rel="prev">
+<link href="../chapters/11-generating-functions.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -164,7 +164,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -297,6 +297,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -311,7 +317,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
   </div>
 </li>
       </ul>
@@ -342,9 +348,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></h1>
 </div>
 
 
@@ -372,7 +378,7 @@ $$
 <h2 class="anchored" data-anchor-id="defining-the-spectral-clustering-objective">Defining the Spectral Clustering Objective</h2>
 <p>Many clustering algorithms proceed by optimizing or approximately optimizing a certain objective function.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Spectral clustering is one such approximate optimization approach. In order to define the objective function for spectral clustering, we first need to introduce some notation.</p>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Modularity maximization is an example we’ve seen before.</p></div></div><div id="def-cut-and-vol" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 11.1 (Cut and Volume)</strong></span> The <em>cut</em> of a partition <span class="math inline">\((C_0, C_1)\)</span> on a graph <span class="math inline">\(G\)</span>, written <span class="math inline">\(\mathrm{\mathbf{{cut}}}\left(C_0,C_1\right)\)</span>, is the number of edges with an edge in each cluster:<br>
+<p><span class="theorem-title"><strong>Definition 12.1 (Cut and Volume)</strong></span> The <em>cut</em> of a partition <span class="math inline">\((C_0, C_1)\)</span> on a graph <span class="math inline">\(G\)</span>, written <span class="math inline">\(\mathrm{\mathbf{{cut}}}\left(C_0,C_1\right)\)</span>, is the number of edges with an edge in each cluster:<br>
 <span class="math display">\[
 \begin{aligned}
     \mathrm{\mathbf{{cut}}}\left(C_0,C_1\right) &amp;\triangleq \sum_{i \in C_0, j \in C_1} a_{ij}
@@ -386,7 +392,7 @@ $$
 \]</span></p>
 </div>
 <p>Let’s implement the cut and volume functions in Python given an adjacency matrix <span class="math inline">\(\mathbf{A}\)</span> and a partition <span class="math inline">\((C_0, C_1)\)</span> encoded as a vector <span class="math inline">\(\mathbf{z}\in \left\{0,1\right\}^n\)</span>. First, we’ll load some libraries and grab a graph for clustering:</p>
-<div id="e466bf25" class="cell" data-execution_count="1">
+<div id="cc672104" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
@@ -401,7 +407,7 @@ $$
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll implement the cut and volume.</p>
-<div id="c8fb1d91" class="cell" data-execution_count="2">
+<div id="5adcaa73" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cut(A, z):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> <span class="dv">0</span>][:, z <span class="op">==</span> <span class="dv">1</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -409,7 +415,7 @@ $$
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To get a feel for things, let’s see how cut scores look for two clusterings, one of which looks “visually pretty good” and one of which is completely random.</p>
-<div id="1af6d07e" class="cell" data-execution_count="3">
+<div id="79a3a0b0" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get a "pretty good" set of clusters using a built-in algorithm. </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>partition <span class="op">=</span> nx.algorithms.community.louvain.louvain_communities(G, resolution <span class="op">=</span> <span class="fl">0.4</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.array([<span class="dv">0</span> <span class="cf">if</span> node <span class="kw">in</span> partition[<span class="dv">0</span>] <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> node <span class="kw">in</span> G.nodes()])</span>
@@ -472,16 +478,16 @@ $$
 \]</span></p>
 <div class="page-columns page-full"><p>This is the <em>normalized cut</em> or <em>NormCut</em> objective function, and its minimization is the problem that will guide our development of spectral clustering. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Our choice of the NormCut objective function will guide us towards the spectral clustering algorithm of <span class="citation" data-cites="shi2000normalized">Shi and Malik (<a href="#ref-shi2000normalized" role="doc-biblioref">2000</a>)</span>. There are alternative objective functions which also lead to forms of Laplacian spectral clustering; <span class="citation" data-cites="luxburgTutorialSpectralClustering2007">Luxburg (<a href="#ref-luxburgTutorialSpectralClustering2007" role="doc-biblioref">2007</a>)</span> offer a comprehensive discussion.</span></div></div>
 <p>Let’s implement the normalized cut and check that it gives a lower score to the “good” clustering than to the random clustering:</p>
-<div id="bfc39652" class="cell" data-execution_count="4">
+<div id="3bd3e6ac" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> norm_cut(A, z):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cut(A, z)<span class="op">*</span>(<span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="31911cfc" class="cell" data-execution_count="5">
+<div id="f57d709b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of good clustering: </span><span class="sc">{</span>norm_cut(A, z)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of random clustering: </span><span class="sc">{</span>norm_cut(A, z_rand)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NormCut of good clustering: 0.26
-NormCut of random clustering: 0.82</code></pre>
+NormCut of random clustering: 1.15</code></pre>
 </div>
 </div>
 <p>As expected, the normcut of the good clustering is much lower than the normcut of the random clustering.</p>
@@ -497,7 +503,7 @@ NormCut of random clustering: 0.82</code></pre>
         -&amp;\frac{1}{\sqrt{2m}}\sqrt{\frac{\mathrm{\mathbf{{vol}}}\left(C_0\right)}{\mathrm{\mathbf{{vol}}}\left(C_1\right)}} &amp; \text{if } i \in C_1\;.
     \end{cases}
 \end{aligned}
-\tag{11.1}\]</span></span></p>
+\tag{12.1}\]</span></span></p>
 <p>The vector <span class="math inline">\(\mathbf{y}\)</span> is as good as <span class="math inline">\(\mathbf{z}\)</span> for the purposes of clustering: the sign of <span class="math inline">\(y_i\)</span> completely determines the cluster of node <span class="math inline">\(i\)</span>.</p>
 <div class="callout callout-style-simple callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -529,22 +535,22 @@ Exercise
 \begin{aligned}
     \mathbf{y}^* = \mathop{\mathrm{arg\,min}}_{\mathbf{y}\in \mathcal{Y}} \; \mathbf{y}^T \mathbf{L}\mathbf{y}\quad \text{ subject to } \quad \mathbf{y}^T\mathbf{D}\mathbf{y}= 1 \quad \text{and} \quad \mathbf{y}\mathbf{D}\mathbb{1}= 0\;,
 \end{aligned}
-\tag{11.2}\]</span></span></p>
-<p>where <span class="math inline">\(\mathcal{Y}\)</span> is the set of all vectors <span class="math inline">\(\mathbf{y}\)</span> of the form specified by <a href="#eq-y" class="quarto-xref">Equation&nbsp;<span>11.1</span></a> for some choice of <span class="math inline">\(\mathbf{z}\)</span>.</p>
+\tag{12.2}\]</span></span></p>
+<p>where <span class="math inline">\(\mathcal{Y}\)</span> is the set of all vectors <span class="math inline">\(\mathbf{y}\)</span> of the form specified by <a href="#eq-y" class="quarto-xref">Equation&nbsp;<span>12.1</span></a> for some choice of <span class="math inline">\(\mathbf{z}\)</span>.</p>
 <p>Let’s now change our perspective a bit: rather than requiring that <span class="math inline">\(\mathbf{y}\in \mathcal{Y}\)</span> have the exact form described above, we’ll instead treat <span class="math inline">\(\mathbf{y}\)</span> as an arbitrary unknown vector in <span class="math inline">\(\mathbb{R}^n\)</span> and attempt to minimize over this domain instead:</p>
 <p><span id="eq-optimization-relaxed"><span class="math display">\[
 \begin{aligned}
     \mathbf{y}^* = \mathop{\mathrm{arg\,min}}_{\mathbf{y}\in \mathbb{R}^n} \; \mathbf{y}^T \mathbf{L}\mathbf{y}\quad \text{ subject to } \quad \mathbf{y}^T\mathbf{D}\mathbf{y}= 1 \quad \text{and} \quad \mathbf{y}\mathbf{D}\mathbb{1}= 0\;,
 \end{aligned}
-\tag{11.3}\]</span></span></p>
-<p>This is an approximation to the original problem and the approach is common enough to have a name: <a href="#eq-optimization-relaxed" class="quarto-xref">Problem&nbsp;<span>11.3</span></a> is the <em>continuous relaxation</em> of <a href="#eq-optimization" class="quarto-xref">Problem&nbsp;<span>11.2</span></a>. This relaxed problem is the problem solved by Laplacian spectral clustering.</p>
-<p>It is now time to explain the word “spectral” in “Laplacian spectral clustering.” As you may remember, “spectral methods” are methods which rely on the eigenvalues and eigenvectors of matrices. So, our claim is that we are going to solve <a href="#eq-optimization-relaxed" class="quarto-xref">Problem&nbsp;<span>11.3</span></a> by finding the eigenvector of a certain matrix. Let’s see why.</p>
+\tag{12.3}\]</span></span></p>
+<p>This is an approximation to the original problem and the approach is common enough to have a name: <a href="#eq-optimization-relaxed" class="quarto-xref">Problem&nbsp;<span>12.3</span></a> is the <em>continuous relaxation</em> of <a href="#eq-optimization" class="quarto-xref">Problem&nbsp;<span>12.2</span></a>. This relaxed problem is the problem solved by Laplacian spectral clustering.</p>
+<p>It is now time to explain the word “spectral” in “Laplacian spectral clustering.” As you may remember, “spectral methods” are methods which rely on the eigenvalues and eigenvectors of matrices. So, our claim is that we are going to solve <a href="#eq-optimization-relaxed" class="quarto-xref">Problem&nbsp;<span>12.3</span></a> by finding the eigenvector of a certain matrix. Let’s see why.</p>
 <p>Let’s make a small change of variables. Define <span class="math inline">\(\mathbf{x}= \mathbf{D}^{1/2} \mathbf{y}\)</span>. Then, we can rewrite the objective function as a function of <span class="math inline">\(\mathbf{x}\)</span>:</p>
 <p><span id="eq-optimization-relaxed-transformed"><span class="math display">\[
 \begin{aligned}
     \mathbf{x}^* =  \mathop{\mathrm{arg\,min}}_{\mathbf{x}\in \mathbb{R}^n} \; \mathbf{x}^T \tilde{\mathbf{L}} \mathbf{x}\quad \text{subject to} \quad \lVert \mathbf{x} \rVert = 1\quad  \text{and} \quad \mathbf{x}^T \mathbf{D}^{1/2} \mathbb{1}= 0\;,
 \end{aligned}
-\tag{11.4}\]</span></span></p>
+\tag{12.4}\]</span></span></p>
 <p>where we have defined <span class="math inline">\(\tilde{\mathbf{L}} = \mathbf{D}^{-1/2} \mathbf{L}\mathbf{D}^{-1/2}\)</span>.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -560,7 +566,7 @@ Exercise
 </div>
 </div>
 
-<div class="page-columns page-full"><p>The previous exercise shows that <a href="#eq-optimization-relaxed-transformed" class="quarto-xref">Problem&nbsp;<span>11.4</span></a> involves minimizing the quadratic form <span class="math inline">\(\mathbf{x}^T \tilde{\mathbf{L}} \mathbf{x}\)</span> subject to the constraint <span class="math inline">\(\lVert \mathbf{x} \rVert = 1\)</span> and the requirement that <span class="math inline">\(\mathbf{x}\)</span> be orthogonal to the smallest eigenvalue of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>. We proved on a homework assignment a while back that the solution to this problem is the eigenvector <span class="math inline">\(\mathbf{x}^*\)</span> corresponding to the <em>second-smallest eigenvalue</em> <span class="math inline">\(\lambda_2\)</span> of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">A more general version of this result is called the <em>Courant-Fischer-Weyl theorem</em>.</span></div></div>
+<div class="page-columns page-full"><p>The previous exercise shows that <a href="#eq-optimization-relaxed-transformed" class="quarto-xref">Problem&nbsp;<span>12.4</span></a> involves minimizing the quadratic form <span class="math inline">\(\mathbf{x}^T \tilde{\mathbf{L}} \mathbf{x}\)</span> subject to the constraint <span class="math inline">\(\lVert \mathbf{x} \rVert = 1\)</span> and the requirement that <span class="math inline">\(\mathbf{x}\)</span> be orthogonal to the smallest eigenvalue of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>. We proved on a homework assignment a while back that the solution to this problem is the eigenvector <span class="math inline">\(\mathbf{x}^*\)</span> corresponding to the <em>second-smallest eigenvalue</em> <span class="math inline">\(\lambda_2\)</span> of <span class="math inline">\(\tilde{\mathbf{L}}\)</span>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">A more general version of this result is called the <em>Courant-Fischer-Weyl theorem</em>.</span></div></div>
 <p>Remember that <span class="math inline">\(\mathbf{x}^*\)</span> wasn’t actually the vector we wanted; we were looking for <span class="math inline">\(\mathbf{y}^* = \mathbf{D}^{-1/2} \mathbf{x}^*\)</span>. What can we say about <span class="math inline">\(\mathbf{y}^*\)</span>? Consider the eigenvalue relation for <span class="math inline">\(\mathbf{x}^*\)</span>:</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -611,7 +617,7 @@ Exercise
 <li>Assign node <span class="math inline">\(i\)</span> to cluster <span class="math inline">\(0\)</span> if <span class="math inline">\(y_i &lt; 0\)</span> and cluster <span class="math inline">\(1\)</span> if <span class="math inline">\(y_i \geq 0\)</span>.</li>
 </ol>
 <p>Let’s go ahead and implement this algorithm. The centerpiece of our implementation is a function that accepts a graph <span class="math inline">\(G\)</span> and returns the eigenvector <span class="math inline">\(\mathbf{y}_2\)</span>. This eigenvector is often called the <em>Fielder eigenvector</em> of the graph after <a href="https://en.wikipedia.org/wiki/Miroslav_Fiedler">Miroslav Fiedler</a>, who pioneered the idea that the eigenvalues of the Laplacian could be used to study the connectivity structure of graphs.</p>
-<div id="2a5e2027" class="cell" data-execution_count="6">
+<div id="2a48fcf5" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fiedler_eigenvector(G):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
@@ -621,11 +627,11 @@ Exercise
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> eigvecs[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try computing the Fiedler eigenvector on the karate club graph:</p>
-<div id="b0883258" class="cell" data-execution_count="7">
+<div id="8122ec79" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fiedler <span class="op">=</span> fiedler_eigenvector(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now let’s visualize it!</p>
-<div id="23ea7350" class="cell" data-execution_count="8">
+<div id="a7c88bb6" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="fl">3.75</span>))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax, node_color <span class="op">=</span> fiedler, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, vmax <span class="op">=</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -637,7 +643,7 @@ Exercise
 </div>
 </div>
 <p>We can think of the Fiedler eigenvector as returning a “soft” clustering that gives each node a score rather than a fixed label. We can obtain labels by thresholding according to sign:</p>
-<div id="6345aab7" class="cell" data-execution_count="9">
+<div id="08404a64" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>z_fiedler <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>(fiedler <span class="op">&gt;</span> <span class="dv">0</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="dv">4</span>))</span>
@@ -663,7 +669,7 @@ Exercise
 \end{aligned}
 \]</span></p>
 <p>The row <span class="math inline">\(\mathbf{y}_i = [v_{i1}, v_{i2}, \ldots, v_{ik}]\)</span> of <span class="math inline">\(\mathbf{Y}\)</span> can be thought of as a set of spatial (Euclidean) coordinates for node <span class="math inline">\(i\)</span>. We can then use a Euclidean clustering algorithm like <span class="math inline">\(k\)</span>-means in the space of these coordinates in order to obtain a final clustering.</p>
-<div id="4fb72d65" class="cell" data-execution_count="10">
+<div id="f1171efa" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiway_spectral(G, k):</span>
@@ -685,7 +691,7 @@ Exercise
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> KM.labels_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try this on the Les Mis graph!</p>
-<div id="d9b0125e" class="cell" data-execution_count="11">
+<div id="39a8dfde" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.les_miserables_graph())</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> multiway_spectral(G, <span class="dv">5</span>)</span>
@@ -1147,8 +1153,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/10-configuration-model.html" class="pagination-link" aria-label="Configuration models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span>
+      <a href="../chapters/11-generating-functions.html" class="pagination-link" aria-label="Probability Generating Functions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
