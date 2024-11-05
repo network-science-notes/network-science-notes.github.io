@@ -22,6 +22,7 @@ book:
         - chapters/11-generating-functions.qmd
     - part: "Network Algorithms"
       chapters:
+        - chapters/13-modularity-maximization.qmd
         - chapters/19-spectral-clustering.qmd
     - part: "Applications and Extensions"
     

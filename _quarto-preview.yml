@@ -22,5 +22,6 @@ book:
         - source/11-generating-functions.qmd
     - part: "Network Algorithms"
       chapters:
+        - source/13-modularity-maximization.qmd
         - source/19-spectral-clustering.qmd
 code-summary: "Show code"
