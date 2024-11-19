@@ -24,5 +24,8 @@ book:
       chapters:
         - chapters/13-modularity-maximization.qmd
         - chapters/19-spectral-clustering.qmd
+        - chapters/41-link-prediction.qmd
     - part: "Applications and Extensions"
+      chapters:
+        - chapters/50-random-walks.qmd
     

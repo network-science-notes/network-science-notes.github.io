@@ -224,7 +224,7 @@ $$
 \begin{aligned}
     \vy^T\mD\vy &= \sum_{1 \leq i,j \leq n} d_{ij} y_i y_j \\ 
     &= \sum_{1 \leq i \leq n} k_{i}y_i^2 \quad \text{($\mD$ is diagonal)}\\ 
-    &= \sum_{i \in C_0} k_{i}y_i^2 + \sum_{i \in C_0} k_{i}y_i^2 &\\ 
+    &= \sum_{i \in C_0} k_{i}y_i^2 + \sum_{i \in C_1} k_{i}y_i^2 &\\ 
     &= \frac{1}{2m}\brackets{ \frac{\vol{C_1}}{\vol{C_0}} \sum_{i \in C_0} k_{i} +  \frac{\vol{C_0}}{\vol{C_1}} \sum_{i \in C_1} k_{i}} \\ 
     &= \frac{1}{2m}\brackets{ \frac{\vol{C_1}}{\vol{C_0}} \vol{C_0} +  \frac{\vol{C_0}}{\vol{C_1}} \vol{C_1}} &\quad \text{(def. of $\vol{C}$)} \\
     &= \frac{1}{2m}\brackets{\vol{C_0} + \vol{C_1}} \\ 
