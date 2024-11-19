@@ -35,20 +35,24 @@ $$
 
 In @def-simple-random-walk, the first equality is the *[Markov property](https://en.wikipedia.org/wiki/Markov_property)*: the future state of the random walk depends only on where it is right now (i.e. the value of $X_t$), not where it's been previously. The second and third equalities give mathematical structure to the idea of "picking a node connected to $j$ uniformly at random." 
 
-[Note: relative to Problem 3 in HW0, I have switched the indices in this matrix in order to better align with Newman's discussion in 6.14.3.]{.aside}
-
 ::: {.callout-note}
 ::: {#def-transition-matrix}
 
 ## Transition Matrix of a SRW
 
-The **transition matrix** of a simple random walk on a connected graph $G$ with adjacency matrix $\mathbf{A}$ is $\mathbf{P} = \mathbf{A}\mathbf{K}^{-1}$. Its entries are $p_{ij} = a_{ij}/k_j$, where $k_j$ is the degree of node $j$ and $\mathbf{K}$ is the diagonal matrix whose $jj$th entry is $k_j$. 
+The **transition matrix** of a simple random walk on a connected graph $G$ with adjacency matrix $\mathbf{A}$ is $\mathbf{P} = \mathbf{A}\mathbf{D}^{-1}$. Its entries are $p_{ij} = a_{ij}/k_j$, where $k_j$ is the degree of node $j$ and $\mathbf{D}$ is the diagonal matrix whose $jj$th entry is $k_j$. 
 :::
 :::
 
 ::: {.callout-caution}
 ***Exercise***: Let $p_{ij}$ denote the entries of $\mathbf{P}$. Check that 
-$\sum_{i \in N} p_{ij} = 1$, and interpret this fact. 
+$\sum_{i \in N} p_{ij} = 1$, and interpret this fact. We say a matrix with this property is **(column) stochastic**.
+:::
+
+::: {.hide .solution}
+
+ As defined, $p_{ij} = \frac{a_{ij}}{k_j}$. Thus, $\sum_i p_{ij} = \sum_i \frac{a_{ij}}{k_j} = \frac{1}{k_j}\sum_i a_{ij} = \frac{k_j}{k_j} = 1$.
+
 :::
 
 What does the transition matrix do? Well, we can use the law of total probability to write: 
@@ -101,7 +105,7 @@ Suppose that $G$ is connected and aperiodic. Then,
 @thm-stationary is actually a theorem about discrete-time finite-state Markov chains in general, and its full proof is beyond the scope of this course. Here's a sketch:
 
 1. The condition that $G$ is connected implies that the matrix $\mathbf{P}$ is [irreducible](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Classification_of_matrices).
-2. This allows us to apply the [Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem) to conclude that $\mathbf{P}$ has a unique eigenvector with strictly positive entries, which we'll call ${\bf \pi}$. Since $\mathbf{P}$ has rows that sum to 1, a direct calculation shows that the corresponding eigenvalue of ${\bf \pi}$ is 1, and we have $\pi = \mathbf{P}\pi$. 
+2. This allows us to apply the [Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem) to conclude that $\mathbf{P}$ has a unique eigenvector with strictly positive entries, which we'll call ${\bf \pi}$. Since $\mathbf{P}$ is column stochastic, a direct calculation shows that the corresponding eigenvalue of ${\bf \pi}$ is 1, and we have $\pi = \mathbf{P}\pi$. 
 3. One further shows that $\lim_{t \rightarrow \infty}\mathbf{P}^t$ exists and that its rows become equal to the eigenvector $\pi$ (this is related to power iteration). 
 4. Because each row of limiting matrix describe the long-run behavior of the random walk from a given starting node, one infers that $\pi$ is indeed a stationary state. Because all the rows agree in the limit, one infers that $\pi$ is the only such stationary state. 
 
@@ -122,13 +126,13 @@ We can do a direct calculation:
 
 $$
 \begin{aligned}
-\mathbf{P}\pi = \mathbf{A}\mathbf{K}^{-1}\left(\frac{1}{2m}\mathbf{k}\right) = \frac{1}{2m}\mathbf{A}\mathbf{1} 
+\mathbf{P}\pi = \mathbf{A}\mathbf{D}^{-1}\left(\frac{1}{2m}\mathbf{k}\right) = \frac{1}{2m}\mathbf{A}\mathbf{1} 
 = \frac{1}{2m}\mathbf{k}
 = \pi\;. 
 \end{aligned}
 $$
 
-For the second equality we have used the quickly-checked identity $\mathbf{K}^{-1}\mathbf{k} = \mathbf{1}$, while for the third we have used the formula $\mathbf{k} = \mathbf{A}\mathbf{1}$. 
+For the second equality we have used the quickly-checked identity $\mathbf{D}^{-1}\mathbf{k} = \mathbf{1}$, while for the third we have used the formula $\mathbf{k} = \mathbf{A}\mathbf{1}$. 
 :::
 
 So, for simple random walks, $\mathbb{P}(X_t = i)$ when $t$ is large is approximately $k_i/2m$, proportional to the degree of node $i$. The intuition here is that the amount of time I spend in state is directly proportional to the number of ways that I can enter that state. 
@@ -155,7 +159,7 @@ $$
 $$
 where $k_j^{\mathrm{out}} = \sum_{i \in N}a_{ij}$ is the number of outgoing links from node $j$. The transition matrix of this walk is 
 $$
-\mathbf{P} = \mathbf{A}(\mathbf{K}^{\mathrm{out}})^{-1}\;.
+\mathbf{P} = \mathbf{A}(\mathbf{D}^{\mathrm{out}})^{-1}\;.
 $$
 :::
 :::
@@ -203,7 +207,7 @@ $${#eq-pagerank-transition}
 Its transition matrix is 
 
 $$
-\mathbf{P} = (1-\alpha) \mathbf{A}(\mathbf{K}^{\mathrm{out}})^{-1} + \alpha \mathbf{V}\;,
+\mathbf{P} = (1-\alpha) \mathbf{A}(\mathbf{D}^{\mathrm{out}})^{-1} + \alpha \mathbf{V}\;,
 $$
 
 $$

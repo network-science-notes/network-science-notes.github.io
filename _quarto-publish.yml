@@ -26,4 +26,6 @@ book:
         - chapters/19-spectral-clustering.qmd
         - chapters/41-link-prediction.qmd
     - part: "Applications and Extensions"
+      chapters:
+        - chapters/50-random-walks.qmd
     
