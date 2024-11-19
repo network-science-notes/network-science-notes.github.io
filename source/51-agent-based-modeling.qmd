@@ -45,6 +45,7 @@ Since this is a networks class, we'll use a network-based grid. We imported the 
 
 ```{python}
 G = nx.les_miserables_graph()
+G = nx.convert_node_labels_to_integers(G)
 ```
 
 We'll soon use this to create our model. 
@@ -67,14 +68,16 @@ class RWModel(Model):
 
     # model setup
     def __init__(self, G, agent_class, **kwargs):
+        
+        super().__init__()
 
         self.schedule = BaseScheduler(self) # time structure
-        self.grid = NetworkGrid(G)          # space structure
+        self.grid     = NetworkGrid(G)          # space structure
         
         # create a single agent who will walk around the graph
         # we haven't defined SWRAgent yet
         # the agent has a name and is associated to the model
-        agent = agent_class("Anakin Graphwalker", self, **kwargs)
+        agent = agent_class(self, **kwargs)
 
         # place the agent at a random node on the graph
         node = self.random.choice(list(G.nodes))
@@ -108,13 +111,15 @@ Now we're ready to define what the agent is supposed to do! In the SRW, the agen
 ```{python}
 
 class SRWAgent(Agent):
+    def __init__(self, model):
+        super().__init__(self, model)
 
     def step(self):
 
         # find all possible next steps
         # include_center determines whether or not we count the 
         # current position as a possibility
-        options = self.model.grid.get_neighbors(self.pos, 
+        options = self.model.grid.get_neighborhood(self.pos, 
                                                 include_center = False)
 
         # pick a random one and go there
@@ -185,15 +190,15 @@ The reason that we parameterized the `RWModel` class with the argument `agent_cl
 
 class PageRankAgent(Agent):
 
-    def __init__(self, agent_id, model, alpha):
-        super().__init__(agent_id, model)
+    def __init__(self, model, alpha):
+        super().__init__(self, model)
         self.alpha = alpha
 
     def step(self):
         if np.random.rand() < self.alpha:     # teleport
             options = list(self.model.grid.G.nodes.keys())
         else:                              # standard RW step
-            options = self.model.grid.get_neighbors(self.pos, 
+            options = self.model.grid.get_neighborhood(self.pos, 
                                                 include_center = False)
 
         # pick a random one and go there
@@ -274,10 +279,10 @@ class CompartmentalAgent(Agent):
         self.state = state
 
     def step(self):
-        neighbor_locs = self.model.grid.get_neighbors(self.pos, 
+        neighbors = self.model.grid.get_neighbors(self.pos, 
                                                 include_center = False)
 
-        neighbors = self.model.grid.get_cell_list_contents(neighbor_locs)
+        # neighbors = self.model.grid.get_cell_list_contents(neighbor_locs)
 
         adopt_from = np.random.choice(neighbors)
 
