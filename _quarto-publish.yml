@@ -28,4 +28,5 @@ book:
     - part: "Applications and Extensions"
       chapters:
         - chapters/50-random-walks.qmd
+        - chapters/51-agent-based-modeling.qmd
     

@@ -113,6 +113,7 @@ Now we're ready to define what the agent is supposed to do! In the SRW, the agen
 class SRWAgent(Agent):
     def __init__(self, model):
         super().__init__(self, model)
+        self.unique_id = "Anakin Graphwalker"
 
     def step(self):
 
