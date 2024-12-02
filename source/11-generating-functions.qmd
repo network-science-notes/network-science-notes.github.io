@@ -240,7 +240,7 @@ $$
 
 Thus, we have a relationship between generating functions for the degree distribution and the excess degree distribution.
 
-### Number of second neighbors of a node
+### Number of second neighbors of a node {#sec-secondneighbors}
 
 Now, suppose we have a configuration model with degree distribution $p_k$ under the assumption that the network is locally tree-like. We know how to count the number of neighbors (that's given by the degree). Let's count the number of neighbors of neighbors --- also called second neighbors --- of a node. 
 

@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Heather Zinn Brooks and Phil Chodrow">
-<meta name="dcterms.date" content="2024-07-19">
 
-<title>Network Science: Models, Mathematics, and Computation</title>
+<title>11&nbsp; Probability Generating Functions – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,46 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./source/01-networkrepresentations.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../source/13-modularity-maximization.html" rel="next">
+<link href="../source/10-configuration-model.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -90,8 +69,37 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating">
@@ -103,7 +111,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../source/11-generating-functions.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,7 +126,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Network Science: Models, Mathematics, and Computation</a> 
+      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -130,7 +138,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -145,19 +153,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
   </div>
 </li>
@@ -174,19 +182,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/04-centrality.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/04-centrality.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/05-viz.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/05-viz.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks, and Why You Shouldn’t</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/06-modularity.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/06-modularity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Homophily, assortativity, and modularity</span></span></a>
   </div>
 </li>
@@ -203,13 +211,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/07-real-world.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/07-real-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/08-power-laws.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/08-power-laws.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
   </div>
 </li>
@@ -226,19 +234,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/09-random-graphs.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/09-random-graphs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/10-configuration-model.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/10-configuration-model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/11-generating-functions.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/11-generating-functions.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
   </div>
 </li>
@@ -255,19 +263,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/41-link-prediction.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/41-link-prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
   </div>
 </li>
@@ -284,19 +292,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/50-random-walks.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/50-random-walks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./source/52-epidemiology.html" class="sidebar-item-text sidebar-link">
+  <a href="../source/52-epidemiology.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
   </div>
 </li>
@@ -312,44 +320,31 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a>
+  <li><a href="#properties-of-probability-generating-functions" id="toc-properties-of-probability-generating-functions" class="nav-link active" data-scroll-target="#properties-of-probability-generating-functions">Properties of probability generating functions</a></li>
+  <li><a href="#normalization-and-moments" id="toc-normalization-and-moments" class="nav-link" data-scroll-target="#normalization-and-moments">Normalization and moments</a></li>
+  <li><a href="#products-of-generating-functions" id="toc-products-of-generating-functions" class="nav-link" data-scroll-target="#products-of-generating-functions">Products of generating functions</a></li>
+  <li><a href="#applications-in-configuration-models" id="toc-applications-in-configuration-models" class="nav-link" data-scroll-target="#applications-in-configuration-models">Applications in configuration Models</a>
   <ul class="collapse">
-  <li><a href="#pedagogical-features" id="toc-pedagogical-features" class="nav-link" data-scroll-target="#pedagogical-features">Pedagogical Features</a>
-  <ul class="collapse">
-  <li><a href="#use-and-reuse" id="toc-use-and-reuse" class="nav-link" data-scroll-target="#use-and-reuse">Use and Reuse</a></li>
+  <li><a href="#generating-functions-for-excess-degree-distribution" id="toc-generating-functions-for-excess-degree-distribution" class="nav-link" data-scroll-target="#generating-functions-for-excess-degree-distribution">Generating functions for excess degree distribution</a></li>
+  <li><a href="#sec-secondneighbors" id="toc-sec-secondneighbors" class="nav-link" data-scroll-target="#sec-secondneighbors">Number of second neighbors of a node</a></li>
   </ul></li>
-  <li><a href="#source-texts" id="toc-source-texts" class="nav-link" data-scroll-target="#source-texts">Source Texts</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../source/11-generating-functions.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Network Science: Models, Mathematics, and Computation</h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Heather Zinn Brooks and Phil Chodrow </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 19, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -359,41 +354,278 @@ div.csl-indent {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>This is a set of notes developed for an undergraduate course in network science. The target audience for these notes are undergraduates in mathematics and computer science who have completed courses in linear algebra, discrete mathematics, and programming.</p>
-<p>These notes are a collaborative project between Dr.&nbsp;<a href="https://sites.google.com/g.hmc.edu/hzinnbrooks">Heather Zinn Brooks</a> (Department of Mathematics, Harvey Mudd College) and Dr.&nbsp;<a href="www.philchodrow.prof">Phil Chodrow</a> (Department of Computer Science, Middlebury College).</p>
-<section id="pedagogical-features" class="level2">
-<h2 class="anchored" data-anchor-id="pedagogical-features">Pedagogical Features</h2>
-<p>These notes are explicitly designed for undergraduate instruction with students who are interested in and fluent in both mathematics and computation. For this reason:</p>
-<ul>
-<li>Computational examples are integrated into the text and shown throughout.</li>
-<li>Live versions of lecture notes are supplied as Jupyter Notebooks which can be opened in Google Colab. Certain code components have been removed. The purpose is to facilitate live-coding in lectures.</li>
-</ul>
-<section id="use-and-reuse" class="level3 box">
-<h3 class="anchored" data-anchor-id="use-and-reuse">Use and Reuse</h3>
-<p>These notes are free to reuse and adapt for educational purposes. Attribution is appreciated but not required.</p>
+<p>In this lecture we’ll introduce a powerful tool for calculating network properties: probability generating functions.</p>
+<section id="properties-of-probability-generating-functions" class="level2">
+<h2 class="anchored" data-anchor-id="properties-of-probability-generating-functions">Properties of probability generating functions</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-pgf" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 11.1</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree, with degree distribution <span class="math inline">\(p_k\)</span>. The <strong>probability generating function</strong> <span class="math inline">\(g(z)\)</span> is given by</p>
+<p><span class="math display">\[
+    g(z) = p_0 + p_1z + p_2z^2 + \dots = \sum_{k=0}^\infty p_kz^k \,.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
+<p>We note that the degree distribution and the probability generating function give two different mathematical representations of the same idea. The probability generating function is a <strong>power series</strong> representation of the degree distribution of <span class="math inline">\(K\)</span>. This is quite useful because the probability generating function is always a polynomial, and there is a lot of rich theory we can leverage.</p>
+<div class="callout callout-style-simple callout-caution">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Exercise</strong>: Suppose we have a network where we observe the following data.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Node Degree</th>
+<th>Percentage of Nodes with Given Degree</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>12%</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>20%</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>58%</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>10%</td>
+</tr>
+</tbody>
+</table>
+<p>What is the probability generating function <span class="math inline">\(g(z)\)</span> associated with the degree distribution for this network?</p>
+</div>
+</div>
+</div>
+<div class="hide proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span>The probability that a node has degree <span class="math inline">\(k\)</span> in our network is equal to the fraction of nodes with that degree. Therefore, we have <span class="math display">\[
+    g(z) = 0.12 + .2z + 0.58z^2 + .1 z^3 \,,
+\]</span> noting that <span class="math inline">\(p_k = 0\)</span> for <span class="math inline">\(k&gt;3.\)</span></p>
+</div>
+<div class="callout callout-style-simple callout-caution">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Exercise</strong>: Suppose <span class="math inline">\(K\)</span> is Poisson distributed with mean degree <span class="math inline">\(c\)</span>. What is the probability generating function for <span class="math inline">\(K\)</span>?</p>
+<p><em>Recall that the probability mass function a Poisson distribution with mean <span class="math inline">\(c\)</span> is given by <span class="math inline">\(\frac{c^k e^{-c}}{k!}.\)</span></em></p>
+</div>
+</div>
+</div>
+<div class="hide proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span>Substituting <span class="math inline">\(p_k = \frac{c^k e^{-c}}{k!}\)</span> into the formula above yields the probability generating function <span class="math display">\[\begin{align*}
+    g(z) &amp;= \sum_{k=0}^\infty e^{-c}\frac{c^k}{k!}z^k \\
+        &amp;= e^{-c}\sum_{k=0}^\infty\frac{c^k}{k!}z^k \\
+        &amp;= e^{-c} e^{cz} \\
+        &amp;= e^{c(z-1)} \,,
+\end{align*}\]</span> where in the third line we have used the Taylor series <span class="math display">\[
+e^{x} = \sum_{k=0}^\infty \frac{x^k}{k!} \,.  
+\]</span></p>
+<p>This series converges for all (finite) values of <span class="math inline">\(c\)</span> and <span class="math inline">\(k\)</span>.</p>
+</div>
+<div class="callout callout-style-simple callout-caution">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Exercise</strong>: What is the probability generating function for the exponential distribution of the form <span class="math display">\[
+    p_k = (1-a)a^k, \quad 0&lt;a&lt;1 \,.
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="hide proof solution">
+<p><span class="proof-title"><em>Solution</em>. </span>Substituting <span class="math inline">\(p_k = (1-a)a^k\)</span> into the formula above yields the probability generating function <span class="math display">\[
+    g(z) = (1-a)\sum_{k=0}^\infty \left(az \right)^k \,.
+\]</span></p>
+<p>However, notice that this series diverges if <span class="math inline">\(az \geq 1\)</span>, that is, if <span class="math inline">\(z \geq \frac{1}{a}.\)</span> Thus, we have <span class="math display">\[
+    g(z) = \frac{1-a}{1-az}, \quad \vert z \vert &lt;\frac{1}{a}.
+\]</span></p>
+</div>
+<p>The examples above give a sense of how to calculate probability generating functions from known degree distributions. As the next theorem shows, we can also find the degree distribution from the probability generating function. We’ll prove this theorem in class.</p>
+<div class="callout callout-style-simple callout-tip no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-pgf" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 11.1</strong></span> Let <span class="math inline">\(g(z)\)</span> be the probability generating function associated with random variable <span class="math inline">\(K\)</span>. Then the associated probability distribution <span class="math inline">\(p_k\)</span> satisfies <span class="math display">\[
+p_k = \frac{1}{k!}\frac{d^k}{dz^k}g(z) \bigg \vert_{z=0}
+\]</span> for all <span class="math inline">\(k = 0, 1, 2, \dots \,.\)</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="hide proof">
+<p><span class="proof-title"><em>Proof</em>. </span>We know that <span class="math inline">\(g(z)\)</span> is a polynomial, and thus infinitely differentiable. Using the power rule for polynomial differentiation, the <span class="math inline">\(k\)</span>th derivative of <span class="math inline">\(g\)</span> with respect to <span class="math inline">\(z\)</span> satisfies <span class="math display">\[
+g^{(k)}(z) = k!p_k + \frac{(k+1)}{1!}p_{k+1}z + \frac{(k+2)}{2!}p_{k+2}z^2 + \dots \,.
+\]</span> If we evaluate at <span class="math inline">\(g=0\)</span>, all terms except the first will vanish: <span class="math display">\[
+g^{(k)}(0) = k!p_k \,.
+\]</span></p>
+<p>Solving for <span class="math inline">\(p_k\)</span> gives the desired result.</p>
+</div>
 </section>
+<section id="normalization-and-moments" class="level2">
+<h2 class="anchored" data-anchor-id="normalization-and-moments">Normalization and moments</h2>
+<p>The <strong>moments</strong> of a probability distribution are quantities that give us important information about the shape of the distribution. The <span class="math inline">\(m\)</span>th moment of a probability distribution <span class="math inline">\(p_k\)</span> is</p>
+<p><span class="math display">\[
+\langle k^m \rangle = \sum_{k=0}^\infty k^m p_k \,.
+\]</span></p>
+<p>We recognize that moments have already shown up in several of our calculations thus far. For example, the zeroth moment of a degree distribution is always 1 since <span class="math inline">\(\sum_{k=0}^\infty p_k = 1\)</span>. The first moment <span class="math inline">\(\langle k \rangle\)</span> is the expected value. The second moment showed up in our previous lecture when discussing the friendship paradox.</p>
+<p>We can now see that generating functions give us a nice way to calculate moments. Using the definition of the probability generating function, we see that the zeroth moment is given by <span class="math display">\[
+    g(1) = \sum_{k=0}^\infty p_k = 1 \,.
+\]</span> If we take the derivative of the probability generating function with respect to <span class="math inline">\(z\)</span> we obtain <span class="math display">\[
+    g'(z) = \sum_{k=0}^\infty kp_kz^{k-1} \,.
+\]</span> If we evaluate at <span class="math inline">\(z=1\)</span>, we get the first moment of <span class="math inline">\(p_k\)</span>: <span class="math display">\[
+    g'(1) = \sum_{k=0}^\infty kp_k = \langle k \rangle\,.
+\]</span></p>
+<p>Unfortunately, we can see that <span class="math inline">\(g''(1)\)</span> will not exactly give us the second moment. A small modification, however, will do the trick.</p>
+<p><span class="math display">\[\begin{align*}
+    z \frac{d}{dz} \left(z \frac{dg}{dz}\right) &amp;=  z \frac{d}{dz} \left( \sum_{k=0}^\infty kp_kz^{k} \right) \\
+    &amp;= z \sum_{k=0}^\infty k^2p_kz^{k-1} \\
+    &amp;= \sum_{k=0}^\infty k^2p_kz^{k} \,.
+\end{align*}\]</span></p>
+<p>Evaluating this quantity at <span class="math inline">\(z=1\)</span> will give the second moment of the distribution: <span class="math display">\[
+    \left( z \frac{d}{dz} \right)^2 g(z) \bigg \vert_{z=1} = \langle k^2 \rangle \,.
+\]</span></p>
+<p>This strategy generalizes to higher-order moments as well.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="def-moments" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 11.2</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree with probability generating function <span class="math inline">\(g(z)\)</span>. The <strong><span class="math inline">\(m\)</span>th moment</strong> of the distribution of <span class="math inline">\(K\)</span> is given by <span class="math display">\[
+    \langle k^m \rangle = \left( z \frac{d}{dz} \right)^m g(z) \bigg \vert_{z=1} \,.
+\]</span></p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="source-texts" class="level2">
-<h2 class="anchored" data-anchor-id="source-texts">Source Texts</h2>
-<p>These notes draw on several source texts, the most important of which is <span class="citation" data-cites="newman2018networks">Newman (<a href="#ref-newman2018networks" role="doc-biblioref">2018</a>)</span>.</p>
+<section id="products-of-generating-functions" class="level2">
+<h2 class="anchored" data-anchor-id="products-of-generating-functions">Products of generating functions</h2>
+<p>In this section, we will show the following very useful property of generating functions.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<div id="thm-multiplicative" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 11.2</strong></span> Let <span class="math inline">\(K_1, \dots, K_m\)</span> be independent and identically distributed (i.i.d.) random variables drawn from probability distributions <span class="math inline">\(p_k^{(1)}, p_k^{(2)}, \dots, p_k^{(m)}\)</span> with corresponding probability generating functions <span class="math inline">\(g_1(z), \dots g_m(z)\)</span>. Then <span class="math inline">\(X = \sum_{i=1}^m K_i\)</span> has the generating function <span class="math inline">\(g_X(z) = \prod_{i=1}^m g_i(z)\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Since <span class="math inline">\(K_i\)</span> are i.i.d, the probability of drawing a particular set of values <span class="math inline">\(\mathcal{K} = \{k_1, k_2, \dots, k_m\}\)</span> is <span class="math display">\[
+    (p_{k_1}^{(1)})(p_{k_2}^{(2)}) \dots (p_{k_m}^{(m)}) =  \prod_{i=1}^m p_{k_i}^{(i)} \,.
+\]</span></p>
+<p>Next, we will calculate the probability <span class="math inline">\(\pi_s\)</span> that the values add to a specific total <span class="math inline">\(s\)</span>. We do this by summing the product over all sets <span class="math inline">\(\mathcal{K}\)</span> that add to <span class="math inline">\(s\)</span>.</p>
+<p><span class="math display">\[
+    \pi_s = \sum_{k_1=0}^ \infty \dots \sum_{k_m=0}^ \infty \delta_{s, \sum_i k_i} \prod_{i=1}^m p_{k_i}^{(i)}\,.
+\]</span> where <span class="math inline">\(\delta_{s, \sum_i k_i}\)</span> is the Kronecker delta.</p>
+<p>Now that we have this probability, we can write down a probability generating function for the distribution <span class="math inline">\(\pi_s\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+    h(z) &amp;= \sum_{s=0}^\infty \pi_s z^s \\
+    &amp;= \sum_{s=0}^\infty z^s \left[ \sum_{k_1=0}^\infty \dots \sum_{k_m=0}^\infty \delta_{s, \sum_i k_i} \prod_{i=1}^m p_{k_i}^{(i)} \right] \,.
+\end{align*}\]</span></p>
+<p>Since <span class="math inline">\(s= \sum_i k_i\)</span> for each case, we can rewrite the above as <span class="math display">\[\begin{align*}
+    h(z) &amp;= \sum_{k_1=0}^\infty \dots \sum_{k_m=0}^\infty z^{\sum_i k_i}\prod_{i=1}^m p_{k_i}^{(i)} \\
+    &amp;= \prod_{i=1}^m \sum_{k_i = 0}^\infty p_{k_i}^{(i)} z^{k_i} \,.
+\end{align*}\]</span></p>
+<p>But, simplifying the notation on the indices, we see that <span class="math inline">\(\sum_{k_i = 0}^\infty p_{k_i}^{(i)} z^{k_i} = \sum_{k = 0}^\infty p_{k}^{(i)} z^{k} = g_i(z).\)</span></p>
+<p>Thus, <span class="math display">\[
+    h(z) = \prod_{i=1}^m g_i(z) \,
+\]</span> as required.</p>
+</div>
+<p>This theorem has a very useful corollary in the case where all the random variables are drawn from the same distribution.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Corollary</strong>. If <span class="math inline">\(K_1, \dots, K_m\)</span> are independent and identically distributed (i.i.d.) random variables drawn from the same probability distribution <span class="math inline">\(p_k\)</span>, then the sum <span class="math inline">\(X = \sum_{i=1}^m K_i\)</span> has the generating function <span class="math inline">\((g(z))^m\)</span>, where <span class="math inline">\(g(z)\)</span> is the probability generating function for <span class="math inline">\(p_k.\)</span></p>
+</div>
+</div>
+</div>
+<p>This corollary is useful when summing the degrees of <span class="math inline">\(m\)</span> randomly chosen nodes from degree distribution <span class="math inline">\(p_k\)</span>.</p>
 </section>
-<section id="acknowledgements" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>This site was generated using the <a href="https://quarto.org/">Quarto</a> publishing system. It is hosted on GitHub and published via GitHub Pages. We thank Mason Porter for inspiration in earlier versions of this course.</p>
-<p>HZB was funded in part by the National Science Foundation (grant DMS-2109239) through their program on Applied Mathematics.</p>
+<section id="applications-in-configuration-models" class="level2">
+<h2 class="anchored" data-anchor-id="applications-in-configuration-models">Applications in configuration Models</h2>
+<section id="generating-functions-for-excess-degree-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="generating-functions-for-excess-degree-distribution">Generating functions for excess degree distribution</h3>
+<p>Suppose we have a random graph <span class="math inline">\(G\)</span> generated by a configuration model with degree distribution <span class="math inline">\(p_k\)</span>. That is, we know if we select a node <span class="math inline">\(u\)</span> from <span class="math inline">\(G\)</span> uniformly at random, it will have degree <span class="math inline">\(k\)</span> with probability <span class="math inline">\(p_k,\)</span> and the associated generating function is <span class="math inline">\(g_K(z)\)</span>.</p>
+<p>We showed previously that the excess degree distribution is <span class="math inline">\(q_k = \frac{(k+1)p_{k+1}}{c},\)</span> where <span class="math inline">\(c = \mathbb{E}(K)\)</span> is the expected degree of the network. Here, we use the notation <span class="math inline">\(J\)</span> for the random variable for excess degree of node <span class="math inline">\(u\)</span>, which means that <span class="math inline">\(J+1\)</span> describes degree of a node reached by following an edge in <span class="math inline">\(G\)</span>. From here, we can write down the generating function <span class="math inline">\(g_J\)</span> for the excess degree: <span class="math display">\[\begin{align}
+    g_J(z) &amp;= \sum_{k=0}^\infty q_k z^k \\
+    &amp;= \sum_{k=0}^\infty \frac{(k+1)p_{k+1}}{c} z^k \\
+    &amp;= \frac{1}{c}\sum_{k=0}^\infty (k+1)p_{k+1}z^k
+\end{align}\]</span></p>
+<p>If we compare the last line to the formula for <span class="math inline">\(g'(z)\)</span> above, we see that this looks like the derivative of the generating function associated with <span class="math inline">\(p_k\)</span> … cool! <span class="math display">\[
+    g_J(z) = \frac{1}{c} g'_K(z) \,.
+\]</span> We can make one final note: since <span class="math inline">\(c = \mathbb{E}(K) = g'_K(1)\)</span>, we can also write the denominator in terms of generating functions for <span class="math inline">\(K\)</span>: <span class="math display">\[
+    g_J(z) = \frac{g'_K(z)}{g_K'(1)} \,.
+\]</span></p>
+<p>Thus, we have a relationship between generating functions for the degree distribution and the excess degree distribution.</p>
+</section>
+<section id="sec-secondneighbors" class="level3">
+<h3 class="anchored" data-anchor-id="sec-secondneighbors">Number of second neighbors of a node</h3>
+<p>Now, suppose we have a configuration model with degree distribution <span class="math inline">\(p_k\)</span> under the assumption that the network is locally tree-like. We know how to count the number of neighbors (that’s given by the degree). Let’s count the number of neighbors of neighbors — also called second neighbors — of a node.</p>
+<p>What is the probability that a node has exactly <span class="math inline">\(k\)</span> second neighbors in our configuration model? It depends on how many neighbors you have! If you have <span class="math inline">\(m\)</span> neighbors, then this probability is <span class="math display">\[
+    \mathbb{P}(m \text{ neighbors})\mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) \,.
+\]</span></p>
+<p>Summing over all possible values of <span class="math inline">\(m\)</span> gives us our expression: <span class="math display">\[
+     \mathbb{P}(k \text{ second neighbors}) = \sum_{m=0}^\infty \mathbb{P}(m \text{ neighbors})\mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors})
+\]</span></p>
+<p>This calculation could be very hard! Let’s see how generating functions can help us perform this calculation. We will define the generating function for <span class="math inline">\(\mathbb{P}(k \text{ second neighbors})\)</span> to be <span class="math inline">\(g_2(z).\)</span> Then</p>
+<p><span class="math display">\[\begin{align}
+    g_2(z) &amp;= \sum_{k=0}^\infty \mathbb{P}(k \text{ second neighbors}) z^k \\
+    &amp;= \sum_{k=0}^\infty \sum_{m=0}^\infty p_m \mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) z^k \\
+    &amp; = \sum_{m=0}^\infty p_m \sum_{k=0}^\infty \mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) z^k \,.
+\end{align}\]</span></p>
+<p>However, notice that the quantity <span class="math inline">\(\mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors})\)</span> is related to the excess degree: we are interested in the sum of the excess degrees of <span class="math inline">\(m\)</span> neighbors. Using the multiplicative property we proved above, we know that this sum has the generating function <span class="math inline">\((g_J(z))^m\)</span>.</p>
+<p><span class="math display">\[
+     \sum_{k=0}^\infty \mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) z^k = \prod_{i=1}^m\sum_{k=0}^\infty q_kz^k = (g_J(z))^m\,.
+\]</span></p>
+<p>Substituting this expression into our calculation for <span class="math inline">\(g_2(z)\)</span> yields <span class="math display">\[
+g_2(z) = \sum_{m=0}^\infty p_m (g_J(z))^m = g_K(g_J(z)) \,.
+\]</span></p>
+<p>That is, the generating function for the distribution of second neighbors can be calculated from the generating functions of the degree and excess degree distribution!</p>
+<p>We can now find the expected number of second neighbors by calculating <span class="math inline">\(g_2'(1)\)</span>. By the chain rule, <span class="math inline">\(g_2'(z) = g_K'(g_J(z))g_J'(z).\)</span></p>
+<p><span class="math display">\[
+    g_2'(1) = g_K'(g_J(1))g_J'(1).
+\]</span></p>
+<p>However, we know that <span class="math inline">\(g_J(1) = 1\)</span>, because it is the zeroth moment of the distribution. Thus, <span class="math display">\[
+    \mathbb{E}(\text{second neighbors}) = g_K'(1)g_J'(1) = (\text{mean degree})(\text{mean excess degree})\,.
+\]</span></p>
+<p>Referring to our previous calculations for these quantities, we have <span class="math display">\[
+    \mathbb{E}(\text{second neighbors}) = \langle k \rangle \frac{\langle k^2 \rangle - \langle k \rangle}{\langle k \rangle} = \langle k^2 \rangle - \langle k \rangle \,.
+\]</span></p>
+</section>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-newman2018networks" class="csl-entry" role="listitem">
-Newman, Mark. 2018. <em>Networks</em>. Oxford University Press.
-</div>
-</div>
-</section>
 </section>
 
 <p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2024</span></p></main> <!-- /main -->
@@ -819,10 +1051,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../source/10-configuration-model.html" class="pagination-link" aria-label="Configuration models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./source/01-networkrepresentations.html" class="pagination-link" aria-label="Networks and their representations">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../source/13-modularity-maximization.html" class="pagination-link" aria-label="Community Detection and Modularity Maximization">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -29,4 +29,5 @@ book:
       chapters:
         - source/50-random-walks.qmd
         - source/51-agent-based-modeling.qmd
+        - source/52-epidemiology.qmd
 code-summary: "Show code"

@@ -451,7 +451,7 @@ for i in range(2):
 
 
 
-#### Size of the Giant Component
+#### Size of the Giant Component {#sec-component}
 
 Perhaps surprisingly, while it's difficult to prove that there is a giant component, it's not hard at all to estimate its size. 
 [This argument is reproduced from Newman, pages 349-350]{.aside}

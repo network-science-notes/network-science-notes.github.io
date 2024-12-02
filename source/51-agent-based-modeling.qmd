@@ -41,7 +41,7 @@ import numpy as np                            # computations
 from matplotlib import pyplot as plt          # visualizing output
 ```
 
-Since this is a networks class, we'll use a network-based grid. We imported the capability to do that above as the `mesa.space.NetworkGrid` class. Of course, we need a network to use. For this example, we'll use the famous Zachary Karate Club, which is built in to NetworkX: 
+Since this is a networks class, we'll use a network-based grid. We imported the capability to do that above as the `mesa.space.NetworkGrid` class. Of course, we need a network to use. For this example, we'll use the Les Miserable Graph, which is built in to NetworkX: 
 
 ```{python}
 G = nx.les_miserables_graph()
