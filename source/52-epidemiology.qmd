@@ -155,15 +155,71 @@ As before, the expected size of the outbreak is $NS$, which occurs with probabil
 
 ## Time-dependent properties of epidemics on networks
 
+If we want to understand the dynamic evolution and understand the progression of the disease spread in time (not just the limiting behavior) in an analytic way, we need to develope additional techniques. One strategy is to leverage tools from differential equations to study the evolution of the probabilities of a particular node have a particular state at time $t$. We'll give a taste of the methods here for the SI model. @porter2016dynamical provide a resource for further techniques for dynamical systems on networks.
+
 ### SI model
 
+Imagine running many simulations of an SI model with the same parameters on the same network with the same initial conditions.
 
-Simulation of SI model HERE.
+For node $i$, define $S_i(t) =$ expected probability that node $i$ is susceptible at time $t$, and $X_i(t) = $ expected probability that node $i$ is infected at time $t$. As before, we'll assume infections occur with probability $\beta dt$ if node $i$ is susceptible and connected to an infectious node $j$.
 
-### SIR model
+Then, we can write equations to describe how these quantities evolve in time. 
+$$
+    \begin{aligned}
+        \frac{dS_i(t)}{dt} &= -\beta S_i \sum_{j=1}^n A_{ij}X_j \\
+        \frac{dX_i(t)}{dt} &= \beta S_i  \sum_{j=1}^n A_{ij}X_j
+    \end{aligned}
+$$
 
-Simulation of SIR model here.
+Note that, because we have a conserved quantity $X_i(t) + S_i(t) = 1$, these two equations are redundant. The system can be reduced to an equation describing the evolution of the probability that node $i$ is infected:
+$$
+    \frac{dX_i(t)}{dt} = \beta (1-X_i)\sum_{j=1}^n A_{ij}X_j = \beta \sum_{j=1}^n A_{ij}X_j - \beta X_i \sum_{j=1}^n A_{ij}X_j \,.
+$$
 
+Now, we have a system of $n$ ordinary differential equations for infection probabilities, which are coupled through the network structure. For an arbitrary adjacency matrix $A$ this system does not have a closed-form solution. However, we can learn something about the behavior for small $t$ (the beginning of an outbreak) by considering suitable limits.
+
+Assume we use an initial condition where we infect only a single node selected uniformly at random. In this case, $X_i(0) = \frac{1}{n}$ and $S_i(0) = 1-\frac{1}{n}$.
+Consider the large-$n$ limit ($n \to \infty$). In other words, when $n$ is large, $S_i(0) \approx 1$ and $X_i(0)$ is extremely small for all $i$. Thus, for sufficiently small $t$, the quadratic term $X_iX_j$ is much smaller than the linear term. This observation allows us to write an approximate linear system
+$$
+    \frac{dX_i}{dt} \approx \beta \sum_{j=1}^n A_{ij}X_j.
+$$
+
+Writing ${\bf x}(t)$ as the vector $(X_1(t), X_2(t), \dots X_n(t))^T$ containing the probabilities for each node, we can write our system in matrix form
+$$
+    \frac{d}{dt}{\bf x} \approx \beta A {\bf x}\,.
+$$ {#eq-linearSI}
+
+We can study the solutions of the linearized system by studying the eigenvalues and eigenvectors of $A$. Let ${\bf v}_r$ be the eigenvector with associated eigenvalue $\lambda_r$, so that $A{\bf v}_r = \lambda_r {\bf v}_r$. If we write ${\bf x}$ as a linear combination of the eigenvectors of $A$, we have
+
+$$
+    {\bf x} = \sum_{r=1}^n c_r(t) {\bf v}_r \,,
+$$ {#eq-eigsLC}
+
+where $c_r(t)$ are the time-dependent coefficients of this linear combination. Substituting @eq-eigsLC into @eq-linearSI gives
+$$
+    \frac{d}{dt} {\bf x} = \sum_{r=1}^n \frac{dc_r}{dt} {\bf v}_r = \beta \sum_{r=1}^n c_r(t) \lambda_r {\bf v}_r \,.
+$$
+
+Therefore, for each term, we have a first-order linear differential equation describing the coefficients
+$$
+    \frac{dc_r}{dt} = \beta \lambda_r c_r \ \Rightarrow \ c_r(t) = c_r(0)e^{\beta \lambda_r t} \,.
+$$
+
+Finally, substitute this expression for the time-dependent coefficients into @eq-eigsLC to get the solution for ${\bf x}$:
+$$
+    {\bf x} = \sum_{r=1}^n c_r(0)e^{\beta \lambda_r t}{\bf v}_r\,.
+$$ 
+
+Our solution will be dominated by the fasted growing term (i.e., the largest magnitude eigenvalue, which we will call $\lambda_1$).
+$$
+    {\bf x}(t) \sim e^{\beta \lambda_1 t} {\bf v}_1 \,.
+$$
+
+This means that in the early stages of the disease spread, we expect the number of infectious individuals to grow exponentially. The growth rate is determined by the largest magnitude eigenvalue $\lambda_1$ of the adjacency matrix, and the probability varies for different nodes. These probabilities correspond to different components of ${\bf v}_1$.
+
+In fact, we have met such a vector before. The components of the leading eigenvector are what we previously defined as eigenvector centralities --- so this centrality measure gives an approximation to early infection time probability in an SI model!
+
+We have made several approximations in this analysis. In particular, in order to study the linearized problem, we have neglected correlations between neighbors. However, $S_i$ and $X_j$ are not necessarily independent! This can be accounted for using pair approximation (or moment closure) methods; see @porter2016dynamical.
 
 ## References
 

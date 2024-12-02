@@ -356,6 +356,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -538,10 +544,10 @@ window.Quarto = {
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
-<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored" height="431" width="597">
+<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored" height="431" width="606">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="597" height="431" class="figure-img">
+<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="606" height="431" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.1
@@ -764,7 +770,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div id="20b56af7" class="cell" data-execution_count="2">
+<div id="0c83d297" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -786,7 +792,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 4.92.
+Average over experiments is 4.54.
 
 Theoretical expectation is 5.00.
 </code></pre>
@@ -870,8 +876,8 @@ Figure&nbsp;9.3
 </div>
 </div>
 </div>
-<section id="size-of-the-giant-component" class="level4 page-columns page-full">
-<h4 class="anchored" data-anchor-id="size-of-the-giant-component">Size of the Giant Component</h4>
+<section id="sec-component" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="sec-component">Size of the Giant Component</h4>
 <div class="page-columns page-full"><p>Perhaps surprisingly, while it’s difficult to prove that there is a giant component, it’s not hard at all to estimate its size. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This argument is reproduced from Newman, pages 349-350</span></div></div>
 <p>Let <span class="math inline">\(S\)</span> be the size of the giant component in an Erdős–Rényi random graph, assuming there is one. Then, <span class="math inline">\(s = S/n\)</span> is the probability that a randomly selected node is in the giant component. Let <span class="math inline">\(u = 1 - s\)</span> be the probability that a given node is <em>not</em> in the giant component.</p>
 <p>Let’s take a random node <span class="math inline">\(i\)</span>, and ask it the probability that it’s in the giant component. Well, one answer to that question is just “<span class="math inline">\(u\)</span>.” On the other hand, we can <em>also</em> answer that question by looking at <span class="math inline">\(i\)</span>’s neighbors. If <span class="math inline">\(i\)</span> is not in the giant component, then it can’t be connected to any node that is in the giant component. So, for each other node <span class="math inline">\(j\neq i\)</span>, it must be the case that either:</p>

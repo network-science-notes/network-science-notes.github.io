@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>11&nbsp; Probability Generating Functions – Network Science: Models, Mathematics, and Computation</title>
+<title>17&nbsp; Epidemic Models on Networks – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +50,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../source/13-modularity-maximization.html" rel="next">
-<link href="../source/10-configuration-model.html" rel="prev">
+<link href="../chapters/51-agent-based-modeling.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -111,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../source/11-generating-functions.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -153,19 +172,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
   </div>
 </li>
@@ -182,19 +201,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/04-centrality.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/05-viz.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks, and Why You Shouldn’t</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/06-modularity.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Homophily, assortativity, and modularity</span></span></a>
   </div>
 </li>
@@ -211,13 +230,13 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/07-real-world.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/08-power-laws.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/08-power-laws.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
   </div>
 </li>
@@ -234,19 +253,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/09-random-graphs.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/10-configuration-model.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/11-generating-functions.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
   </div>
 </li>
@@ -263,19 +282,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/41-link-prediction.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
   </div>
 </li>
@@ -292,19 +311,19 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/50-random-walks.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../source/52-epidemiology.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
   </div>
 </li>
@@ -320,13 +339,15 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#properties-of-probability-generating-functions" id="toc-properties-of-probability-generating-functions" class="nav-link active" data-scroll-target="#properties-of-probability-generating-functions">Properties of probability generating functions</a></li>
-  <li><a href="#normalization-and-moments" id="toc-normalization-and-moments" class="nav-link" data-scroll-target="#normalization-and-moments">Normalization and moments</a></li>
-  <li><a href="#products-of-generating-functions" id="toc-products-of-generating-functions" class="nav-link" data-scroll-target="#products-of-generating-functions">Products of generating functions</a></li>
-  <li><a href="#applications-in-configuration-models" id="toc-applications-in-configuration-models" class="nav-link" data-scroll-target="#applications-in-configuration-models">Applications in configuration Models</a>
+  <li><a href="#outbreak-sizes" id="toc-outbreak-sizes" class="nav-link active" data-scroll-target="#outbreak-sizes">Outbreak sizes</a>
   <ul class="collapse">
-  <li><a href="#generating-functions-for-excess-degree-distribution" id="toc-generating-functions-for-excess-degree-distribution" class="nav-link" data-scroll-target="#generating-functions-for-excess-degree-distribution">Generating functions for excess degree distribution</a></li>
-  <li><a href="#sec-secondneighbors" id="toc-sec-secondneighbors" class="nav-link" data-scroll-target="#sec-secondneighbors">Number of second neighbors of a node</a></li>
+  <li><a href="#the-si-model" id="toc-the-si-model" class="nav-link" data-scroll-target="#the-si-model">The SI model</a></li>
+  <li><a href="#the-sir-model" id="toc-the-sir-model" class="nav-link" data-scroll-target="#the-sir-model">The SIR model</a></li>
+  <li><a href="#sir-on-configuration-model-networks" id="toc-sir-on-configuration-model-networks" class="nav-link" data-scroll-target="#sir-on-configuration-model-networks">SIR on configuration model networks</a></li>
+  </ul></li>
+  <li><a href="#time-dependent-properties-of-epidemics-on-networks" id="toc-time-dependent-properties-of-epidemics-on-networks" class="nav-link" data-scroll-target="#time-dependent-properties-of-epidemics-on-networks">Time-dependent properties of epidemics on networks</a>
+  <ul class="collapse">
+  <li><a href="#si-model" id="toc-si-model" class="nav-link" data-scroll-target="#si-model">SI model</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -335,9 +356,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../source/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../source/11-generating-functions.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></h1>
 </div>
 
 
@@ -354,278 +375,163 @@ window.Quarto = {
 </header>
 
 
-<p>In this lecture we’ll introduce a powerful tool for calculating network properties: probability generating functions.</p>
-<section id="properties-of-probability-generating-functions" class="level2">
-<h2 class="anchored" data-anchor-id="properties-of-probability-generating-functions">Properties of probability generating functions</h2>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-pgf" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 11.1</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree, with degree distribution <span class="math inline">\(p_k\)</span>. The <strong>probability generating function</strong> <span class="math inline">\(g(z)\)</span> is given by</p>
+<p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/52-epidemiology.ipynb">here</a>.</em></p>
+<p>Mathematical models play an important role in understanding the spread of diseases in a population, and are an integral part of informing policies for disease mitigation. The structure of people’s contact networks can have a big effect on the way a disease spreads.</p>
+<section id="outbreak-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="outbreak-sizes">Outbreak sizes</h2>
+<section id="the-si-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-si-model">The SI model</h3>
+<p>First, we’ll model a scenario where individuals can have one of two disease states: <em>susceptible</em> (has not yet contracted the disease) and <em>infectious</em> (is a carrier of the disease). Suppose we have a network with <span class="math inline">\(N\)</span> agents. We’ll denote the number of susceptible individuals at time <span class="math inline">\(t\)</span> as <span class="math inline">\(S(t)\)</span> and the number of infectious agents at time <span class="math inline">\(t\)</span> as <span class="math inline">\(I(t)\)</span>. We will make several important simplifying assumptions in our model:</p>
+<ul>
+<li>We’ll ignore births or deaths in the population, assuming that these processes happen on slower timescales than the disease spreads.</li>
+<li>Because the total population is conserved, and every agent is in one of the two disease states, we have <span class="math inline">\(N = S(t) + I(t).\)</span></li>
+<li>Infections can only be transmitted from an infectious individual to a susceptible individual. The probability per unit time that the infection will be transmitted via an edge connecting one susceptible and one infected individual is <span class="math inline">\(\beta &gt;0\)</span>. We call this quantity the <strong>transmission rate</strong> or the <strong>infection rate</strong>.</li>
+</ul>
+<p><img src="../assets/img/transmission-rate.png" alt="transmission rate" width="200"></p>
+<p>The model as described above is called an <strong>SI model</strong>. An important question with any model of disease spread is what happens to the size of the outbreak as <span class="math inline">\(t \to \infty.\)</span> Let’s explore this question now.</p>
+<p>Start with one infectious node <span class="math inline">\(i\)</span>. During a time interval of length <span class="math inline">\(\Delta t &lt;&lt;1\)</span>, the probability of transmitting the disease to a susceptible neighbor (supposing there is one) is <span class="math inline">\(\beta \Delta t.\)</span> The probability of <em>not</em> transmitting the disease in time interval <span class="math inline">\(\Delta t\)</span> is <span class="math inline">\(1-\beta \Delta t.\)</span> Given a total time <span class="math inline">\(\tau\)</span>, we have</p>
 <p><span class="math display">\[
-    g(z) = p_0 + p_1z + p_2z^2 + \dots = \sum_{k=0}^\infty p_kz^k \,.
+    \mathbb{P}(\text{disease not transmitted after total time } \tau) = \lim_{\Delta t \to 0} \left(1 -\beta \Delta t\right)^{\tau/\Delta t} = e^{-\beta \tau} \,.
 \]</span></p>
-</div>
-</div>
-</div>
-</div>
-<p>We note that the degree distribution and the probability generating function give two different mathematical representations of the same idea. The probability generating function is a <strong>power series</strong> representation of the degree distribution of <span class="math inline">\(K\)</span>. This is quite useful because the probability generating function is always a polynomial, and there is a lot of rich theory we can leverage.</p>
-<div class="callout callout-style-simple callout-caution">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Exercise</strong>: Suppose we have a network where we observe the following data.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Node Degree</th>
-<th>Percentage of Nodes with Given Degree</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>12%</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>20%</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>58%</td>
-</tr>
-<tr class="even">
-<td>3</td>
-<td>10%</td>
-</tr>
-</tbody>
-</table>
-<p>What is the probability generating function <span class="math inline">\(g(z)\)</span> associated with the degree distribution for this network?</p>
-</div>
-</div>
-</div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>The probability that a node has degree <span class="math inline">\(k\)</span> in our network is equal to the fraction of nodes with that degree. Therefore, we have <span class="math display">\[
-    g(z) = 0.12 + .2z + 0.58z^2 + .1 z^3 \,,
-\]</span> noting that <span class="math inline">\(p_k = 0\)</span> for <span class="math inline">\(k&gt;3.\)</span></p>
-</div>
-<div class="callout callout-style-simple callout-caution">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Exercise</strong>: Suppose <span class="math inline">\(K\)</span> is Poisson distributed with mean degree <span class="math inline">\(c\)</span>. What is the probability generating function for <span class="math inline">\(K\)</span>?</p>
-<p><em>Recall that the probability mass function a Poisson distribution with mean <span class="math inline">\(c\)</span> is given by <span class="math inline">\(\frac{c^k e^{-c}}{k!}.\)</span></em></p>
-</div>
-</div>
-</div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>Substituting <span class="math inline">\(p_k = \frac{c^k e^{-c}}{k!}\)</span> into the formula above yields the probability generating function <span class="math display">\[\begin{align*}
-    g(z) &amp;= \sum_{k=0}^\infty e^{-c}\frac{c^k}{k!}z^k \\
-        &amp;= e^{-c}\sum_{k=0}^\infty\frac{c^k}{k!}z^k \\
-        &amp;= e^{-c} e^{cz} \\
-        &amp;= e^{c(z-1)} \,,
-\end{align*}\]</span> where in the third line we have used the Taylor series <span class="math display">\[
-e^{x} = \sum_{k=0}^\infty \frac{x^k}{k!} \,.  
-\]</span></p>
-<p>This series converges for all (finite) values of <span class="math inline">\(c\)</span> and <span class="math inline">\(k\)</span>.</p>
-</div>
-<div class="callout callout-style-simple callout-caution">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Exercise</strong>: What is the probability generating function for the exponential distribution of the form <span class="math display">\[
-    p_k = (1-a)a^k, \quad 0&lt;a&lt;1 \,.
-\]</span></p>
-</div>
-</div>
-</div>
-<div class="hide proof solution">
-<p><span class="proof-title"><em>Solution</em>. </span>Substituting <span class="math inline">\(p_k = (1-a)a^k\)</span> into the formula above yields the probability generating function <span class="math display">\[
-    g(z) = (1-a)\sum_{k=0}^\infty \left(az \right)^k \,.
-\]</span></p>
-<p>However, notice that this series diverges if <span class="math inline">\(az \geq 1\)</span>, that is, if <span class="math inline">\(z \geq \frac{1}{a}.\)</span> Thus, we have <span class="math display">\[
-    g(z) = \frac{1-a}{1-az}, \quad \vert z \vert &lt;\frac{1}{a}.
-\]</span></p>
-</div>
-<p>The examples above give a sense of how to calculate probability generating functions from known degree distributions. As the next theorem shows, we can also find the degree distribution from the probability generating function. We’ll prove this theorem in class.</p>
-<div class="callout callout-style-simple callout-tip no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="thm-pgf" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 11.1</strong></span> Let <span class="math inline">\(g(z)\)</span> be the probability generating function associated with random variable <span class="math inline">\(K\)</span>. Then the associated probability distribution <span class="math inline">\(p_k\)</span> satisfies <span class="math display">\[
-p_k = \frac{1}{k!}\frac{d^k}{dz^k}g(z) \bigg \vert_{z=0}
-\]</span> for all <span class="math inline">\(k = 0, 1, 2, \dots \,.\)</span></p>
-</div>
-</div>
-</div>
-</div>
-<div class="hide proof">
-<p><span class="proof-title"><em>Proof</em>. </span>We know that <span class="math inline">\(g(z)\)</span> is a polynomial, and thus infinitely differentiable. Using the power rule for polynomial differentiation, the <span class="math inline">\(k\)</span>th derivative of <span class="math inline">\(g\)</span> with respect to <span class="math inline">\(z\)</span> satisfies <span class="math display">\[
-g^{(k)}(z) = k!p_k + \frac{(k+1)}{1!}p_{k+1}z + \frac{(k+2)}{2!}p_{k+2}z^2 + \dots \,.
-\]</span> If we evaluate at <span class="math inline">\(g=0\)</span>, all terms except the first will vanish: <span class="math display">\[
-g^{(k)}(0) = k!p_k \,.
-\]</span></p>
-<p>Solving for <span class="math inline">\(p_k\)</span> gives the desired result.</p>
-</div>
+<p>That is, as <span class="math inline">\(\tau \to \infty\)</span>, the probability of the susceptible node remaining uninfected approaches 0. We expect that a susceptible node with an infected neighbor will eventually become infected. Continuing this argument, any node that is path-connected to an infected node will eventually become infected. From this we can conclude that the size of the outbreak will be the size of the component that contains the initially infected node.</p>
+<p>Fortunately, we have already studied the calculation of component sizes (see <a href="09-random-graphs.html#sec-component" class="quarto-xref"><span>Section 9.4.3.1</span></a>). Consider a network where the fraction of nodes in the giant component is <span class="math inline">\(S\)</span>. Then, with probability <span class="math inline">\(S\)</span>, the expected size of the outbreak will be <span class="math inline">\(NS.\)</span> With probability <span class="math inline">\(1-S\)</span>, the number of infectious individuals will remain small, with the size of the outbreak determined by the size of the connected component containing the initially infectious node.</p>
+<p>Through this quick analysis, we see that even in the simplest epidemic model, network structure introduces stochasticity into the dynamics.</p>
 </section>
-<section id="normalization-and-moments" class="level2">
-<h2 class="anchored" data-anchor-id="normalization-and-moments">Normalization and moments</h2>
-<p>The <strong>moments</strong> of a probability distribution are quantities that give us important information about the shape of the distribution. The <span class="math inline">\(m\)</span>th moment of a probability distribution <span class="math inline">\(p_k\)</span> is</p>
-<p><span class="math display">\[
-\langle k^m \rangle = \sum_{k=0}^\infty k^m p_k \,.
+<section id="the-sir-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-sir-model">The SIR model</h3>
+<p>To make the model slightly more realistic, we could assume that agents could eventually recover from the disease, while keeping the other parameters and assumptions as above. We will assume that recovered individuals are no longer infectious (they cannot spread the disease to other agents) and they are also no longer susceptible (they have developed immunity to future infections). Let <span class="math inline">\(R(t)\)</span> denote the class of recovered individuals at time <span class="math inline">\(t\)</span>. Now, <span class="math inline">\(N = S(t) + I(t) + R(t).\)</span> This model is called an <strong>SIR model</strong>.</p>
+<p>As in the SI model, the <em>transmission probability</em> between an infectious nodes <span class="math inline">\(i\)</span> and susceptible node <span class="math inline">\(j\)</span> is <span class="math display">\[
+    \phi_{ij} = 1 - e^{-\beta \tau_i} \,
 \]</span></p>
-<p>We recognize that moments have already shown up in several of our calculations thus far. For example, the zeroth moment of a degree distribution is always 1 since <span class="math inline">\(\sum_{k=0}^\infty p_k = 1\)</span>. The first moment <span class="math inline">\(\langle k \rangle\)</span> is the expected value. The second moment showed up in our previous lecture when discussing the friendship paradox.</p>
-<p>We can now see that generating functions give us a nice way to calculate moments. Using the definition of the probability generating function, we see that the zeroth moment is given by <span class="math display">\[
-    g(1) = \sum_{k=0}^\infty p_k = 1 \,.
-\]</span> If we take the derivative of the probability generating function with respect to <span class="math inline">\(z\)</span> we obtain <span class="math display">\[
-    g'(z) = \sum_{k=0}^\infty kp_kz^{k-1} \,.
-\]</span> If we evaluate at <span class="math inline">\(z=1\)</span>, we get the first moment of <span class="math inline">\(p_k\)</span>: <span class="math display">\[
-    g'(1) = \sum_{k=0}^\infty kp_k = \langle k \rangle\,.
-\]</span></p>
-<p>Unfortunately, we can see that <span class="math inline">\(g''(1)\)</span> will not exactly give us the second moment. A small modification, however, will do the trick.</p>
-<p><span class="math display">\[\begin{align*}
-    z \frac{d}{dz} \left(z \frac{dg}{dz}\right) &amp;=  z \frac{d}{dz} \left( \sum_{k=0}^\infty kp_kz^{k} \right) \\
-    &amp;= z \sum_{k=0}^\infty k^2p_kz^{k-1} \\
-    &amp;= \sum_{k=0}^\infty k^2p_kz^{k} \,.
-\end{align*}\]</span></p>
-<p>Evaluating this quantity at <span class="math inline">\(z=1\)</span> will give the second moment of the distribution: <span class="math display">\[
-    \left( z \frac{d}{dz} \right)^2 g(z) \bigg \vert_{z=1} = \langle k^2 \rangle \,.
-\]</span></p>
-<p>This strategy generalizes to higher-order moments as well.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="def-moments" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 11.2</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree with probability generating function <span class="math inline">\(g(z)\)</span>. The <strong><span class="math inline">\(m\)</span>th moment</strong> of the distribution of <span class="math inline">\(K\)</span> is given by <span class="math display">\[
-    \langle k^m \rangle = \left( z \frac{d}{dz} \right)^m g(z) \bigg \vert_{z=1} \,.
-\]</span></p>
-</div>
-</div>
-</div>
-</div>
+<p>where <span class="math inline">\(\tau_i\)</span> is the amount of time that an individual <span class="math inline">\(i\)</span> is infectious. In this case, <span class="math inline">\(\tau_i\)</span> is a disease-dependent parameter that can be interpreted as a recovery rate. While this value is often chosen to be a fixed constant, we could also draw <span class="math inline">\(\tau_i\)</span> from a distribution or allow it to depend on other node properties.</p>
+<p>Notice that we have a key difference in our dynamics due to the introduction of the recovered class. Unlike in the SI model, it is possible for an infectious node to recover before it infects its susceptible neighbors, thus limiting the spread of disease.</p>
+<p>Intuitively we can see the qualitative effects of our parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\tau\)</span>. If either (or both) of these parameters are small, then the transmission probability <span class="math inline">\(\phi\)</span> will also be small. In this regime, we expect the outbreak to reach a limited number of agents and exist only in isolated clusters.</p>
+<p><img src="../assets/img/percolation-example.png" class="img-fluid"></p>
+<p>As <span class="math inline">\(\phi\)</span> increases, we will eventually reach a <em>percolation transition</em> where a large “cluster” forms, and thus an epidemic (i.e., a large outbreak) is possible. Again, if <span class="math inline">\(S\)</span> is the fraction of nodes in the cluster, the size of the outbreak will be <span class="math inline">\(NS\)</span> will probability <span class="math inline">\(S\)</span>. Note that a large value of <span class="math inline">\(\phi\)</span> doesn’t guarantee an epidemic — this is a stochastic process and it is possible for the disease to die out by chance.</p>
 </section>
-<section id="products-of-generating-functions" class="level2">
-<h2 class="anchored" data-anchor-id="products-of-generating-functions">Products of generating functions</h2>
-<p>In this section, we will show the following very useful property of generating functions.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<div id="thm-multiplicative" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 11.2</strong></span> Let <span class="math inline">\(K_1, \dots, K_m\)</span> be independent and identically distributed (i.i.d.) random variables drawn from probability distributions <span class="math inline">\(p_k^{(1)}, p_k^{(2)}, \dots, p_k^{(m)}\)</span> with corresponding probability generating functions <span class="math inline">\(g_1(z), \dots g_m(z)\)</span>. Then <span class="math inline">\(X = \sum_{i=1}^m K_i\)</span> has the generating function <span class="math inline">\(g_X(z) = \prod_{i=1}^m g_i(z)\)</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="proof">
-<p><span class="proof-title"><em>Proof</em>. </span>Since <span class="math inline">\(K_i\)</span> are i.i.d, the probability of drawing a particular set of values <span class="math inline">\(\mathcal{K} = \{k_1, k_2, \dots, k_m\}\)</span> is <span class="math display">\[
-    (p_{k_1}^{(1)})(p_{k_2}^{(2)}) \dots (p_{k_m}^{(m)}) =  \prod_{i=1}^m p_{k_i}^{(i)} \,.
+<section id="sir-on-configuration-model-networks" class="level3">
+<h3 class="anchored" data-anchor-id="sir-on-configuration-model-networks">SIR on configuration model networks</h3>
+<p>Now that we have some intuition behind the effect of parameters in the SIR model, let’s calculate the size distribution of the epidemic as well as the epidemic threshold. The mathematical ideas we use in this section come from the study of bond percolation (see <span class="citation" data-cites="sahimi2023applications">Sahimi (<a href="#ref-sahimi2023applications" role="doc-biblioref">2023</a>)</span>).</p>
+<p>Suppose we have a configuration model with degree distribution <span class="math inline">\(p_k\)</span>. We will initially choose one node uniformly at random to be infectious. The transmission probability (as derived in the previous section) will be denoted <span class="math inline">\(\phi\)</span>; we can also think of this as an edge “occupation” probability. We will assume that transmission along each edge is independent.</p>
+<p>What is the probability that a node <span class="math inline">\(i\)</span> is connected to a giant percolation cluster (that is, in an epidemic)? It’s easier to calculate the expected probability <span class="math inline">\(u\)</span> that a node is {} connected to the giant percolation cluster via one of its edges, say <span class="math inline">\((i,j)\)</span>. This can happen one of two ways:</p>
+<ol type="1">
+<li><p>The edge <span class="math inline">\((i,j)\)</span> is unoccupied (no transmission of infection between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>): <span class="math display">\[
+\mathbb{P}(\text{edge unoccupied}) = 1 - \phi,.
+\]</span></p></li>
+<li><p>The edge is occupied (infection has been transmitted between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>), but <span class="math inline">\(j\)</span> is not connected to the giant cluster (no transmission between node <span class="math inline">\(j\)</span> and any of its <span class="math inline">\(k\)</span> neighbors): <span class="math display">\[
+\mathbb{P}(j \text{ not connected to giant cluster by any of } k \text{ edges}) = u^k \,,
+\]</span> and so <span class="math display">\[
+\mathbb{P}((i,j) \text{ occupied and } j \text{ not connected by any of } k \text{ edges}) = \phi u^k \,,
+\]</span></p></li>
+</ol>
+<p><img src="../assets/img/second-neighbors.png" alt="second neighbors" width="200"></p>
+<p>Combining (1) and (2) gives our desired quantity: <span class="math display">\[
+    \mathbb{P}(i \text{ not connected to giant cluster via degree} (k+1) \text{ neighbor}) = 1 - \phi + \phi u^k \,.
 \]</span></p>
-<p>Next, we will calculate the probability <span class="math inline">\(\pi_s\)</span> that the values add to a specific total <span class="math inline">\(s\)</span>. We do this by summing the product over all sets <span class="math inline">\(\mathcal{K}\)</span> that add to <span class="math inline">\(s\)</span>.</p>
+<p>We know that, for a configuration model with degree distribution given by <span class="math inline">\(p_k\)</span>, the value of <span class="math inline">\(k\)</span> is distributed according to the excess degree distribution <span class="math display">\[
+    q_k = \frac{(k+1)p_{k+1}}{\langle k \rangle} \,,
+\]</span> where <span class="math inline">\(\langle k \rangle\)</span> is the mean degree.</p>
+<p>Summing over all possible values of <span class="math inline">\(k\)</span> gives <span id="eq-u-prob"><span class="math display">\[
+\begin{aligned}
+    u &amp;= \sum_{k=0}^\infty q_k \left(1-\phi+\phi u^k\right) \nonumber \\
+    &amp;= \sum_{k=0}^\infty q_k - \phi \sum_{k=0}^\infty q_k + \phi \sum_{k=0}^\infty q_k u^k \nonumber \\
+    &amp;= 1 - \phi + \phi g_1(u) \,,
+\end{aligned}
+\tag{17.1}\]</span></span></p>
+<p>where <span class="math inline">\(g_1(u)\)</span> is the generating function associated with the excess degree distribution for our network. In general, <a href="#eq-u-prob" class="quarto-xref">Equation&nbsp;<span>17.1</span></a> may be difficult to solve, or may not have a closed form solution. However, we can use a graphical method to get insight into the epidemic threshold.</p>
+<p>We know that <span class="math inline">\(g_1(u)\)</span> is a polynomial with nonnegative coefficients because it is a probability generating function. Therefore, for <span class="math inline">\(u \in [0,1]\)</span>, we know</p>
+<ul>
+<li><span class="math inline">\(g_1(u) \geq 0\)</span>,</li>
+<li>all derivatives of <span class="math inline">\(g_1\)</span> with respect to <span class="math inline">\(u\)</span> are nonnegative, and</li>
+<li><span class="math inline">\(g_1(1) = 1\)</span>.</li>
+</ul>
+<p>We look for intersections of <span class="math inline">\(u\)</span> and <span class="math inline">\(1- \phi + \phi g_1(u) = y\)</span>. To calculate <span class="math inline">\(y\)</span>, we take <span class="math inline">\(g_1(u)\)</span> and shift up by <span class="math inline">\(1- \phi\)</span> and multiply by <span class="math inline">\(\phi\)</span>.</p>
+<p>If <span class="math inline">\(\phi\)</span> is sufficiently large, we will see the following qualitative behavior: <img src="../assets/img/large-phi.png" class="img-fluid"></p>
+<p>As <span class="math inline">\(\phi\)</span> decreases, then eventually at <span class="math inline">\(\phi = \phi_c\)</span> the second intersection disappears: <img src="../assets/img/critical-phi.png" class="img-fluid"> <img src="../assets/img/small-phi.png" class="img-fluid"></p>
+<p>Inspired by our sketches, we can calculate the value of <span class="math inline">\(\phi_c\)</span> by noticing this transition occurs when the curve is tangent to the identity line at <span class="math inline">\(u=1\)</span>, that is,</p>
 <p><span class="math display">\[
-    \pi_s = \sum_{k_1=0}^ \infty \dots \sum_{k_m=0}^ \infty \delta_{s, \sum_i k_i} \prod_{i=1}^m p_{k_i}^{(i)}\,.
-\]</span> where <span class="math inline">\(\delta_{s, \sum_i k_i}\)</span> is the Kronecker delta.</p>
-<p>Now that we have this probability, we can write down a probability generating function for the distribution <span class="math inline">\(\pi_s\)</span>:</p>
-<p><span class="math display">\[\begin{align*}
-    h(z) &amp;= \sum_{s=0}^\infty \pi_s z^s \\
-    &amp;= \sum_{s=0}^\infty z^s \left[ \sum_{k_1=0}^\infty \dots \sum_{k_m=0}^\infty \delta_{s, \sum_i k_i} \prod_{i=1}^m p_{k_i}^{(i)} \right] \,.
-\end{align*}\]</span></p>
-<p>Since <span class="math inline">\(s= \sum_i k_i\)</span> for each case, we can rewrite the above as <span class="math display">\[\begin{align*}
-    h(z) &amp;= \sum_{k_1=0}^\infty \dots \sum_{k_m=0}^\infty z^{\sum_i k_i}\prod_{i=1}^m p_{k_i}^{(i)} \\
-    &amp;= \prod_{i=1}^m \sum_{k_i = 0}^\infty p_{k_i}^{(i)} z^{k_i} \,.
-\end{align*}\]</span></p>
-<p>But, simplifying the notation on the indices, we see that <span class="math inline">\(\sum_{k_i = 0}^\infty p_{k_i}^{(i)} z^{k_i} = \sum_{k = 0}^\infty p_{k}^{(i)} z^{k} = g_i(z).\)</span></p>
-<p>Thus, <span class="math display">\[
-    h(z) = \prod_{i=1}^m g_i(z) \,
-\]</span> as required.</p>
-</div>
-<p>This theorem has a very useful corollary in the case where all the random variables are drawn from the same distribution.</p>
-<div class="callout callout-style-simple callout-note no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>Corollary</strong>. If <span class="math inline">\(K_1, \dots, K_m\)</span> are independent and identically distributed (i.i.d.) random variables drawn from the same probability distribution <span class="math inline">\(p_k\)</span>, then the sum <span class="math inline">\(X = \sum_{i=1}^m K_i\)</span> has the generating function <span class="math inline">\((g(z))^m\)</span>, where <span class="math inline">\(g(z)\)</span> is the probability generating function for <span class="math inline">\(p_k.\)</span></p>
-</div>
-</div>
-</div>
-<p>This corollary is useful when summing the degrees of <span class="math inline">\(m\)</span> randomly chosen nodes from degree distribution <span class="math inline">\(p_k\)</span>.</p>
+    \begin{aligned}
+    \frac{d}{du} \left[ 1 - \phi_c + \phi_c g_1(u)\right] \bigg \vert_{u=1} = 1 \,, \\
+    \rightarrow \phi_c g_1'(1) = 1 \,, \\
+    \rightarrow \phi_c = \frac{1}{g_1'(1)} \,.
+    \end{aligned}
+\]</span></p>
+<p>We have previously calculated the quantity <span class="math inline">\(g_1'(1)\)</span> in terms of the degree distribution in <a href="11-generating-functions.html#sec-secondneighbors" class="quarto-xref"><span>Section 11.4.2</span></a>: this is the expected excess degree, which is given by <span class="math inline">\(\frac{\langle k^2\rangle - \langle k \rangle}{\langle k \rangle}\)</span>. Thus, <span class="math display">\[
+    \phi_c = \frac{\langle k \rangle}{\langle k^2\rangle - \langle k \rangle} \,.
+\]</span></p>
+<p>We can even write this in terms of model parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\tau\)</span>. Since <span class="math inline">\(\phi_c = 1-e^{-\beta \tau}\)</span>, we have <span class="math display">\[
+\begin{aligned}
+    \beta \tau &amp;= -\ln \left(1-\phi_c \right) \\
+    &amp; = -\ln \left[ \frac{\langle k^2 \rangle- \langle k \rangle - \langle k \rangle}{\langle k^2 \rangle- \langle k \rangle} \right] \\
+    &amp;= \ln \left[ \frac{\langle k^2 \rangle- \langle k \rangle}{\langle k^2 \rangle- 2\langle k \rangle} \right] \,.
+\end{aligned}
+\]</span></p>
+<p>If the product <span class="math inline">\(\beta \tau\)</span> is less than this value, we do not expect an epidemic. However, if <span class="math inline">\(\beta \tau\)</span> is larger than this value, then an epidemic is possible! This helps us link disease model parameters to network structure.</p>
+<p>The argument to approximate the size of the outbreak is similar to what we have done previously. Let <span class="math inline">\(S\)</span> be the fraction of nodes in the giant percolation cluster. Since <span class="math inline">\(u\)</span> is the probability that a node is not connected to a giant cluster via a particular edge, a node with <span class="math inline">\(k\)</span> edges is not connected to the giant cluster with probability <span class="math inline">\(u^k\)</span>.</p>
+<p>For the network, we expect that <span class="math display">\[
+    \mathbb{P}(\text{not in cluster}) = \sum_{k=0}^\infty p_k u^k = g_0(u)\,,
+\]</span> and so <span class="math display">\[
+    \mathbb{P}(\text{in cluster}) = S = 1-g_0(u)\,.
+\]</span></p>
+<p>As before, the expected size of the outbreak is <span class="math inline">\(NS\)</span>, which occurs with probability <span class="math inline">\(S\)</span>. Note that, unlike in the SI model, <span class="math inline">\(S\)</span> depends on <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\tau\)</span>. If these values exceed the threshold, then an epidemic is possible, if the infection is introduced in the giant cluster.</p>
 </section>
-<section id="applications-in-configuration-models" class="level2">
-<h2 class="anchored" data-anchor-id="applications-in-configuration-models">Applications in configuration Models</h2>
-<section id="generating-functions-for-excess-degree-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="generating-functions-for-excess-degree-distribution">Generating functions for excess degree distribution</h3>
-<p>Suppose we have a random graph <span class="math inline">\(G\)</span> generated by a configuration model with degree distribution <span class="math inline">\(p_k\)</span>. That is, we know if we select a node <span class="math inline">\(u\)</span> from <span class="math inline">\(G\)</span> uniformly at random, it will have degree <span class="math inline">\(k\)</span> with probability <span class="math inline">\(p_k,\)</span> and the associated generating function is <span class="math inline">\(g_K(z)\)</span>.</p>
-<p>We showed previously that the excess degree distribution is <span class="math inline">\(q_k = \frac{(k+1)p_{k+1}}{c},\)</span> where <span class="math inline">\(c = \mathbb{E}(K)\)</span> is the expected degree of the network. Here, we use the notation <span class="math inline">\(J\)</span> for the random variable for excess degree of node <span class="math inline">\(u\)</span>, which means that <span class="math inline">\(J+1\)</span> describes degree of a node reached by following an edge in <span class="math inline">\(G\)</span>. From here, we can write down the generating function <span class="math inline">\(g_J\)</span> for the excess degree: <span class="math display">\[\begin{align}
-    g_J(z) &amp;= \sum_{k=0}^\infty q_k z^k \\
-    &amp;= \sum_{k=0}^\infty \frac{(k+1)p_{k+1}}{c} z^k \\
-    &amp;= \frac{1}{c}\sum_{k=0}^\infty (k+1)p_{k+1}z^k
-\end{align}\]</span></p>
-<p>If we compare the last line to the formula for <span class="math inline">\(g'(z)\)</span> above, we see that this looks like the derivative of the generating function associated with <span class="math inline">\(p_k\)</span> … cool! <span class="math display">\[
-    g_J(z) = \frac{1}{c} g'_K(z) \,.
-\]</span> We can make one final note: since <span class="math inline">\(c = \mathbb{E}(K) = g'_K(1)\)</span>, we can also write the denominator in terms of generating functions for <span class="math inline">\(K\)</span>: <span class="math display">\[
-    g_J(z) = \frac{g'_K(z)}{g_K'(1)} \,.
-\]</span></p>
-<p>Thus, we have a relationship between generating functions for the degree distribution and the excess degree distribution.</p>
 </section>
-<section id="sec-secondneighbors" class="level3">
-<h3 class="anchored" data-anchor-id="sec-secondneighbors">Number of second neighbors of a node</h3>
-<p>Now, suppose we have a configuration model with degree distribution <span class="math inline">\(p_k\)</span> under the assumption that the network is locally tree-like. We know how to count the number of neighbors (that’s given by the degree). Let’s count the number of neighbors of neighbors — also called second neighbors — of a node.</p>
-<p>What is the probability that a node has exactly <span class="math inline">\(k\)</span> second neighbors in our configuration model? It depends on how many neighbors you have! If you have <span class="math inline">\(m\)</span> neighbors, then this probability is <span class="math display">\[
-    \mathbb{P}(m \text{ neighbors})\mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) \,.
+<section id="time-dependent-properties-of-epidemics-on-networks" class="level2">
+<h2 class="anchored" data-anchor-id="time-dependent-properties-of-epidemics-on-networks">Time-dependent properties of epidemics on networks</h2>
+<p>If we want to understand the dynamic evolution and understand the progression of the disease spread in time (not just the limiting behavior) in an analytic way, we need to develope additional techniques. One strategy is to leverage tools from differential equations to study the evolution of the probabilities of a particular node have a particular state at time <span class="math inline">\(t\)</span>. We’ll give a taste of the methods here for the SI model. <span class="citation" data-cites="porter2016dynamical">Porter and Gleeson (<a href="#ref-porter2016dynamical" role="doc-biblioref">2016</a>)</span> provide a resource for further techniques for dynamical systems on networks.</p>
+<section id="si-model" class="level3">
+<h3 class="anchored" data-anchor-id="si-model">SI model</h3>
+<p>Imagine running many simulations of an SI model with the same parameters on the same network with the same initial conditions.</p>
+<p>For node <span class="math inline">\(i\)</span>, define <span class="math inline">\(S_i(t) =\)</span> expected probability that node <span class="math inline">\(i\)</span> is susceptible at time <span class="math inline">\(t\)</span>, and $X_i(t) = $ expected probability that node <span class="math inline">\(i\)</span> is infected at time <span class="math inline">\(t\)</span>. As before, we’ll assume infections occur with probability <span class="math inline">\(\beta dt\)</span> if node <span class="math inline">\(i\)</span> is susceptible and connected to an infectious node <span class="math inline">\(j\)</span>.</p>
+<p>Then, we can write equations to describe how these quantities evolve in time. <span class="math display">\[
+    \begin{aligned}
+        \frac{dS_i(t)}{dt} &amp;= -\beta S_i \sum_{j=1}^n A_{ij}X_j \\
+        \frac{dX_i(t)}{dt} &amp;= \beta S_i  \sum_{j=1}^n A_{ij}X_j
+    \end{aligned}
 \]</span></p>
-<p>Summing over all possible values of <span class="math inline">\(m\)</span> gives us our expression: <span class="math display">\[
-     \mathbb{P}(k \text{ second neighbors}) = \sum_{m=0}^\infty \mathbb{P}(m \text{ neighbors})\mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors})
+<p>Note that, because we have a conserved quantity <span class="math inline">\(X_i(t) + S_i(t) = 1\)</span>, these two equations are redundant. The system can be reduced to an equation describing the evolution of the probability that node <span class="math inline">\(i\)</span> is infected: <span class="math display">\[
+    \frac{dX_i(t)}{dt} = \beta (1-X_i)\sum_{j=1}^n A_{ij}X_j = \beta \sum_{j=1}^n A_{ij}X_j - \beta X_i \sum_{j=1}^n A_{ij}X_j \,.
 \]</span></p>
-<p>This calculation could be very hard! Let’s see how generating functions can help us perform this calculation. We will define the generating function for <span class="math inline">\(\mathbb{P}(k \text{ second neighbors})\)</span> to be <span class="math inline">\(g_2(z).\)</span> Then</p>
-<p><span class="math display">\[\begin{align}
-    g_2(z) &amp;= \sum_{k=0}^\infty \mathbb{P}(k \text{ second neighbors}) z^k \\
-    &amp;= \sum_{k=0}^\infty \sum_{m=0}^\infty p_m \mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) z^k \\
-    &amp; = \sum_{m=0}^\infty p_m \sum_{k=0}^\infty \mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) z^k \,.
-\end{align}\]</span></p>
-<p>However, notice that the quantity <span class="math inline">\(\mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors})\)</span> is related to the excess degree: we are interested in the sum of the excess degrees of <span class="math inline">\(m\)</span> neighbors. Using the multiplicative property we proved above, we know that this sum has the generating function <span class="math inline">\((g_J(z))^m\)</span>.</p>
-<p><span class="math display">\[
-     \sum_{k=0}^\infty \mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) z^k = \prod_{i=1}^m\sum_{k=0}^\infty q_kz^k = (g_J(z))^m\,.
+<p>Now, we have a system of <span class="math inline">\(n\)</span> ordinary differential equations for infection probabilities, which are coupled through the network structure. For an arbitrary adjacency matrix <span class="math inline">\(A\)</span> this system does not have a closed-form solution. However, we can learn something about the behavior for small <span class="math inline">\(t\)</span> (the beginning of an outbreak) by considering suitable limits.</p>
+<p>Assume we use an initial condition where we infect only a single node selected uniformly at random. In this case, <span class="math inline">\(X_i(0) = \frac{1}{n}\)</span> and <span class="math inline">\(S_i(0) = 1-\frac{1}{n}\)</span>. Consider the large-<span class="math inline">\(n\)</span> limit (<span class="math inline">\(n \to \infty\)</span>). In other words, when <span class="math inline">\(n\)</span> is large, <span class="math inline">\(S_i(0) \approx 1\)</span> and <span class="math inline">\(X_i(0)\)</span> is extremely small for all <span class="math inline">\(i\)</span>. Thus, for sufficiently small <span class="math inline">\(t\)</span>, the quadratic term <span class="math inline">\(X_iX_j\)</span> is much smaller than the linear term. This observation allows us to write an approximate linear system <span class="math display">\[
+    \frac{dX_i}{dt} \approx \beta \sum_{j=1}^n A_{ij}X_j.
 \]</span></p>
-<p>Substituting this expression into our calculation for <span class="math inline">\(g_2(z)\)</span> yields <span class="math display">\[
-g_2(z) = \sum_{m=0}^\infty p_m (g_J(z))^m = g_K(g_J(z)) \,.
+<p>Writing <span class="math inline">\({\bf x}(t)\)</span> as the vector <span class="math inline">\((X_1(t), X_2(t), \dots X_n(t))^T\)</span> containing the probabilities for each node, we can write our system in matrix form <span id="eq-linearSI"><span class="math display">\[
+    \frac{d}{dt}{\bf x} \approx \beta A {\bf x}\,.
+\tag{17.2}\]</span></span></p>
+<p>We can study the solutions of the linearized system by studying the eigenvalues and eigenvectors of <span class="math inline">\(A\)</span>. Let <span class="math inline">\({\bf v}_r\)</span> be the eigenvector with associated eigenvalue <span class="math inline">\(\lambda_r\)</span>, so that <span class="math inline">\(A{\bf v}_r = \lambda_r {\bf v}_r\)</span>. If we write <span class="math inline">\({\bf x}\)</span> as a linear combination of the eigenvectors of <span class="math inline">\(A\)</span>, we have</p>
+<p><span id="eq-eigsLC"><span class="math display">\[
+    {\bf x} = \sum_{r=1}^n c_r(t) {\bf v}_r \,,
+\tag{17.3}\]</span></span></p>
+<p>where <span class="math inline">\(c_r(t)\)</span> are the time-dependent coefficients of this linear combination. Substituting <a href="#eq-eigsLC" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> into <a href="#eq-linearSI" class="quarto-xref">Equation&nbsp;<span>17.2</span></a> gives <span class="math display">\[
+    \frac{d}{dt} {\bf x} = \sum_{r=1}^n \frac{dc_r}{dt} {\bf v}_r = \beta \sum_{r=1}^n c_r(t) \lambda_r {\bf v}_r \,.
 \]</span></p>
-<p>That is, the generating function for the distribution of second neighbors can be calculated from the generating functions of the degree and excess degree distribution!</p>
-<p>We can now find the expected number of second neighbors by calculating <span class="math inline">\(g_2'(1)\)</span>. By the chain rule, <span class="math inline">\(g_2'(z) = g_K'(g_J(z))g_J'(z).\)</span></p>
-<p><span class="math display">\[
-    g_2'(1) = g_K'(g_J(1))g_J'(1).
+<p>Therefore, for each term, we have a first-order linear differential equation describing the coefficients <span class="math display">\[
+    \frac{dc_r}{dt} = \beta \lambda_r c_r \ \Rightarrow \ c_r(t) = c_r(0)e^{\beta \lambda_r t} \,.
 \]</span></p>
-<p>However, we know that <span class="math inline">\(g_J(1) = 1\)</span>, because it is the zeroth moment of the distribution. Thus, <span class="math display">\[
-    \mathbb{E}(\text{second neighbors}) = g_K'(1)g_J'(1) = (\text{mean degree})(\text{mean excess degree})\,.
+<p>Finally, substitute this expression for the time-dependent coefficients into <a href="#eq-eigsLC" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> to get the solution for <span class="math inline">\({\bf x}\)</span>: <span class="math display">\[
+    {\bf x} = \sum_{r=1}^n c_r(0)e^{\beta \lambda_r t}{\bf v}_r\,.
 \]</span></p>
-<p>Referring to our previous calculations for these quantities, we have <span class="math display">\[
-    \mathbb{E}(\text{second neighbors}) = \langle k \rangle \frac{\langle k^2 \rangle - \langle k \rangle}{\langle k \rangle} = \langle k^2 \rangle - \langle k \rangle \,.
+<p>Our solution will be dominated by the fasted growing term (i.e., the largest magnitude eigenvalue, which we will call <span class="math inline">\(\lambda_1\)</span>). <span class="math display">\[
+    {\bf x}(t) \sim e^{\beta \lambda_1 t} {\bf v}_1 \,.
 \]</span></p>
+<p>This means that in the early stages of the disease spread, we expect the number of infectious individuals to grow exponentially. The growth rate is determined by the largest magnitude eigenvalue <span class="math inline">\(\lambda_1\)</span> of the adjacency matrix, and the probability varies for different nodes. These probabilities correspond to different components of <span class="math inline">\({\bf v}_1\)</span>.</p>
+<p>In fact, we have met such a vector before. The components of the leading eigenvector are what we previously defined as eigenvector centralities — so this centrality measure gives an approximation to early infection time probability in an SI model!</p>
+<p>We have made several approximations in this analysis. In particular, in order to study the linearized problem, we have neglected correlations between neighbors. However, <span class="math inline">\(S_i\)</span> and <span class="math inline">\(X_j\)</span> are not necessarily independent! This can be accounted for using pair approximation (or moment closure) methods; see <span class="citation" data-cites="porter2016dynamical">Porter and Gleeson (<a href="#ref-porter2016dynamical" role="doc-biblioref">2016</a>)</span>.</p>
 </section>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-porter2016dynamical" class="csl-entry" role="listitem">
+Porter, Mason A, and James P Gleeson. 2016. <span>“Dynamical Systems on Networks.”</span> <em>Frontiers in Applied Dynamical Systems: Reviews and Tutorials</em> 4: 29.
+</div>
+<div id="ref-sahimi2023applications" class="csl-entry" role="listitem">
+Sahimi, Muhammad. 2023. <em>Applications of Percolation Theory</em>. Springer.
+</div>
+</div>
 </section>
 
 <p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2024</span></p></main> <!-- /main -->
@@ -1051,14 +957,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../source/10-configuration-model.html" class="pagination-link" aria-label="Configuration models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span>
+      <a href="../chapters/51-agent-based-modeling.html" class="pagination-link" aria-label="Agent-Based Modeling on Networks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../source/13-modularity-maximization.html" class="pagination-link" aria-label="Community Detection and Modularity Maximization">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

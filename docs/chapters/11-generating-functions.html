@@ -302,6 +302,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -320,7 +326,7 @@ window.Quarto = {
   <li><a href="#applications-in-configuration-models" id="toc-applications-in-configuration-models" class="nav-link" data-scroll-target="#applications-in-configuration-models">Applications in configuration Models</a>
   <ul class="collapse">
   <li><a href="#generating-functions-for-excess-degree-distribution" id="toc-generating-functions-for-excess-degree-distribution" class="nav-link" data-scroll-target="#generating-functions-for-excess-degree-distribution">Generating functions for excess degree distribution</a></li>
-  <li><a href="#number-of-second-neighbors-of-a-node" id="toc-number-of-second-neighbors-of-a-node" class="nav-link" data-scroll-target="#number-of-second-neighbors-of-a-node">Number of second neighbors of a node</a></li>
+  <li><a href="#sec-secondneighbors" id="toc-sec-secondneighbors" class="nav-link" data-scroll-target="#sec-secondneighbors">Number of second neighbors of a node</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -554,8 +560,8 @@ p_k = \frac{1}{k!}\frac{d^k}{dz^k}g(z) \bigg \vert_{z=0}
 \]</span></p>
 <p>Thus, we have a relationship between generating functions for the degree distribution and the excess degree distribution.</p>
 </section>
-<section id="number-of-second-neighbors-of-a-node" class="level3">
-<h3 class="anchored" data-anchor-id="number-of-second-neighbors-of-a-node">Number of second neighbors of a node</h3>
+<section id="sec-secondneighbors" class="level3">
+<h3 class="anchored" data-anchor-id="sec-secondneighbors">Number of second neighbors of a node</h3>
 <p>Now, suppose we have a configuration model with degree distribution <span class="math inline">\(p_k\)</span> under the assumption that the network is locally tree-like. We know how to count the number of neighbors (that’s given by the degree). Let’s count the number of neighbors of neighbors — also called second neighbors — of a node.</p>
 <p>What is the probability that a node has exactly <span class="math inline">\(k\)</span> second neighbors in our configuration model? It depends on how many neighbors you have! If you have <span class="math inline">\(m\)</span> neighbors, then this probability is <span class="math display">\[
     \mathbb{P}(m \text{ neighbors})\mathbb{P}(k \text{ second neighbors} \vert m \text{ neighbors}) \,.
