@@ -75,6 +75,8 @@ import networkx as nx
 import numpy as np
 plt.style.use('seaborn-v0_8-whitegrid')
 
+plot_kwargs = {"node_size" : 50, "edgecolors" : 'black', "node_color" : "steelblue", "width" : 0.5}
+
 # This is a coding exercise in the live notes.
 
 # Create an unweighted version of the Les Mis network
@@ -83,25 +85,52 @@ def unweight(G):
         G[source][target]['weight'] = 1
     return G
 
+fig, ax = plt.subplots(1, 1, figsize = (5, 3))
+
 G_LesMis = unweight(nx.les_miserables_graph())
 
-nx.draw(G_LesMis)
+nx.draw(G_LesMis, **plot_kwargs)
+```
 
+
+One way to compute the degrees of the nodes in a graph is to use the adjacency matrix: 
+
+$$
+    k_i = \sum_{j=1}^n A_{ij} \,.
+$$
+
+Using `numpy`, we can do this efficiently for every node at once: 
+
+```{python}
 # Create and print a numpy array of node degrees directly from the adjacency matrix
 
 #---
 A = nx.adjacency_matrix(G_LesMis)
-print('Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
+degree_vector = np.sum(A, axis = 1)
 #---
-
-# Print the degrees using the built in function in NetworkX. 
-
-#---
-degree_vec = G_LesMis.degree()
-print('Built-in NetworkX:', degree_vec)
-#----
-
 ```
+
+
+Networkx also has a helpful built-in function to calculate the complete set of degrees: 
+
+```{python}
+degree_view = G_LesMis.degree()
+```
+
+The result is a `DegreeView` object which behaves much like a Python dictionary (and which can be easily converted to a dictionary using the `dict` constructor).  
+
+Let's take a moment to compare the first few nodes to make sure that our two methods agree: 
+
+
+```{python}
+i = 0
+for name, degree in dict(degree_view).items():
+    if i < 5:
+        print(f"{name} has degree: {degree} (networkx) and {degree_vector[i]} (adjacency matrix)")
+        i += 1
+```
+
+### Degree in directed graphs
 
 We have to be a little more subtle in how we define degree in a directed network because there is a distinction between in-edges and out-edges in these networks.
 
@@ -126,7 +155,10 @@ We will repeat the exercises above for directed networks.
 
 ## Exercise
 
-Use degree to calculate the total number of edges in a directed network, and use this to calculate the mean (expected) in-degree and out-degree of a directed network.
+Suppose that you know the in-degree and out-degree of every node in a graph $G$. Determine: 
+
+1. The total number of edges in the graph.
+2. The mean in-degree and out-degree of the graph.
 
 :::
 
@@ -140,17 +172,21 @@ $$
 
 This means that the expected in-degree and expected out-degree are also equal:
 
+$$
 \begin{align}
     c_{\text{in}} &= \frac{1}{n} \sum_{i=1}^n k_i^{\text{in}} \\
      &= \frac{1}{n}\sum_{j=1}^n k_i^{\text{out}} \\
     &= c_{\text{out}} \\
     &= c \,.
 \end{align}
+$$
 
 Combining these gives $c = \frac{m}{n}$. 
 
 Notice that this differs by a factor of 2 from the case of undirected networks.
 :::
+
+Let's see these definitions in action on a directed graph. The graph we'll use is the *mention graph* from the musical *Hamilton*. Each node in this graph is a character. There is a directed edge from character $i$ to character $j$ if character $i$ mentions character $j$ in a song.
 
 ```{python}
 #| fig-cap : "A network of mentions in the musical Hamilton. Nodes represent characters; there is an edge from character $i$ to character $j$ if $i$ mentions $j$."
@@ -174,28 +210,43 @@ G_Hamilton = nx.from_pandas_edgelist(df,
                             edge_attr=None, 
                             create_using=nx.DiGraph())
 
-nx.draw(G_Hamilton)
+layout = nx.arf_layout(G_Hamilton)
+
+fig, ax = plt.subplots(1, 1, figsize = (10, 7))
+nx.draw(G_Hamilton, pos = layout,  with_labels = True, edge_color = "grey", width = 0.5, node_color = "lavender", edgecolors = "white")
 
 # This is a coding exercise in the live notes.
 
 # Create and print a numpy array of node in-degrees and out-degrees directly from the adjacency matrix
+```
 
+Similar to the above, let's calculate the in- and out-degrees of the nodes in the Hamilton network using the adjacency matrix and compare to the networkx built-in versions. 
+
+```{python}
 #---
 A = nx.adjacency_matrix(G_Hamilton)
-print('In-Degrees computed from adjacency matrix:', np.sum(A, axis = 0))
-print('Out-Degrees computed from adjacency matrix:', np.sum(A, axis = 1))
+in_degree_vector = np.sum(A, axis = 0)
+in_degree_view   = G_Hamilton.in_degree()
 #---
 
-# Print the in- and out-degrees using the built in function in NetworkX. 
-
-#---
-out_degree_vec = G_Hamilton.out_degree()
-in_degree_vec = G_Hamilton.in_degree()
-print('In-degrees built-in NetworkX:', in_degree_vec)
-print('Out-degrees built-in NetworkX:', out_degree_vec)
-#----
-
+i = 0
+for name, degree in dict(in_degree_view).items():
+    if i < 5:
+        print(f"{name} has degree: {degree} (networkx) and {in_degree_vector[i]} (adjacency matrix)")
+        i += 1
 ```
+
+::: {.callout-important}
+
+## Exercise
+
+Repeat this calculation and check that you can also compute *out*-degrees and make them match. 
+
+:::
+
+
+## Regular graphs
+
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-regulargraph}
@@ -207,7 +258,7 @@ A network in which all nodes have the same degree is called a **regular graph** 
 
 Some special cases of regular graphs are **lattices** (e.g., a square lattice is 4-regular) and the **complete graph** where every node is connected to every other node (which is $(n-1)$-regular).
 
-### Density and sparsity
+## Density and sparsity
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-density}
@@ -225,12 +276,14 @@ One way to interpret density is to think of it as a probability that a pair of n
 
 We can rewrite density in terms of expected degree using our earlier exercises [This simplification comes from the binomial coefficient formula $\binom{n}{k} = \frac{n!}{k!(n-k)!}$. Also, we can notice the cool fact that $n \choose 2$ is equivalent to the sum of the first $n-1$ integers!]{.aside}:
 
+$$
 \begin{align}
     \rho &= \frac{m}{\binom{n}{2}} \\
     &= \frac{m}{\frac{1}{2}n(n-1)} \\
     &= \frac{2m}{n(n-1)} \\
     &= \frac{c}{n-1} \,.
 \end{align}
+$$
 
 If a network is sufficiently large, you can approximate the density as $\rho \approx \frac{c}{n}.$
 
@@ -279,7 +332,7 @@ print('Density with NetworkX built-in:', density)
 
 ```
 
-While it's pretty straightforward to calculate the density of a network, it's more complicated to determine whether a network is *dense* or *sparse*. There isn't a universally agreed upon threshold for density below which a real-world network would be considered sparse. However, we can create a definition which applies for certain theoretical models of networks. If we have a model where we can take a formal limit, then such a network is *sparse* if $\rho \to 0$ as $n \to \infty$. In this scenario, the mean degree grows (much) more slowly than the number of nodes.
+While it's pretty straightforward to calculate the density of a network, it's more complicated to determine whether a network is *dense* or *sparse*. There isn't a universally agreed upon threshold for density below which a real-world network would be considered sparse. However, we can create a definition which applies for certain theoretical models of networks. If we have a model where we can take a formal limit, then such a network is *sparse* if $\rho \to 0$ as $n \to \infty$. In this scenario, the mean degree grows (much) more slowly than the number of nodes. We'll study limiting arguments about sparse graphs much more when we discuss [random graphs](09-random-graphs.qmd).  
 
 
 ## Walks and paths
@@ -311,10 +364,11 @@ import networkx as nx
 import numpy as np
 plt.style.use('seaborn-v0_8-whitegrid')
 
+fig, ax = plt.subplots(1, 1, figsize = (3, 3))
+
 graph_dict = {1: [2], 2: [1, 3], 3:[2], 4:[5,6], 7: [4]}
 G = nx.Graph(graph_dict) 
-nx.draw(G, with_labels = True, font_color = 'white', font_weight = 'bold')
-
+nx.draw(G, with_labels = True, font_color = 'white', font_weight = 'bold', edgecolors = "black", ax = ax, node_size = 200, font_size = 10)
 ```
 
 A question that pops up a lot in network analysis is "How many walks of length $r$ exist between nodes $i$ and $j$?"
@@ -365,10 +419,49 @@ The length of a geodesic path is called the **(geodesic) distance** between $i$ 
 :::
 :::
 
-Remarks
+A few important points about paths: 
 
 - Shortest paths are not necessarily unique.
 - Shortest paths are self-avoiding. This is because if a shortest path intersected itself, this would create a loop which could be removed to create a shorter path.
+
+## Connected Graphs
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-tree}
+
+A **connected graph** is a graph with the property that, between every pair of nodes $i$ and $j$, there exists a path from $i$ to $j$. 
+
+:::
+:::
+
+There are several ways to determine computationally whether a graph is connected. 
+
+
+::: {.callout-important}
+
+## Exercise
+
+Determine one criterion for a graph to be connected by considering the matrix 
+
+$$
+\mathbf{M} = \sum_{i = 1}^n \mathbf{A}^i \,.
+$$
+
+:::
+
+
+::: {.callout-important}
+
+## Exercise
+
+Give an algorithm for determining whether a graph is connected using a search method of your choosing.  
+
+:::
+
+
+
+
+
 
 ## Cyclic and acyclic graphs
 
@@ -388,37 +481,41 @@ By our definition, self-edges are cycles of length 1.
 
 ## Exercise
 
-What is the number of cycles of length $r$ in a network starting and ending at node $i$? 
+How could we use the adjacency matrix $\mathbf{A}$ to compute the number of cycles of length $r$ in a network starting and ending at node $i$?
 
 :::
 
 ::: {.hide .solution}
 
-Since a cycle can be represented as a walk from a node $i$ to itself, this is the diagonal element $A_{ii}^r$ from the theorem we proved earlier.
+Since a cycle can be represented as a walk from a node $i$ to itself, this is the diagonal element $(A_{ii})^r$ from the theorem we proved earlier.
 
-Be careful: this quantity separately counts cycles where the same nodes are visited in a different order. For example, the cycle $1 \to 2 \to 3 \to 1$ is counted separately as the cycle $1 \to 3 \to 2 \to 1.$ To count *distinct* cycles, you need to divide by the number of combinations.
+Be careful: this quantity separately counts cycles where the same nodes are visited in a different order. For example, the cycle $1 \to 2 \to 3 \to 1$ is counted separately as the cycle $1 \to 3 \to 2 \to 1.$ 
 
 :::
 
-While the formula above is very useful to look for cycles of a specific length, it could be quite inefficient to use to detect whether we have a cycle of any length (because we may have to check the diagonal entries of ${\bf A}^r$ for all possible cycle lengths $r$). We can construct a simple algorithm to determine computationally whether a network is cyclic or acyclic.
+While the formula above is very useful to look for cycles of a specific length, it could be quite inefficient to use to detect whether we have a cycle of any length (because we may have to check the diagonal entries of ${\bf A}^r$ for all possible cycle lengths $r$). We can construct a simple algorithm to determine computationally whether a network is cyclic or acyclic. For the purposes of this algorithm, we'll consider directed graphs; the algorithm can be easily adapted to undirected graphs.
 
-Use the sketch below to write this algorithm.
+Let's work out and implement an algorithm that determines whether a directed graph is cyclic or acyclic. The algorithm is as follows:
 
 - Find a node with no out-edges.
 - If no such node exists, the network is cyclic. Otherwise, remove the node and repeat the process.
 - If all nodes can be removed using the strategy above, the network is acyclic.
 
+::: {.callout-important}
+
+## Exercise
+
+Give a simple argument for why the algorithm above works. In particular: 
+
+1. Why is this algorithm guaranteed to terminate? 
+2. Why is this algorithm guaranteed to give the correct answer upon termination?
+
+:::
+
+
+Now that we're convinced that the algorithm works, let's go ahead and implement it in Python. 
+
 ```{python}
-#| fig-cap : "Directed graph"
-#| out.width : 80%
-#| fig-cap-location: margin
-#| label: fig-check-acyclic
-
-from matplotlib import pyplot as plt
-import networkx as nx
-import numpy as np
-plt.style.use('seaborn-v0_8-whitegrid')
-
 # Implement the algorithm above to create a function is_cyclic(G). Your function should take a NetworkX graph G as an argument and print out whether a graph G is cyclic or acyclic.
 
 #---
@@ -433,15 +530,39 @@ def is_cyclic(G):
         print('Network is acyclic')
         return
 #---
+```
+
+Now we can run a few examples: 
+
+```{python}
+#| fig-cap : "The binomial tree example"
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-check-acyclic
+#| column: margin
 
 print('Binomial Tree:')
+
+fig, ax = plt.subplots(1, 1, figsize = (3, 3))
 G_Tree = nx.binomial_tree(4, create_using = nx.DiGraph)
+nx.draw(G_Tree,  font_weight = 'bold', edgecolors = "black", node_size = 50, font_size = 10, node_color = "lavender", edge_color = "grey")
 is_cyclic(G_Tree)
+```
+
+
+```{python}
+#| fig-cap : "The Hamilton mention network"
+#| out.width : 80%
+#| fig-cap-location: margin
+#| column: margin
 
 print('Hamilton Network:')
-is_cyclic(G_Hamilton)
 
+fig, ax = plt.subplots(1, 1, figsize = (3, 3))
+nx.draw(G_Hamilton, pos = layout, font_weight = 'bold', edgecolors = "black", node_size = 50, font_size = 10, node_color = "lavender", edge_color = "grey")
+is_cyclic(G_Hamilton)
 ```
+
 
 This algorithm has a nice mathematical consequence. If we label the nodes in an acyclic network according to the order we removed them, we will end up with an adjacency matrix that is *strictly upper triangular*. [This is because each node that is removed could only have out-edges that were already removed previously, i.e., nonzero entries of the $i$th column could only occur between columns 1 and $i-1$.]{.aside} There exists at least one such labeling for any acyclic network.
 
@@ -450,7 +571,7 @@ This algorithm has a nice mathematical consequence. If we label the nodes in an 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-tree}
 
-A **tree** is a connected, acyclic, undirected network. [By "connected", we mean every node is reachable from every other node by traversing a sequence of edges, i.e., there exists a walk between any two nodes]{.aside}
+A **tree** is a connected, acyclic, undirected network. By "connected", we mean every node is reachable from every other node by traversing a sequence of edges, i.e., there exists a walk between any two nodes
 
 :::
 :::

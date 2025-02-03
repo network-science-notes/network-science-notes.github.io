@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.10">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -91,10 +91,10 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-79bb3942e891885f9f7af119cd221462.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-c2c6eee373d77cf925a3f90242822aa2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -682,7 +682,7 @@ window.Quarto = {
 <section id="implementation" class="level3">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <p>Let’s code up a quick example to visualize PageRank. We’ll use the Hamilton Mentions graph:</p>
-<div id="5e4c2257" class="cell" data-execution_count="1">
+<div id="4718b26b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -702,7 +702,7 @@ window.Quarto = {
 </details>
 </div>
 <p>There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph.</p>
-<div id="391b5708" class="cell" data-execution_count="2">
+<div id="e8026860" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
@@ -710,7 +710,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Now we can write our PageRank function. We’ll compute the transition matrix <span class="math inline">\(\mathbf{P}\)</span> and find its leading eigenvector.</p>
-<div id="57fe197b" class="cell" data-execution_count="3">
+<div id="7cf95c21" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
@@ -731,7 +731,7 @@ window.Quarto = {
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="50bc75f5" class="cell" data-execution_count="4">
+<div id="ab76062e" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
@@ -746,7 +746,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> and the teleportation rate <span class="math inline">\(\alpha\)</span>:</p>
-<div id="87586e9a" class="cell" data-execution_count="5">
+<div id="d61fc598" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
@@ -768,7 +768,7 @@ window.Quarto = {
 <section id="seeded-pagerank" class="level2">
 <h2 class="anchored" data-anchor-id="seeded-pagerank">Seeded PageRank</h2>
 <p>A useful feature of the way we’ve defined PageRank is that we can choose different teleportation vectors <span class="math inline">\(\mathbf{v}\)</span> in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> to highlight those specific characters. This approach is often called “personalized” or “seeded” PageRank.</p>
-<div id="4f20d189" class="cell" data-execution_count="6">
+<div id="11b3ae42" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>

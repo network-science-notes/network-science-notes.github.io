@@ -261,7 +261,7 @@ def greedy_clustering(G, num_steps = int(1e4)):
 Let's run our algorithm...
 
 ```{python}
-greedy_clusters, progress = greedy_clustering(G, num_steps = int(1e4))
+greedy_clusters, progress = greedy_clustering(G, num_steps = int(1e5))
 ```
 
 

@@ -29,6 +29,8 @@ Let's start with some vocabulary. A Mesa model has several components:
 
 For our first agent-based model, we are going to code up an agent-based implementation of the simple random walk. There are lots of reasonable ways to do this, and Mesa is actually a bit of overkill for this particular problem. Still, we'll learn some important techniques and concepts along the way. 
 
+
+
 Let's start by importing several tools that we'll use. 
 ```{python}
 from mesa import Model, Agent                 # core mesa classes
