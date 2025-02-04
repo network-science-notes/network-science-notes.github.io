@@ -1,0 +1,112 @@
+---
+code-fold: true
+code-summary: "Show code"
+jupyter: python3
+---
+
+# Some Stuff About Networks
+
+#### Size of the Giant Component
+
+Perhaps surprisingly, while it's difficult to prove that there is a giant component, it's not hard at all to estimate its size. 
+[This argument is reproduced from @newman2018networks, pages 349-350]{.aside}
+
+Let $S$ be the size of the giant component in an Erdős–Rényi random graph, assuming there is one. Then, $s = S/n$ is the probability that a randomly selected node is in the giant component. Let $u = 1 - s$ be the probability that a given node is *not* in the giant component. 
+
+Let's take a random node $i$, and ask it the probability that it's in the giant component. Well, one answer to that question is just "$u$." On the other hand, we can *also* answer that question by looking at $i$'s neighbors. If $i$ is not in the giant component, then it can't be connected to any node that is in the giant component. So, for each other node $j\neq i$, it must be the case that either: 
+
+1. $i$ is not connected to $j$. This happens with probability $1-p$. 
+2. $i$ is connected to $j$, but $j$ is not in the giant component either. $i$ is connected to $j$ with probability $p$, and $j$ is not in the giant component with probability $u$. 
+
+There are $n-1$ nodes other than $i$, and so the probability that $i$ is not connected to any other node in the giant component is $(1 - p + pu)^{n-1}$. We therefore have the equation 
+
+$$
+u = (1 - p + pu)^{n-1}\;.
+$$
+
+Let's take the righthand side and use $p = c/(n-1)$: 
+$$
+\begin{aligned}
+    u &= (1 - p(1-u))^{n-1} \\ 
+      &= \left(1 - \frac{c(1-u)}{n-1}\right)^{n-1}\;.
+\end{aligned}
+$$
+This is a good time to go back to precalculus and remember the limit definition of the function $e^x$:
+$$
+e^x = \lim_{n \rightarrow \infty}\left(1 + \frac{x}{n}\right)^{n}\;. 
+$$
+Since we are allowing $n$ to grow large in our application, we approximate 
+
+$$
+u \approx e^{-c(1-u)}\;. 
+$$
+So, now we have a description of the fraction of nodes that *aren't* in the giant component. We can get a description of how many nodes *are* in the giant component by substituting $s = 1-u$, after which we get the equation we're really after: 
+$$
+s = 1- e^{-cs}
+$${#eq-giant-component-size}
+
+This equation doesn't have a closed-form solution for $s$, but we can still plot it and compare the result to simulations (@fig-giant-component). Not bad! 
+
+```{python}
+#| fig-cap : "Each point gives the fraction of an ER graph with 50,000 nodes occupied by the largest component. The mean degree is on the horizontal axis. The black line gives the theoretical prediction of @eq-giant-component-size."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-giant-component
+
+import numpy as np
+from matplotlib import pyplot as plt
+import networkx as nx
+plt.style.use('seaborn-v0_8-whitegrid')
+
+
+
+# experiment: compute the size of the largest connected 
+# component as a function of graph size for a range of mean degrees. 
+# This experiment is left as a coding exercise in the live notes
+
+
+#---
+def largest_component(n, p):
+    G = nx.fast_gnp_random_graph(n, p)
+    S = max(nx.connected_components(G), key=len)
+    return len(S) / n
+
+n = 50000
+C = np.repeat(np.linspace(0.5, 1.5, 11), 10)
+U = np.array([largest_component(n, c/(n-1)) for c in C])
+
+# theory: prediction based on Newman 11.16
+
+S = np.linspace(-.001, .6, 101)
+C_theory = -np.log(1-S)/S
+
+# plot the results to compare
+
+plt.plot(C_theory, 
+         S, 
+         color = "black", 
+         label = "Theoretical prediction")
+
+plt.scatter(C, 
+            U, 
+            label = "Experiment")
+
+plt.gca().set(xlabel = "Mean degree", 
+              ylabel = "Proportion of graph in largest component")
+
+plt.legend()
+#---
+
+```
+
+
+## References
+
+
+
+
+
+
+
+
+
