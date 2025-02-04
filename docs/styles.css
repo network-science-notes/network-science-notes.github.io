@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600;1,800&family=Red+Hat+Text:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap');
+
+
+
+/* css styles */
+
+body {
+  font-family: 'Petrona', sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+  margin-top: 1rem;
+  font-family: 'Petrona', serif;
+}
+
+td {
+    /* height: 50px; */
+    vertical-align: top;
+    border-width: 0px;
+    border-color: #ffffff;
+    border: none; 
+  }
+
+table {
+  border-collapse: collapse;
+  border-width: 0px;
+  border: none; 
+}
+
+.table>:not(caption)>*:not(:last-child)>* { 
+  border: none; 
+}
+
+.table>:not(:first-child) {
+  border: none;
+}
+
+.table {
+  border: none;
+}
+
+tr {
+  border: none;
+}
+
+.smaller { 
+    font-size: 0.8em;
+}
+
+.syllabus-date { 
+    font-size: 0.8em;
+    color: grey;
+}
+
+.syllabus-day-of-week { 
+    font-size: 1.5em;
+    text-align: left;
+    margin-top: 0;
+    padding-top: 0;       
+}
+
+.syllabus-date-pane {  
+    padding-right: 1em;
+    min-width:4em;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.syllabus-item-objective { 
+    margin-bottom: 2em;
+    margin-top: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 2em; 
+    width: 20%;
+}
+
+.syllabus-item-readings { 
+  margin-bottom: 2em;
+  margin-top: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 2em; 
+  width: 20%;
+}
+
+.syllabus-item-assignment { 
+  margin-bottom: 2em;
+  margin-top: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 2em; 
+  width: 20%;
+}
+
+.syllabus-description-table-entry {
+    padding-bottom:1em;
+}
+
+.syllabus-description-table-header {
+    padding-right:1em; 
+    min-width:10em;
+}
+
+.syllabus-description-learning-objective {
+  padding-right:1em; 
+  min-width:10em;
+  color: #A23E48;
+}
+
+.learning-objective {
+  font-weight: bold;
+  color: #A23E48;
+}
+
+.assignment-goal {
+  font-weight: bold;
+  color: #c66600;
+}
+
+.supporting-reading {
+  font-style: italic;
+  color: #444444;
+}
+
+.menu-text {
+  font-weight: bold;
+  font-family: "Red Hat Text";
+  /* color: #444444; */
+}
+
+.chapter-title {
+  font-weight: normal;
+  /* color: #444444; */
+  font-family: "Petrona";
+}
+
+.chapter-number {
+  font-weight: extra-bold;
+  /* color: #444444; */
+  font-family: "Petrona";
+}
+
+
+
+
+@media only screen and (max-width: 700px) {
+    .syllabus-description-table-header {
+      min-width: 5em;
+    }
+  }
+
+
+.float-left { 
+    float: left;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+.img-profile {
+    float: left;
+    margin-right: 3%;
+    margin-top: 0%;
+    margin-bottom: 1%;
+  }
+.img-responsive {
+    width: 25%;
+}
+
+
+@media only screen and (max-width: 400px) {
+    .img-responsive {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+.box {
+  background-color: #e4e4e431;
+  /* border: thin solid #3b3b3b47; */
+  border-top: thin solid #3b3b3b47;
+  border-bottom: thin solid #3b3b3b47;
+  /* border-left: thick solid #377cbc9a; */
+  /* padding: 1rem; */
+  /* border-radius: 5px; */
+}
+
+.exercise {
+  background-color: #e4e4e431;
+}
+
+.hide {
+  border-left: thick solid #c251a5;
+  padding-left: 1rem; 
+}
+
+.proof {
+  border-left: thick solid #20895a;
+  padding-left: 1rem; 
+}
+
+
