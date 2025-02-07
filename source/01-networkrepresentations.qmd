@@ -371,7 +371,7 @@ nx.draw(G, ax = ax, **plot_kwargs)
 
 
 
-For a directed graph, you need to make two additional changes to the code above. You need specify that you want a directed graph with the `create_using` argument to the graph constructor. Additionally, you need to be very careful about the adjacency matrix convention for in and out edges. The default convention for `from_numpy_array` points edges in the *opposite* direction to what we defined above (it assumes $A_{ij} = 1$ if $(i,j) \in E$), so if you want to match that convention, you'll need to take the transpose with `np.transpose`.
+For a directed graph, you need to make two additional changes to the code above. You need specify that you want a directed graph with the `create_using` argument to the graph constructor. Additionally, you need to be very careful about the adjacency matrix convention for in and out edges. The default convention for `from_numpy_array` points edges in the *opposite* direction to what we defined above (it assumes $a_{ij} = 1$ if $(i,j) \in E$), so if you want to match that convention, you'll need to take the transpose with `np.transpose`.
 
 Here's an example of constructing the directed graph shown in @fig-directed from an adjacency matrix. 
 
@@ -426,21 +426,7 @@ $$
 ::: {.hide}
 
 
-```{python}
-#| fig-cap : "The network corresponding to the adjacency matrix given in the exercise."
-#| fig-width : 7
-#| fig-height : 4
-#| fig-cap-location: margin
-#| label: fig-output
-#| code-fold: false
-#| column: margin
-#| eval: false
-
-import numpy as np
-from matplotlib import pyplot as plt
-import networkx as nx
-plt.style.use('seaborn-v0_8-whitegrid')
-
+```python
 # Use NetworkX to reproduce the figures from the notes.
 # Then, create and visualize the network represented by the given adjacency matrix.
 # Finally, create your own network.
