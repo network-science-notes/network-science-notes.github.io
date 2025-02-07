@@ -408,7 +408,7 @@ Throughout these notes, we've used the `nx.draw` function to visualize networks.
 
 ## Exercises! 
 
-- Using NetworkX to reproduce @fig-simple-graph, @fig-self-edge from (a) a dictionary representation and (b) an adjacency matrix. 
+- Using NetworkX to reproduce  @fig-self-edge and @fig-simple-graph from (a) a dictionary representation and (b) an adjacency matrix. 
 - Draw the network represented by the adjacency matrix. 
 $$
 \begin{pmatrix}
@@ -455,7 +455,7 @@ A = np.array([[0, 1, 0, 0, 1],
               [1, 0, 0, 0, 0]])
 
 G = nx.from_numpy_array(np.transpose(A), create_using = nx.DiGraph)
-nx.draw(G, with_labels = True, arrowsize = 8, font_color = 'white', font_weight = 'bold',  ax = ax, edgecolors = "white", width = 0.5, edge_color = "darkgrey")
+nx.draw(G, with_labels = True, arrowsize = 8, font_color = 'white', font_weight = 'bold', ax = ax, edgecolors = "white", width = 0.5, edge_color = "darkgrey")
 #---
 ```
 
