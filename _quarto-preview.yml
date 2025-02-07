@@ -30,4 +30,7 @@ book:
         - source/50-random-walks.qmd
         - source/51-agent-based-modeling.qmd
         - source/52-epidemiology.qmd
+    - part: "Appendices"
+      chapters:
+        - source/92-probability.qmd
 code-summary: "Show code"

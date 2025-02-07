@@ -4,14 +4,11 @@
 
 /* css styles */
 
-body {
-  font-family: 'Petrona', sans-serif;
-}
 
 h1, h2, h3, h4 {
   font-weight: bold;
   margin-top: 1rem;
-  font-family: 'Petrona', serif;
+  /* font-family: 'Petrona', serif; */
 }
 
 td {
@@ -123,24 +120,68 @@ tr {
 
 .menu-text {
   font-weight: bold;
-  font-family: "Red Hat Text";
+  /* font-family: "Red Hat Text"; */
   /* color: #444444; */
 }
 
 .chapter-title {
   font-weight: normal;
+  /* font-size: 1rem;  */
   /* color: #444444; */
-  font-family: "Petrona";
 }
 
 .chapter-number {
   font-weight: extra-bold;
-  /* color: #444444; */
-  font-family: "Petrona";
+  color: #8d8d8d;
+  /* font-size: 1rem;  */
+}
+
+
+.menu-text .chapter-number {
+  font-weight: extra-bold;
+  color: #8d8d8d;
+}
+
+#quarto-sidebar-section-2 > li:nth-child(3) > div > a > span > span.chapter-title {
+  font-weight: normal;
+  color: #444444;
 }
 
 
 
+#toc-title {
+  /* font-weight: bold;
+  color: #444444; */
+  font-size: 0em;
+}
+
+#quarto-sidebar > div.pt-lg-2.mt-2.text-left.sidebar-header {
+  padding-bottom: 1em;
+  padding-left: 0.3em;
+}
+
+.toc-active {
+  padding: 0.5em;
+  background-color: #f0f0f0;
+  border-radius: 1em;
+}
+
+#quarto-toc-toggle {
+  background-color: #f0f0f0;
+  border-radius: 1em;
+}
+
+
+#quarto-sidebar > div.sidebar-menu-container {
+  background-color: #f0f0f0;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+
+/* #quarto-sidebar-section-2 > li:nth-child(2) > div > a {
+  color: #3b3b3b47;
+} */
 
 @media only screen and (max-width: 700px) {
     .syllabus-description-table-header {

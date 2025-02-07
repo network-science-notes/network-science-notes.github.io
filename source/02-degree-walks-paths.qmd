@@ -460,9 +460,6 @@ Give an algorithm for determining whether a graph is connected using a search me
 
 
 
-
-
-
 ## Cyclic and acyclic graphs
 
 ::: {.callout-note icon=false appearance="minimal"}

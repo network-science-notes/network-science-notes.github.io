@@ -32,7 +32,9 @@ for f in os.listdir("source"):
             cleaned_lines = cleaned.split("\n")
             ix = 0
             found = False
+            
             while not found: 
+                
                 line = cleaned_lines[ix]
                 if line: 
                     found = "#" in line 

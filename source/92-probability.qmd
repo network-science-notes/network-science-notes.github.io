@@ -1,0 +1,63 @@
+---
+code-fold: true
+code-summary: "Show code"
+---
+
+# Review of Probability
+
+Probability is one of the most frequently used mathematical tools in network science. In this appendix, we'll review the most important probability concepts used elsewhere in the notes. 
+
+## Sample Space and Probability Measure
+
+We'll begin with the abstract definition of a discrete probability space as a combination of a discrete sample space and a probability measure. While it's good to know this definition, we'll generally work with a more applied perspective later in this appendix and in the rest of the notes. 
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-sample-space}
+
+A discrete sample space $S$ is a set of possible *outcomes*. "Discrete" means that $S$ has either finitely many elements or countably infinitely many elements. [The term *countably infinite* means "as many as there are integers, but less than there are real numbers."]{.aside} A subset $A \subseteq S$ is called an *event*.
+
+:::
+:::
+
+::: {.callout-note icon=false appearance="minimal"}
+::: {#def-probability-measure}
+
+A *probability measure* $\mathbb{P}$ on a discrete sample space $S$ is a function that assigns a number $\mathbb{P}(A)$ to each subset $A$ of $S$. This number is called the *probability* of $A$. The probability measure must satisfy the following requirements:
+
+1. **Nonnegativity**: $\mathbb{P}(A) \geq 0$ for all $A \subset S$.
+2. **Countable Additivity**: For any countable set $\{A_i\}$ of events in $S$ (i.e. $A_i \subseteq S$), it holds that, if $A_i \cap A_j = \emptyset$ for all $i \neq j$, then $\mathbb{P}(\cup_i A_i) = \sum_i \mathbb{P}(A_i)$. 
+3. **Normalization**: $\mathbb{P}(S) = 1$.
+
+:::
+:::
+
+## Conditional Probability and Independence
+
+## Random Variables
+
+### Indicator Random Variables
+
+This would be a good place to show some examples. 
+
+### Probability Mass Function
+
+Common distributions
+
+### Functions of Random Variables
+
+If $X$ is a random variable and $f:\mathbb{R} \rightarrow \mathbb{R}$ is a function, then the value of $f(X)$ is also random variable. 
+
+### Expectation and Variance
+
+## Stochastic Convergence
+
+### Convergence in Probability
+
+Mention other forms of convergence but we don't need them, I think. 
+
+
+### Convergence in Distribution
+
+
+
+

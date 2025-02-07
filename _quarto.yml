@@ -7,22 +7,27 @@ project:
     - "lecture-notes/*.ipynb"
 book: 
   title: "Network Science: Models, Mathematics, and Computation"
-  author: "Heather Zinn Brooks and Phil Chodrow"
-  date: "07/19/2024"
+  # author: "Heather Zinn Brooks and Phil Chodrow"
+  # date: "07/19/2024"
   body-footer: |
         <br> <br> <span style="color:grey;">&#169; Heather Zinn Brooks and Phil Chodrow, 2024</span>
+  sidebar: 
+    search: false
 
 bibliography: refs.bib
 
 format:
   html:
-    theme: [cosmo, custom.scss]
+    theme: [flatly, custom.scss]
     css: styles.css
     toc: true
     number-depth: 0
     reference-location: margin
     callout-icon: false;
     callout-appearance: simple
+    toc-title: Contents
+
+
 
 execute: 
   cache: false
