@@ -399,9 +399,6 @@ nx.draw(G, with_labels = True, arrowsize = 8, font_color = 'white', font_weight 
 
 
 
-> `G = nx.from_numpy_array(np.transpose(A), create_using = nx.DiGraph)`
-
-
 
 ### Visualizing Networks
 
@@ -437,6 +434,7 @@ $$
 #| label: fig-output
 #| code-fold: false
 #| column: margin
+#| eval: false
 
 import numpy as np
 from matplotlib import pyplot as plt
