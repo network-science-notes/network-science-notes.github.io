@@ -180,7 +180,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -336,6 +336,10 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Appendices</span></span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -475,7 +479,7 @@ Figure&nbsp;2.1: A network of coappearances of characters in the book Les Misera
     k_i = \sum_{j=1}^n A_{ij} \,.
 \]</span></p>
 <p>Using <code>numpy</code>, we can do this efficiently for every node at once:</p>
-<div id="af4b0569" class="cell" data-execution_count="2">
+<div id="bd04c566" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print a numpy array of node degrees directly from the adjacency matrix</span></span>
@@ -485,7 +489,7 @@ Figure&nbsp;2.1: A network of coappearances of characters in the book Les Misera
 </details>
 </div>
 <p>Networkx also has a helpful built-in function to calculate the complete set of degrees:</p>
-<div id="10ef1f0b" class="cell" data-execution_count="3">
+<div id="0b22f237" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>degree_view <span class="op">=</span> G_LesMis.degree()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -493,7 +497,7 @@ Figure&nbsp;2.1: A network of coappearances of characters in the book Les Misera
 </div>
 <p>The result is a <code>DegreeView</code> object which behaves much like a Python dictionary (and which can be easily converted to a dictionary using the <code>dict</code> constructor).</p>
 <p>Let’s take a moment to compare the first few nodes to make sure that our two methods agree:</p>
-<div id="99815227" class="cell" data-execution_count="4">
+<div id="d667f26f" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
@@ -591,7 +595,7 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 </div>
 </div>
 <p>Similar to the above, let’s calculate the in- and out-degrees of the nodes in the Hamilton network using the adjacency matrix and compare to the networkx built-in versions.</p>
-<div id="d082f859" class="cell" data-execution_count="6">
+<div id="4a971ced" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_Hamilton)</span>
@@ -677,7 +681,7 @@ Exercise
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div id="ca183725" class="cell" data-execution_count="7">
+<div id="1de3eb86" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -902,7 +906,7 @@ Exercise
 </div>
 </div>
 <p>Now that we’re convinced that the algorithm works, let’s go ahead and implement it in Python.</p>
-<div id="e0c6580b" class="cell" data-execution_count="9">
+<div id="fa523acb" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Implement the algorithm above to create a function is_cyclic(G). Your function should take a NetworkX graph G as an argument and print out whether a graph G is cyclic or acyclic.</span></span>
@@ -947,7 +951,7 @@ Figure&nbsp;2.4: The binomial tree example
 </figure>
 </div>
 </div></div></div>
-<div id="e5dde0a4" class="cell page-columns page-full" data-out.width="80%" data-execution_count="11">
+<div id="4f03de60" class="cell page-columns page-full" data-out.width="80%" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hamilton Network:'</span>)</span>
@@ -1426,8 +1430,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/01-networkrepresentations.html" class="pagination-link" aria-label="Networks and their representations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span>
+      <a href="../chapters/01-networkrepresentations.html" class="pagination-link" aria-label="Networks and Their Representations">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

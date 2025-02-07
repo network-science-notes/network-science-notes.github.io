@@ -11,6 +11,11 @@ h1, h2, h3, h4 {
   /* font-family: 'Petrona', serif; */
 }
 
+h3 {
+  font-size: 1.2rem;
+  /* font-family: 'Petrona', serif; */
+}
+
 td {
     /* height: 50px; */
     vertical-align: top;
@@ -120,13 +125,8 @@ tr {
 
 .menu-text {
   font-weight: bold;
+  font-size: 0.8em;
   /* font-family: "Red Hat Text"; */
-  /* color: #444444; */
-}
-
-.chapter-title {
-  font-weight: normal;
-  /* font-size: 1rem;  */
   /* color: #444444; */
 }
 
@@ -140,14 +140,29 @@ tr {
 .menu-text .chapter-number {
   font-weight: extra-bold;
   color: #8d8d8d;
+  font-size: 1em;
 }
 
-#quarto-sidebar-section-2 > li:nth-child(3) > div > a > span > span.chapter-title {
+.menu-text .chapter-title {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+
+/* #quarto-sidebar-section-2 > li:nth-child(3) > div > a > span > span.chapter-title {
   font-weight: normal;
   color: #444444;
+} */
+
+#TOC {
+  /* background: url("assets/img/second-neighbors.png");
+  background-size: 50%;
+  padding-top: 80px !important;
+  background-repeat: no-repeat; */
+  padding: 0.5em;
+  background-color: #f0f0f0;
+  border-radius: 1em;
 }
-
-
 
 #toc-title {
   /* font-weight: bold;
@@ -161,9 +176,6 @@ tr {
 }
 
 .toc-active {
-  padding: 0.5em;
-  background-color: #f0f0f0;
-  border-radius: 1em;
 }
 
 #quarto-toc-toggle {
@@ -241,3 +253,18 @@ tr {
 }
 
 
+
+@media (min-width: 992px) {
+  .margin-caption, div.aside, aside:not(.footnotes):not(.sidebar), .column-margin {
+      grid-column: body-end / page-end !important;
+      z-index: 998;
+  }
+}
+
+
+@media (min-width: 992px) {
+  .margin-caption, div.aside, aside:not(.footnotes):not(.sidebar), .column-margin {
+      grid-column: body-end / page-end !important;
+      z-index: 998;
+  }
+}

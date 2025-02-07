@@ -200,7 +200,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and their representations</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -356,6 +356,10 @@ window.Quarto = {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Appendices</span></span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -509,7 +513,7 @@ window.Quarto = {
 <p>Sparse Erdős–Rényi graphs have vanishing clustering coefficients.</p>
 </blockquote>
 <p><a href="#fig-clustering-decay" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> shows how the global clustering coefficient of a sparse Erdős–Rényi random graph decays as we increase <span class="math inline">\(n\)</span>. Although the estimate that the global clustering coefficient should be equal to <span class="math inline">\(p\)</span> was somewhat informal, experimentally it works quite well.</p>
-<div id="cell-fig-clustering-decay" class="cell" data-fig.cap="Each point gives the global clustering coefficient of an ER graph with mean degree $c = 5$ and specified number of nodes. The black line gives the estimate $T = p = c/(n-1)$ for the clustering coefficient that we computed earlier. The function `nx.fast_gnp_random_graph()` is a special function from NetworkX for generating ER random graphs quickly; you'll learn about how it works in an upcoming homework assignment." data-out.width="80%" data-execution_count="1" data-cap-location="undefined">
+<div id="cell-fig-clustering-decay" class="cell page-columns page-full" data-fig.cap="Each point gives the global clustering coefficient of an ER graph with mean degree $c = 5$ and specified number of nodes. The black line gives the estimate $T = p = c/(n-1)$ for the clustering coefficient that we computed earlier. The function `nx.fast_gnp_random_graph()` is a special function from NetworkX for generating ER random graphs quickly; you'll learn about how it works in an upcoming homework assignment." data-out.width="80%" data-execution_count="1" data-cap-location="undefined">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -535,13 +539,13 @@ window.Quarto = {
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">"Global clustering coefficient"</span>)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored" height="431" width="597">
-<figure class="quarto-float quarto-float-fig figure">
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="431" width="597">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="597" height="431" class="figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig quarto-uncaptioned margin-caption" id="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.1
 </figcaption>
 </figure>
@@ -651,13 +655,13 @@ q &amp;= c^{k-1}p \\
 <h2 class="anchored" data-anchor-id="component-sizes-and-the-branching-process-approximation">Component Sizes and the Branching Process Approximation</h2>
 <p>We’re now going to ask ourselves about the size of a “typical” component in the Erdős–Rényi model. In particular, we’re going to be interested in whether there exists a component that fills up “most” of the graph, or whether components tend to be vanishingly small in relation to the overall graph size.</p>
 <p>Our first tool for thinking about this question is the <em>branching process approximation.</em> Informally, a branching process is a process of <em>random generational growth</em>. We’ll get to a formal mathematical definition in a moment, but the easiest way to get insight is to look at a diagram:</p>
-<div id="fig-branching" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
+<div id="fig-branching" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-branching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <iframe width="560" height="315" src="http://1.bp.blogspot.com/-Y59SK92Nd0c/VIoqelzfc8I/AAAAAAAAAdA/XAQB5yDStUc/s1600/eg1.PNG">
 </iframe>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-branching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-branching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.2: <a href="http://mytechroad.com/markov-chain-branching-process/">Image source</a>.
 </figcaption>
 </figure>
@@ -762,7 +766,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div id="fcd20b6d" class="cell" data-execution_count="2">
+<div id="bfbb380a" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -784,7 +788,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 4.50.
+Average over experiments is 4.94.
 
 Theoretical expectation is 5.00.
 </code></pre>
@@ -839,7 +843,7 @@ Theoretical expectation is 5.00.
 </div>
 <p>Examples of phase transitions include freezing, in which a liquid undergoes a qualitative change into a solid in response to a small variation in temperature.</p>
 <p><a href="#fig-giant-component-illustration" class="quarto-xref">Figure&nbsp;<span>9.3</span></a> shows two sparse ER random graphs on either side of the <span class="math inline">\(c = 1\)</span> transition. We observe an apparent change in qualitative behavior between the two cases.</p>
-<div id="cell-fig-giant-component-illustration" class="cell" data-fig-height="4" data-fig-width="8" data-fig.cap="Two sparse ER graphs with 500 nodes and varying mean degree." data-out.width="100%" data-execution_count="3" data-cap-location="undefined">
+<div id="cell-fig-giant-component-illustration" class="cell page-columns page-full" data-fig-height="4" data-fig-width="8" data-fig.cap="Two sparse ER graphs with 500 nodes and varying mean degree." data-out.width="100%" data-execution_count="3" data-cap-location="undefined">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -855,13 +859,13 @@ Theoretical expectation is 5.00.
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, ax <span class="op">=</span> axarr[i], node_size <span class="op">=</span> <span class="dv">1</span>)</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    axarr[i].<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"c = </span><span class="sc">{</span>c[i]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div id="fig-giant-component-illustration" class="quarto-float quarto-figure quarto-figure-center anchored" height="409" width="540">
-<figure class="quarto-float quarto-float-fig figure">
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-giant-component-illustration" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="409" width="540">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-giant-component-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-giant-component-illustration-output-1.png" id="fig-giant-component-illustration" width="540" height="409" class="figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-giant-component-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig quarto-uncaptioned margin-caption" id="fig-giant-component-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.3
 </figcaption>
 </figure>
@@ -895,7 +899,7 @@ u \approx e^{-c(1-u)}\;.
 s = 1- e^{-cs}
 \tag{9.2}\]</span></span></p>
 <p>This equation doesn’t have a closed-form solution for <span class="math inline">\(s\)</span>, but we can still plot it and compare the result to simulations (<a href="#fig-giant-component" class="quarto-xref">Figure&nbsp;<span>9.4</span></a>). Not bad!</p>
-<div id="cell-fig-giant-component" class="cell" data-fig.cap="Each point gives the fraction of an ER graph with 50,000 nodes occupied by the largest component. The mean degree is on the horizontal axis. The black line gives the theoretical prediction of @eq-giant-component-size." data-out.width="80%" data-execution_count="4" data-cap-location="undefined">
+<div id="cell-fig-giant-component" class="cell page-columns page-full" data-fig.cap="Each point gives the fraction of an ER graph with 50,000 nodes occupied by the largest component. The mean degree is on the horizontal axis. The black line gives the theoretical prediction of @eq-giant-component-size." data-out.width="80%" data-execution_count="4" data-cap-location="undefined">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -935,13 +939,13 @@ s = 1- e^{-cs}
 <span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div id="fig-giant-component" class="quarto-float quarto-figure quarto-figure-center anchored" height="429" width="589">
-<figure class="quarto-float quarto-float-fig figure">
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-giant-component" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="429" width="589">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-giant-component-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-giant-component-output-1.png" id="fig-giant-component" width="589" height="429" class="figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-giant-component-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig quarto-uncaptioned margin-caption" id="fig-giant-component-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.4
 </figcaption>
 </figure>

@@ -26,6 +26,7 @@ format:
     callout-icon: false;
     callout-appearance: simple
     toc-title: Contents
+    fig-cap-location: margin
 
 
 
