@@ -1,0 +1,422 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "code-fold: false\n",
+        "code-summary: \"Show code\"\n",
+        "jupyter: python3\n",
+        "toc: true\n",
+        "cache: true\n",
+        "---\n",
+        "\n",
+        "\n",
+        "# Structure of Empirical Networks\n",
+        "\n",
+        "## Introduction\n",
+        "\n",
+        "It's all well and good to study the theoretical properties of hypothetical networks. In this set of notes, we'll start addressing an important empirical question: \n",
+        "\n",
+        "> What are *real* networks like? \n",
+        "\n",
+        "Of course, there's no simple answer to this question: we observe network data sets across a wide variety of domains, and many of them have different properties. For our purposes today, we'll look at a sample of four networks:\n",
+        "\n",
+        "- `twitch`: A network of mutual friends on the Twitch streaming platform. The data set was collected by @musae. \n",
+        "- `chameleon`: A network of Wikipedia pages on topics related to chameleons (yes, the animal). An edge exists between two nodes if the corresponding Wikipedia pages link to each other. The data set was collected by @musae. \n",
+        "- `karate`: The Zachary Karate Club social network [@zachary1977information], which is packaged with NetworkX. \n",
+        "- `les_mis`: A network of character interactions in the novel *Les Miserables* by Victor Hugo, also packaged with NetworkX.\n"
+      ],
+      "id": "a6829e30"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| code-fold: true\n",
+        "from matplotlib import pyplot as plt\n",
+        "import networkx as nx\n",
+        "plt.style.use('seaborn-v0_8-whitegrid')\n",
+        "import numpy as np\n",
+        "from scipy.special import factorial\n",
+        "import pandas as pd\n",
+        "import random\n",
+        "\n",
+        "# acquire twitch data\n",
+        "url = \"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ZHTW_edges.csv\"\n",
+        "edges = pd.read_csv(url)\n",
+        "G_twitch = nx.from_pandas_edgelist(edges, \"from\", \"to\", create_using=nx.Graph)\n",
+        "\n",
+        "# acquire chameleon data\n",
+        "url = \"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/chameleon_edges.csv\"\n",
+        "edges = pd.read_csv(url)\n",
+        "G_chameleon = nx.from_pandas_edgelist(edges, \"id1\", \"id2\", create_using=nx.Graph)\n",
+        "\n",
+        "# two built-in networkx data sets. \n",
+        "G_karate = nx.karate_club_graph()\n",
+        "G_les_mis = nx.les_miserables_graph()"
+      ],
+      "id": "f64299fe",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "A fundamental principle in measuring networks is to *compare*. If we say that a network has a high value of some measurement $X$, then the correct reply is: \n",
+        "\n",
+        "> High compared to what? \n",
+        "\n",
+        "There are many reasonable answers to this question, and we'll explore several of them when we come to the study of random graphs. For now, we are going to compare each of our real networks to a *synthetic random graph with a similar degree sequence*. [Technically, we are using a model that reproduces the degree sequence *approximately and in expectation*. This model is due to @chung2002connected.]{.aside}\n",
+        "\n",
+        "The following code constructs a random synthetic counterpart graph for each of our empirical graphs. It then adds all of these to a dictionary so that we can easily access both the real and synthetic graphs later. \n"
+      ],
+      "id": "3480b8d1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def unweight(G):\n",
+        "    for source, target in G.edges():\n",
+        "        G[source][target]['weight'] = 1\n",
+        "\n",
+        "def random_counterpart(G):\n",
+        "    degrees = [deg for (node, deg) in G.degree()]\n",
+        "    # G_random = nx.configuration_model(degrees, create_using=nx.Graph)\n",
+        "    G_random = nx.expected_degree_graph(degrees, selfloops=False)\n",
+        "    G_random.remove_edges_from(nx.selfloop_edges(G_random))\n",
+        "    return G_random\n",
+        "\n",
+        "def add_to_dataset_dict(dataset_dict, G, name):\n",
+        "    unweight(G)\n",
+        "    dataset_dict[name] = {\n",
+        "        \"graph\" : G,\n",
+        "        \"random\" : random_counterpart(G)\n",
+        "    }\n",
+        "    \n",
+        "dataset_dict = {}\n",
+        "add_to_dataset_dict(dataset_dict, G_twitch, \"twitch\")\n",
+        "add_to_dataset_dict(dataset_dict, G_chameleon, \"chameleon\")\n",
+        "add_to_dataset_dict(dataset_dict, G_karate, \"karate\")\n",
+        "add_to_dataset_dict(dataset_dict, G_les_mis, \"les_mis\")"
+      ],
+      "id": "664ca5b6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "To help us compute and compare measurements on these graphs, we'll define the following function which will manage these computations and organize the result as a table. This function takes as an argument a function `fun` which accepts a graph as an input and returns a scalar value. \n"
+      ],
+      "id": "46f4d746"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def compute_metric(fun = lambda x: 0, compare = True):\n",
+        "    print(\"Data Set\" + \" \" * 10 + \"Real\", end = \"\")\n",
+        "    if compare: \n",
+        "            print(\" \" * 10 + \"Random\")\n",
+        "    else: \n",
+        "        print()\n",
+        "    print(\"-\" * 22, end = \"\")\n",
+        "    if compare: \n",
+        "        print(\"-\"*18)\n",
+        "    else: \n",
+        "        print()\n",
+        "    for data_set in dataset_dict:\n",
+        "        print(data_set + \" \" * (14 - len(data_set)) + f\"{fun(dataset_dict[data_set]['graph']):>8.2f}\", end = \"\")\n",
+        "        if compare:\n",
+        "            print(\" \" * (8) + f\"{fun(dataset_dict[data_set]['random']):>8.2f}\")\n",
+        "        else: \n",
+        "            print()"
+      ],
+      "id": "7a31daaf",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Node and Edge Counts\n",
+        "\n",
+        "Let's start with something simple: how many nodes and edges are in each graph? \n"
+      ],
+      "id": "9d2472aa"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "print(\"Number of nodes\")\n",
+        "compute_metric(lambda x: x.number_of_nodes())\n",
+        "print(\"\\nNumber of edges\")\n",
+        "compute_metric(lambda x: x.number_of_edges())"
+      ],
+      "id": "b9520313",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Although the number of nodes agree exactly in the real and random networks, there are some small discrepancies in the edge counts. This is due to the fact that our procedure for constructing random graphs (a) only preserves the degrees *in expectation* rather than exactly and (b) can create some self-loops, which get discarded. \n",
+        "\n",
+        "\n",
+        "## Clustering Coefficient\n",
+        "\n",
+        "Let's move on to something more complex. Take a moment and think of two of your friends, whom we'll call $A$ and $B$. Are $A$ and $B$ themselves friends with each other? If they do, then we say that there is a *triad* or *triangle* in the network. \n"
+      ],
+      "id": "600f3374"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "fig-width": 2,
+        "fig-height": 2
+      },
+      "source": [
+        "#| column: margin\n",
+        "#| fig-cap: A triangle in a social network\n",
+        "#| echo: false\n",
+        "fig, ax = plt.subplots(1, 1, figsize = (3, 3))\n",
+        "G = nx.Graph()\n",
+        "G.add_edges_from([(\"A\", \"B\"), (\"A\", \"You\"), (\"B\", \"You\")])\n",
+        "nx.draw(G, with_labels = True, node_size = 700, node_color = \"lightblue\", ax = ax)"
+      ],
+      "id": "94935550",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "A stylized fact about many networks---especially social networks---is that triangles like these are common. In order to validate this stylized fact, we need to (a) determine how to measure the prevalence of triangles and (b) compare the value of this measure on our real networks to that of their random counterparts. \n",
+        "\n",
+        "There are many possible measures of the prevalence of triangles, but here we will use the *transitivity*: the fraction of all possible triangles that are present in the network. The formula for transitivity is \n",
+        "\n",
+        "$$\n",
+        "\\begin{aligned}\n",
+        "    T(G) = \\frac{\\mathrm{trace}(\\mathbf{A}^3)}{\\sum_{i} k_i(k_i - 1)}\n",
+        "\\end{aligned}\n",
+        "$$\n",
+        "\n",
+        "Here, $\\mathbf{A}$ is the adjacency matrix of $G$ and $k_i$ is the degree of node $i$. \n",
+        "\n",
+        "The numerator of this expression is proportional to the number of triangles in the network (technically, it is off by a factor of 6) and the denominator is proportional to the number of paths of length two in the network. You can think of a triplet as a possible triangle: just add one more edge and a triangle forms. bn\n"
+      ],
+      "id": "c3fad946"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "fig-width": 1,
+        "fig-height": 1
+      },
+      "source": [
+        "#| column: margin\n",
+        "#| fig-cap: A triplet in a social network centered on you\n",
+        "#| echo: false\n",
+        "\n",
+        "fig, ax = plt.subplots(1, 1, figsize = (3, 3))\n",
+        "G = nx.Graph()\n",
+        "G.add_edges_from([ (\"A\", \"You\"), (\"B\", \"You\")])\n",
+        "nx.draw(G, with_labels = True, node_size = 700, node_color = \"lightblue\", ax = ax)"
+      ],
+      "id": "c96e84f3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Let's write a function to compute the transitivity of a graph. \n"
+      ],
+      "id": "65e6a89b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "def my_transitivity(G):\n",
+        "    A = nx.adjacency_matrix(G).toarray()\n",
+        "    # A = 1*(A >= 1) # convert to unweighted form\n",
+        "\n",
+        "    # numerator\n",
+        "    num_triangles = np.trace(A @ A @ A)\n",
+        "\n",
+        "    # denominator\n",
+        "    degrees = A.sum(axis = 0)\n",
+        "    num_triplets = np.sum(degrees * (degrees - 1))\n",
+        "\n",
+        "    return num_triangles / num_triplets\n",
+        "#---"
+      ],
+      "id": "d59ffe57",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Let's compare our function to the built-in function supplied by NetworkX. \n"
+      ],
+      "id": "298cadd1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "print(my_transitivity(G_karate))\n",
+        "print(nx.transitivity(G_karate))\n",
+        "#---"
+      ],
+      "id": "d87dc001",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Looks good! We'll move forward with the NetworkX version, as it is substantially faster on larger graphs. \n"
+      ],
+      "id": "b7878b85"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "compute_metric(nx.transitivity)\n",
+        "#---"
+      ],
+      "id": "2ecf3696",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We observe that the `chameleon` and `les_mis` graphs appear to have substantially greater transitivity than their random counterparts, while both `karate` and `twitch` have similar transitivity to their random counterparts. Under this comparison, *some* networks indeed display very high transitivity. \n",
+        "\n",
+        "## Connected Components\n",
+        "\n",
+        "What about the number of connected components in the network? \n"
+      ],
+      "id": "88cda76a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "compute_metric(lambda x: len(list(nx.connected_components(x))))\n",
+        "#---"
+      ],
+      "id": "07905bd8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Recall that we've engineered all of our real networks to have only one connected component, filtering if necessary. On the other hand, the random networks tend to have multiple connected components. \n",
+        "\n",
+        "Would it be fair to say that real networks are more connected than would be expected at random? Some caution is required here. Many researchers collect network data using methods that are especially likely to produce connected networks. For example, *snowball sampling* in study design refers to the method of recruiting participants for a survey or other instrument by asking people to recommend their friends. Since they can't recommend people they don't know, the snowball sample collected from an individual is always connected. Similarly, data sets like the `chameleon` data set are constructed by following links from one Wikipedia page to another. This method always produces a connected network as well. So, while it is true that many network data sets contain a single connected component, this is often an artifact of data collection rather than a fundamental property of the network.\n",
+        "\n",
+        "## Degree-Degree Correlations\n",
+        "\n",
+        "We have constructed random counterpart networks that have similar degree sequences to the real networks we are studying. Networks, however, can have interesting degree structures beyond just the degree sequence. One such structure is the *degree-assortativity*. The degree assortativity measures the extent to which nodes of similar degree are connected to each other. There are several ways to measure degree assortativity, but the most common one (due to @newman2018networks) has formula \n",
+        "\n",
+        "$$\n",
+        "\\begin{aligned}\n",
+        "    C = \\frac{\\sum_{(u,v) \\in G} k_u k_v - \\frac{1}{m}\\left(\\sum_{(u,v) \\in G}  k_u\\right)^2}{\\sum_{(u,v) \\in G} k_u^2 - \\frac{1}{m}\\left(\\sum_{(u,v) \\in G}  k_u\\right)^2}\\;.\n",
+        "\\end{aligned}\n",
+        "$$\n",
+        "\n",
+        "[If you are familiar with probability and statistics, this formula is equivalent to $C = \\frac{\\mathrm{cov}(K_1,K_2)}{\\sqrt{\\mathrm{var}(K_1)\\mathrm{var}(K_2)}}$, where $K_1$ and $K_2$ are the degrees of the nodes at the ends of an edge selected uniformly at random from $G$. This is also the Pearson correlation coefficient between $K_1$ and $K_2$.]{.aside}\n",
+        "\n",
+        "An *assortative* network (with high assortativity) is one in which nodes of high degree tend to connect to each other frequently. A *disassortative* network (with negative assortativity) is one in which nodes of high degree tend to connect to nodes of low degree. Let's take a look at the assortativity values in our networks: \n"
+      ],
+      "id": "24071ce1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "compute_metric(nx.degree_assortativity_coefficient)\n",
+        "#---"
+      ],
+      "id": "bbefbcac",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "It looks like all of our networks are disassortative, and somewhat moreso than their random counterparts. Disassortativity is a common feature of many networks, and it is often attributed to the presence of *hubs* in the network. Hubs are nodes with very high degree, and they tend to connect to many other nodes. Since there are only a few hubs, they are more likely to connect to nodes of low degree than to other hubs.\n",
+        "\n",
+        "## Shortest Path Lengths\n",
+        "\n",
+        "In a famous study, Stanley @milgram1967small [^1] asked participants to ensure that a letter reached a target person, whom they did not know, in a US city. However, the participants were only allowed to send the letter to someone they knew on a first-name basis. That person could then send the letter to another person they knew on a first-name basis, and so on, until the letter was delivered (or lost). Perhaps surprisingly, many participants were able to reach the target person in only a few steps, on average. This experiment is the origin of the famous phrase *six degrees of separation*: in many social networks, most individuals are separated by relatively few links, even when the network is very large.  \n",
+        "\n",
+        "[^1]: Yes, [*that* Milgram](https://en.wikipedia.org/wiki/Milgram_experiment) [@milgram1963behavioral].\n",
+        "\n",
+        "\n",
+        "To test this in our networks, we'll compute the length of the shortest path between a pair of nodes, averaged across all possible pairs. This quantity isn't defined for the random counterpart networks that have multiple disconnected components (why?), and so we'll stick to calculating it on the real-world networks. \n"
+      ],
+      "id": "214e0229"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "compute_metric(nx.average_shortest_path_length, compare = False)\n",
+        "#---"
+      ],
+      "id": "aa9850a4",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Indeed, despite some of these networks having thousands of nodes and edges, the average shortest path length does not exceed 4 links. We'll consider some theoretical models that aim to explain this phenomenon later in the course. \n",
+        "\n",
+        "\n",
+        "## References "
+      ],
+      "id": "7d45de64"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

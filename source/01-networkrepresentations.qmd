@@ -219,7 +219,7 @@ For our definitions below, we'll suppose we have a graph $G$ with $n$ vertices.[
 
 The **adjacency matrix $\mathbf{A}$** of a graph $G = (V, E)$ is an $n \times n$ matrix where $n = \vert V \vert$. Its entries are
 \begin{align*}
-    a_{ij} = \begin{cases}
+    A_{ij} = \begin{cases}
     1 & (j, i) \in E \,, \\
     0 & \text{otherwise.}
     \end{cases}
@@ -232,8 +232,8 @@ For the purposes of this definition, if $G$ is undirected, then we say that, if 
 
 Let's observe a few notes about how the graph structure relates to the structure of the adjacency matrix.
 
-- If there are no self-edges, the diagonal elements $a_{ii}$ are all zero.
-- If the network is undirected, then an edge between $i$ and $j$ implies the existence of an edge between $j$ and $i$. This means that $a_{ji} = a_{ij}$ and thus the adjacency matrix is symmetric.
+- If there are no self-edges, the diagonal elements $A_{ii}$ are all zero.
+- If the network is undirected, then an edge between $i$ and $j$ implies the existence of an edge between $j$ and $i$. This means that $A_{ji} = A_{ij}$ and thus the adjacency matrix is symmetric.
 - Similarly, if the adjacency matrix is not symmetric, the network cannot be undirected.
 
 
@@ -247,11 +247,11 @@ $$
 \end{pmatrix}
 $$
 
-If we have a graph with self-edges, then $\{i,i\} \in E$ for some $i.$ If the graph is undirected, we represent this in the adjacency matrix by setting $a_{ii} = 2.$ If the graph is directed, we set $a_{ii} = 1.$[This is another convention that will make the mathematics easier. An intuitive way to understand this choice is that, in undirected graphs, every edge "shows up" twice in the adjacency matrix, whereas in directed graphs every edge "shows up" once.]{.aside}
+If we have a graph with self-edges, then $\{i,i\} \in E$ for some $i.$ If the graph is undirected, we represent this in the adjacency matrix by setting $A_{ii} = 2.$ If the graph is directed, we set $A_{ii} = 1.$[This is another convention that will make the mathematics easier. An intuitive way to understand this choice is that, in undirected graphs, every edge "shows up" twice in the adjacency matrix, whereas in directed graphs every edge "shows up" once.]{.aside}
 
-If we have a graph with multiedges, then we can set the corresponding matrix element $a_{ij}$ equal to the multiplicity of the edge. For example, a double edge between nodes 2 and 3 in an undirected graph is represented $a_{23} = a_{32} = 2.$
+If we have a graph with multiedges, then we can set the corresponding matrix element $A_{ij}$ equal to the multiplicity of the edge. For example, a double edge between nodes 2 and 3 in an undirected graph is represented $A_{23} = A_{32} = 2.$
 
-But why stop there? Instead of requiring an integer number of edges between two nodes, we could extend this idea to form **weighted networks** with real-valued edge weights. Sometimes it is useful to represent edges as having a strength, weight, or value. In this situation, we set the value of $a_{ij}$ equal to the weight of the corresponding edge $(j, i)$. For example, weights in an airport network could be used represent a distance between two airports, or weights in a social media network could represent the number of messages sent between two individuals.
+But why stop there? Instead of requiring an integer number of edges between two nodes, we could extend this idea to form **weighted networks** with real-valued edge weights. Sometimes it is useful to represent edges as having a strength, weight, or value. In this situation, we set the value of $A_{ij}$ equal to the weight of the corresponding edge $(j, i)$. For example, weights in an airport network could be used represent a distance between two airports, or weights in a social media network could represent the number of messages sent between two individuals.
 
 
 ### Many more matrices ...
@@ -371,7 +371,7 @@ nx.draw(G, ax = ax, **plot_kwargs)
 
 
 
-For a directed graph, you need to make two additional changes to the code above. You need specify that you want a directed graph with the `create_using` argument to the graph constructor. Additionally, you need to be very careful about the adjacency matrix convention for in and out edges. The default convention for `from_numpy_array` points edges in the *opposite* direction to what we defined above (it assumes $a_{ij} = 1$ if $(i,j) \in E$), so if you want to match that convention, you'll need to take the transpose with `np.transpose`.
+For a directed graph, you need to make two additional changes to the code above. You need specify that you want a directed graph with the `create_using` argument to the graph constructor. Additionally, you need to be very careful about the adjacency matrix convention for in and out edges. The default convention for `from_numpy_array` points edges in the *opposite* direction to what we defined above (it assumes $A_{ij} = 1$ if $(i,j) \in E$), so if you want to match that convention, you'll need to take the transpose with `np.transpose`.
 
 Here's an example of constructing the directed graph shown in @fig-directed from an adjacency matrix. 
 

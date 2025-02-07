@@ -16,6 +16,12 @@ h3 {
   /* font-family: 'Petrona', serif; */
 }
 
+h4 {
+  font-size: 1rem;
+  font-weight: normal;
+  /* font-family: 'Petrona', serif; */
+}
+
 td {
     /* height: 50px; */
     vertical-align: top;

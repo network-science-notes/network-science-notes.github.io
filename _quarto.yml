@@ -27,6 +27,8 @@ format:
     callout-appearance: simple
     toc-title: Contents
     fig-cap-location: margin
+    highlight-style: atom-one
+
 
 
 

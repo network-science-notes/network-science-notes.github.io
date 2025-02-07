@@ -1,0 +1,415 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "fig-cap-location: margin\n",
+        "code-fold: false\n",
+        "jupyter: python3\n",
+        "cache: true\n",
+        "---\n",
+        "\n",
+        "\n",
+        "# Visualizing Networks, and Why You Shouldn't\n",
+        "\n",
+        "We've drawn networks several times in this course so far. Here's one of our favorite running examples, the Karate Club graph. Here's two ways to draw it. On the right, we've drawn the graph by assigning every node to a location in the unit square $[0,1]^2$ uniformly at random. On the right, we have used the default layout algorithm in NetworkX, which is invoked automatically when we call `nx.draw`.\n"
+      ],
+      "id": "26b2ad09"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import networkx as nx\n",
+        "import numpy as np \n",
+        "from matplotlib import pyplot as plt \n",
+        "from scipy.optimize import minimize\n",
+        "\n",
+        "fig, ax = plt.subplots(1, 2, figsize = (8, 4))\n",
+        "\n",
+        "def unweight(G):\n",
+        "    for source, target in G.edges():\n",
+        "        G[source][target]['weight'] = 1\n",
+        "    return G\n",
+        "\n",
+        "G = unweight(nx.karate_club_graph())\n",
+        "\n",
+        "draw_kwargs = {\"node_color\": \"lightblue\", \"node_size\": 100, \"edge_color\": \"gray\", \"edgecolors\" : \"black\"}\n",
+        "\n",
+        "nx.draw(G, ax = ax[1], **draw_kwargs)\n",
+        "\n",
+        "def random_layout(G):\n",
+        "    return np.random.rand(G.number_of_nodes(), 2)\n",
+        "\n",
+        "random_layout(G)\n",
+        "\n",
+        "nx.draw(G, pos = random_layout(G), ax = ax[0], **draw_kwargs)"
+      ],
+      "id": "27ce2795",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Which of these drawings look better to you? Which do you feel better helps you understand the structure of the graph? \n",
+        "\n",
+        "[![](https://www.data-imaginist.com/assets/img/edge_meme_wide.jpg) *Image credit: [Thomas Lin Pedersen](https://www.data-imaginist.com/posts/2017-02-16-ggraph-introduction-edges/)*]{.column-margin}\n",
+        "In this set of notes, we'll develop from scratch an algorithm for producing reasonably attractive visualizations of networks. We'll then discuss some of the significant limitations associated with drawing networks as points connected by line segments, and consider some alternatives. \n",
+        "\n",
+        "## Network Drawing as Minimizing Mean Edge Lengths\n",
+        "\n",
+        "In Section 6.14.2, @newman2018networks gives some heuristic reasons to suggest that our friend the Laplacian matrix can give a good guide to the quality of a network drawing. This suggests a natural idea: why not just use the graph Laplacian itself to draw the network? *Laplacian spectral embedding* gives us a way to do this. To implement Laplacian spectral embedding, we: \n",
+        "\n",
+        "1. Form the Laplacian matrix $\\mathbf{L} = \\mathbf{D} - \\mathbf{A}$. \n",
+        "2. Find the *second* and *third* smallest eigenvalues of the Laplacian.[Recall that, if $G$ is connected, then the very smallest eigenvalue of the Laplacian is always equal to 0 and corresponds to an eigenvector with constant entries.]{.aside}. Let $\\mathbf{v}_2$ and $\\mathbf{v}_3$ be their corresponding eigenvectors.\n",
+        "3. Position the nodes in $\\mathbb{R}^2$ according to the values of these eigenvectors: the first coordinate is given by the entries of $\\mathbf{v}_2$, and the second coordinate is given by the entries of $\\mathbf{v}_3$.\n",
+        "\n",
+        "This elegant algorithm is important enough to be implemented in NetworkX: it's `nx.spectral_layout`. But we can implement a full version (for connected graphs) of it ourselves. \n"
+      ],
+      "id": "e621694e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "A = nx.to_numpy_array(G)\n",
+        "D = np.diag(np.sum(A, axis = 1))\n",
+        "L = D - A\n",
+        "E = tuple(np.linalg.eig(L)) # compatibility with numpy 2.0.0\n",
+        "\n",
+        "_, i, j = np.argsort(E[0])[:3]\n",
+        "\n",
+        "v_1 = E[1][:, i]\n",
+        "v_2 = E[1][:, j]\n",
+        "\n",
+        "v = np.column_stack([v_1, v_2])\n",
+        "#---"
+      ],
+      "id": "63b433ff",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "How'd we do?\n"
+      ],
+      "id": "f492a917"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "nx.draw(G, pos = {i: v[i] for i in range(G.number_of_nodes())}, **draw_kwargs)"
+      ],
+      "id": "adc88a4d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Oh dear, that doesn't look very good at all! This is a good mini-lesson in applied mathematics: sometimes the most elegant solution is outstanding, and sometimes it just doesn't work very well in computational practice. \n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "## Network Drawing as Isometry Approximation\n",
+        "\n",
+        "Let's try a better approach. We're going to view network drawing primarily as the problem of *placing the nodes*. This corresponds to the following problem: \n",
+        "[For drawing on a computer screen or chalkboard, $d = 2$. The general task of placing nodes in Euclidean space is often called *graph embedding*, and has applications in deep learning for much higher values of $d$.]{.aside}\n",
+        "\n",
+        "> To each node $i \\in N$, assign a vector $\\mathbf{x}_i \\in \\mathbb{R}^d$. \n",
+        "\n",
+        "If we collect all the nodes together, we aim to find a *matrix* $\\mathbf{X} \\in \\mathbb{R}^{n \\times d}$, where $n$ is the number of nodes in the graph, such that the $i$th row of $\\mathbf{X}$ is the vector $\\mathbf{x}_i$ assigned to node $i$.\n",
+        "\n",
+        "Of course, we don't want to just find *any* old matrix $\\mathbf{X}$; that's what we did on the random visualization above and the result was not very impressive. Instead, we want to find a matrix $\\mathbf{X}$ that reflects the structure of the graph in some useful way. There are multiple ways to \n",
+        "\n",
+        "There are multiple ways to approach this problem, but in these notes, we are going to follow the approach of @kamada1989algorithm. Their idea is simple to state: \n",
+        "\n",
+        "> Choose $\\mathbf{X}$ so that the Euclidean distance $d^e_{ij} = \\lVert \\mathbf{x}_i - \\mathbf{x}_j \\rVert$ is approximately the same as the graph geodesic distance $d^g_{ij}$ between nodes $i$ and $j$, for all pairs of nodes $(i,j)$. \n",
+        "\n",
+        "This approach is an expression of the geometric idea of *isometry*: we are looking to map the nodes from one metric space (the graph) into another metric space (Euclidean space) in a way that approximately preserves distance.\n",
+        "\n",
+        "To make this actionable, let's define an optimization objective that measures how far apart the Euclidean distances are from the graph geodesic distances: \n",
+        "\n",
+        "$$\n",
+        "\\begin{aligned}\n",
+        "    f(\\mathbf{X}, G) &= \\sum_{(i,j) \\in \\binom{N}{2}} \\left( d^e_{ij} - d^g_{ij} \\right)^2    \\\\ \n",
+        "                     &= \\sum_{(i,j) \\in \\binom{N}{2}} \\left( \\lVert \\mathbf{x}_i - \\mathbf{x}_j \\rVert - d^g_{ij} \\right)^2\\;.\n",
+        "\\end{aligned}\n",
+        "$$\n",
+        "\n",
+        "This objective function is also sometimes called an \"energy\" of the problem. Let's implement a function that computes the energy, given a matrix of distances $\\mathbf{D}$ and a matrix of node positions $\\mathbf{X}$.\n"
+      ],
+      "id": "80850488"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "def energy(X, D):\n",
+        "    n = X.shape[0]\n",
+        "    return np.sum([(np.linalg.norm(X[i] - X[j]) - D[i, j])**2 for i in range(n) for j in range(n)])\n",
+        "\n",
+        "def partial_energy(x, D, k):\n",
+        "    return np.sum([(np.linalg.norm(x - X[j]) - D[k, j])**2 for j in range(G.number_of_nodes())])\n",
+        "#---"
+      ],
+      "id": "af3b00c6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Now we'll implement an algorithm that attempts to minimize the energy by moving the position of each node, one at a time. Here's how a single step works: \n",
+        "\n",
+        "1. We select a node $k$. \n",
+        "2. We minimize $k$'s contribution to the energy, which is $\\sum_{j \\in N\\setminus k} \\left( \\lVert \\mathbf{x}_k - \\mathbf{x}_j \\rVert - d^g_{kj} \\right)^2$.\n",
+        "\n",
+        "We cycle through all the nodes, updating each of them, and then we repeat the process for some specified number of iterations. First, let's visualize how this looks. Then, we'll implement this algorithm ourselves. \n"
+      ],
+      "id": "8cc2444a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| echo: false\n",
+        "fig, ax = plt.subplots(2, 4, figsize = (7, 4))\n",
+        "\n",
+        "D = nx.floyd_warshall_numpy(G) # matrix of Euclidean distances\n",
+        "X = random_layout(G) # initialization\n",
+        "\n",
+        "for i, ax in enumerate(ax.flatten()):\n",
+        "    ax.set_title(f\"Iteration {i}\\nEnergy = {energy(X, D):.2f}\")\n",
+        "    nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, ax = ax, node_size = 50, edge_color = \"gray\", edgecolors = \"black\", node_color = \"lightblue\")\n",
+        "    for k in range(G.number_of_nodes()):\n",
+        "        res = minimize(partial_energy, X[k], args = (D, k), method = 'BFGS')\n",
+        "        X[k] = res.x\n",
+        "plt.tight_layout()"
+      ],
+      "id": "ce3b2406",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Note that the energy very quickly shrinks after the first iteration. The structure of the visualization is resolved fairly clearly after just a small number of iterations. \n",
+        "\n",
+        "Ok, time to implement!\n"
+      ],
+      "id": "2e48279c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "def optimization_layout(G, n_iter = 100): \n",
+        "    D = nx.floyd_warshall_numpy(G) # matrix of Euclidean distances\n",
+        "    X = random_layout(G) # initialization\n",
+        "\n",
+        "    for _ in range(n_iter): # specified number of iterations\n",
+        "        print(f\"Current energy : {energy(X, D)}\")\n",
+        "\n",
+        "        for k in range(G.number_of_nodes()):\n",
+        "\n",
+        "            def partial_energy(x, D, k):\n",
+        "                return np.sum([(np.linalg.norm(x - X[j]) - D[k, j])**2 for j in range(G.number_of_nodes()) if j != k])\n",
+        "            \n",
+        "            # minimize the partial energy with respect to the position of node k\n",
+        "            res = minimize(partial_energy, X[k], args = (D, k), method = 'BFGS')\n",
+        "\n",
+        "            # update the position of node k\n",
+        "            X[k] = res.x\n",
+        "    \n",
+        "    return X\n",
+        "#---"
+      ],
+      "id": "cf17ea52",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Let's try it out: \n"
+      ],
+      "id": "b0ae5573"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#---\n",
+        "X = optimization_layout(G, n_iter = 10)\n",
+        "nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)\n",
+        "#---"
+      ],
+      "id": "2b8fb856",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Our result looks pretty reasonable. Nodes that \"should\" be close to each other do indeed appear to be drawn close together in the graph. \n",
+        "\n",
+        "The results are not always reliable; if we check the Les Miserables graph, we might argue that a lot of the nodes in the dense center of the graph are a little too squished together: \n"
+      ],
+      "id": "6f6dce48"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "G = nx.convert_node_labels_to_integers(nx.les_miserables_graph())\n",
+        "X = optimization_layout(G, n_iter = 10)\n",
+        "nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)"
+      ],
+      "id": "232aaccc",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### An Adjustment\n",
+        "\n",
+        "We can compensate for this by weighting pairs of nodes differently. In the final form of the Kamada-Kawai algorithm, we modify the objective function by incorporating an inverse-square distance weighting. The modified objective function is \n",
+        "\n",
+        "$$\n",
+        "\\begin{aligned}\n",
+        "    f(\\mathbf{X}, G)  &= \\sum_{(i,j) \\in \\binom{N}{2}} \\frac{1}{\\left(d^g_{ij}\\right)^2}\\left( \\lVert \\mathbf{x}_i - \\mathbf{x}_j \\rVert - d^g_{ij} \\right)^2\\;.\n",
+        "\\end{aligned}\n",
+        "$$\n",
+        "\n",
+        "The implementation here is very similar to our unweighted implementation: \n"
+      ],
+      "id": "f9fee9d4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def energy_weighted(X, D):\n",
+        "    n = X.shape[0]\n",
+        "    return np.sum([(np.linalg.norm(X[i] - X[j]) - D[i, j])**2/D[i, j]**2 for i in range(n) for j in range(n) if j != i])\n",
+        "\n",
+        "def optimization_layout_weighted(G, n_iter = 100): \n",
+        "    D = nx.floyd_warshall_numpy(G) # matrix of Euclidean distances\n",
+        "    X = random_layout(G) # initialization\n",
+        "\n",
+        "    for _ in range(n_iter): # specified number of iterations\n",
+        "        print(f\"Current energy : {energy(X, D)}\")\n",
+        "\n",
+        "        for k in range(G.number_of_nodes()):\n",
+        "\n",
+        "            def partial_energy(x, D, k):\n",
+        "                return np.sum([(np.linalg.norm(x - X[j]) - D[k, j])**2 / D[k,j]**2 for j in range(G.number_of_nodes()) if j != k])\n",
+        "            \n",
+        "            # minimize the partial energy with respect to the position of node k\n",
+        "            res = minimize(partial_energy, X[k], args = (D, k), method = 'BFGS')\n",
+        "\n",
+        "            # update the position of node k\n",
+        "            X[k] = res.x\n",
+        "    \n",
+        "    return X\n",
+        "\n",
+        "X = optimization_layout_weighted(G, n_iter = 10)\n",
+        "nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)"
+      ],
+      "id": "7ff2018a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "This version resolves the nodes in the dense core of the network somewhat more cleanly. \n",
+        "\n",
+        "::: {.column-margin}\n",
+        "\n",
+        "A few caveats related to this algorithm: \n",
+        "\n",
+        "1. The energy function is nonconvex, and so in general it is possible for the optimization routine to get stuck at a suboptimal local minimum. \n",
+        "2. Any rotation or reflection of the node positions $\\mathbf{X}$ yields a new layout with the same energy. \n",
+        "3. The computation of the complete matrix of pairwise geodesic distances is in general quite expensive on networks of even moderate size. \n",
+        "\n",
+        ":::\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "There are many other ways to draw networks, several of which are implemented as built-in methods in NetworkX. See the [documentation](https://networkx.org/documentation/stable/reference/drawing.html#module-networkx.drawing.layout) for various other possibilities. \n",
+        "\n",
+        "\n",
+        "## Why You Shouldn't Draw Networks\n",
+        "\n",
+        "Making attractive visualizations of large networks is a very fun and satisfying thing to do, and some software packages like [Gephi](https://gephi.org/) are specifically designed for this task. We encourage you to put network visualizations on your phone wallpaper, t-shirts, posters, websites, etc. [Indeed, Phil Chodrow, one of the coauthors of these notes, made a graph visualization as the image background of [his website](https://www.philchodrow.prof/).]{.aside}\n",
+        "\n",
+        "So, what do we mean when we say that you shouldn't draw networks? In general, it's very difficult to extract reliable structural insights about networks by eye. This means that the one place drawings of networks *usually* don't belong is in scientific papers. It's just too easy for the eye to be drawn to structural features that may or may not actually be present in the data. For this reason, node-edge visualizations of large networks have been called names like \"[ridiculograms](https://petterhol.me/2018/05/28/ridiculograms-a-ridiculous-dialogue/)\" and [hairballs](https://skewed.de/tiago/posts/hairball/) by prominent network scientists. \n",
+        "\n",
+        "## What You Should Do Instead\n",
+        "\n",
+        "The right way to visualize the structure of your network is *very* context-dependent, and there are many, many possibilities. Here we'll point out just one: the adjacency matrix. This is a common strategy for visualizing networks that separate into one or more distinct clusters, sometimes also called \"communities.\" For example, simply inspecting the adjacency matrix of the Les Miserables graph can reveal a lot about its structure: \n"
+      ],
+      "id": "9b0185d4"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "G = nx.les_miserables_graph()\n",
+        "G = unweight(G)\n",
+        "G = nx.convert_node_labels_to_integers(G)\n",
+        "A = nx.to_numpy_array(G)\n",
+        "plt.imshow(A, cmap = \"Greys\", vmax = 1.2)"
+      ],
+      "id": "26559024",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "The adjacency matrix allows to easily see the presence of dense clusters (indeed, several cliques) in the graph, as well as a few nodes who seem to interact with almost all of the other ones. \n",
+        "\n",
+        "In this case, the adjacency matrix was already sorted by node in a way that made the structure clear. In more complicated cases, we may need to use a *community detection algorithm* to find a way to sort the nodes that reveals useful structure. This is a complicated (and thorny) topic which we'll touch on later in this course. \n",
+        "\n",
+        "## References"
+      ],
+      "id": "252417b4"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

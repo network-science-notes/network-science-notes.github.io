@@ -1,0 +1,486 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "code-fold: true\n",
+        "code-summary: \"Show code\"\n",
+        "jupyter: python3\n",
+        "---\n",
+        "\n",
+        "\n",
+        "# Agent-Based Modeling on Networks\n",
+        "\n",
+        "Many of the problems that interest us in networks relate to agents making actions or decisions on network structures. While in some cases we can develop relatively complete mathematical descriptions of systems like these, in other cases we need to perform computational simulations and experiments. In this set of notes, we'll focus on basic techniques for *agent-based modeling* (ABM) in Python. \n",
+        "\n",
+        "In agent-based modeling, we construct a model by defining a set of agents and the rules by which those agents interact. There are many good software packages for agent-based modeling, perhaps the most famous of which is [NetLogo](https://en.wikipedia.org/wiki/NetLogo). [For even more comparisons, see [this page](https://en.wikipedia.org/wiki/Comparison_of_agent-based_modeling_software).]{.aside} In this class, we'll use one of several agent-based modeling frameworks developed for Python, called [mesa](https://mesa.readthedocs.io/en/latest/). Mesa includes a number of useful tools for constructing, analyzing, and visualizing agent-based models. You can install Mesa using \n",
+        "\n",
+        "\n",
+        "```{bash}\n",
+        "pip install mesa\n",
+        "```\n",
+        "\n",
+        "\n",
+        "at the command line or by searching for and installing it in the Environments tab of Anaconda Navigator. Once you've installed Mesa, you are ready to use its tools. \n",
+        "\n",
+        "## Components of an Agent-Based Model\n",
+        "\n",
+        "Let's start with some vocabulary. A Mesa model has several components: \n",
+        "\n",
+        "- An **agent** is a representation of the individuals who make decisions and perform actions. Agents have a `step()` method that describes their behavior. \n",
+        "- The **grid** is a representation of relationships between individuals. The grid can be, say, a 2d rectangle, in which case we could imagine it representing space. In this class, we'll of course use a *network grid*, in which we can use a network to specify relationships. \n",
+        "- The **scheduler** determines the order in which agents act. In a *synchronous* model, all agents act simultaneously. In an *asychronous* model, agents act one at a time, in either a fixed or a random order. The schedule also has a `step()` method that calls the `step()` method of the agents according to the schedule. \n",
+        "- The **data collector** helps us gather data on our simulation. \n",
+        "\n",
+        "## First Example: Simple Random Walk\n",
+        "\n",
+        "For our first agent-based model, we are going to code up an agent-based implementation of the simple random walk. There are lots of reasonable ways to do this, and Mesa is actually a bit of overkill for this particular problem. Still, we'll learn some important techniques and concepts along the way. \n",
+        "\n",
+        "\n",
+        "\n",
+        "Let's start by importing several tools that we'll use. "
+      ],
+      "id": "c7eb0381"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from mesa import Model, Agent                 # core mesa classes\n",
+        "from mesa.space import NetworkGrid             \n",
+        "from mesa.time import BaseScheduler           \n",
+        "from mesa.datacollection import DataCollector\n",
+        "\n",
+        "import networkx as nx                         # for the grid\n",
+        "import numpy as np                            # computations\n",
+        "from matplotlib import pyplot as plt          # visualizing output"
+      ],
+      "id": "998cfdbe",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Since this is a networks class, we'll use a network-based grid. We imported the capability to do that above as the `mesa.space.NetworkGrid` class. Of course, we need a network to use. For this example, we'll use the Les Miserable Graph, which is built in to NetworkX: \n"
+      ],
+      "id": "ac05acf0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "G = nx.les_miserables_graph()\n",
+        "G = nx.convert_node_labels_to_integers(G)"
+      ],
+      "id": "8eabb5ec",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We'll soon use this to create our model. \n",
+        "\n",
+        "### The Model Class\n",
+        "\n",
+        "To specify an ABM in Mesa we need to define two classes: a class describing the model and a class describing each individual agent. The main responsibilities of the model class are to describe: \n",
+        "\n",
+        "- How the model is initialized, via the `__init__()` method. This includes: \n",
+        "    - Creating any agents needed. \n",
+        "    - Placing those agents on the grid and placing them in the schedule. \n",
+        "    - Defining any data collection tools. \n",
+        "- What happens in a single time-step of the model, via the `step()` method. \n",
+        "\n",
+        "The model class actually has a lot more functionality than this. Fortunately, we don't usually need to define this functionality, because the model class we create inherits the needed functionality from `mesa.Model` (which we imported above). Here's our `SRWModel` class. The syntax can look a little complicated whenever we work with a new package, but what's going on is fundamentally simple. \n"
+      ],
+      "id": "51aa1067"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "class RWModel(Model):\n",
+        "\n",
+        "    # model setup\n",
+        "    def __init__(self, G, agent_class, **kwargs):\n",
+        "        \n",
+        "        super().__init__()\n",
+        "\n",
+        "        self.schedule = BaseScheduler(self) # time structure\n",
+        "        self.grid     = NetworkGrid(G)          # space structure\n",
+        "        \n",
+        "        # create a single agent who will walk around the graph\n",
+        "        # we haven't defined SWRAgent yet\n",
+        "        # the agent has a name and is associated to the model\n",
+        "        agent = agent_class(self, **kwargs)\n",
+        "\n",
+        "        # place the agent at a random node on the graph\n",
+        "        node = self.random.choice(list(G.nodes))\n",
+        "        self.grid.place_agent(agent, node)\n",
+        "\n",
+        "        # place the agent into the schedule\n",
+        "        self.schedule.add(agent)\n",
+        "\n",
+        "        # data collection. Here we're just going to collect the \n",
+        "        # current position of each agent\n",
+        "        self.collector = DataCollector(\n",
+        "            agent_reporters = {\n",
+        "                \"node\" : lambda a: a.pos\n",
+        "            }\n",
+        "        )\n",
+        "\n",
+        "    # this is where a timestep actually happens\n",
+        "    # once we've set up the model's __init__() method\n",
+        "    # and the step() method of the agent class, \n",
+        "    # this is one is usually pretty simple\n",
+        "    def step(self):\n",
+        "        self.schedule.step()\n",
+        "        self.collector.collect(self)"
+      ],
+      "id": "8a170ddc",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### The Agent Class\n",
+        "\n",
+        "Now we're ready to define what the agent is supposed to do! In the SRW, the agent looks at all nodes adjacent to theirs, chooses one of them uniformly at random, and moves to it. We need to implement this behavior in the `step()` method. While there are some more mesa functions involved that you may not have seen before, the approach is very simple. \n"
+      ],
+      "id": "c31a53c7"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "class SRWAgent(Agent):\n",
+        "    def __init__(self, model):\n",
+        "        super().__init__(self, model)\n",
+        "        self.unique_id = \"Anakin Graphwalker\"\n",
+        "\n",
+        "    def step(self):\n",
+        "\n",
+        "        # find all possible next steps\n",
+        "        # include_center determines whether or not we count the \n",
+        "        # current position as a possibility\n",
+        "        options = self.model.grid.get_neighborhood(self.pos, \n",
+        "                                                include_center = False)\n",
+        "\n",
+        "        # pick a random one and go there\n",
+        "        new_node = self.random.choice(options)\n",
+        "        self.model.grid.move_agent(self, new_node)"
+      ],
+      "id": "790124e8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Note that, in order to get information about the possible locations, and to move the agent, we needed to use the `grid` attribute of the `SRWModel` that we defined above. More generally, the grid handles all \"spatial\" operations that we usually need to do. \n",
+        "\n",
+        "### Experiment\n",
+        "\n",
+        "Phew, that's it! Once we've defined our model class, we can then run it for a bunch of timesteps:\n"
+      ],
+      "id": "2ef1a8ed"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "model = RWModel(G, SRWAgent)\n",
+        "\n",
+        "for i in range(100000):\n",
+        "    model.step()"
+      ],
+      "id": "81d7950a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We can get data on the behavior of the simulation using the `collector` attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead. \n"
+      ],
+      "id": "fcb4c893"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "walk_report = model.collector.get_agent_vars_dataframe()\n",
+        "walk_report.head()"
+      ],
+      "id": "e973080b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Now let's ask: is the simulation we just did lined up with what we know about the theory of the simple random walk? [We derived this theory in @sec-srw.]{.aside} Recall that the *stationary distribution* $\\pi$ of the SRW is supposed to describe the long-term behavior of the walk, with $\\pi_i$ giving the limiting probability that the walker is on node $i$. Recall further that the stationary distribution for the SRW is actually known in closed form: it's $\\pi_i = k_i / 2m$, where $k_i$ is the degree of node $i$. So, we would expect this to be a good estimate of the fraction of time that the walker spent on node $i$. Let's check this!  \n",
+        "\n",
+        "First, we can compute the fraction of time that the agent spent on each node: \n"
+      ],
+      "id": "dcf2cca1"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "counts = walk_report.groupby(\"node\").size()\n",
+        "freqs = counts / sum(counts)\n",
+        "freqs.head()"
+      ],
+      "id": "6296dc9a",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Now we can compute the degree sequence and stationary distribution of the underlying graph: "
+      ],
+      "id": "832e8e97"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "degs = [G.degree(i) for i in freqs.index]\n",
+        "stationary_dist = degs / np.sum(degs)"
+      ],
+      "id": "fb5b9c56",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Finally, we can plot and see whether the prediction lines up with the observation: \n"
+      ],
+      "id": "9783bbe3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plt.plot([0, .12], \n",
+        "         [0, .12], \n",
+        "         color = \"black\", label = \"prediction\")\n",
+        "\n",
+        "plt.scatter(stationary_dist, \n",
+        "            freqs, \n",
+        "            zorder = 100, label = \"ABM\")\n",
+        "\n",
+        "plt.gca().set(xlabel = r\"$\\frac{k_i}{2m}$\", \n",
+        "              ylabel = \"% of time spent on node\")\n",
+        "\n",
+        "plt.legend()"
+      ],
+      "id": "97a7fb0c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "That's a match! \n",
+        "\n",
+        "### Variation: PageRank\n",
+        "\n",
+        "The reason that we parameterized the `RWModel` class with the argument `agent_class` is that we can now implement PageRank just by modifying the agent behavior. Let's now make a new kind of agent that does the PageRank step: \n"
+      ],
+      "id": "0f75eac3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "class PageRankAgent(Agent):\n",
+        "\n",
+        "    def __init__(self, model, alpha):\n",
+        "        super().__init__(self, model)\n",
+        "        self.alpha = alpha\n",
+        "\n",
+        "    def step(self):\n",
+        "        if np.random.rand() < self.alpha:     # teleport\n",
+        "            options = list(self.model.grid.G.nodes.keys())\n",
+        "        else:                              # standard RW step\n",
+        "            options = self.model.grid.get_neighborhood(self.pos, \n",
+        "                                                include_center = False)\n",
+        "\n",
+        "        # pick a random one and go there\n",
+        "        new_node = self.random.choice(options)\n",
+        "        self.model.grid.move_agent(self, new_node)"
+      ],
+      "id": "fa9ad9ca",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "That's all we need to do in order to implement PageRank in this graph. Let's go ahead and run PageRank."
+      ],
+      "id": "6ed3ff52"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "pagerank_model = RWModel(G, PageRankAgent, alpha = 0.15)\n",
+        "\n",
+        "for i in range(100000):\n",
+        "    pagerank_model.step()"
+      ],
+      "id": "27cb2af5",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "That's it! Now we could check the match with the stationary distribution like we did last time. Instead, let's simply draw the graph. \n"
+      ],
+      "id": "f2f6103e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "walk_report = pagerank_model.collector.get_agent_vars_dataframe()\n",
+        "\n",
+        "counts = walk_report.groupby(\"node\").size()\n",
+        "freqs  = counts / np.sum(counts)\n",
+        "\n",
+        "nx.draw(G, \n",
+        "        node_size = [2000*freqs[i] for i in G.nodes], \n",
+        "        edge_color = \"grey\")"
+      ],
+      "id": "6f7b20a0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Multi-Agent Models\n",
+        "\n",
+        "Now let's consider our first multi-agent model, the *voter model*. [In fact, there are many different models that are all called \"the\" voter model. The one we'll discuss here is the simplest and most common.]{.aside}\n"
+      ],
+      "id": "7ba36bb5"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from mesa.time import RandomActivation           \n",
+        "\n",
+        "class CompartmentalModel(Model):\n",
+        "\n",
+        "    # model setup\n",
+        "    def __init__(self, G, agent_class, possible_states = [0,1], state_density = [0.5, 0.5]):\n",
+        "\n",
+        "        self.schedule = RandomActivation(self) # time structure\n",
+        "        self.grid = NetworkGrid(G)            # space structure\n",
+        "        \n",
+        "        for node in list(G.nodes):\n",
+        "            state = np.random.choice(possible_states, p = state_density)\n",
+        "            agent = agent_class(node, self, state)\n",
+        "            self.grid.place_agent(agent, node)\n",
+        "            self.schedule.add(agent)\n",
+        "\n",
+        "        self.collector = DataCollector(\n",
+        "            agent_reporters = {\n",
+        "                \"state\" : lambda a: a.state\n",
+        "            }\n",
+        "        )\n",
+        "\n",
+        "    def step(self):\n",
+        "        self.schedule.step()\n",
+        "        self.collector.collect(self)"
+      ],
+      "id": "784b0136",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "class CompartmentalAgent(Agent):\n",
+        "\n",
+        "    def __init__(self, agent_id, model, state):\n",
+        "        super().__init__(agent_id, model)\n",
+        "        self.state = state\n",
+        "\n",
+        "    def step(self):\n",
+        "        neighbors = self.model.grid.get_neighbors(self.pos, \n",
+        "                                                include_center = False)\n",
+        "\n",
+        "        # neighbors = self.model.grid.get_cell_list_contents(neighbor_locs)\n",
+        "\n",
+        "        adopt_from = np.random.choice(neighbors)\n",
+        "\n",
+        "        self.state = adopt_from.state"
+      ],
+      "id": "c41133c8",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "for run in range(10):\n",
+        "    voter_model = CompartmentalModel(G, CompartmentalAgent, [0, 1], [0.5, 0.5])\n",
+        "    for i in range(50):\n",
+        "        voter_model.step()\n",
+        "\n",
+        "    report = voter_model.collector.get_agent_vars_dataframe()\n",
+        "    plt.plot(report.groupby(\"Step\").mean())\n",
+        "\n",
+        "plt.gca().set(xlabel = \"Timestep\", ylabel = \"% of nodes with opinion 1\")"
+      ],
+      "id": "6061e8b2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## References"
+      ],
+      "id": "50423bc5"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

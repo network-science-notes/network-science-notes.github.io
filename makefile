@@ -13,6 +13,10 @@ publish:
 	quarto render --profile publish
 	python scripts/create-ipynb.py
 	python scripts/remove-hidden.py
+	git add .
+	git commit -m "Update"
+	git push
+
 
 prep: 
 	python scripts/prep-qmd.py
