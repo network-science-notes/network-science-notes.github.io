@@ -411,10 +411,10 @@ window.Quarto = {
 <section id="sec-srw" class="level2">
 <h2 class="anchored" data-anchor-id="sec-srw">The Simple Random Walk</h2>
 <p>The simple random walk is easier to describe in English than it is to formulate mathematically. In intuitive terms, we imagine a walker who starts at some node <span class="math inline">\(i\)</span> in the graph. The walker then picks one of the neighbors <span class="math inline">\(j\)</span> of <span class="math inline">\(i\)</span> uniformly at random, and moves to <span class="math inline">\(j\)</span>. Then, the walker picks one of the neighbors <span class="math inline">\(k\)</span> of <span class="math inline">\(j\)</span> uniformly at random, and moves to <span class="math inline">\(k\)</span>, and so on.</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-simple-random-walk" class="theorem definition">
@@ -433,10 +433,10 @@ window.Quarto = {
 </div>
 </div>
 <p>In <a href="#def-simple-random-walk" class="quarto-xref">Definition&nbsp;<span>15.1</span></a>, the first equality is the <em><a href="https://en.wikipedia.org/wiki/Markov_property">Markov property</a></em>: the future state of the random walk depends only on where it is right now (i.e.&nbsp;the value of <span class="math inline">\(X_t\)</span>), not where it’s been previously. The second and third equalities give mathematical structure to the idea of “picking a node connected to <span class="math inline">\(j\)</span> uniformly at random.”</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-transition-matrix" class="theorem definition">
@@ -445,10 +445,10 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-caution">
+<div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong><em>Exercise</em></strong>: Let <span class="math inline">\(p_{ij}\)</span> denote the entries of <span class="math inline">\(\mathbf{P}\)</span>. Check that <span class="math inline">\(\sum_{i \in N} p_{ij} = 1\)</span>, and interpret this fact. We say a matrix with this property is <strong>(column) stochastic</strong>.</p>
@@ -463,10 +463,10 @@ window.Quarto = {
 \end{aligned}
 \]</span></p>
 <p>Let <span class="math inline">\(\mathbf{q}(t)\)</span> be the vector with entries <span class="math inline">\(q_i(t) = \mathbb{P}(X_{t} = i)\)</span>. We have just shown the most important relation in the study of random walks and their generalizations, Markov chains:</p>
-<div class="callout callout-style-simple callout-tip">
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><span id="eq-transition"><span class="math display">\[
@@ -479,20 +479,20 @@ window.Quarto = {
 <section id="stationary-distribution-existence-and-uniqueness" class="level3">
 <h3 class="anchored" data-anchor-id="stationary-distribution-existence-and-uniqueness">Stationary Distribution: Existence and Uniqueness</h3>
 <p>Throughout this section, we assume that the graph <span class="math inline">\(G\)</span> is connected.</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>We say that an SRW has a <em>stationary distribution</em> <span class="math inline">\(\pi \in \mathbb{R}^n\)</span> if <span class="math inline">\(\lim_{t\rightarrow \infty} \mathbf{q}(t) = \mathbf{\pi}\)</span>, <em>regardless of the initial distribution</em> <span class="math inline">\(\mathbf{q}(0)\)</span>.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-periodic" class="theorem definition">
@@ -502,10 +502,10 @@ window.Quarto = {
 </div>
 </div>
 <p>A simple example of a periodic graph is a <span class="math inline">\(k\)</span>-cycle. A less simple example is a <em>bipartite graph</em>, in which each node can be separated into one of two classes <span class="math inline">\(S_1\)</span> and <span class="math inline">\(S_2\)</span> such that nodes in <span class="math inline">\(S_1\)</span> only connect to nodes in <span class="math inline">\(S_2\)</span> (and not to any other nodes in <span class="math inline">\(S_1\)</span>). You can check that bipartiteness implies that every cycle has length divisible by 2, so the graph is periodic.</p>
-<div class="callout callout-style-simple callout-tip">
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="thm-stationary" class="theorem">
@@ -530,10 +530,10 @@ window.Quarto = {
 <section id="stationary-distribution-structure" class="level3">
 <h3 class="anchored" data-anchor-id="stationary-distribution-structure">Stationary Distribution: Structure</h3>
 <p>We know from <a href="#thm-stationary" class="quarto-xref">Theorem&nbsp;<span>15.1</span></a> that there is a unique stationary distribution for the simple random walk, and that this distribution describes, in the long-term, the amount of time that the walker spends on a node. What actually <em>is</em> the stationary distribution? For many Markov chains, including more complicated random walks, it can be difficult to describe the stationary distribution exactly. In this case the answer is surprisingly simple, although it’s one of those things that’s much easier to check than it is to find in the first place.</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="thm-degree" class="theorem">
@@ -565,10 +565,10 @@ window.Quarto = {
 </ol>
 <p>So, suppose we have a <em>directed</em> graph with adjacency matrix <span class="math inline">\(\mathbf{A}\)</span>. The important thing to remember is that now <span class="math inline">\(\mathbf{A}\)</span> is not required to be symmetric. We interpret the entries of the adjacency matrix so that <span class="math inline">\(a_{ij} = 1\)</span> if <span class="math inline">\(j \rightarrow i\)</span>. Since <span class="math inline">\(\mathbf{A}\)</span> need not be symmetric, <span class="math inline">\(a_{ij} \neq a_{ji}\)</span> in general.</p>
 <p>The definition of a random walk on a directed graph is very similar to the definition on an undirected graph. It is again a sequence of random variables with the Markov property; only the transition probabilities differ.</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-directed-SRW" class="theorem definition">
@@ -581,10 +581,10 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-caution">
+<div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>Because <span class="math inline">\(\mathbf{A}\)</span> is not symmetric, we can also define <span class="math inline">\(k_i^{\mathrm{in}} = \sum_{j \in N}a_{ij}\)</span>, the number of incoming links to node <span class="math inline">\(j\)</span>. Importantly, <span class="math inline">\(k_i^{\mathrm{in}} \neq k_i^{\mathrm{out}}\)</span> in general.</p>
@@ -592,10 +592,10 @@ window.Quarto = {
 </div>
 </div>
 <p>Many of the same considerations from the undirected setting carry over to the directed setting.</p>
-<div class="callout callout-style-simple callout-tip">
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="thm-stationary-directed" class="theorem">
@@ -612,10 +612,10 @@ window.Quarto = {
 </div>
 </div>
 <p>Condition (1) in <a href="#thm-stationary-directed" class="quarto-xref">Theorem&nbsp;<span>15.3</span></a> is essentially a connectedness condition: it says that there has to be a directed path from every node to every other node in the network. So, as you might reasonably expect, the directed random walk doesn’t really overcome the need for the graph to be connected. This can be a problem for network exploration, as it’s more common for directed networks to not be connected in this way.[A bit more subtly, directed graphs that are <em>almost</em> disconnected are subject to <em>slow mixing</em> of the random walk, which implies very inefficient exploration of the network.] PageRank overcomes this limitation by allowing the walker to randomly hop to new nodes, independent of the network structure.</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-pagerank-walk" class="theorem definition">
@@ -649,10 +649,10 @@ window.Quarto = {
 </ul>
 <p>This is why there are two terms in the transition probability in <a href="#eq-pagerank-transition" class="quarto-xref">Equation&nbsp;<span>15.2</span></a>. The first term corresponds to the “tails” scenario in which the walker does a step corresponding to the directed random walk, while the second term corresponds to teleportation.</p>
 <p>The standard choice of the teleportation vector is <span class="math inline">\(\mathbf{v} = \frac{1}{n}\mathbf{1}\)</span>, so each node has an equal probability of being chosen for teleportation. However, it’s also possible to take other approaches, as we’ll see in a moment.</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="thm-pagerank" class="theorem">
@@ -661,20 +661,20 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-caution">
+<div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong>Exercise</strong>: Show that, when <span class="math inline">\(\mathbf{v} = \frac{1}{n}\mathbf{1}\)</span>, <a href="#thm-pagerank" class="quarto-xref">Theorem&nbsp;<span>15.4</span></a> implies that the PageRank walk always has a stationary distribution, regardless of the graph.</p>
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-caution">
+<div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong>Challenge</strong>: Give a necessary and sufficient condition in terms of <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> for PageRank to have a stationary distribution.</p>
@@ -684,7 +684,7 @@ window.Quarto = {
 <section id="implementation" class="level3">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <p>Let’s code up a quick example to visualize PageRank. We’ll use the Hamilton Mentions graph:</p>
-<div id="dce7b895" class="cell" data-execution_count="1">
+<div id="56a5de03" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -704,7 +704,7 @@ window.Quarto = {
 </details>
 </div>
 <p>There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph.</p>
-<div id="df99a636" class="cell" data-execution_count="2">
+<div id="4eaec3f2" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
@@ -712,7 +712,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Now we can write our PageRank function. We’ll compute the transition matrix <span class="math inline">\(\mathbf{P}\)</span> and find its leading eigenvector.</p>
-<div id="9c83ded1" class="cell" data-execution_count="3">
+<div id="d836ff03" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
@@ -733,7 +733,7 @@ window.Quarto = {
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="9dd2faf9" class="cell" data-execution_count="4">
+<div id="b3c48c1c" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
@@ -748,7 +748,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> and the teleportation rate <span class="math inline">\(\alpha\)</span>:</p>
-<div id="3544f1fc" class="cell" data-execution_count="5">
+<div id="d17379f2" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
@@ -770,7 +770,7 @@ window.Quarto = {
 <section id="seeded-pagerank" class="level2">
 <h2 class="anchored" data-anchor-id="seeded-pagerank">Seeded PageRank</h2>
 <p>A useful feature of the way we’ve defined PageRank is that we can choose different teleportation vectors <span class="math inline">\(\mathbf{v}\)</span> in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> to highlight those specific characters. This approach is often called “personalized” or “seeded” PageRank.</p>
-<div id="a7f3da05" class="cell" data-execution_count="6">
+<div id="818be121" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>

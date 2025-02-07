@@ -447,4 +447,7 @@ nx.draw(G, with_labels = True, arrowsize = 8, font_color = 'white', font_weight 
 
 :::
 
+We'll discuss algorithms for visualizing networks (and why visualizing networks is not always a good idea) in a [later chapter](05-viz.qmd).
+
+
 ## References

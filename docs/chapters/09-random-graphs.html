@@ -446,10 +446,10 @@ window.Quarto = {
 <section id="the-gnp-model-erdősrényi" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-gnp-model-erdősrényi">The <span class="math inline">\(G(n,p)\)</span> Model (Erdős–Rényi)</h2>
 <div class="page-columns page-full"><p>The model of <span class="citation" data-cites="erdHos1960evolution">Erdős and Rényi (<a href="#ref-erdHos1960evolution" role="doc-biblioref">1960</a>)</span> is the simplest and most fundamental model of a random graph. Our primary interest in the ER model is for mathematical insight and null modeling. The ER model is <em>mostly</em> understood in its major mathematical properties, and it’s almost never used in statistical inference. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The ER model is, however, a building block of models that <em>are</em> used in statistical inference. The <a href="https://en.wikipedia.org/wiki/Stochastic_block_model">stochastic blockmodel</a>, for example, is often used for graph clustering and community detection. In its simplest form, it’s a bunch of ER graphs glued together.</span></div></div>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-ER" class="theorem definition">
@@ -459,10 +459,10 @@ window.Quarto = {
 </div>
 </div>
 <p>We can imagine visiting each possible pair of edges <span class="math inline">\((i,j)\)</span> and flipping a coin with probability of heads <span class="math inline">\(p\)</span>. If heads, we add <span class="math inline">\((i,j) \in E\)</span>; otherwise, we don’t.</p>
-<div class="callout callout-style-simple callout-caution">
+<div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong>Exercise</strong>: Let <span class="math inline">\(i\)</span> be a fixed node in a <span class="math inline">\(G(n,p)\)</span> graph, and let <span class="math inline">\(K_i\)</span> be its (random) degree. Show that <span class="math inline">\(K_i\)</span> has binomial distribution with success probability <span class="math inline">\(p\)</span> and <span class="math inline">\(n-1\)</span> trials.</p>
@@ -470,10 +470,10 @@ window.Quarto = {
 </div>
 </div>
 
-<div class="callout callout-style-simple callout-caution">
+<div class="callout callout-style-simple callout-caution no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong>Exercise</strong>: Show that <span class="math inline">\(\mathbb{E}[K_i] = p(n-1)\)</span>.</p>
@@ -492,10 +492,10 @@ window.Quarto = {
 <section id="sparsity" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="sparsity">Sparsity</h2>
 <p>Recall that it is possible to define sparsity more explicitly when we have a theoretical model (where it makes sense to take limits). Indeed, the <em>sparse</em> Erdős–Rényi model is very useful. Intuitively, the idea of sparsity is that there are not very many edges in comparison to the number of nodes.</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-sparse-ER" class="theorem definition">
@@ -540,10 +540,10 @@ window.Quarto = {
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="431" width="597">
+<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="435" width="606">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="597" height="431" class="figure-img">
+<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="606" height="435" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig quarto-uncaptioned margin-caption" id="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.1
@@ -556,10 +556,10 @@ Figure&nbsp;9.1
 <section id="cycles-and-local-tree-likeness" class="level3">
 <h3 class="anchored" data-anchor-id="cycles-and-local-tree-likeness">Cycles and Local Tree-Likeness</h3>
 <p>Recall the following definition:</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-cycle" class="theorem definition">
@@ -569,10 +569,10 @@ Figure&nbsp;9.1
 </div>
 </div>
 <p>A triangle is an example of a cycle of length <span class="math inline">\(3\)</span>.</p>
-<div class="callout callout-style-simple callout-tip">
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="thm-rare-cycles" class="theorem">
@@ -600,10 +600,10 @@ Figure&nbsp;9.1
 <p><span class="math display">\[
 r(k) \approx (n-2)r(k-1)p\;.
 \]</span></p>
-<div class="callout callout-style-simple callout-warning">
+<div class="callout callout-style-simple callout-warning no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>Why is this an approximation? Well, some of the paths between <span class="math inline">\(i\)</span> and <span class="math inline">\(\ell\)</span> that are counted in <span class="math inline">\(r(k-1)\)</span> could actually include the edge <span class="math inline">\((j, \ell)\)</span> <em>already</em>. An example is <span class="math inline">\((i,j), (j,\ell)\)</span>. In this case, the presence of edge <span class="math inline">\((j,\ell)\)</span> is not independent of the presence of the path between <span class="math inline">\(i\)</span> and <span class="math inline">\(\ell\)</span>. The derivation above implicitly treats these two events as independent. Again, because <em>cycles are rare in large, sparse ER</em>, this effect is small when <span class="math inline">\(k\)</span> is small.</p>
@@ -670,10 +670,10 @@ Figure&nbsp;9.2: <a href="http://mytechroad.com/markov-chain-branching-process/"
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>Some of this exposition in this section draws on <a href="https://www.stat.berkeley.edu/users/aldous/Networks/lec2.pdf">these notes</a> by David Aldous.</p>
-</div></div><div class="callout callout-style-simple callout-note">
+</div></div><div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-branching-process" class="theorem definition">
@@ -694,10 +694,10 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 <h3 class="anchored" data-anchor-id="application-to-erdősrényi">Application to Erdős–Rényi</h3>
 <p>Branching processes create <em>trees</em> – graphs without cycles. The reason that branching processes are helpful when thinking about Erdős–Rényi models is that <em>cycles are rare in Erdős–Rényi random graphs</em>. So, if we can understand the behavior of branching processes, then we can learn something about the Erdős–Rényi random graph as well.</p>
 <p>Here’s the particular form of the branching process approximation that we will use:</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-branching-approx" class="theorem definition">
@@ -723,10 +723,10 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 <h3 class="anchored" data-anchor-id="the-subcritical-case">The Subcritical Case</h3>
 <p>The mean of a <span class="math inline">\(\text{Poisson}(c)\)</span> random variable is again <span class="math inline">\(c\)</span>. As you’ll show in homework, this implies that <span class="math inline">\(X_t\)</span>, the number of offspring in generation <span class="math inline">\(t\)</span>, satisfies <span class="math inline">\(\mathbb{E}[X_t] = c^{t}\)</span>. It follows that, when <span class="math inline">\(c &lt; 1\)</span>, <span class="math inline">\(\mathbb{E}[T] = \frac{1}{1-c}\)</span>.</p>
 <p>Now using Markov’s inequality, we obtain the following results:</p>
-<div class="callout callout-style-simple callout-tip">
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>In a <span class="math inline">\(\text{Poisson}(c)\)</span> branching process with <span class="math inline">\(c &lt; 1\)</span>, <span class="math display">\[\mathbb{P}(X_t &gt; 0) \leq c^t\;.\]</span></p>
@@ -734,10 +734,10 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>So, the probability that the branching process hasn’t yet “died out” decays exponentially with timestep <span class="math inline">\(t\)</span>. In other words, the branching process becomes very likely to die out very quickly.</p>
-<div class="callout callout-style-simple callout-tip">
+<div class="callout callout-style-simple callout-tip no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p>In a <span class="math inline">\(\text{Poisson}(c)\)</span> branching process with <span class="math inline">\(c &lt; 1\)</span>, <span class="math display">\[\mathbb{P}(T \geq a) \leq \frac{1}{a}\frac{1}{1-c}\]</span></p>
@@ -749,10 +749,10 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 <section id="back-to-er" class="level4">
 <h4 class="anchored" data-anchor-id="back-to-er">Back to ER</h4>
 <p>If we now translate back to the Erdős–Rényi random graph, the branching process approximation now suggests the following heuristic:</p>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong>Heuristic</strong>: In a sparse ER random graph with mean <span class="math inline">\(c &lt; 1\)</span>, the expected size of a component containing a randomly selected node is roughly <span class="math inline">\(\frac{1}{1-c}\)</span>.</p>
@@ -766,7 +766,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div id="c2b33d42" class="cell" data-execution_count="2">
+<div id="4f9a310a" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -788,7 +788,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 5.11.
+Average over experiments is 5.17.
 
 Theoretical expectation is 5.00.
 </code></pre>
@@ -801,10 +801,10 @@ Theoretical expectation is 5.00.
 </section>
 <section id="the-giant-component" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="the-giant-component">The Giant Component</h3>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-giant-component" class="theorem definition">
@@ -818,10 +818,10 @@ Theoretical expectation is 5.00.
 </div>
 <p>So far, we’ve argued using the branching process approximation that there is no giant component in the Erdős–Rényi model with <span class="math inline">\(c &lt; 1\)</span>. The theory of branching processes also suggests to us that there <em>could</em> be a giant component when <span class="math inline">\(c &gt; 1\)</span>.</p>
 <div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">The proof of this fact is usually done in terms of <em>generating functions</em> and is beyond our scope, but you can <a href="https://en.wikipedia.org/wiki/Branching_process#Extinction_problem_for_a_Galton_Watson_process">check Wikipedia</a> for an outline.</span></div></div>
-<div class="callout callout-style-simple callout-warning">
+<div class="callout callout-style-simple callout-warning no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong>Fact</strong>: when <span class="math inline">\(c &gt; 1\)</span>, there is a nonzero probability that the <span class="math inline">\(\text{Poisson}(c)\)</span> branching process continues forever; that is, never goes extinct.</p>
@@ -829,10 +829,10 @@ Theoretical expectation is 5.00.
 </div>
 </div>
 <div class="page-columns page-full"><p>Using our correspondence between components of the ER model and branching processes, this suggests that, if we pick a random node, the component it is in has the potential to be very large. In fact (and this requires some advanced probability to prove formally), when <span class="math inline">\(c &gt; 1\)</span>, there <em>is</em> a giant component. This is our first example of a phase transition. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">It is also possible to prove that, with high probability, there is only one giant component; Newman does this in 11.5.1.</span></div></div>
-<div class="callout callout-style-simple callout-note">
+<div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div id="def-giant-component" class="theorem definition">

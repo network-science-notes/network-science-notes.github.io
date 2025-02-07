@@ -23,11 +23,13 @@ format:
     toc: true
     number-depth: 0
     reference-location: margin
-    callout-icon: false;
+    callout-icon: false
     callout-appearance: simple
     toc-title: Contents
     fig-cap-location: margin
     highlight-style: atom-one
+
+
 
 
 

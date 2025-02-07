@@ -251,11 +251,13 @@ tr {
 .hide {
   border-left: thick solid #c251a5;
   padding-left: 1rem; 
+  border-radius: 0.25rem;
 }
 
 .proof {
   border-left: thick solid #20895a;
   padding-left: 1rem; 
+  border-radius: 0.25rem;
 }
 
 
@@ -273,4 +275,10 @@ tr {
       grid-column: body-end / page-end !important;
       z-index: 998;
   }
+}
+
+.callout.callout-style-simple {
+  border-bottom: 0px; 
+  border-right: 0px;
+  border-top: 0px;
 }
