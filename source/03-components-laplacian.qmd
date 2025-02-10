@@ -10,28 +10,39 @@ In the last lecture, we discovered that the notion of connectivity could tell us
 
 ## Components
 
-Many networks have parts that are disconnected from each other. These parts are called **components**. As we saw in an example from the previous lecture, there is no path between any pair of nodes in different components of a network.
+Many networks have parts that are disconnected from each other. These parts are called **components**. As we saw in an example from the previous lecture, there is no path between any pair of nodes in different components of a network. In undirected graphs, the definition of connected components is relatively simple. 
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-component}
 
-Two nodes $i$ and $j$ are **path-connected** if there exists a path between $i$ and $j$. The maximal set of nodes $j$ such that $i$ is path-connected to $j$ is called the **connected component** of $i$. [We say *maximal* in this definition because we want a connected component to be the biggest subset with this property. Another way to say this is that there are no additional nodes and edges we could include in the set without breaking the path-connected property.]{.aside}
+## Connected Components in an Undirected Graph
 
-A network is **connected** if it has only one connected component. Otherwise, we say the network is **disconnected**.
+Two nodes $i$ and $j$ are **path-connected** if there exists a path between $i$ and $j$. The set $\{j \in V : i \text{ is path-connected to } j\}$ is called the **connected component** of $i$. A graph is **connected** if it has only one connected component. Otherwise, we say the network is **disconnected**. [For the purposes of this definition, we say that every node $i$ has a zero-length path to itself. It follows that a singleton (a node with no edges attached) is its own connected component.]{.aside}
 
 :::
 :::
 
-If we have nodes that are **singletons** --- that is, nodes that have no edges connecting to them --- then we consider that node a connected component.
+::: {.callout-important}
 
-As we saw with degree, the definition of connected components requires a bit more subtlety if we consider directed networks. 
+## Exercise
+
+Prove that the relation $~$ defined as $i ~ j$ iff there exists a path between $i$ and $j$ is an equivalence relation. Prove also that the equivalence classes of this relation are exactly the connected components of $G$. 
+
+:::
+
+
+As we saw with degree, the definition of connected components requires a bit more subtlety when we consider directed networks. 
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-strongly-weakly-connected}
 
-In a directed network, two nodes $i$ and $j$ are **strongly connected** if there exists a path from $i$ to $j$ and a path from $j$ to $i$. A maximal subset of nodes such that all pairs of nodes are strongly connected is called the **strongly connected component**. 
+## Strongly and Weakly Connected Components
 
-If we relax the requirement to consider the maximal subset of node pairs $(i,j)$ such that there exists either a path from $i$ to $j$ or from $j$ to $i$, then this is a **weakly connected component**.
+In a directed network, two nodes $i$ and $j$ are **strongly connected** if there exists a path from $i$ to $j$ and a path from $j$ to $i$. Nodes $i$ and $j$ are **weakly connected** if there exists either a path from $i$ to $j$ or from $j$ to $i$. [Two strongly connected nodes are also weakly connected.]{.aside} 
+
+The set $\{j \in V : i \text{ is strongly connected to } j\}$ is called the **strongly connected component** of $i$, and the set $\{j \in V : i \text{ is weakly connected to } j\}$ is called the **weakly connected component** of $i$. [Intuitively, a weakly connected component is a connected component in the undirected version of the directed graph in which we "forget" the directionality of the edges.]{.aside}
+
+A directed graph is **strongly connected** if it has only one strongly connected component. A directed graph is **weakly connected** if it is not strongly connected and has only one weakly connected component.
 
 :::
 :::
@@ -45,19 +56,22 @@ Identify the strongly connected components and the weakly connected components i
 :::
 
 ```{python}
-#| fig-cap : "Identify the strongly connected components in this directed network."
+#| fig-cap : "A directed graph."
 #| out.width : 80%
 #| fig-cap-location: margin
 #| label: fig-strong-component-exercise
 
 from matplotlib import pyplot as plt
+import numpy as np
 import networkx as nx
 plt.style.use('seaborn-v0_8-whitegrid')
+
+plot_kwargs = {"node_size" : 300, "edgecolors" : 'white', "node_color" : "steelblue", "width" : 0.5, "edge_color" : "darkgrey"}
 
 DG = nx.DiGraph()
 DG.add_edges_from([(1, 2), (2, 3), (2,5), (2,6), (3, 4), (3, 7), (4, 3), (4, 8), (5, 1), (5, 6), (6, 7), (7, 6), (8, 4), (8, 7)])
 
-nx.draw(DG, with_labels = True, arrowsize = 20, font_color = 'white', font_weight = 'bold')
+nx.draw(DG, with_labels = True, arrowsize = 20, font_color = 'white', font_weight = 'bold', **plot_kwargs)
 
 ```
 
@@ -69,26 +83,40 @@ The network has only one weakly connected component (this set contains all the n
 
 :::
 
+
 In directed networks, we can also define individual node properties that describe all nodes that could reach or be reached by our node of interest.
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-in-out-component}
 
-An **in-component** of node $i$ is the set of nodes $j$ such that there is a directed path from $j$ to $i$.
+The **in-component** of node $i$ is the set of nodes $\{j \in V : \text{ there is a directed path from } i \text{ to } j\}$. 
 
-An **out-component** of node $i$ is the set of nodes $j$ such that there is a directed path from $i$ to $j$.
 
-We include the node $i$ itself as a member of its own in- and out-components.
+
+The **out-component** of node $i$ is the set of nodes $\{j \in V : \text{ there is a directed path from } j \text{ to } i\}$
+
+As with connected components, we include the node $i$ itself as a member of its own in- and out-components.
 
 :::
+:::
+
+::: {.callout-important}
+
+## Exercise
+
+Let $C^{\mathrm{in}}(i)$ and $C^{\mathrm{out}}(i)$ be the in-component and out-component of node $i$ in a directed network. Describe the sets $C^{\mathrm{in}}(i) \cap C^{\mathrm{out}}(i)$ and $C^{\mathrm{in}}(i) \cup C^{\mathrm{out}}(i)$ in vocabulary we have previously introduced. 
+
 :::
 
 ## The Graph Laplacian
 
-The graph Laplacian [There are mutiple matrices that use this name; the one we introduce here is sometimes called the Combinatorial Graph Laplacian.]{.aside} is another important matrix representation of a network. It's useful in studying random walks and dynamics, for clustering and data analysis, for graph visualization, partitioning, and more! 
+We now introduce the graph Laplacian. [There are multiple matrices that use this name; the one we introduce here is sometimes called the *combinatorial* graph Laplacian.]{.aside} The Laplacian is a matrix representation of a network that is surprisingly useful in a wide variety of applications. With our focus on components today, we'll find an especially striking property of the Laplacian: the eigenvalues of the Laplacian give us a guide to the connected component structure of a graph. [The Laplacian is also useful in studying random walks and dynamics, for clustering and data analysis, for graph visualization, partitioning, and more! ]{.aside}
+
 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-laplacian}
+
+## Laplacian of an Undirected Graph
 
 The **(combinatorial) graph Laplacian $L$** of an undirected graph with adjacency matrix $A$ is
 
@@ -101,26 +129,144 @@ where ${\bf D}$ is the diagonal matrix whose diagonal entries $D_{ii} = k_i$ con
 :::
 :::
 
-The definition given above generalizes in a straightforward way for weighted networks with positive weights. There are also variants for directed graphs (including using in-degree or out-degree matrices to build an in-degree Laplacian or an out-degree Laplacian), but some properties may not be preserved with this approach.
+Let's construct an undirected graph: 
+
+```{python}
+#| fig-cap : "A undirected graph."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-laplacian-example
+#| column: margin
+
+
+G = nx.Graph()
+G.add_edges_from([(1, 2), (2, 3), (2,5), (2,6), (3, 4), (3, 7), (4, 3), (4, 8), (5, 1), (5, 6), (6, 7), (7, 6), (8, 4), (8, 7)])
+
+fig, ax = plt.subplots(1, 1, figsize = (2, 3))
+
+nx.draw(G, with_labels = True, font_color = 'white', font_weight = 'bold', **plot_kwargs)
+```
+
+Now we'll take a look at the Laplacian matrix. [It is also possible to extract the Laplacian matrix using the NetworkX built-in `nx.laplacian_matrix(G)`.]{.aside}
+
+```{python}
+#---
+A = nx.to_numpy_array(G)
+D = np.diag(np.sum(A, axis = 1))
+L = D - A
+print(L)
+#---
+```
+
+We observe that the diagonal of the Laplacian gives the degrees of each node (from the matrix $\mathbf{D}$), while the off diagonal entries give the *negatives* of the entries of the adjacency matrix.
+
+@def-laplacian  generalizes in a straightforward way for weighted networks with positive weights. There are also variants for directed graphs (including using in-degree or out-degree matrices to build an in-degree Laplacian or an out-degree Laplacian); not all of the properties we describe below hold for these variants.
+
+### Properties of the Graph Laplacian
+
+We now investigate the mathematical properties of the graph Laplacian. We'll leave proofs of many of these properties as exercises. Throughout, this section, let $\mathbf{L} \in \mathbb{R}^{n\times n}$ be the combinatorial Laplacian matrix of a graph $G$ on $n$ nodes, and let $\mathbf{1} \in \mathbb{R}^n$ be the vector of ones. 
 
 ::: {.callout-tip icon=false collapse=true}
 ::: {#thm-laplacian}
 
-## Properties of the graph Laplacian
-
-Consider the combinatorial graph Laplacian ${\bf L}$ as defined above for an undirected network. Let ${\bf 1}$ be the vector containing all ones. The matrix ${\bf L}$ has the following properties:
+## Elementary Properties of the Graph Laplacian
 
 - ${\bf L}$ is real and symmetric.
 - ${\bf L}{\bf 1} = {\bf 0}.$ That is, every row sums to 0.
-- The eigenvalues of ${\bf L}$ are real and nonnegative.
-- The Laplacian always has at least one zero eigenvalue with corresponding eigenvector ${\bf 1}.$
-- The Laplacian is not invertible.
-- A network has $c$ components if and only if its graph Laplacian has exactly $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
+- The eigenvalues of $\mathbf{L}$ are all real. 
 
 :::
 :::
 
-We will save the proofs of these properties for homework.
+Another important property of the Laplacian is that it is *positive semi-definite*, which means that all of its eigenvalues are not only real but nonnegative: 
+
+::: {.callout-tip icon=false collapse=true}
+::: {#thm-laplacian-psd}
+
+## Positive Semi-Definiteness of the Graph Laplacian
+
+If $\lambda$ is an eigenvalue of the Laplacian $\mathbf{L}$, then $\lambda \geq 0$.
+
+:::
+:::
+
+
+In fact, the preceding properties already give us one important piece of information about the spectral structure of the Laplacian: 
+
+::: {.callout-tip icon=false collapse=true}
+::: {#thm-laplacian-0-eigenvalue}
+
+## 0 is an Eigenvalue of the Graph Laplacian
+
+The Laplacian always has at least one zero eigenvalue with corresponding eigenvector ${\bf 1}.$ [A corollary of this fact is that the Laplacian is not invertible.]{.aside}
+
+:::
+:::
+
+Furthermore, the *multiplicity* of the zero eigenvalue gives us information about the number of connected components in the network: 
+
+
+::: {.callout-tip icon=false collapse=true}
+::: {#thm-laplacian-0-eigenvalue}
+
+## 0 is an Eigenvalue of the Graph Laplacian
+
+- Graph $G$ has $c$ components if and only if its graph Laplacian has exactly $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
+
+:::
+:::
+
+To prove this statement, we need to show that the algebraic multiplicity of the zero eigenvalue is both a lower and an upper bound on the number of connected components.
+
+::: {.callout-important}
+
+## Exercise
+
+Prove that the algebraic multiplicity is an *upper bound* on the number of connected components. To do so, first argue that you can write the matrix $\mathbf{L}$ in a block-diagonal form. Then, find an eigenpair with zero eigenvalue for each of the blocks. 
+
+:::
+
+We'll prove that the algebraic multiplicity is also a *lower* bound on the number of connected components as a homework assignment. 
+
+Here's an example of applying this theorem: we'll construct a graph with 3 connected components and show that the Laplacian has 3 zero eigenvalues.
+
+```{python}
+#| fig-cap : "A graph with three connected components."
+#| out.width : 80%
+#| fig-cap-location: margin
+#| label: fig-laplacian-example-3-components
+#| column: margin
+
+fig, ax = plt.subplots(1, 1, figsize = (3, 2))
+G = nx.Graph()
+G.add_edges_from([(1, 2), (2, 3), (2,5), (2,6), (3, 4), (3, 7), (4, 3), (4, 8), (5, 1), (5, 6), (6, 7), (7, 6), (8, 4), (8, 7), (9, 10), (10, 11), (11, 9), (12, 13), (13, 14), (14, 12)])
+
+pos = nx.planar_layout(G)
+
+plot_kwargs.update({"node_size" : 100})
+
+nx.draw(G,pos, ax = ax, **plot_kwargs)
+```
+
+Now we can check that there are exactly 3 zero eigenvalues. 
+
+```{python}
+#---
+A = nx.to_numpy_array(G)
+D = np.diag(np.sum(A, axis = 1))
+L = D - A
+
+eigvals, eigvecs = np.linalg.eig(L)
+num_0_eigs = np.isclose(eigvals, 0, atol = 1e-10).sum() # number of zero eigenvalues
+#---
+
+print("Number of zero eigenvalues: ", num_0_eigs)
+```
+
+
+
+
+
 
 ## The Graph Laplacian as a Diffusion Operator
 

@@ -426,7 +426,9 @@ $$
 ::: {.hide}
 
 
-```python
+```{python}
+#| eval: false
+
 # Use NetworkX to reproduce the figures from the notes.
 # Then, create and visualize the network represented by the given adjacency matrix.
 # Finally, create your own network.
@@ -448,6 +450,7 @@ nx.draw(G, with_labels = True, arrowsize = 8, font_color = 'white', font_weight 
 :::
 
 We'll discuss algorithms for visualizing networks (and why visualizing networks is not always a good idea) in a [later chapter](05-viz.qmd).
+
 
 
 ## References

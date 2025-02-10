@@ -540,10 +540,10 @@ window.Quarto = {
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="435" width="606">
+<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" width="597" height="431">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="606" height="435" class="figure-img">
+<img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="597" height="431" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig quarto-uncaptioned margin-caption" id="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;9.1
@@ -766,7 +766,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div id="4f9a310a" class="cell" data-execution_count="2">
+<div id="c6a7457e" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -788,7 +788,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 5.17.
+Average over experiments is 5.27.
 
 Theoretical expectation is 5.00.
 </code></pre>
@@ -860,7 +860,7 @@ Theoretical expectation is 5.00.
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    axarr[i].<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"c = </span><span class="sc">{</span>c[i]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-giant-component-illustration" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="409" width="540">
+<div id="fig-giant-component-illustration" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" width="540" height="409">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-giant-component-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-giant-component-illustration-output-1.png" id="fig-giant-component-illustration" width="540" height="409" class="figure-img">
@@ -940,7 +940,7 @@ s = 1- e^{-cs}
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-giant-component" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="429" width="589">
+<div id="fig-giant-component" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" width="589" height="429">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-giant-component-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-giant-component-output-1.png" id="fig-giant-component" width="589" height="429" class="figure-img">
