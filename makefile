@@ -17,7 +17,6 @@ publish:
 	git commit -m "Update"
 	git push
 
-
 prep: 
 	python scripts/prep-qmd.py
 	python scripts/create-ipynb.py

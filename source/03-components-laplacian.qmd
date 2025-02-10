@@ -124,7 +124,21 @@ $$
 {\bf L} = {\bf D} - {\bf A} \,
 $$
 
-where ${\bf D}$ is the diagonal matrix whose diagonal entries $D_{ii} = k_i$ contain the degree of node $i$.
+where ${\bf D}$ is the diagonal matrix whose diagonal entries $D_{ii} = k_i$ contain the degree of node $i$. An individual entry of the Laplacian can be written 
+
+$$
+\begin{aligned}
+    L_{ij} = \delta_{ij}k_i - A_{ij} \,,
+\end{aligned}
+$$
+
+where $\delta_{ij}$ is the Kronecker delta function: 
+
+$$
+\begin{aligned}
+    \delta_{ij} = \begin{cases} 1 & \text{if } i = j \\ 0 & \text{otherwise} \end{cases} \,.
+\end{aligned}
+$$
 
 :::
 :::
@@ -207,9 +221,9 @@ Furthermore, the *multiplicity* of the zero eigenvalue gives us information abou
 
 
 ::: {.callout-tip icon=false collapse=true}
-::: {#thm-laplacian-0-eigenvalue}
+::: {#thm-laplacian-0-multiplicity}
 
-## 0 is an Eigenvalue of the Graph Laplacian
+## Multiplicity of the 0 Eigenvalue Counts Connected Components
 
 - Graph $G$ has $c$ components if and only if its graph Laplacian has exactly $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
 
@@ -263,14 +277,80 @@ num_0_eigs = np.isclose(eigvals, 0, atol = 1e-10).sum() # number of zero eigenva
 print("Number of zero eigenvalues: ", num_0_eigs)
 ```
 
+In a graph with just one connected component, @thm-laplacian-0-multiplicity implies that there is exactly one zero eigenvalue of $\mathbf{L}$. It turns out that if the graph is "almost disconnected" into two components, then the second-smallest eigenvalue of the Laplacian will be "almost 0". This is part of the motivation behind Laplacian spectral clustering, an algorithm which [we'll see later on](chapters/19-spectral-clustering.qmd). [This kind of structure is often called *community structure* and we will study it much more later in the course.]{.aside} Here's an example of such a graph, which we've plotted alongside the eigenvalues of the Laplacian: 
+
+```{python}
+#| fig-cap : " (Left) A graph which is almost disconnected into two components; deleting two edges would separate the network. (Right): the eigenvalues of the Laplacian of the graph in ascending order. The second-smallest eigenvalue is very close to 0, which reflects the near-disconnectedness of the graph."
+#| label: fig-laplacian-almost-disconnected
+#| 
+fig, ax = plt.subplots(1, 2, figsize = (6, 3))
+
+G = nx.stochastic_block_model([10, 10], [[0.5, 0.02], [0.02, 0.5]], seed = 1234)
+
+pos = nx.spring_layout(G, seed = 1234)
+
+nx.draw(G, pos, ax = ax[0], **plot_kwargs)
+
+A = nx.to_numpy_array(G)
+D = np.diag(np.sum(A, axis = 1))
+L = D - A
+
+eigvals, eigvecs = np.linalg.eig(L)
+
+ax[1].scatter(np.arange(len(eigvals)), np.sort(eigvals), facecolor = 'white', edgecolor = 'black')
+
+ax[1].set(xlabel = "Eigenvalue index", ylabel = "Eigenvalue of Laplacian")
+```
+
+The eigenvalue on the very far left is the zero eigenvalue guaranteed for any graph, while the very small eigenvalue right next to it reflects the structure of the graph as "almost disconnected" into two components. 
 
 
+### The Graph Laplacian as a Smoothness Measure
+
+Suppose that we have a vector $\mathbf{x} \in \mathbb{R}^n$, where we interpret entry $x_i$ as describing some quantity at node $i$. The Laplacian matrix can be used to measure the "smoothness" of this vector on the graph, by which we mean the extent to which neighboring nodes have similar values of $x$. One way to quantify this is using the measure
+
+$$
+\begin{aligned}
+    S(\mathbf{x}) = \frac{1}{2}\sum_{i = 1}^n \sum_{j = 1}^n A_{ij}(x_i - x_j)^2 \,.
+\end{aligned}
+$$
+
+The term corresponding to $i$ and $j$ in $S(\mathbf{x})$ is zero if either $A_{ij} = 0$ (i.e. node $i$ is not connected to node $j$) or if $x_i = x_j$ (i.e. nodes $i$ and $j$ have the same values in their corresponding entries of $\mathbf{x}$). So, intuitively, $S(\mathbf{x})$ is small when connected nodes have similar entries in $\mathbf{x}$ and large when connected nodes have very different entries in $\mathbf{x}$. The Laplacian can be used to concisely represent the smoothness measure $S(\mathbf{x})$: 
+
+$$
+\begin{aligned}
+    S(\mathbf{x}) &= \frac{1}{2}\sum_{i = 1}^n \sum_{j = 1}^n A_{ij}(x_i - x_j)^2 \\ 
+    &= \frac{1}{2} \sum_{i = 1}^n \sum_{j = 1}^n A_{ij}(x_i^2 - 2x_ix_j + x_j^2) \\
+    &= \frac{1}{2} \sum_{i = 1}^n \sum_{j = 1}^n A_{ij}x_i^2 - \sum_{i = 1}^n \sum_{j = 1}^n A_{ij}x_ix_j + \frac{1}{2}\sum_{i = 1}^n \sum_{j = 1}^n A_{ij}x_j^2 \\
+    &= \frac{1}{2} \sum_{i = 1}^n k_i x_i^2 - \sum_{i = 1}^n \sum_{j = 1}^n A_{ij}x_ix_j + \frac{1}{2} \sum_{j = 1}^n k_j x_j^2 
+\end{aligned}
+$$
+
+In the last line, we've used the definition of the degree: $k_i = \sum_{j = 1}^n A_{ij}$. Now we need to use an indexing trick. Let $\delta_{ij}$ be the Kronecker delta, which is 1 if $i = j$ and 0 otherwise. Then, we can write 
+
+$$
+\begin{aligned}
+    \frac{1}{2} \sum_{i = 1}^n k_i x_i^2 + \frac{1}{2} \sum_{j = 1}^n k_j x_j^2 = \sum_{i = 1}^n\sum_{j = 1}^n \delta_{ij} k_i  x_i x_j\;,
+\end{aligned}
+$$
+
+which allows us to write our entire smoothness measure as 
+
+$$
+\begin{aligned}
+    S(\mathbf{x}) &= \sum_{i = 1}^n\sum_{j = 1}^n \left(\delta_{ij} k_i   - A_{ij}\right)x_ix_j \\ 
+    &= \sum_{i = 1}^n\sum_{j = 1}^n L_{ij}x_ix_j \\ 
+    &= \mathbf{x}^T\mathbf{Lx} \,.
+\end{aligned}
+$$
 
 
+So, our smoothness measure is the quadratic form $\mathbf{x}^T\mathbf{Lx}$. The role of the Laplacian in measuring the smoothness of functions defined on graphs is another perspective on its use in both algorithms and modeling of dynamical systems. 
 
-## The Graph Laplacian as a Diffusion Operator
 
-One of the many important properties of the graph Laplacian is that it describes many *spreading* or *diffusion* processes that take place on networks. Here's an example: suppose that we "heat up" a single node on the network, and then allow heat to flow along the network edges. The Laplacian matrix gives a concise description of how this heat spreads over the network. Let $\mathbf{x} \in \mathbb{R}^n$ be the vector whose $i$th entry gives the amount of heat currently on node $i$. Then, the vector $\delta \mathbf{x} = -\mathbf{Lx}$ is proportional to rate of change of heat at each node. If we imagine that heat moves in discrete time, our update would be 
+### The Graph Laplacian as a Diffusion Operator
+
+One of the many important properties of the graph Laplacian is that it describes many *spreading* or *diffusion* processes that take place on networks. Here's an example: suppose that we "heat up" a single node on the network, and then allow heat to flow along the network edges. The Laplacian matrix gives a concise description of how this heat spreads over the network. Let $\mathbf{x} \in \mathbb{R}^n$ be the vector whose $i$th entry gives the amount of heat currently on node $i$. Then, the vector $\delta \mathbf{x} = -\mathbf{Lx}$ is proportional to rate of change of heat at each node. If we imagine that heat moves in discrete time, our update would be [One perspective on this update is that it is the gradient flow associated with minimization of the smoothness measure $S(\mathbf{x})$ from the previous section.]{.aside}
 
 $$
 \begin{aligned}
@@ -287,7 +367,7 @@ from matplotlib import pyplot as plt
 import networkx as nx
 import numpy as np
 
-fig, axarr = plt.subplots(1, 4, figsize = (8, 1.7))
+fig, axarr = plt.subplots(2, 3, figsize = (7, 3.7))
 
 # create a network for visualization and set up a layout
 n = 50
@@ -302,15 +382,15 @@ D = np.diag(np.sum(A, axis = 1))
 L = D - A
 
 # rate of heat transfer
-rate = 0.05
+rate = 0.12
 
 # initial condition: all heat on a single node
 x = np.zeros(n)
-x[20] = 1
+x[20] = 10
 
 # main loop
 for i, ax in enumerate(axarr.flatten()):
-    nx.draw(G, ax = ax, node_size = 20, edge_color = 'gray', node_color = np.log(x + 1e-4), width = 0.5, pos = layout, cmap = "coolwarm", vmax = 0.5)
+    nx.draw(G, ax = ax, node_size = 20, edge_color = 'gray', node_color = x, width = 0.5, pos = layout, cmap = "coolwarm", vmin = 0, vmax = 1)
     ax.set_title("$t = " + str(i) + "$")
 
     # Laplacian dynamical update
@@ -319,7 +399,6 @@ for i, ax in enumerate(axarr.flatten()):
 
 The Laplacian operator also has many other applications in network science, many of which we will study later in these notes. 
 
-## References
 
 
 
