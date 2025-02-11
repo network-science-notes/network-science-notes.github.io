@@ -1,28 +1,21 @@
 .ONESHELL: 
 
-SHELL = /bin/zsh
-
-VENV_ACTIVATE = . env/bin/activate
-activate: 
-	$(VENV_ACTIVATE)
-
+PYTHON = env/bin/python3
 
 publish: 
-	$(VENV_ACTIVATE)
-	python scripts/prep-qmd.py
+	$(PYTHON) scripts/prep-qmd.py
 	quarto render --profile publish
-	python scripts/create-ipynb.py
-	python scripts/remove-hidden.py
+	$(PYTHON) scripts/create-ipynb.py
+	$(PYTHON) scripts/remove-hidden.py
 	git add .
 	git commit -m "Update"
 	git push
 
 prep: 
-	python scripts/prep-qmd.py
-	python scripts/create-ipynb.py
+	$(PYTHON) scripts/prep-qmd.py
+	$(PYTHON) scripts/create-ipynb.py
 
 preview: 
-	$(VENV_ACTIVATE) 
 	quarto preview --profile preview
 
 clean: 

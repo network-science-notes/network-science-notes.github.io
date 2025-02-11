@@ -1,7 +1,6 @@
 ---
 code-fold: false
 code-summary: "Show code"
-jupyter: python3
 bibliography: ../refs.bib
 ---
 

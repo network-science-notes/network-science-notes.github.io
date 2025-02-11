@@ -7,7 +7,6 @@
         "---\n",
         "code-fold: false\n",
         "code-summary: \"Show code\"\n",
-        "jupyter: python3\n",
         "bibliography: ../refs.bib\n",
         "cap-location: margin\n",
         "---\n",
@@ -33,7 +32,7 @@
         "\n",
         "Our data set for this experiment is the network of social interactions in a French high school [@fournet2014contact], which we also studied in a [previous chapter on modularity maximization](13-modularity-maximization.qmd). \n"
       ],
-      "id": "9ce9f87d"
+      "id": "a97e7e2f"
     },
     {
       "cell_type": "code",
@@ -52,7 +51,7 @@
         "from sklearn.model_selection import train_test_split\n",
         "from sklearn import metrics"
       ],
-      "id": "2eb7ffb4",
+      "id": "3740bc4b",
       "execution_count": null,
       "outputs": []
     },
@@ -69,7 +68,7 @@
         "\n",
         "Let's go ahead and acquire the data. We'll also do a bit of cleaning. \n"
       ],
-      "id": "e0f00500"
+      "id": "589591c9"
     },
     {
       "cell_type": "code",
@@ -82,7 +81,7 @@
         "# remove a small number of self-loops\n",
         "contact = contact[contact[\"source\"] < contact[\"target\"]]"
       ],
-      "id": "a092d1b0",
+      "id": "ce4f225d",
       "execution_count": null,
       "outputs": []
     },
@@ -94,7 +93,7 @@
         "\n",
         "Now we'll perform a split into training and testing data. The idea is that we will use the training data for tuning our model, while we'll use the testing data for evaluating the model. We won't actually compute the predictive performance of the model on the testing data until we are done with all of our training. \n"
       ],
-      "id": "ed88d7e5"
+      "id": "6e294dd8"
     },
     {
       "cell_type": "code",
@@ -106,7 +105,7 @@
         "train = contact.loc[0:m_train,:].copy()\n",
         "test = contact.loc[m_train:,:].copy()"
       ],
-      "id": "0e7366db",
+      "id": "0be083f3",
       "execution_count": null,
       "outputs": []
     },
@@ -116,7 +115,7 @@
       "source": [
         "It can be very difficult to make useful predictions about whether or not an edge emerges if we don't know anything already about the nodes. For this reason, we are going to restrict the test set so that all nodes in the test set are also seen at least once in the training set. \n"
       ],
-      "id": "2c4fc058"
+      "id": "ddfef8e6"
     },
     {
       "cell_type": "code",
@@ -131,7 +130,7 @@
         "test[\"found_target\"] = test.target.map(lambda x: x in train_nodes)\n",
         "test = test[test.found_source & test.found_target]"
       ],
-      "id": "d41b2ee0",
+      "id": "1e637dfd",
       "execution_count": null,
       "outputs": []
     },
@@ -141,7 +140,7 @@
       "source": [
         "Finally, rather than try to predict the *number* of interactions between two agents, we are instead just going to focus on whether or not there was at least one. To do this, we'll create new versions of our data frames in which each pair appears exactly once. \n"
       ],
-      "id": "6bd1448b"
+      "id": "86d5118e"
     },
     {
       "cell_type": "code",
@@ -150,7 +149,7 @@
         "train   = train.groupby([\"source\", \"target\"]).count().reset_index()\n",
         "test    = test.groupby([\"source\", \"target\"]).count().reset_index()"
       ],
-      "id": "d44e14df",
+      "id": "56459595",
       "execution_count": null,
       "outputs": []
     },
@@ -160,7 +159,7 @@
       "source": [
         "Our final data sets \n"
       ],
-      "id": "d91944c4"
+      "id": "afb8404e"
     },
     {
       "cell_type": "code",
@@ -169,7 +168,7 @@
         "print(f\"{train.shape[0]} edges in training data.\")\n",
         "print(f\"{test.shape[0]} edges in testing data.\")"
       ],
-      "id": "887a6c96",
+      "id": "40367f77",
       "execution_count": null,
       "outputs": []
     },
@@ -179,7 +178,7 @@
       "source": [
         "Although we've been working with these data sets as data frames, they do both define networks: a training network and a testing network. \n"
       ],
-      "id": "eb40825f"
+      "id": "3295292e"
     },
     {
       "cell_type": "code",
@@ -187,7 +186,7 @@
       "source": [
         "G_train = nx.from_pandas_edgelist(train)"
       ],
-      "id": "074ce399",
+      "id": "30c6f432",
       "execution_count": null,
       "outputs": []
     },
@@ -197,7 +196,7 @@
       "source": [
         "Here's a picture of the resulting network, with communities found via the Louvain algorithm for approximate modularity maximization: [We could also study the \"communities\" defined by the true labels in the data, although we won't pursue that here.]{.aside}\n"
       ],
-      "id": "74984acb"
+      "id": "65570b78"
     },
     {
       "cell_type": "code",
@@ -243,7 +242,7 @@
         "    nx.draw_networkx_nodes(G, pos, ax = ax, **node_kwargs)\n",
         "    off = ax.axis(\"off\")"
       ],
-      "id": "58855355",
+      "id": "2219969a",
       "execution_count": null,
       "outputs": []
     },
@@ -257,7 +256,7 @@
         "\n",
         ":::\n"
       ],
-      "id": "92497848"
+      "id": "214b62de"
     },
     {
       "cell_type": "code",
@@ -268,7 +267,7 @@
         "fig, ax = plt.subplots(1, 1)\n",
         "louvain_plot(G_train, ax = ax)"
       ],
-      "id": "2a6f1ae0",
+      "id": "e6cd787c",
       "execution_count": null,
       "outputs": []
     },
@@ -288,7 +287,7 @@
         "\n",
         "Let's go ahead and implement negative examples. \n"
       ],
-      "id": "3df01cdb"
+      "id": "a905e73c"
     },
     {
       "cell_type": "code",
@@ -312,7 +311,7 @@
         "\n",
         "    return merged_df"
       ],
-      "id": "5b5bfa0a",
+      "id": "d50e0f43",
       "execution_count": null,
       "outputs": []
     },
@@ -329,7 +328,7 @@
         "\n",
         "Here's how this looks: \n"
       ],
-      "id": "f967c6a9"
+      "id": "96b73539"
     },
     {
       "cell_type": "code",
@@ -338,7 +337,7 @@
         "train = add_negative_examples(train)\n",
         "train.sort_values(\"link\", ascending = False)"
       ],
-      "id": "0e1fd55b",
+      "id": "0b2626d1",
       "execution_count": null,
       "outputs": []
     },
@@ -348,7 +347,7 @@
       "source": [
         "After this step, the training data actually contains very few positive examples: \n"
       ],
-      "id": "a23eb756"
+      "id": "f5a96b43"
     },
     {
       "cell_type": "code",
@@ -356,7 +355,7 @@
       "source": [
         "train[\"link\"].mean()"
       ],
-      "id": "056a7fcc",
+      "id": "50378362",
       "execution_count": null,
       "outputs": []
     },
@@ -378,7 +377,7 @@
         "\n",
         "The following, rather complicated function creates a data frame containing all of these features. Because we're adding columns to `pandas` data frames, we usually `apply` functions in order to skip `for`-loops and their ilk. \n"
       ],
-      "id": "e1836651"
+      "id": "521f27e2"
     },
     {
       "cell_type": "code",
@@ -415,7 +414,7 @@
         "\n",
         "    return df"
       ],
-      "id": "aca23266",
+      "id": "6a925ed7",
       "execution_count": null,
       "outputs": []
     },
@@ -425,7 +424,7 @@
       "source": [
         "Let's apply this function to our training data. To do so, we need to supply a community partition:\n"
       ],
-      "id": "eaca5961"
+      "id": "408fa285"
     },
     {
       "cell_type": "code",
@@ -434,7 +433,7 @@
         "comm_dict_train = louvain_communities(G_train)\n",
         "train = compute_features(train, G_train, comm_dict_train)"
       ],
-      "id": "8648b5f2",
+      "id": "dbe61e19",
       "execution_count": null,
       "outputs": []
     },
@@ -444,7 +443,7 @@
       "source": [
         "Time to inspect the results! "
       ],
-      "id": "ea06cb42"
+      "id": "7b9af634"
     },
     {
       "cell_type": "code",
@@ -452,7 +451,7 @@
       "source": [
         "train"
       ],
-      "id": "da0b1970",
+      "id": "aef943ca",
       "execution_count": null,
       "outputs": []
     },
@@ -485,7 +484,7 @@
         "\n",
         "In order to do this, we need to figure out how to learn the parameters $\\beta_0,\\; \\beta_1,\\; \\beta_2,\\; \\beta_3,\\; \\gamma$ from data. We'll do this using logistic regression. To do this, we extract a matrix `X_train` containing only the feature columns, and a vector `y_train` containing the target `link` variable.\n"
       ],
-      "id": "7105097e"
+      "id": "770bd30c"
     },
     {
       "cell_type": "code",
@@ -496,7 +495,7 @@
         "X_train = train[feature_cols]\n",
         "y_train = train[\"link\"]"
       ],
-      "id": "e127098d",
+      "id": "37e4f7b6",
       "execution_count": null,
       "outputs": []
     },
@@ -506,7 +505,7 @@
       "source": [
         "Now we can fit the model: \n"
       ],
-      "id": "6e0bf8e1"
+      "id": "38f27de7"
     },
     {
       "cell_type": "code",
@@ -515,7 +514,7 @@
         "model   = LogisticRegression(solver = \"liblinear\")\n",
         "fit     = model.fit(X_train, y_train)"
       ],
-      "id": "12e4e616",
+      "id": "64f3d925",
       "execution_count": null,
       "outputs": []
     },
@@ -525,7 +524,7 @@
       "source": [
         "What did our model learn about the features? Which of these features help predict whether an edge is going to be observed between two nodes? Let's take a look at the coefficients: \n"
       ],
-      "id": "aad9bc1c"
+      "id": "a5302b7a"
     },
     {
       "cell_type": "code",
@@ -536,7 +535,7 @@
         "    \"coef\" : model.coef_[0]\n",
         "})"
       ],
-      "id": "842a807f",
+      "id": "b3849d4b",
       "execution_count": null,
       "outputs": []
     },
@@ -559,7 +558,7 @@
         "\n",
         "It's all well and good to fit our model on training data and interpret the coefficient, but this doesn't necessarily tell us anything about the ability of our model to make *predictions* about the future. To do this, we need to look at our test data. In this case, it's important that we pass the test data through the same preprocessing as we did before, adding negative examples and feature columns. Very importantly, we pass the graph `G_train` and the community labels `comm_dict_train` as an argument to `compute_features` in order to ensure that things like degree and community structure are calculated using only training data, not testing data. Using testing data to construct the features would be cheating!\n"
       ],
-      "id": "5b542527"
+      "id": "2e9bb736"
     },
     {
       "cell_type": "code",
@@ -571,7 +570,7 @@
         "X_test = test[feature_cols]\n",
         "y_test = test[\"link\"]"
       ],
-      "id": "5e037cf5",
+      "id": "20f9384e",
       "execution_count": null,
       "outputs": []
     },
@@ -581,7 +580,7 @@
       "source": [
         "We can now get the model's predicted probability of edge presence for each pair of nodes. [The predicted probability of an edge between nodes $i$ and $j$ is $\\sigma(s_{ij})$, where $s_{ij}$ is the score for the pair $(i,j)$ and $\\sigma(x) = \\frac{1}{1 + e^{-x}}$ is the logistic sigmoid function.]{.aside}\n"
       ],
-      "id": "ab49d0e9"
+      "id": "5932e2d4"
     },
     {
       "cell_type": "code",
@@ -589,7 +588,7 @@
       "source": [
         "y_pred = model.predict_proba(X_test)[::,1]"
       ],
-      "id": "6dcf9b10",
+      "id": "4848b1f5",
       "execution_count": null,
       "outputs": []
     },
@@ -599,7 +598,7 @@
       "source": [
         "We can interpret these predictions like this: \n"
       ],
-      "id": "bbc63f98"
+      "id": "79b7ff11"
     },
     {
       "cell_type": "code",
@@ -608,7 +607,7 @@
         "i = 1932\n",
         "f\"Our model predicts that the probability of a new edge between nodes {test['source'][i]} and {test['target'][i]} is approximately {np.round(y_pred[i], 2)}.\""
       ],
-      "id": "acad9046",
+      "id": "4a325e91",
       "execution_count": null,
       "outputs": []
     },
@@ -618,7 +617,7 @@
       "source": [
         "How accurate are these predictions? We can use the `score` method of the model to compute the accuracy of the model on the test data on the prediction task. [By default, the model is predicting the presence of an edge iff $\\sigma(s_{ij}) > 0.5$. ]{.aside}\n"
       ],
-      "id": "de574148"
+      "id": "22e79fe6"
     },
     {
       "cell_type": "code",
@@ -626,7 +625,7 @@
       "source": [
         "model.score(X_test, y_test)"
       ],
-      "id": "59f3ec7d",
+      "id": "0a38c9da",
       "execution_count": null,
       "outputs": []
     },
@@ -636,7 +635,7 @@
       "source": [
         "Over all, our model achieves an accuracy of roughly 90% in the task of predicting the presence of edges in the test data. Is this a good result? Not especially, actually. The reason is that the test set contains very few positive examples: \n"
       ],
-      "id": "45443742"
+      "id": "65de5f50"
     },
     {
       "cell_type": "code",
@@ -644,7 +643,7 @@
       "source": [
         "test[\"link\"].mean()"
       ],
-      "id": "b0fc725d",
+      "id": "4233116b",
       "execution_count": null,
       "outputs": []
     },
@@ -656,7 +655,7 @@
         "\n",
         "This doesn't mean that our model is poor, just that accuracy is not the right way to assess it. A more sophisticated way to assess a binary classification model is to compute the area under the receiver operating characteristic curve (often just called the \"area under the curve\" or \"AUC\" for short). The AUC measures the tradeoff between false positive and true positive rates when varying the threshold score required to predict the presence of an edge.\n"
       ],
-      "id": "0ad579e9"
+      "id": "b157eab8"
     },
     {
       "cell_type": "code",
@@ -678,7 +677,7 @@
         "\n",
         "ax.plot([0,1], [0,1], color = \"grey\", linestyle = \"--\")"
       ],
-      "id": "0b7b81d9",
+      "id": "f5505cb0",
       "execution_count": null,
       "outputs": []
     },
@@ -702,7 +701,7 @@
         "1. Train a link prediction model on the current state of the network.\n",
         "2. Update the network by allowing some edges to decay and replacing them with new edges that the model predicts are likely to form.\n"
       ],
-      "id": "70721c5f"
+      "id": "69e6730b"
     },
     {
       "cell_type": "code",
@@ -813,7 +812,7 @@
         "        \"\"\"\n",
         "        return nx.algorithms.community.modularity(self.G, self.comms)"
       ],
-      "id": "0611b7dc",
+      "id": "d71e7b5f",
       "execution_count": null,
       "outputs": []
     },
@@ -829,7 +828,7 @@
         "\n",
         "Let's now instantiate the simulator, using the entire `contact` network. \n"
       ],
-      "id": "cf07523c"
+      "id": "58c24f4a"
     },
     {
       "cell_type": "code",
@@ -838,7 +837,7 @@
         "edges = contact.groupby([\"source\", \"target\"]).count().reset_index()\n",
         "LPS = LinkPredictionSimulator(edges)"
       ],
-      "id": "3b375687",
+      "id": "8c1ec631",
       "execution_count": null,
       "outputs": []
     },
@@ -848,7 +847,7 @@
       "source": [
         "Now we're going to conduct our simulation. Along the way, we've set up code so that we can see the graph (and its community partition) before and after the simulation. While we do the simulation, we'll collect the modularity and degree Gini coefficient, which measures how unequal the degrees in the graph are. \n"
       ],
-      "id": "6dd5480e"
+      "id": "c44cdd15"
     },
     {
       "cell_type": "code",
@@ -878,7 +877,7 @@
         "# visualize final state of the graph\n",
         "louvain_plot(LPS.G, clusters = LPS.comm_dict, ax = axarr[1], pos = pos)"
       ],
-      "id": "c97249df",
+      "id": "4fc0eff2",
       "execution_count": null,
       "outputs": []
     },
@@ -888,7 +887,7 @@
       "source": [
         "Here's what happened to the modularity and the degree Gini inequality as the simulation progressed: \n"
       ],
-      "id": "bd845287"
+      "id": "cc0a184e"
     },
     {
       "cell_type": "code",
@@ -905,7 +904,7 @@
         "\n",
         "ax.set(xlabel = \"Timestep\", ylabel = \"Value\")"
       ],
-      "id": "91eb23d3",
+      "id": "8728b0da",
       "execution_count": null,
       "outputs": []
     },
@@ -924,15 +923,15 @@
         "\n",
         "## References"
       ],
-      "id": "c3b1dd6a"
+      "id": "f45a0e89"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "python2",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "Python 2",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/python2"
     }
   },
   "nbformat": 4,

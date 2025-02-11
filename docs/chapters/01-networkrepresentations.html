@@ -229,7 +229,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -444,7 +444,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="page-columns page-full"><p>Here’s an example of a famous graph: the Zachary Karate Club. Each node represents a member of a university karate club, and each edge represents a friendly social relationship between them. This graph is supplied by <code>networkx</code>, the Python software package that we’ll use throughout these notes for network analysis. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The code in this collapsed cell imports packages and sets up various plotting options</span></div></div>
-<div id="fceaac15" class="cell" data-execution_count="1">
+<div id="ecc9edc0" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -756,7 +756,7 @@ Figure&nbsp;1.6: A network built using a dictionary that maps nodes to neighbors
 </div>
 </div></div></div>
 <p>It’s also possible to “go backwards” and obtain the dictionary representation from the graph object using</p>
-<div id="c057f5ed" class="cell" data-execution_count="8">
+<div id="dd10f2fa" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nx.to_dict_of_lists(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>{1: [2], 2: [1, 3, 4], 3: [2, 4], 4: [2, 3]}</code></pre>
@@ -861,7 +861,12 @@ Exercises!
 </details>
 </div>
 </div>
-<p>We’ll discuss algorithms for visualizing networks (and why visualizing networks is not always a good idea) in a <a href="../chapters/05-viz.html">later chapter</a>.</p>
+<details>
+<summary>
+test
+</summary>
+We’ll discuss algorithms for visualizing networks (and why visualizing networks is not always a good idea) in a <a href="../chapters/05-viz.html">later chapter</a>. Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+</details>
 </section>
 </section>
 <section id="references" class="level2">

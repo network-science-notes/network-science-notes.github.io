@@ -7,7 +7,7 @@
         "---\n",
         "code-fold: false\n",
         "code-summary: \"Show code\"\n",
-        "jupyter: python3\n",
+        "jupyter: env\n",
         "toc: true\n",
         "cache: true\n",
         "---\n",
@@ -19,7 +19,7 @@
         "\n",
         "Last time, we studied several properties of real-world networks and compared them to randomized models of those networks in which the degrees were held constant. That is, we were looking at aspects of the structure of real-world networks that **are not captured by the degree distribution alone**. But what about the degree distribution itself? Do real world networks have degree distributions that are especially interesting? What models can account for the degree distributions that we observe? \n"
       ],
-      "id": "5da0e181"
+      "id": "9be52380"
     },
     {
       "cell_type": "code",
@@ -33,7 +33,7 @@
         "import pandas as pd\n",
         "import random"
       ],
-      "id": "4b9d3476",
+      "id": "1110086d",
       "execution_count": null,
       "outputs": []
     },
@@ -43,7 +43,7 @@
       "source": [
         "To observe a degree distribution, let's take a look at a data set collected from the streaming platform Twitch by @musae. Nodes are users on Twitch. An edge exists between them if they are mutual friends on the platform. The authors collected data sets for users speaking several different languages; we'll use the network of English-speaking users. Let's now download the data (as a Pandas data frame) and convert it into a graph using Networkx. \n"
       ],
-      "id": "e61f3809"
+      "id": "b5fcbae8"
     },
     {
       "cell_type": "code",
@@ -58,7 +58,7 @@
         "\n",
         "print(f\"This graph has {num_nodes} nodes and {num_edges} edges. The mean degree is {2*num_edges/num_nodes:.1f}.\")"
       ],
-      "id": "afe1861a",
+      "id": "3ef39ffc",
       "execution_count": null,
       "outputs": []
     },
@@ -68,7 +68,7 @@
       "source": [
         "Let's now define some helper functions to extract and visualize the degree distribution of a graph. Our first function extracts the degree distribution for easy computation, while the second creates a variable-width histogram in which each bin has the *same width when plotted on a logarithmic horizontal axis*. [This is called *logarithmic binning*.]{.aside} \n"
       ],
-      "id": "94290f63"
+      "id": "42958d5c"
     },
     {
       "cell_type": "code",
@@ -100,7 +100,7 @@
         "    plt.legend()\n",
         "    return plt.gca()"
       ],
-      "id": "2211f08a",
+      "id": "fe2d802c",
       "execution_count": null,
       "outputs": []
     },
@@ -110,7 +110,7 @@
       "source": [
         "Let's use this function to inspect the degree distrubtion of the data: \n"
       ],
-      "id": "4afc2efa"
+      "id": "dc275e47"
     },
     {
       "cell_type": "code",
@@ -118,7 +118,7 @@
       "source": [
         "ax = plot_degree_distribution(G, interval = 10, num_bins = 30)"
       ],
-      "id": "fd9f046c",
+      "id": "0b938493",
       "execution_count": null,
       "outputs": []
     },
@@ -130,7 +130,7 @@
         "\n",
         "Recall that, from our discussion of the Erdős–Rényi model $G(n,p)$, the degree distribution of a $G(n,p)$ model with mean degree $\\bar{d}$ is approximately Poisson with mean $\\bar{d}$. Let's compare this Poisson distribution to the data. \n"
       ],
-      "id": "5abc7005"
+      "id": "fead02b6"
     },
     {
       "cell_type": "code",
@@ -145,7 +145,7 @@
         "ax.plot(d_, poisson,  linewidth = 1, label = \"Poisson fit\", color = \"grey\", linestyle = \"--\")\n",
         "ax.legend()"
       ],
-      "id": "747026d8",
+      "id": "9e2fde54",
       "execution_count": null,
       "outputs": []
     },
@@ -193,7 +193,7 @@
         "\n",
         "Let's try plotting such a distribution against the data. Since the power law distribution is defined for all $d > d_*$, we'll need to choose a cutoff $d_*$ and an exponent $\\gamma$. For now, we'll do this by eye. If we inspect the plot of the data above, it looks like  linear behavior takes over somewhere around $d_* = 10^\\frac{3}{2} \\approx 30$. \n"
       ],
-      "id": "677bf00c"
+      "id": "f367022d"
     },
     {
       "cell_type": "code",
@@ -209,7 +209,7 @@
         "ax.plot(d_, power_law,  linewidth = 1, label = fr\"Power law: $\\gamma = {gamma}$\" , color = \"grey\", linestyle = \"--\")\n",
         "ax.legend()"
       ],
-      "id": "8e27396d",
+      "id": "86b792aa",
       "execution_count": null,
       "outputs": []
     },
@@ -260,7 +260,7 @@
         "\n",
         "Here's a quick implementation. [Note: this implementation of preferential attachment is useful for illustrating the mathematics and operations with Networkx. It is, however, not efficient.]{.aside}\n"
       ],
-      "id": "b8a14d56"
+      "id": "a1aab07f"
     },
     {
       "cell_type": "code",
@@ -290,7 +290,7 @@
         "    # add new edge to graph    \n",
         "    G.add_edge(u, v)"
       ],
-      "id": "1c70d6ae",
+      "id": "15dac72e",
       "execution_count": null,
       "outputs": []
     },
@@ -300,7 +300,7 @@
       "source": [
         "Let's go ahead and plot the result. We'll add a visualization of the exponent $\\gamma$ as well. How do we know the right value of $\\gamma$? It turns out that there is a theoretical estimate based on $\\alpha$ which we'll derive in the next section. "
       ],
-      "id": "9c43f050"
+      "id": "c786c51d"
     },
     {
       "cell_type": "code",
@@ -316,7 +316,7 @@
         "ax.plot(d_, power_law,  linewidth = 1, label = fr\"Power law: $\\gamma = {gamma:.2f}$\" , color = \"grey\", linestyle = \"--\")\n",
         "ax.legend()"
       ],
-      "id": "612f4fa0",
+      "id": "cbab42b7",
       "execution_count": null,
       "outputs": []
     },
@@ -552,15 +552,15 @@
         "\n",
         "Are power laws *really* that common in empirical data? @broidoScalefreeNetworksAre2019 controversially claimed that *scale free networks are rare*. In a bit more detail, the authors compare power-law  distributions to several competing distributions as models of real-world network degree sequences. The authors find that that the competing models---especially [lognormal distributions](https://en.wikipedia.org/wiki/Log-normal_distribution), which also have heavy tails---are often better fits to observed data than power laws. This paper stirred considerable controversy, which is briefly documented by @holmeRareEverywherePerspectives2019. \n"
       ],
-      "id": "9286cbf7"
+      "id": "d65c037e"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "env",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "env",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/env"
     }
   },
   "nbformat": 4,

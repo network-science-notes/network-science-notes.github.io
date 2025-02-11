@@ -7,7 +7,6 @@
         "---\n",
         "code-fold: true\n",
         "code-summary: \"Show code\"\n",
-        "jupyter: python3\n",
         "---\n",
         "\n",
         "\n",
@@ -41,7 +40,7 @@
         "1. Choose two stubs uniformly at random and connect these stubs to form an edge.\n",
         "2. Choose another pair from the remaining unmatched stubs; repeat the process until all stubs are matched.\n"
       ],
-      "id": "5cadb515"
+      "id": "c4c3acc9"
     },
     {
       "cell_type": "code",
@@ -217,15 +216,15 @@
         "\n",
         "## References\n"
       ],
-      "id": "18355574"
+      "id": "a9d89938"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "python2",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "Python 2",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/python2"
     }
   },
   "nbformat": 4,

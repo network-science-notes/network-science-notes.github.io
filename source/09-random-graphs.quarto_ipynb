@@ -7,7 +7,6 @@
         "---\n",
         "code-fold: true\n",
         "code-summary: \"Show code\"\n",
-        "jupyter: python3\n",
         "---\n",
         "\n",
         "\n",
@@ -119,7 +118,7 @@
         "\n",
         "@fig-clustering-decay shows how the global clustering coefficient of a sparse Erdős–Rényi random graph decays as we increase $n$. Although the estimate that the global clustering coefficient should be equal to $p$ was somewhat informal, experimentally it works quite well. \n"
       ],
-      "id": "fb196952"
+      "id": "2ba1dd2d"
     },
     {
       "cell_type": "code",
@@ -378,7 +377,7 @@
         "\n",
         "Let's check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction. \n"
       ],
-      "id": "57018007"
+      "id": "fd395c28"
     },
     {
       "cell_type": "code",
@@ -401,7 +400,7 @@
         "\n",
         "print(out)"
       ],
-      "id": "c9616897",
+      "id": "c76885b7",
       "execution_count": null,
       "outputs": []
     },
@@ -456,7 +455,7 @@
         "\n",
         "@fig-giant-component-illustration shows  two sparse ER random graphs on either side of the $c = 1$ transition. We observe an apparent change in qualitative behavior between the two cases. \n"
       ],
-      "id": "3045e3c2"
+      "id": "d08073be"
     },
     {
       "cell_type": "code",
@@ -532,7 +531,7 @@
         "\n",
         "This equation doesn't have a closed-form solution for $s$, but we can still plot it and compare the result to simulations (@fig-giant-component). Not bad! \n"
       ],
-      "id": "6a450132"
+      "id": "42ef98cf"
     },
     {
       "cell_type": "code",
@@ -591,15 +590,15 @@
       "source": [
         "### References\n"
       ],
-      "id": "a6b8a0fc"
+      "id": "28db1a8d"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "python2",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "Python 2",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/python2"
     }
   },
   "nbformat": 4,

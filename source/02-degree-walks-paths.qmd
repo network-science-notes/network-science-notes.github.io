@@ -1,8 +1,14 @@
 ---
 fig-cap-location: margin
 code-fold: true
-jupyter: python3
 ---
+
+```{python}
+import sys
+print(sys.executable)
+```
+
+
 
 # Degree, Walks, and Paths
 

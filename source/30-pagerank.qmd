@@ -1,6 +1,5 @@
 ---
 code-fold: false
-jupyter: python3
 bibliography: ../refs.bib
 ---
 

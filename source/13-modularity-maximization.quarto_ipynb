@@ -7,7 +7,6 @@
         "---\n",
         "code-fold: false\n",
         "code-summary: \"Show code\"\n",
-        "jupyter: python3\n",
         "bibliography: ../refs.bib\n",
         "---\n",
         "\n",
@@ -26,7 +25,7 @@
         "\n",
         "We might reasonably expect that students in the same class would interact more with each other than with students in other classes. Let's acquire the data and visualize the network to begin to develop a feel for this idea. \n"
       ],
-      "id": "928ded98"
+      "id": "bac6ef87"
     },
     {
       "cell_type": "code",
@@ -99,7 +98,7 @@
         "        z = np.array(z)\n",
         "    return z"
       ],
-      "id": "acd587c0",
+      "id": "586d2fae",
       "execution_count": null,
       "outputs": []
     },
@@ -113,7 +112,7 @@
         "\n",
         ":::\n"
       ],
-      "id": "5caaf813"
+      "id": "0bcc7815"
     },
     {
       "cell_type": "code",
@@ -126,7 +125,7 @@
         "draw_graph(G, clusters = clusters, ax = ax)\n",
         "#---"
       ],
-      "id": "2a6c52a4",
+      "id": "8fae9074",
       "execution_count": null,
       "outputs": []
     },
@@ -157,7 +156,7 @@
         "\n",
         "Networkx implements a function to compute the modularity, but it's not difficult to implement our own either. We'll structure our function to accept a vector of characters giving the class labels.  \n"
       ],
-      "id": "b2790547"
+      "id": "8907f4f8"
     },
     {
       "cell_type": "code",
@@ -180,7 +179,7 @@
         "    return 1/(2*m)*((A - np.outer(k, k) / (2 * m))*delta).sum()\n",
         "#---"
       ],
-      "id": "017ab20a",
+      "id": "8eeecc11",
       "execution_count": null,
       "outputs": []
     },
@@ -190,7 +189,7 @@
       "source": [
         "Now let's try calling our function to find the modularity of the graph and its labels: "
       ],
-      "id": "85a1097f"
+      "id": "179b035c"
     },
     {
       "cell_type": "code",
@@ -198,7 +197,7 @@
       "source": [
         "modularity(G, clusters)"
       ],
-      "id": "bfa4a535",
+      "id": "d93946e6",
       "execution_count": null,
       "outputs": []
     },
@@ -208,7 +207,7 @@
       "source": [
         "Let's do a quick check against the built-in implementation of modularity in Networkx. This implementation works just a bit differently: we need to pass a list of sets in which each set represents a community. \n"
       ],
-      "id": "29e1f4b5"
+      "id": "1f4eac37"
     },
     {
       "cell_type": "code",
@@ -217,7 +216,7 @@
         "communities = [{node for node in G.nodes() if clusters[node] == i} for i in range(5)]\n",
         "nx.community.modularity(G, communities)"
       ],
-      "id": "9e34b5cf",
+      "id": "cba90d6e",
       "execution_count": null,
       "outputs": []
     },
@@ -235,7 +234,7 @@
         "\n",
         "So, in the community detection problem, we have access to an *unlabeled graph* like this one. "
       ],
-      "id": "7d0e0d90"
+      "id": "35cef109"
     },
     {
       "cell_type": "code",
@@ -245,7 +244,7 @@
         "fig, ax = plt.subplots(1, 1)\n",
         "draw_graph(G, ax = ax)"
       ],
-      "id": "3b2baefb",
+      "id": "b540fa8f",
       "execution_count": null,
       "outputs": []
     },
@@ -290,7 +289,7 @@
         "\n",
         "where in the second line we have used the fact that the two sums appearing are just re-indexed copies of each other. Here's our implementation: \n"
       ],
-      "id": "a558fccf"
+      "id": "39aadeb9"
     },
     {
       "cell_type": "code",
@@ -342,7 +341,7 @@
         "\n",
         "    return greedy_clusters, np.array(progress)"
       ],
-      "id": "4fc30455",
+      "id": "7aaf28d8",
       "execution_count": null,
       "outputs": []
     },
@@ -352,7 +351,7 @@
       "source": [
         "Let's run our algorithm...\n"
       ],
-      "id": "619e8425"
+      "id": "4df6a970"
     },
     {
       "cell_type": "code",
@@ -360,7 +359,7 @@
       "source": [
         "greedy_clusters, progress = greedy_clustering(G, num_steps = int(1e5))"
       ],
-      "id": "d2f3b314",
+      "id": "4d4a0ff9",
       "execution_count": null,
       "outputs": []
     },
@@ -370,7 +369,7 @@
       "source": [
         "...and visualize how we did. "
       ],
-      "id": "c2be02ba"
+      "id": "35b24a1d"
     },
     {
       "cell_type": "code",
@@ -385,7 +384,7 @@
         "ax[1].axis(\"off\")\n",
         "draw_graph(G, clusters = greedy_clusters, ax = ax[1], legend = False)"
       ],
-      "id": "e0d823d5",
+      "id": "a379509e",
       "execution_count": null,
       "outputs": []
     },
@@ -431,7 +430,7 @@
         "\n",
         "Here are implementations of the entropy, mutual information, and normalized mutual information:"
       ],
-      "id": "8084367a"
+      "id": "c96d9b5a"
     },
     {
       "cell_type": "code",
@@ -464,7 +463,7 @@
         "def NMI(z, z_, G): \n",
         "    return 2*I(z, z_, G)/(H(z, G) + H(z_, G))"
       ],
-      "id": "685894dd",
+      "id": "fa596987",
       "execution_count": null,
       "outputs": []
     },
@@ -474,7 +473,7 @@
       "source": [
         "Now we can assess the performance of our greedy clustering algorithm against ground truth: \n"
       ],
-      "id": "50bed55d"
+      "id": "f3714048"
     },
     {
       "cell_type": "code",
@@ -482,7 +481,7 @@
       "source": [
         "NMI(clusters, greedy_clusters, G)"
       ],
-      "id": "8d61c5ff",
+      "id": "e7ac1d54",
       "execution_count": null,
       "outputs": []
     },
@@ -492,7 +491,7 @@
       "source": [
         "Frequently when assessing a clustering method, it's not really easy to tell out of context whether it's useful or not. We often assess the method against competing methods, and often on several data sets. \n"
       ],
-      "id": "97719e78"
+      "id": "98eecdd1"
     },
     {
       "cell_type": "code",
@@ -515,7 +514,7 @@
         "        inferred_clusters = cluster_from_partition(partition)\n",
         "        print(f\"Method {method.__name__} has NMI = {NMI(clusters, inferred_clusters, G):.3f}\")"
       ],
-      "id": "9cc41391",
+      "id": "840a7d5b",
       "execution_count": null,
       "outputs": []
     },
@@ -525,7 +524,7 @@
       "source": [
         "Let's run our test suite: "
       ],
-      "id": "3de56ec0"
+      "id": "6e1e226c"
     },
     {
       "cell_type": "code",
@@ -533,7 +532,7 @@
       "source": [
         "test_suite(G, clusters)"
       ],
-      "id": "80ca621b",
+      "id": "14a23722",
       "execution_count": null,
       "outputs": []
     },
@@ -545,7 +544,7 @@
         "\n",
         "Would we get different results on another graph? Let's load up our friend the Karate Club graph: \n"
       ],
-      "id": "492cb863"
+      "id": "ac330275"
     },
     {
       "cell_type": "code",
@@ -556,7 +555,7 @@
         "clusters_karate = nx.get_node_attributes(G_karate, \"club\")\n",
         "clusters_karate = {node : 0 if club == \"Mr. Hi\" else 1 for node, club in clusters_karate.items()}"
       ],
-      "id": "ba1a2fdd",
+      "id": "e82bedd3",
       "execution_count": null,
       "outputs": []
     },
@@ -566,7 +565,7 @@
       "source": [
         "Now we'll run our test suite again: \n"
       ],
-      "id": "ac386451"
+      "id": "b5f15040"
     },
     {
       "cell_type": "code",
@@ -574,7 +573,7 @@
       "source": [
         "test_suite(G_karate, clusters_karate)"
       ],
-      "id": "206fbc74",
+      "id": "f0a07ede",
       "execution_count": null,
       "outputs": []
     },
@@ -597,15 +596,15 @@
         "\n",
         "## References"
       ],
-      "id": "6be9cd22"
+      "id": "88ec25cb"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "python2",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "Python 2",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/python2"
     }
   },
   "nbformat": 4,

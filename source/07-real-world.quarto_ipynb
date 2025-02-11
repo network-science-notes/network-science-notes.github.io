@@ -7,7 +7,6 @@
         "---\n",
         "code-fold: false\n",
         "code-summary: \"Show code\"\n",
-        "jupyter: python3\n",
         "toc: true\n",
         "cache: true\n",
         "---\n",
@@ -28,7 +27,7 @@
         "- `karate`: The Zachary Karate Club social network [@zachary1977information], which is packaged with NetworkX. \n",
         "- `les_mis`: A network of character interactions in the novel *Les Miserables* by Victor Hugo, also packaged with NetworkX.\n"
       ],
-      "id": "f5dfd29a"
+      "id": "877b1a01"
     },
     {
       "cell_type": "code",
@@ -57,7 +56,7 @@
         "G_karate = nx.karate_club_graph()\n",
         "G_les_mis = nx.les_miserables_graph()"
       ],
-      "id": "f67d92b5",
+      "id": "f9ad1a66",
       "execution_count": null,
       "outputs": []
     },
@@ -73,7 +72,7 @@
         "\n",
         "The following code constructs a random synthetic counterpart graph for each of our empirical graphs. It then adds all of these to a dictionary so that we can easily access both the real and synthetic graphs later. \n"
       ],
-      "id": "8b16045f"
+      "id": "2d719114"
     },
     {
       "cell_type": "code",
@@ -103,7 +102,7 @@
         "add_to_dataset_dict(dataset_dict, G_karate, \"karate\")\n",
         "add_to_dataset_dict(dataset_dict, G_les_mis, \"les_mis\")"
       ],
-      "id": "84336416",
+      "id": "e846a44c",
       "execution_count": null,
       "outputs": []
     },
@@ -113,7 +112,7 @@
       "source": [
         "To help us compute and compare measurements on these graphs, we'll define the following function which will manage these computations and organize the result as a table. This function takes as an argument a function `fun` which accepts a graph as an input and returns a scalar value. \n"
       ],
-      "id": "b91f6bb1"
+      "id": "5cc45e88"
     },
     {
       "cell_type": "code",
@@ -137,7 +136,7 @@
         "        else: \n",
         "            print()"
       ],
-      "id": "82fc741b",
+      "id": "97396500",
       "execution_count": null,
       "outputs": []
     },
@@ -149,7 +148,7 @@
         "\n",
         "Let's start with something simple: how many nodes and edges are in each graph? \n"
       ],
-      "id": "b1fb47f9"
+      "id": "efb6bc59"
     },
     {
       "cell_type": "code",
@@ -160,7 +159,7 @@
         "print(\"\\nNumber of edges\")\n",
         "compute_metric(lambda x: x.number_of_edges())"
       ],
-      "id": "84023b6c",
+      "id": "39e0f75d",
       "execution_count": null,
       "outputs": []
     },
@@ -175,7 +174,7 @@
         "\n",
         "Let's move on to something more complex. Take a moment and think of two of your friends, whom we'll call $A$ and $B$. Are $A$ and $B$ themselves friends with each other? If they do, then we say that there is a *triad* or *triangle* in the network. \n"
       ],
-      "id": "9d6509aa"
+      "id": "e59d855f"
     },
     {
       "cell_type": "code",
@@ -192,7 +191,7 @@
         "G.add_edges_from([(\"A\", \"B\"), (\"A\", \"You\"), (\"B\", \"You\")])\n",
         "nx.draw(G, with_labels = True, node_size = 700, node_color = \"lightblue\", ax = ax)"
       ],
-      "id": "16b0da55",
+      "id": "e7fa0e5e",
       "execution_count": null,
       "outputs": []
     },
@@ -214,7 +213,7 @@
         "\n",
         "The numerator of this expression is proportional to the number of triangles in the network (technically, it is off by a factor of 6) and the denominator is proportional to the number of paths of length two in the network. You can think of a triplet as a possible triangle: just add one more edge and a triangle forms. bn\n"
       ],
-      "id": "a435748c"
+      "id": "4da90e44"
     },
     {
       "cell_type": "code",
@@ -232,7 +231,7 @@
         "G.add_edges_from([ (\"A\", \"You\"), (\"B\", \"You\")])\n",
         "nx.draw(G, with_labels = True, node_size = 700, node_color = \"lightblue\", ax = ax)"
       ],
-      "id": "fe34ff94",
+      "id": "519e4601",
       "execution_count": null,
       "outputs": []
     },
@@ -242,7 +241,7 @@
       "source": [
         "Let's write a function to compute the transitivity of a graph. \n"
       ],
-      "id": "5654a016"
+      "id": "04dcb76b"
     },
     {
       "cell_type": "code",
@@ -263,7 +262,7 @@
         "    return num_triangles / num_triplets\n",
         "#---"
       ],
-      "id": "d228c21f",
+      "id": "fb4314bf",
       "execution_count": null,
       "outputs": []
     },
@@ -273,7 +272,7 @@
       "source": [
         "Let's compare our function to the built-in function supplied by NetworkX. \n"
       ],
-      "id": "d95bda2e"
+      "id": "c0d79c1f"
     },
     {
       "cell_type": "code",
@@ -284,7 +283,7 @@
         "print(nx.transitivity(G_karate))\n",
         "#---"
       ],
-      "id": "ec4ed386",
+      "id": "8956bc4c",
       "execution_count": null,
       "outputs": []
     },
@@ -294,7 +293,7 @@
       "source": [
         "Looks good! We'll move forward with the NetworkX version, as it is substantially faster on larger graphs. \n"
       ],
-      "id": "6eaee3a5"
+      "id": "643c8233"
     },
     {
       "cell_type": "code",
@@ -304,7 +303,7 @@
         "compute_metric(nx.transitivity)\n",
         "#---"
       ],
-      "id": "9f654e79",
+      "id": "321ac252",
       "execution_count": null,
       "outputs": []
     },
@@ -318,7 +317,7 @@
         "\n",
         "What about the number of connected components in the network? \n"
       ],
-      "id": "47e9407a"
+      "id": "8bad111d"
     },
     {
       "cell_type": "code",
@@ -328,7 +327,7 @@
         "compute_metric(lambda x: len(list(nx.connected_components(x))))\n",
         "#---"
       ],
-      "id": "efa6cbd7",
+      "id": "29cf5c4b",
       "execution_count": null,
       "outputs": []
     },
@@ -354,7 +353,7 @@
         "\n",
         "An *assortative* network (with high assortativity) is one in which nodes of high degree tend to connect to each other frequently. A *disassortative* network (with negative assortativity) is one in which nodes of high degree tend to connect to nodes of low degree. Let's take a look at the assortativity values in our networks: \n"
       ],
-      "id": "2f789159"
+      "id": "1f1d306f"
     },
     {
       "cell_type": "code",
@@ -364,7 +363,7 @@
         "compute_metric(nx.degree_assortativity_coefficient)\n",
         "#---"
       ],
-      "id": "59775e54",
+      "id": "fd894700",
       "execution_count": null,
       "outputs": []
     },
@@ -383,7 +382,7 @@
         "\n",
         "To test this in our networks, we'll compute the length of the shortest path between a pair of nodes, averaged across all possible pairs. This quantity isn't defined for the random counterpart networks that have multiple disconnected components (why?), and so we'll stick to calculating it on the real-world networks. \n"
       ],
-      "id": "ae50ce59"
+      "id": "6b35838b"
     },
     {
       "cell_type": "code",
@@ -393,7 +392,7 @@
         "compute_metric(nx.average_shortest_path_length, compare = False)\n",
         "#---"
       ],
-      "id": "4696037a",
+      "id": "aa4ebb70",
       "execution_count": null,
       "outputs": []
     },
@@ -406,15 +405,15 @@
         "\n",
         "## References "
       ],
-      "id": "a30d72b5"
+      "id": "b5fd6e71"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "python2",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "Python 2",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/python2"
     }
   },
   "nbformat": 4,

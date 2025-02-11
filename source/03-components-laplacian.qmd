@@ -1,7 +1,6 @@
 ---
 code-fold: true
 code-summary: "Show code"
-jupyter: python3
 ---
 
 # Components and the Graph Laplacian

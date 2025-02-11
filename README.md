@@ -1,14 +1,12 @@
 # Setup
 
-## Quarto 
+## Quarto
 
 Please install Quarto version 1.5 or later. You can run `quarto --version` in the terminal to see what version of Quarto is currently installed. 
 
 ## Virtual Environment
 
-To run scripts and build this website, we will use a custom virtual environment. 
-
-To create the environment, run the following command:
+To run scripts and build this website, we will use a custom virtual environment. To create the environment, run the following command:
 
 ```bash
 python3 -m venv env
@@ -20,11 +18,10 @@ To install packages in this environment:
 
 ```bash
 source env/bin/activate
-
-python3 -m pip install numpy pandas matplotlib seaborn mesa jupyter networkx scikit-learn scipy jupyter-cache ipykernel
+pip3 install -r requirements.txt
 ```
 
-Most other packages can be installed in the same way. 
+Most other packages can be installed in the same way. The Quarto project is configured to use the Python 3 kernel within the virtual environment with the specified name, so no further Python configuration is expected. However, workflows like these are often fragile. 
 
 # Writing Content
 

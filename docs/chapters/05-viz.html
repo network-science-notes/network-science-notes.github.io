@@ -229,7 +229,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -405,7 +405,7 @@ window.Quarto = {
 
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/05-viz.ipynb">here</a>.</em></p>
 <p>We’ve drawn networks several times in this course so far. Here’s one of our favorite running examples, the Karate Club graph. Here’s two ways to draw it. On the right, we’ve drawn the graph by assigning every node to a location in the unit square <span class="math inline">\([0,1]^2\)</span> uniformly at random. On the right, we have used the default layout algorithm in NetworkX, which is invoked automatically when we call <code>nx.draw</code>.</p>
-<div id="7f757d74" class="cell" data-execution_count="2">
+<div id="9f497b08" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt </span>
@@ -449,7 +449,7 @@ window.Quarto = {
 <li>Position the nodes in <span class="math inline">\(\mathbb{R}^2\)</span> according to the values of these eigenvectors: the first coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_2\)</span>, and the second coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_3\)</span>.</li>
 </ol>
 <div class="no-row-height column-margin column-container"><span class="margin-aside">Recall that, if <span class="math inline">\(G\)</span> is connected, then the very smallest eigenvalue of the Laplacian is always equal to 0 and corresponds to an eigenvector with constant entries.</span></div><p>This elegant algorithm is important enough to be implemented in NetworkX: it’s <code>nx.spectral_layout</code>. But we can implement a full version (for connected graphs) of it ourselves.</p>
-<div id="df54a0c6" class="cell" data-execution_count="3">
+<div id="6543afb4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A</span>
@@ -463,7 +463,7 @@ window.Quarto = {
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.column_stack([v_1, v_2])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How’d we do?</p>
-<div id="8be1fb65" class="cell" data-execution_count="4">
+<div id="54360d2e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: v[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -496,7 +496,7 @@ window.Quarto = {
 \end{aligned}
 \]</span></p>
 <p>This objective function is also sometimes called an “energy” of the problem. Let’s implement a function that computes the energy, given a matrix of distances <span class="math inline">\(\mathbf{D}\)</span> and a matrix of node positions <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<div id="e327a048" class="cell" data-execution_count="5">
+<div id="bd97c486" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy(X, D):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n)])</span>
@@ -510,7 +510,7 @@ window.Quarto = {
 <li>We minimize <span class="math inline">\(k\)</span>’s contribution to the energy, which is <span class="math inline">\(\sum_{j \in N\setminus k} \left( \lVert \mathbf{x}_k - \mathbf{x}_j \rVert - d^g_{kj} \right)^2\)</span>.</li>
 </ol>
 <p>We cycle through all the nodes, updating each of them, and then we repeat the process for some specified number of iterations. First, let’s visualize how this looks. Then, we’ll implement this algorithm ourselves.</p>
-<div id="e142d9fb" class="cell" data-execution_count="6">
+<div id="3fe1a78d" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -521,7 +521,7 @@ window.Quarto = {
 </div>
 <p>Note that the energy very quickly shrinks after the first iteration. The structure of the visualization is resolved fairly clearly after just a small number of iterations.</p>
 <p>Ok, time to implement!</p>
-<div id="a5b9e2c5" class="cell" data-execution_count="7">
+<div id="74257408" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">100</span>): </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> nx.floyd_warshall_numpy(G) <span class="co"># matrix of Euclidean distances</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> random_layout(G) <span class="co"># initialization</span></span>
@@ -543,20 +543,20 @@ window.Quarto = {
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try it out:</p>
-<div id="9942e0cc" class="cell" data-execution_count="8">
+<div id="059b75e0" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current energy : 5154.889106518748
-Current energy : 466.16920092033916
-Current energy : 312.91824540179755
-Current energy : 306.5334214830789
-Current energy : 305.2990620425113
-Current energy : 305.04790695905785
-Current energy : 304.91403894255166
-Current energy : 304.8994235804246
-Current energy : 304.88113757616827
-Current energy : 304.827936030706</code></pre>
+<pre><code>Current energy : 4952.813113579346
+Current energy : 546.590114057951
+Current energy : 349.95549620519034
+Current energy : 323.1363349903489
+Current energy : 314.8550084137065
+Current energy : 305.59305403971103
+Current energy : 304.91728800375967
+Current energy : 304.85776544543126
+Current energy : 304.83634689790324
+Current energy : 304.818523659767</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -568,21 +568,21 @@ Current energy : 304.827936030706</code></pre>
 </div>
 <p>Our result looks pretty reasonable. Nodes that “should” be close to each other do indeed appear to be drawn close together in the graph.</p>
 <p>The results are not always reliable; if we check the Les Miserables graph, we might argue that a lot of the nodes in the dense center of the graph are a little too squished together:</p>
-<div id="428ed0c0" class="cell" data-execution_count="9">
+<div id="329021f2" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(nx.les_miserables_graph())</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current energy : 146462.90860927297
-Current energy : 12636.249809083032
-Current energy : 8582.743610316129
-Current energy : 8090.8393394204195
-Current energy : 7633.081988145881
-Current energy : 7593.569607734474
-Current energy : 7184.490659124046
-Current energy : 7163.397329377389
-Current energy : 7155.955068206189
-Current energy : 7150.5416282999995</code></pre>
+<pre><code>Current energy : 146225.59411955497
+Current energy : 11026.071602391527
+Current energy : 7122.837497483859
+Current energy : 6810.157528677174
+Current energy : 6725.077128989988
+Current energy : 6695.53076202704
+Current energy : 6692.043432877618
+Current energy : 6691.636590666392
+Current energy : 6691.504811794968
+Current energy : 6691.451895454005</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -601,7 +601,7 @@ Current energy : 7150.5416282999995</code></pre>
 \end{aligned}
 \]</span></p>
 <p>The implementation here is very similar to our unweighted implementation:</p>
-<div id="2e7458e8" class="cell" data-execution_count="10">
+<div id="664e33af" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy_weighted(X, D):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span><span class="op">/</span>D[i, j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">if</span> j <span class="op">!=</span> i])</span>
@@ -629,16 +629,16 @@ Current energy : 7150.5416282999995</code></pre>
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout_weighted(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Current energy : 146828.69992277602
-Current energy : 17480.414197433623
-Current energy : 9696.037768793825
-Current energy : 8760.130011245137
-Current energy : 8164.127298800078
-Current energy : 7831.39873725406
-Current energy : 7772.2536142531935
-Current energy : 7684.574446351949
-Current energy : 7546.125324045168
-Current energy : 7462.015650700521</code></pre>
+<pre><code>Current energy : 146208.68623141738
+Current energy : 17925.950314139263
+Current energy : 9888.702880349883
+Current energy : 8966.845922686094
+Current energy : 8684.64665901985
+Current energy : 8511.757733793214
+Current energy : 8396.194871056625
+Current energy : 8283.870731725796
+Current energy : 8190.45756783881
+Current energy : 8110.223887543812</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -668,7 +668,7 @@ Current energy : 7462.015650700521</code></pre>
 <section id="what-you-should-do-instead" class="level2">
 <h2 class="anchored" data-anchor-id="what-you-should-do-instead">What You Should Do Instead</h2>
 <p>The right way to visualize the structure of your network is <em>very</em> context-dependent, and there are many, many possibilities. Here we’ll point out just one: the adjacency matrix. This is a common strategy for visualizing networks that separate into one or more distinct clusters, sometimes also called “communities.” For example, simply inspecting the adjacency matrix of the Les Miserables graph can reveal a lot about its structure:</p>
-<div id="09e65f12" class="cell" data-execution_count="11">
+<div id="347a0862" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(G)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span>
@@ -1122,8 +1122,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapters/04-centrality.html" class="pagination-link" aria-label="Centrality">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality</span></span>
+      <a href="../chapters/04-centrality.html" class="pagination-link" aria-label="Centrality and Importance">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

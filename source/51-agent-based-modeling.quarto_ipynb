@@ -31,18 +31,15 @@
         "\n",
         "- An **agent** is a representation of the individuals who make decisions and perform actions. Agents have a `step()` method that describes their behavior. \n",
         "- The **grid** is a representation of relationships between individuals. The grid can be, say, a 2d rectangle, in which case we could imagine it representing space. In this class, we'll of course use a *network grid*, in which we can use a network to specify relationships. \n",
-        "- The **scheduler** determines the order in which agents act. In a *synchronous* model, all agents act simultaneously. In an *asychronous* model, agents act one at a time, in either a fixed or a random order. The schedule also has a `step()` method that calls the `step()` method of the agents according to the schedule. \n",
         "- The **data collector** helps us gather data on our simulation. \n",
         "\n",
         "## First Example: Simple Random Walk\n",
         "\n",
         "For our first agent-based model, we are going to code up an agent-based implementation of the simple random walk. There are lots of reasonable ways to do this, and Mesa is actually a bit of overkill for this particular problem. Still, we'll learn some important techniques and concepts along the way. \n",
         "\n",
-        "\n",
-        "\n",
         "Let's start by importing several tools that we'll use. "
       ],
-      "id": "ad56e102"
+      "id": "5ff2d255"
     },
     {
       "cell_type": "code",
@@ -50,14 +47,13 @@
       "source": [
         "from mesa import Model, Agent                 # core mesa classes\n",
         "from mesa.space import NetworkGrid             \n",
-        "from mesa.time import BaseScheduler           \n",
         "from mesa.datacollection import DataCollector\n",
         "\n",
         "import networkx as nx                         # for the grid\n",
         "import numpy as np                            # computations\n",
         "from matplotlib import pyplot as plt          # visualizing output"
       ],
-      "id": "6a383c2a",
+      "id": "561e0d6c",
       "execution_count": null,
       "outputs": []
     },
@@ -67,7 +63,7 @@
       "source": [
         "Since this is a networks class, we'll use a network-based grid. We imported the capability to do that above as the `mesa.space.NetworkGrid` class. Of course, we need a network to use. For this example, we'll use the Les Miserable Graph, which is built in to NetworkX: \n"
       ],
-      "id": "d08e9dbd"
+      "id": "5a03792a"
     },
     {
       "cell_type": "code",
@@ -76,7 +72,7 @@
         "G = nx.les_miserables_graph()\n",
         "G = nx.convert_node_labels_to_integers(G)"
       ],
-      "id": "f799fc44",
+      "id": "bc76c8ba",
       "execution_count": null,
       "outputs": []
     },
@@ -96,53 +92,39 @@
         "    - Defining any data collection tools. \n",
         "- What happens in a single time-step of the model, via the `step()` method. \n",
         "\n",
-        "The model class actually has a lot more functionality than this. Fortunately, we don't usually need to define this functionality, because the model class we create inherits the needed functionality from `mesa.Model` (which we imported above). Here's our `SRWModel` class. The syntax can look a little complicated whenever we work with a new package, but what's going on is fundamentally simple. \n"
+        "The model class actually has a lot more functionality than this. Fortunately, we don't usually need to define this functionality, because the model class we create inherits the needed functionality from `mesa.Model` (which we imported above). Here's our `SRWModel` class. The syntax can look a little complicated whenever we work with a new package, but what's going on is fundamentally pretty simple. We've added annotations next to the most important lines of code; other lines are also necessary for correct functioning but are more boilerplate than informative. \n"
       ],
-      "id": "0a46e6e5"
+      "id": "10e12952"
     },
     {
       "cell_type": "code",
       "metadata": {},
       "source": [
+        "#| code-fold: false\n",
+        "\n",
         "class RWModel(Model):\n",
         "\n",
         "    # model setup\n",
-        "    def __init__(self, G, agent_class, **kwargs):\n",
+        "    def __init__(self, G, agent_class, **kwargs):                 # <1>\n",
         "        \n",
         "        super().__init__()\n",
-        "\n",
-        "        self.schedule = BaseScheduler(self) # time structure\n",
-        "        self.grid     = NetworkGrid(G)          # space structure\n",
+        "        self.grid     = NetworkGrid(G)                            # <2>\n",
         "        \n",
-        "        # create a single agent who will walk around the graph\n",
-        "        # we haven't defined SWRAgent yet\n",
-        "        # the agent has a name and is associated to the model\n",
-        "        agent = agent_class(self, **kwargs)\n",
+        "        agent = agent_class(self, **kwargs)                       # <3>\n",
+        "        node = self.random.choice(list(G.nodes))                  \n",
+        "        self.grid.place_agent(agent, node)                        # <4>\n",
         "\n",
-        "        # place the agent at a random node on the graph\n",
-        "        node = self.random.choice(list(G.nodes))\n",
-        "        self.grid.place_agent(agent, node)\n",
-        "\n",
-        "        # place the agent into the schedule\n",
-        "        self.schedule.add(agent)\n",
-        "\n",
-        "        # data collection. Here we're just going to collect the \n",
-        "        # current position of each agent\n",
-        "        self.collector = DataCollector(\n",
+        "        self.collector = DataCollector(                           # <5>\n",
         "            agent_reporters = {\n",
         "                \"node\" : lambda a: a.pos\n",
         "            }\n",
         "        )\n",
         "\n",
-        "    # this is where a timestep actually happens\n",
-        "    # once we've set up the model's __init__() method\n",
-        "    # and the step() method of the agent class, \n",
-        "    # this is one is usually pretty simple\n",
-        "    def step(self):\n",
-        "        self.schedule.step()\n",
-        "        self.collector.collect(self)"
+        "    def step(self):                                              # <6>\n",
+        "        self.agents.do(\"step\") \n",
+        "        self.collector.collect(self)                             # <7>"
       ],
-      "id": "6d9ccc23",
+      "id": "ffea7cca",
       "execution_count": null,
       "outputs": []
     },
@@ -150,11 +132,20 @@
       "cell_type": "markdown",
       "metadata": {},
       "source": [
+        "1. We initialize the model and choose its arguments. In this case, the arguments are `G`. \n",
+        "2. The `self.grid` object defines the space on which agents move. In our case, we can make a `NetworkGrid` object directly out of a `NetworkX` graph `G`. \n",
+        "3. This model is only going to have a single agent, whose behavior we'll define when we implement `Agent` classes below. For now, we're going to let the model initialize a single agent of some user-specified class (passed in as part of the `__init__` method.)\n",
+        "4. We place the agent at a random node on the graph.\n",
+        "5. The `DataCollector` object will let us gather data on the behavior of the agent over time. Eventually, we'll be able to return this information as a Pandas data frame. \n",
+        "6. The `step()` method is where something actually happens in the model. In our case, we just need to have the agent call its `step` method and then collect data. \n",
+        "\n",
+        "\n",
+        "\n",
         "### The Agent Class\n",
         "\n",
         "Now we're ready to define what the agent is supposed to do! In the SRW, the agent looks at all nodes adjacent to theirs, chooses one of them uniformly at random, and moves to it. We need to implement this behavior in the `step()` method. While there are some more mesa functions involved that you may not have seen before, the approach is very simple. \n"
       ],
-      "id": "1bea7697"
+      "id": "e9ba0381"
     },
     {
       "cell_type": "code",
@@ -162,7 +153,7 @@
       "source": [
         "class SRWAgent(Agent):\n",
         "    def __init__(self, model):\n",
-        "        super().__init__(self, model)\n",
+        "        super().__init__(model)\n",
         "        self.unique_id = \"Anakin Graphwalker\"\n",
         "\n",
         "    def step(self):\n",
@@ -177,7 +168,7 @@
         "        new_node = self.random.choice(options)\n",
         "        self.model.grid.move_agent(self, new_node)"
       ],
-      "id": "030ee99d",
+      "id": "aa10d036",
       "execution_count": null,
       "outputs": []
     },
@@ -191,7 +182,7 @@
         "\n",
         "Phew, that's it! Once we've defined our model class, we can then run it for a bunch of timesteps:\n"
       ],
-      "id": "4f7dc16c"
+      "id": "3f080627"
     },
     {
       "cell_type": "code",
@@ -202,7 +193,7 @@
         "for i in range(100000):\n",
         "    model.step()"
       ],
-      "id": "d775a91f",
+      "id": "f6fc1c02",
       "execution_count": null,
       "outputs": []
     },
@@ -212,7 +203,7 @@
       "source": [
         "We can get data on the behavior of the simulation using the `collector` attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead. \n"
       ],
-      "id": "8e437d2e"
+      "id": "99246821"
     },
     {
       "cell_type": "code",
@@ -221,7 +212,7 @@
         "walk_report = model.collector.get_agent_vars_dataframe()\n",
         "walk_report.head()"
       ],
-      "id": "21320fd5",
+      "id": "41561a4a",
       "execution_count": null,
       "outputs": []
     },
@@ -233,7 +224,7 @@
         "\n",
         "First, we can compute the fraction of time that the agent spent on each node: \n"
       ],
-      "id": "8a4b7620"
+      "id": "cb7c0b2e"
     },
     {
       "cell_type": "code",
@@ -243,7 +234,7 @@
         "freqs = counts / sum(counts)\n",
         "freqs.head()"
       ],
-      "id": "178a75fe",
+      "id": "1b070dfd",
       "execution_count": null,
       "outputs": []
     },
@@ -253,7 +244,7 @@
       "source": [
         "Now we can compute the degree sequence and stationary distribution of the underlying graph: "
       ],
-      "id": "72df094c"
+      "id": "d75571b9"
     },
     {
       "cell_type": "code",
@@ -262,7 +253,7 @@
         "degs = [G.degree(i) for i in freqs.index]\n",
         "stationary_dist = degs / np.sum(degs)"
       ],
-      "id": "a0a09a9e",
+      "id": "77a431ae",
       "execution_count": null,
       "outputs": []
     },
@@ -272,7 +263,7 @@
       "source": [
         "Finally, we can plot and see whether the prediction lines up with the observation: \n"
       ],
-      "id": "b1b2589d"
+      "id": "7834e9d8"
     },
     {
       "cell_type": "code",
@@ -291,7 +282,7 @@
         "\n",
         "plt.legend()"
       ],
-      "id": "6c10b3b8",
+      "id": "299b99ac",
       "execution_count": null,
       "outputs": []
     },
@@ -305,7 +296,7 @@
         "\n",
         "The reason that we parameterized the `RWModel` class with the argument `agent_class` is that we can now implement PageRank just by modifying the agent behavior. Let's now make a new kind of agent that does the PageRank step: \n"
       ],
-      "id": "02fcbb84"
+      "id": "89a8724a"
     },
     {
       "cell_type": "code",
@@ -314,7 +305,7 @@
         "class PageRankAgent(Agent):\n",
         "\n",
         "    def __init__(self, model, alpha):\n",
-        "        super().__init__(self, model)\n",
+        "        super().__init__(model)\n",
         "        self.alpha = alpha\n",
         "\n",
         "    def step(self):\n",
@@ -325,10 +316,10 @@
         "                                                include_center = False)\n",
         "\n",
         "        # pick a random one and go there\n",
-        "        new_node = self.random.choice(options)\n",
+        "        new_node = np.random.choice(options)\n",
         "        self.model.grid.move_agent(self, new_node)"
       ],
-      "id": "e01e8fa2",
+      "id": "20bd859f",
       "execution_count": null,
       "outputs": []
     },
@@ -338,7 +329,7 @@
       "source": [
         "That's all we need to do in order to implement PageRank in this graph. Let's go ahead and run PageRank."
       ],
-      "id": "a3e85a2a"
+      "id": "b6808c74"
     },
     {
       "cell_type": "code",
@@ -349,7 +340,7 @@
         "for i in range(100000):\n",
         "    pagerank_model.step()"
       ],
-      "id": "c0e0580f",
+      "id": "436710cf",
       "execution_count": null,
       "outputs": []
     },
@@ -359,7 +350,7 @@
       "source": [
         "That's it! Now we could check the match with the stationary distribution like we did last time. Instead, let's simply draw the graph. \n"
       ],
-      "id": "58433b3a"
+      "id": "de88da50"
     },
     {
       "cell_type": "code",
@@ -374,7 +365,7 @@
         "        node_size = [2000*freqs[i] for i in G.nodes], \n",
         "        edge_color = \"grey\")"
       ],
-      "id": "9e9a2de0",
+      "id": "04920f47",
       "execution_count": null,
       "outputs": []
     },
@@ -386,7 +377,7 @@
         "\n",
         "Now let's consider our first multi-agent model, the *voter model*. [In fact, there are many different models that are all called \"the\" voter model. The one we'll discuss here is the simplest and most common.]{.aside}\n"
       ],
-      "id": "ef931018"
+      "id": "bc58b960"
     },
     {
       "cell_type": "code",
@@ -399,14 +390,15 @@
         "    # model setup\n",
         "    def __init__(self, G, agent_class, possible_states = [0,1], state_density = [0.5, 0.5]):\n",
         "\n",
-        "        self.schedule = RandomActivation(self) # time structure\n",
+        "        super().__init__()\n",
+        "        # self.schedule = RandomActivation(self) # time structure\n",
         "        self.grid = NetworkGrid(G)            # space structure\n",
         "        \n",
         "        for node in list(G.nodes):\n",
         "            state = np.random.choice(possible_states, p = state_density)\n",
-        "            agent = agent_class(node, self, state)\n",
+        "            agent = agent_class(self, state)\n",
         "            self.grid.place_agent(agent, node)\n",
-        "            self.schedule.add(agent)\n",
+        "            # self.schedule.add(agent)\n",
         "\n",
         "        self.collector = DataCollector(\n",
         "            agent_reporters = {\n",
@@ -415,10 +407,11 @@
         "        )\n",
         "\n",
         "    def step(self):\n",
-        "        self.schedule.step()\n",
+        "        # self.schedule.step()\n",
+        "        self.agents.shuffle_do(\"step\")\n",
         "        self.collector.collect(self)"
       ],
-      "id": "dd117d3d",
+      "id": "ca53d207",
       "execution_count": null,
       "outputs": []
     },
@@ -428,8 +421,8 @@
       "source": [
         "class CompartmentalAgent(Agent):\n",
         "\n",
-        "    def __init__(self, agent_id, model, state):\n",
-        "        super().__init__(agent_id, model)\n",
+        "    def __init__(self, model, state):\n",
+        "        super().__init__(model)\n",
         "        self.state = state\n",
         "\n",
         "    def step(self):\n",
@@ -442,7 +435,7 @@
         "\n",
         "        self.state = adopt_from.state"
       ],
-      "id": "bdf9a700",
+      "id": "2fcd414c",
       "execution_count": null,
       "outputs": []
     },
@@ -460,7 +453,7 @@
         "\n",
         "plt.gca().set(xlabel = \"Timestep\", ylabel = \"% of nodes with opinion 1\")"
       ],
-      "id": "d9a8116f",
+      "id": "757ebaab",
       "execution_count": null,
       "outputs": []
     },
@@ -470,7 +463,7 @@
       "source": [
         "## References"
       ],
-      "id": "11d8f9af"
+      "id": "808f07eb"
     }
   ],
   "metadata": {
@@ -478,7 +471,7 @@
       "name": "python3",
       "language": "python",
       "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "path": "/Users/philchodrow/opt/anaconda3/share/jupyter/kernels/python3"
     }
   },
   "nbformat": 4,

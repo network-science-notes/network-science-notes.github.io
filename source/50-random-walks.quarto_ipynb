@@ -259,7 +259,7 @@
         "\n",
         "Let's code up a quick example to visualize PageRank. We'll use the Hamilton Mentions graph: \n"
       ],
-      "id": "ff1eaf31"
+      "id": "67cb19f9"
     },
     {
       "cell_type": "code",
@@ -280,7 +280,7 @@
         "                            edge_attr=None, \n",
         "                            create_using=nx.DiGraph())"
       ],
-      "id": "ce7acfb3",
+      "id": "29d7390f",
       "execution_count": null,
       "outputs": []
     },
@@ -290,7 +290,7 @@
       "source": [
         "There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph. \n"
       ],
-      "id": "59ec54a4"
+      "id": "0fdc9715"
     },
     {
       "cell_type": "code",
@@ -299,7 +299,7 @@
         "for i in range(2):\n",
         "    G = G.subgraph([name for name, val in G.out_degree() if val > 0])"
       ],
-      "id": "cac5287a",
+      "id": "f7c55153",
       "execution_count": null,
       "outputs": []
     },
@@ -309,7 +309,7 @@
       "source": [
         "Now we can write our PageRank function. We'll compute the transition matrix $\\mathbf{P}$ and find its leading eigenvector. \n"
       ],
-      "id": "fd24e702"
+      "id": "7a91f3c7"
     },
     {
       "cell_type": "code",
@@ -332,7 +332,7 @@
         "    pi = np.abs(pi) / np.abs(pi).sum()\n",
         "    return pi"
       ],
-      "id": "876770d5",
+      "id": "99fddf73",
       "execution_count": null,
       "outputs": []
     },
@@ -350,7 +350,7 @@
         "            node_color = \"lavender\",\n",
         "            edgecolors  = \"darkgray\")"
       ],
-      "id": "d3d4821e",
+      "id": "5f3bb8b7",
       "execution_count": null,
       "outputs": []
     },
@@ -360,7 +360,7 @@
       "source": [
         "Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector $\\mathbf{v}$ and the teleportation rate $\\alpha$: \n"
       ],
-      "id": "c1847332"
+      "id": "201ff05b"
     },
     {
       "cell_type": "code",
@@ -372,7 +372,7 @@
         "v = 1/n*np.ones(n)\n",
         "draw_pagerank(G, v, layout, alpha = 0.1)"
       ],
-      "id": "7b485abf",
+      "id": "207c7c2e",
       "execution_count": null,
       "outputs": []
     },
@@ -384,7 +384,7 @@
         "\n",
         "A useful feature of the way we've defined PageRank is that we can choose different teleportation vectors $\\mathbf{v}$ in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector $\\mathbf{v}$ to highlight those specific characters. This approach is often called \"personalized\" or \"seeded\" PageRank. \n"
       ],
-      "id": "21ce7a9c"
+      "id": "5f966656"
     },
     {
       "cell_type": "code",
@@ -393,7 +393,7 @@
         "v = np.array([1 if i == \"kingGeorge\" else 0 for i in list(G.nodes())])\n",
         "draw_pagerank(G, v, layout, alpha = 0.1)"
       ],
-      "id": "3e3d6d01",
+      "id": "6ecf219d",
       "execution_count": null,
       "outputs": []
     },
@@ -405,7 +405,7 @@
         "\n",
         "This kind of idea is often applied in marketing and search. Suppose we know that a user is interested in site $A$. Then, if that user searches for something online, we can use that information by computing a PageRank ranking and returning the top nodes, *using a biased teleportation vector*. This would allow us to balance the objectives of returning webpages that are relevant *overall* and webpages that are especially relevant *for that user*.\n"
       ],
-      "id": "e15fafc4"
+      "id": "20c6ddbc"
     }
   ],
   "metadata": {
@@ -413,7 +413,7 @@
       "name": "python3",
       "language": "python",
       "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "path": "/Users/philchodrow/opt/anaconda3/share/jupyter/kernels/python3"
     }
   },
   "nbformat": 4,

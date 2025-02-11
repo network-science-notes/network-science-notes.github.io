@@ -6,7 +6,6 @@
       "source": [
         "---\n",
         "code-fold: false\n",
-        "jupyter: python3\n",
         "bibliography: ../refs.bib\n",
         "---\n",
         "\n",
@@ -76,7 +75,7 @@
         "\n",
         "Let's implement the cut and volume functions in Python given an adjacency matrix $\\mA$ and a partition $(C_0, C_1)$ encoded as a vector $\\vz \\in \\braces{0,1}^n$. First, we'll load some libraries and grab a graph for clustering: \n"
       ],
-      "id": "7148ba0c"
+      "id": "bd14cc89"
     },
     {
       "cell_type": "code",
@@ -95,7 +94,7 @@
         "G = unweight(nx.karate_club_graph())\n",
         "A = nx.to_numpy_array(G)"
       ],
-      "id": "67e70929",
+      "id": "c360a916",
       "execution_count": null,
       "outputs": []
     },
@@ -105,7 +104,7 @@
       "source": [
         "Now we'll implement the cut and volume. \n"
       ],
-      "id": "ad5077e9"
+      "id": "34cddc46"
     },
     {
       "cell_type": "code",
@@ -119,7 +118,7 @@
         "    return np.sum(A[z == i])\n",
         "#---"
       ],
-      "id": "2b0b2b00",
+      "id": "1971726a",
       "execution_count": null,
       "outputs": []
     },
@@ -129,7 +128,7 @@
       "source": [
         "To get a feel for things, let's see how cut scores look for two clusterings, one of which looks \"visually pretty good\" and one of which is completely random. \n"
       ],
-      "id": "6264e822"
+      "id": "e9b248d4"
     },
     {
       "cell_type": "code",
@@ -152,7 +151,7 @@
         "t = ax[0].set_title(fr'\"Good\" clustering: $cut(C_0, C_1)$ = {cut(A, z):.0f}' + \"\\n\" +   fr'$vol(C_0)$ = {vol(A, z, 0):.0f},   $vol(C_1)$ = {vol(A, z, 1):.0f}')\n",
         "t = ax[1].set_title(fr'Random clustering: $cut(C_0, C_1)$ = {cut(A, z_rand):.0f}' + \"\\n\" +   fr'$vol(C_0)$ = {vol(A, z_rand, 0):.0f},   $vol(C_1)$ = {vol(A, z_rand, 1):.0f}')"
       ],
-      "id": "14a709f5",
+      "id": "c502c683",
       "execution_count": null,
       "outputs": []
     },
@@ -213,7 +212,7 @@
         "\n",
         "Let's implement the normalized cut and check that it gives a lower score to the \"good\" clustering than to the random clustering: \n"
       ],
-      "id": "d4c80647"
+      "id": "0c500686"
     },
     {
       "cell_type": "code",
@@ -224,7 +223,7 @@
         "    return cut(A, z)*(1/vol(A, z, 0) + 1/vol(A, z, 1))\n",
         "#---"
       ],
-      "id": "c76f2569",
+      "id": "696c7ccb",
       "execution_count": null,
       "outputs": []
     },
@@ -235,7 +234,7 @@
         "print(f\"NormCut of good clustering: {norm_cut(A, z):.2f}\")\n",
         "print(f\"NormCut of random clustering: {norm_cut(A, z_rand):.2f}\")"
       ],
-      "id": "e8b8e143",
+      "id": "46101649",
       "execution_count": null,
       "outputs": []
     },
@@ -489,7 +488,7 @@
         "\n",
         "Let's go ahead and implement this algorithm. The centerpiece of our implementation is a function that accepts a graph $G$ and returns the eigenvector $\\vy_2$. This eigenvector is often called the *Fielder eigenvector* of the graph after [Miroslav Fiedler](https://en.wikipedia.org/wiki/Miroslav_Fiedler), who pioneered the idea that the eigenvalues of the Laplacian could be used to study the connectivity structure of graphs. \n"
       ],
-      "id": "67b8c4b0"
+      "id": "94380c53"
     },
     {
       "cell_type": "code",
@@ -505,7 +504,7 @@
         "    return eigvecs[:, 1]\n",
         "#---"
       ],
-      "id": "43d06cb8",
+      "id": "88c6e83c",
       "execution_count": null,
       "outputs": []
     },
@@ -515,7 +514,7 @@
       "source": [
         "Let's try computing the Fiedler eigenvector on the karate club graph: \n"
       ],
-      "id": "522539aa"
+      "id": "dde7991c"
     },
     {
       "cell_type": "code",
@@ -525,7 +524,7 @@
         "fiedler = fiedler_eigenvector(G)\n",
         "#---"
       ],
-      "id": "ba1d08ef",
+      "id": "45b011b2",
       "execution_count": null,
       "outputs": []
     },
@@ -535,7 +534,7 @@
       "source": [
         "And now let's visualize it! \n"
       ],
-      "id": "275a522a"
+      "id": "c274d6d3"
     },
     {
       "cell_type": "code",
@@ -544,7 +543,7 @@
         "fig, ax = plt.subplots(1, 1, figsize = (4.5, 3.75))\n",
         "nx.draw(G, pos, ax = ax, node_color = fiedler, cmap = plt.cm.BrBG, node_size = 100, edgecolors = 'black', vmin = -0.2, vmax = 0.2)"
       ],
-      "id": "9d9ccb20",
+      "id": "13447e8a",
       "execution_count": null,
       "outputs": []
     },
@@ -554,7 +553,7 @@
       "source": [
         "We can think of the Fiedler eigenvector as returning a \"soft\" clustering that gives each node a score rather than a fixed label. We can obtain labels by thresholding according to sign: \n"
       ],
-      "id": "a7442c50"
+      "id": "98d1a490"
     },
     {
       "cell_type": "code",
@@ -567,7 +566,7 @@
         "\n",
         "t = ax.set_title(fr'Laplacian clustering: $cut(C_0, C_1)$ = {cut(A, z_fiedler):.0f}' + \"\\n\" +   fr'$vol(C_0)$ = {vol(A, z_fiedler, 0):.0f},   $vol(C_1)$ = {vol(A, z_fiedler, 1):.0f}')"
       ],
-      "id": "70ad3e7a",
+      "id": "284eac88",
       "execution_count": null,
       "outputs": []
     },
@@ -589,7 +588,7 @@
         "\n",
         "The row $\\vy_i = [v_{i1}, v_{i2}, \\ldots, v_{ik}]$ of $\\mY$ can be thought of as a set of spatial (Euclidean) coordinates for node $i$. We can then use a Euclidean clustering algorithm like $k$-means in the space of these coordinates in order to obtain a final clustering. \n"
       ],
-      "id": "d8b755f0"
+      "id": "810e41ff"
     },
     {
       "cell_type": "code",
@@ -615,7 +614,7 @@
         "    KM.fit(Y)\n",
         "    return KM.labels_"
       ],
-      "id": "a09826c7",
+      "id": "91998fdb",
       "execution_count": null,
       "outputs": []
     },
@@ -625,7 +624,7 @@
       "source": [
         "Let's try this on the Les Mis graph! \n"
       ],
-      "id": "65fc6ace"
+      "id": "f0891ffb"
     },
     {
       "cell_type": "code",
@@ -639,7 +638,7 @@
         "\n",
         "nx.draw(G, ax = ax, cmap = plt.cm.Set3, node_color = labels, node_size = 100, edgecolors = 'black')"
       ],
-      "id": "a09e791a",
+      "id": "ee40c6ca",
       "execution_count": null,
       "outputs": []
     },
@@ -659,15 +658,15 @@
         "\n",
         "## References\n"
       ],
-      "id": "41ae7f53"
+      "id": "a5be7bbf"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "python2",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "Python 2",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/python2"
     }
   },
   "nbformat": 4,

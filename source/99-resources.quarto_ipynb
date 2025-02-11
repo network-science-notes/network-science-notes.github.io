@@ -45,7 +45,7 @@
         "\n",
         "## References\n"
       ],
-      "id": "d807e1ae"
+      "id": "c1025cb4"
     }
   ],
   "metadata": {
@@ -53,7 +53,7 @@
       "name": "python3",
       "language": "python",
       "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "path": "/Users/philchodrow/opt/anaconda3/share/jupyter/kernels/python3"
     }
   },
   "nbformat": 4,

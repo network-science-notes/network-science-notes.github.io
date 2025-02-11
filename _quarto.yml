@@ -5,6 +5,7 @@ project:
     - "lecture-scripts/*"
     - "assignments"
     - "lecture-notes/*.ipynb"
+
 book: 
   title: "Network Science: Models, Mathematics, and Computation"
   # author: "Heather Zinn Brooks and Phil Chodrow"
@@ -29,14 +30,9 @@ format:
     fig-cap-location: margin
     highlight-style: atom-one
 
-
-
-
-
-
 execute: 
   cache: false
-  jupyter: python3
+  jupyter: env
 
 profile:
   group: 

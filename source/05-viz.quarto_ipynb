@@ -7,7 +7,6 @@
         "---\n",
         "fig-cap-location: margin\n",
         "code-fold: false\n",
-        "jupyter: python3\n",
         "cache: true\n",
         "---\n",
         "\n",
@@ -16,7 +15,7 @@
         "\n",
         "We've drawn networks several times in this course so far. Here's one of our favorite running examples, the Karate Club graph. Here's two ways to draw it. On the right, we've drawn the graph by assigning every node to a location in the unit square $[0,1]^2$ uniformly at random. On the right, we have used the default layout algorithm in NetworkX, which is invoked automatically when we call `nx.draw`.\n"
       ],
-      "id": "d6224efd"
+      "id": "1c998065"
     },
     {
       "cell_type": "code",
@@ -47,7 +46,7 @@
         "\n",
         "nx.draw(G, pos = random_layout(G), ax = ax[0], **draw_kwargs)"
       ],
-      "id": "219b663d",
+      "id": "3e714d65",
       "execution_count": null,
       "outputs": []
     },
@@ -70,7 +69,7 @@
         "\n",
         "This elegant algorithm is important enough to be implemented in NetworkX: it's `nx.spectral_layout`. But we can implement a full version (for connected graphs) of it ourselves. \n"
       ],
-      "id": "4a66ae30"
+      "id": "8172be8c"
     },
     {
       "cell_type": "code",
@@ -90,7 +89,7 @@
         "v = np.column_stack([v_1, v_2])\n",
         "#---"
       ],
-      "id": "879035e6",
+      "id": "cbf8d7eb",
       "execution_count": null,
       "outputs": []
     },
@@ -100,7 +99,7 @@
       "source": [
         "How'd we do?\n"
       ],
-      "id": "ae93d02b"
+      "id": "6fc354c3"
     },
     {
       "cell_type": "code",
@@ -108,7 +107,7 @@
       "source": [
         "nx.draw(G, pos = {i: v[i] for i in range(G.number_of_nodes())}, **draw_kwargs)"
       ],
-      "id": "80be461f",
+      "id": "12517f6d",
       "execution_count": null,
       "outputs": []
     },
@@ -149,7 +148,7 @@
         "\n",
         "This objective function is also sometimes called an \"energy\" of the problem. Let's implement a function that computes the energy, given a matrix of distances $\\mathbf{D}$ and a matrix of node positions $\\mathbf{X}$.\n"
       ],
-      "id": "49996e4c"
+      "id": "68854371"
     },
     {
       "cell_type": "code",
@@ -164,7 +163,7 @@
         "    return np.sum([(np.linalg.norm(x - X[j]) - D[k, j])**2 for j in range(G.number_of_nodes())])\n",
         "#---"
       ],
-      "id": "5822d5ee",
+      "id": "7b7af9ab",
       "execution_count": null,
       "outputs": []
     },
@@ -179,7 +178,7 @@
         "\n",
         "We cycle through all the nodes, updating each of them, and then we repeat the process for some specified number of iterations. First, let's visualize how this looks. Then, we'll implement this algorithm ourselves. \n"
       ],
-      "id": "eeabaad2"
+      "id": "c46cba23"
     },
     {
       "cell_type": "code",
@@ -199,7 +198,7 @@
         "        X[k] = res.x\n",
         "plt.tight_layout()"
       ],
-      "id": "9ffa2c20",
+      "id": "6624f41c",
       "execution_count": null,
       "outputs": []
     },
@@ -211,7 +210,7 @@
         "\n",
         "Ok, time to implement!\n"
       ],
-      "id": "d7d84db2"
+      "id": "2cb2be6d"
     },
     {
       "cell_type": "code",
@@ -239,7 +238,7 @@
         "    return X\n",
         "#---"
       ],
-      "id": "dbd6d9f1",
+      "id": "9fc9045a",
       "execution_count": null,
       "outputs": []
     },
@@ -249,7 +248,7 @@
       "source": [
         "Let's try it out: \n"
       ],
-      "id": "9495e3e4"
+      "id": "0a8f7e36"
     },
     {
       "cell_type": "code",
@@ -260,7 +259,7 @@
         "nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)\n",
         "#---"
       ],
-      "id": "508dee78",
+      "id": "d61fac21",
       "execution_count": null,
       "outputs": []
     },
@@ -272,7 +271,7 @@
         "\n",
         "The results are not always reliable; if we check the Les Miserables graph, we might argue that a lot of the nodes in the dense center of the graph are a little too squished together: \n"
       ],
-      "id": "cb5ac3ca"
+      "id": "4b94ddda"
     },
     {
       "cell_type": "code",
@@ -282,7 +281,7 @@
         "X = optimization_layout(G, n_iter = 10)\n",
         "nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)"
       ],
-      "id": "493f9c41",
+      "id": "5279120e",
       "execution_count": null,
       "outputs": []
     },
@@ -302,7 +301,7 @@
         "\n",
         "The implementation here is very similar to our unweighted implementation: \n"
       ],
-      "id": "891d715d"
+      "id": "6128077b"
     },
     {
       "cell_type": "code",
@@ -335,7 +334,7 @@
         "X = optimization_layout_weighted(G, n_iter = 10)\n",
         "nx.draw(G, pos = {i: X[i] for i in range(G.number_of_nodes())}, **draw_kwargs)"
       ],
-      "id": "760002f4",
+      "id": "ffe26b19",
       "execution_count": null,
       "outputs": []
     },
@@ -373,7 +372,7 @@
         "\n",
         "The right way to visualize the structure of your network is *very* context-dependent, and there are many, many possibilities. Here we'll point out just one: the adjacency matrix. This is a common strategy for visualizing networks that separate into one or more distinct clusters, sometimes also called \"communities.\" For example, simply inspecting the adjacency matrix of the Les Miserables graph can reveal a lot about its structure: \n"
       ],
-      "id": "4beea0ce"
+      "id": "6f951679"
     },
     {
       "cell_type": "code",
@@ -385,7 +384,7 @@
         "A = nx.to_numpy_array(G)\n",
         "plt.imshow(A, cmap = \"Greys\", vmax = 1.2)"
       ],
-      "id": "843e0c98",
+      "id": "726f7ef3",
       "execution_count": null,
       "outputs": []
     },
@@ -399,15 +398,15 @@
         "\n",
         "## References"
       ],
-      "id": "b0bbf0f7"
+      "id": "bd36a649"
     }
   ],
   "metadata": {
     "kernelspec": {
-      "name": "python3",
+      "name": "python2",
       "language": "python",
-      "display_name": "Python 3 (ipykernel)",
-      "path": "/Users/philchodrow/opt/anaconda3/envs/ml-0451/share/jupyter/kernels/python3"
+      "display_name": "Python 2",
+      "path": "/Users/philchodrow/Library/Jupyter/kernels/python2"
     }
   },
   "nbformat": 4,

@@ -1,7 +1,6 @@
 ---
 fig-cap-location: margin
 code-fold: false
-jupyter: python3
 cache: true
 ---
 
