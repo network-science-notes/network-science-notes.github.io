@@ -537,7 +537,6 @@ plot_centrality(G, pos, betweenness)
 
 The many loops required to construct this vector suggest the challenges associated with computing the betweennecess centrality in large graphs. 
 
-
 This centrality measure seems to have originated from @freeman1977set. There are many additional variants and generalizations of betweenness centrality that can be found in the literature.
 
 ## References

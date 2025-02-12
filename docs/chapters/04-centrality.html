@@ -398,7 +398,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04-centrality.html">Measuring Networks</a></li><li class="breadcrumb-item"><a href="../chapters/04-centrality.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></h1>
+</div>
 </div>
 
 
@@ -445,7 +445,7 @@ Exercise
 </div>
 </div>
 <p>Let’s visualize degree centrality in the Zachary karate club network. In the hidden code cell below, we import some libraries, acquire the data, and define a useful plotting function that will make it easy to visualize different centrality measures on this network.</p>
-<div id="1b48ec85" class="cell" data-execution_count="1">
+<div id="d45fe51f" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -893,7 +893,7 @@ Figure&nbsp;4.6: Visualiation of closeness centrality. Node size and color are p
 </div>
 <p>Direction of travel is accounted for in this definition, and so this can be used without modification in directed networks.</p>
 <p>Computation of betweenness centrality requires that we enumerate all shortest paths between all pairs of nodes in the graph. This is often computationally prohibitive, although for a small network like this one it’s not too bad.</p>
-<div id="e17ba552" class="cell" data-execution_count="8">
+<div id="091e152d" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>paths <span class="op">=</span> <span class="bu">list</span>(nx.all_pairs_all_shortest_paths(G))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># example of how to access the paths between a specific pair of nodes</span></span>
@@ -949,6 +949,8 @@ Figure&nbsp;4.7: Visualiation of Betweenness centrality. Node size and color are
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
+
+<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bavelas1950communication" class="csl-entry" role="listitem">
@@ -1071,6 +1073,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1413,7 +1466,541 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks, and Why You Shouldn’t</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-summary:</span><span class="co"> "Show code"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> env</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># Centrality and Importance</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/04-centrality.ipynb).* </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>In many connected systems, we might want to develop some measure of the *relative importance* of different nodes. Maybe we have reason to believe that some node is especially structurally important: a super spreader in a disease model; a key influence broker in a social network; a critical hub in a transportation network. </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>So, how do we find important nodes? The answer, naturally, depends on *how* we define importance! Historically, the idea of importance in networks has often been expressed in terms of *centrality*: nodes that are *central* to the network are the ones which are considered to be important. We'll follow tradition in using the term "centrality," although we should keep in mind that the idea of "centrality" is a bit metaphorical and that we're not really talking about nodes being in the "middle" of anything. </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>As our general setup, we'll consider a centrality measure to be a function $f$ which assigns to each node $i$ in a graph $G$ a score $c_i$. We'll collect these scores into a vector $\mathbf{c}$, and so we can think about a centrality measure as a computation $\mathbf{c} = f(G)$. We'll call this vector $\mathbf{c}$ the *centrality vector*. Our discussion below will show several different ways to define the function $f$, which will in turn influence how we interpret the vector $\mathbf{c}$. [Typically, we won't worry too much about the *exact* values of the vector $\mathbf{c}$; often we're just interested in the relative ordering.]{.aside}</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>Depending on the application, having good answers to the question of importance could help determine how to target interventions, predict how diseases or information might spread, or create rankings and search algorithms. @boldi2014axioms provide a good historical account of centrality measures, as well as a useful mathematical exploration of their properties.</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Degree Centrality</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>One natural definition of importance would be to suppose that important nodes have lots of connections to other nodes. Conveniently, we already have a way to measure this quantity: this is the degree!</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>Suppose that we have an undirected graph on $n$ nodes. We can define the degree vector $\mathbf{k} = (k_1, k_2, \ldots, k_n)$, where $k_i$ is the degree of node $i$. We can then simply set the *degree centrality* vector $\mathbf{c}_{\text{deg}}$ as the degree vector: $\mathbf{c}_{\text{deg}} = \mathbf{k}$.</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>Since we're really just talking about the degree vector, we end up with a simple matrix-vector calculation of $\mathbf{c}_{\text{deg}}$:</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    {\bf c}_{\mathrm{deg}} = {\bf A}{\bf 1}</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>$${#eq-degree-centrality}</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>where ${\bf 1}$ is the vector containing all ones.</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>::: {.callout-important icon=false appearance="minimal"}</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>Let $\mathbf{D}$ be the diagonal matrix of degrees. Prove that, provided that every node has degree at least 1, @eq-degree-centrality is equivalent to the statement that $\mathbf{c}_{\mathrm{deg}}$ is an eigenvector of the matrix $\mathbf{A} \mathbf{D}^{-1}$ with eigenvalue $1$. </span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>::: </span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>Let's visualize degree centrality in the Zachary karate club network. In the hidden code cell below, we import some libraries, acquire the data, and define a useful plotting function that will make it easy to visualize different centrality measures on this network. </span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.karate_club_graph())</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"with_labels"</span>: <span class="va">True</span>,</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"node_size"</span>: <span class="dv">400</span>,</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a>    <span class="st">"font_size"</span>: <span class="dv">8</span>,</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a>    <span class="st">"edge_color"</span>: <span class="st">"gray"</span>,</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>    <span class="st">"edgecolors"</span>: <span class="st">"white"</span>,</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cmap"</span> : <span class="st">"Blues"</span>,</span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>    <span class="st">"width"</span> : <span class="fl">0.3</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.kamada_kawai_layout(G)</span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_centrality(G, pos, c): </span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a>    font_color <span class="op">=</span> {i : [<span class="st">"black"</span>, <span class="st">"white"</span>][<span class="bu">int</span>(c[i] <span class="op">&gt;</span> <span class="fl">0.8</span><span class="op">*</span>c.<span class="bu">max</span>())] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(c))}</span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, pos, <span class="op">**</span>plot_kwargs, node_color <span class="op">=</span> c, font_color <span class="op">=</span> font_color)</span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>Now we'll compute the degree centrality (using the <span class="in">`nx.degree_centrality`</span> builtin) and visualize it on the network.</span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Degree centrality in Zachary's Karate Club. Color indicates centrality: nodes in darker blue have higher centrality."</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-degree-centrality</span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a><span class="co">## Degree</span></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>deg <span class="op">=</span> nx.degree_centrality(G)</span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>deg <span class="op">=</span> np.array([deg[i] <span class="cf">for</span> i <span class="kw">in</span> deg.keys()])</span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>plot_centrality(G, pos, deg)</span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a>The most central (highest degree) nodes are nodes 0 and 33. In this history of this club, node 0 was the chief instructor (pseudonym: "Mr. Hi"), while node 33 was the president of the club. These two nodes eventually led the factions that split into separate karate clubs. </span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>It is also possible to define degree centrality for directed networks. We can use either in- or out-degree as centrality measures, depending on what is useful for the context or application.</span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### Advantages and Disadvantages</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>Degree centrality is quick to calculate and interpret, which makes it an attractive choice of centrality measure. The link between network structure and centrality is very clear.</span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a>However, there's an important idea which isn't really captured by degree centrality. What if you have a *lot* of connections, but the nodes you're connected to aren't themselves very important? Conversely, what if you have very few connections, but the connections you have are to especially important nodes? <span class="co">[</span><span class="ot">For example, if I have two friends, you may view me as more important if my two friends are Beyonc\'{e} and Taylor Swift than if they were two people you had never heard of. </span><span class="co">]</span>{.aside}</span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Eigenvector Centrality</span></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a>**Eigenvector centrality** is our first expression of the idea that the importance of a node is related not only to the *number* of neighbors of that node, but also the importance of those neighbors. The idea is to weight each connection for a node by the centrality of the adjacent neighbor. In this way, high centrality is achieved either by having lots of connections, or by having a few important connections.</span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a>Suppose we have an undirected network with $n$ nodes. We calculate the centrality $c_i$ of node $i$ by summing the centralities of its neighbors. We'll incorporate a constant of proportionality $\frac{1}{r}$ for some $r &gt; 0$; we'll see why this is necessary in a moment.  This gives the equation </span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>    c_i &amp;= \frac{1}{r}\sum_{j \in \text{neighbors of } i} c_j \, <span class="sc">\\</span></span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{r} \sum_{j=1}^n A_{ij}c_j \,.</span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a>$$ {#eq-eigenvector}</span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a>Let ${\bf c}_{\mathrm{eig}}$ be our new centrality vector. We can recognize the righthand side as $\frac{1}{r} \mathbf{A} \mathbf{c}_{\mathrm{eig}}$, so our equation describing $\mathbf{c}_{\mathrm{eig}}$ is </span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a>    {\bf c}_{\mathrm{eig}} = \frac{1}{r}{\bf A}{\bf c}_{\mathrm{eig}} \implies r{\bf c}_{\mathrm{eig}} = {\bf A}{\bf c}_{\mathrm{eig}} \,.</span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>Now the name of this centrality measure is very clear: ${\bf c}_{\mathrm{eig}}$ is an eigenvector of ${\bf A}$ with associated eigenvalue $r$!</span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a>This leads us to a challenge: which eigenvector should we choose? We have up to $n$ linearly independent eigenvectors to choose from, as well as linear combinations of these, so our task of making a meaningful choice seems quite daunting. One reasonable requirement is that we'd like our centrality scores to be nonnegative. Will we always be able to find such an eigenvector for any graph?</span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a>Fortunately, we have a powerful theorem that can help us with this task.</span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- </span><span class="al">###</span><span class="co"> Perron--Frobenius --&gt;</span></span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip icon=false collapse=true}</span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a>::: {#thm-perron-frobenius}</span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Perron--Frobenius </span></span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a>Let $\mathbf{M} \in \mathbb{R}^{n\times n}$ be a matrix with nonnegative entries. Then: </span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$\mathbf{M}$ has a nonnegative eigenvector with corresponding positive eigenvalue.</span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>If $\mathbf{M}$ is an adjacency matrix for a (strongly) connected network, then the eigenvector is unique and strictly positive, and the corresponding eigenvalue is the largest eigenvalue of $\mathbf{M}$.</span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>We won't reproduce the entire proof here. @horn2012matrix provides a comprehensive discussion of the proof of this theorem. @keener1993perron also provides a concise proof and interesting applications to ranking.</span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a>From the Perron--Frobenius theorem, we know we are guaranteed to have at least one nonnegative eigenvector for $\mathbf{A}$. This is good news! For the case where we have a strongly connected graph, then we have a nice *unique* answer to our problem. We should choose an eigenvector associated with the largest eigenvalue (i.e., the *leading eigenvalue*). Notice that an scalar multiple of this eigenvector will also work, as the relative rankings of nodes is still preserved. Many people will choose to use a normalized eigenvector for convenience.</span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a>::: {#def-eigenvector-centrality}</span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Eigenvector Centrality</span></span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>For a connected undirected graph (or strongly connected directed graph), the **eigenvector centrality vector** ${\bf c}_{\mathrm{eig}}$ is the eigenvector corresponding to the unique largest eigenvalue of $\mathbf{A}$. This means that ${\bf c}_{\mathrm{eig}}$ and $r$ satisfy the equation </span>
+<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a>    r{\bf c}_{eig} = {\bf A}{\bf c}_{eig} \,</span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a>where $r$ is the leading eigenvalue of $A$. </span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a>When multiple connected components exist in an undirected graph (or multiple strongly connected components in a directed graph), the second statement of @thm-perron-frobenius does not apply. However, we can still calculate the eigenvector centrality of each component separately, as each strongly connected component satisfies all conditions for the theorem.</span>
+<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>Let's compute the eigenvector centrality of the Zachary karate club network and visualize it. <span class="co">[</span><span class="ot">We could also have done this using the `nx.eigenvector_centrality()` built-in function.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Visualiation of eigevector centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. Compare and contrast with the visualization for degree centrality in the same network. What do you notice?"</span></span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-eig-centrality</span></span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a><span class="co">## Eigenvector centrality</span></span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a><span class="co"># first, we extract the adjacency matrix</span></span>
+<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G) </span>
+<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the eigenvector corresponding to the largest eigenvalue</span></span>
+<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a>eigvals, eigvecs <span class="op">=</span> np.linalg.eigh(A)</span>
+<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a>eig_centrality <span class="op">=</span> eigvecs[:, np.argmax(eigvals)]</span>
+<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a><span class="co"># need to choose the sign so that all entries are positive (rather than negative)</span></span>
+<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> np.<span class="bu">all</span>(eig_centrality <span class="op">&lt;</span> <span class="dv">0</span>):</span>
+<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a>    eig_centrality <span class="op">=</span> <span class="op">-</span>eig_centrality</span>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>plot_centrality(G, pos, eig_centrality)</span>
+<span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-201"><a href="#cb10-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-202"><a href="#cb10-202" aria-hidden="true" tabindex="-1"></a>Compared to the degree centrality, nodes like 2 and 13 have higher relative centralities in the network; they don't themselves have many connections, but they connections they *do* have are to important nodes like 0 and 33. </span>
+<span id="cb10-203"><a href="#cb10-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-204"><a href="#cb10-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### Complications with Directed Networks</span></span>
+<span id="cb10-205"><a href="#cb10-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-206"><a href="#cb10-206" aria-hidden="true" tabindex="-1"></a>Unfortunately, applying eigenvector centrality in the case of directed networks can lead to issues. </span>
+<span id="cb10-207"><a href="#cb10-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-208"><a href="#cb10-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Should we focus on in-edges or out-edges? This depends on the context! In-edges correspond to right eigenvectors of $\mathbf{A}$ and and out-edges correspond to left eigenvectors of $\mathbf{A}$. In an  undirected network, $\mathbf{A}$ is symmetric and so the left and right eigenvectors are the same; when the network is directed, these eigenvectors are different and we therefore have to choose. </span>
+<span id="cb10-209"><a href="#cb10-209" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Only nodes that are in a strongly connected component of two or more nodes, or in the out-component of such a strongly connected component, have nonzero eigenvector centrality.</span>
+<span id="cb10-210"><a href="#cb10-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-211"><a href="#cb10-211" aria-hidden="true" tabindex="-1"></a>We see this second issue in the network below. </span>
+<span id="cb10-212"><a href="#cb10-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-215"><a href="#cb10-215" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-216"><a href="#cb10-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Calculate the eigenvector centrality of this network by hand. Can you see a potential problem with eigenvector centrality in directed networks?"</span></span>
+<span id="cb10-217"><a href="#cb10-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
+<span id="cb10-218"><a href="#cb10-218" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
+<span id="cb10-219"><a href="#cb10-219" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-strong-component-exercise</span></span>
+<span id="cb10-220"><a href="#cb10-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-221"><a href="#cb10-221" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb10-222"><a href="#cb10-222" aria-hidden="true" tabindex="-1"></a>DG <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb10-223"><a href="#cb10-223" aria-hidden="true" tabindex="-1"></a>DG.add_edges_from([(<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">2</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">5</span>), (<span class="dv">4</span>, <span class="dv">5</span>)])</span>
+<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-225"><a href="#cb10-225" aria-hidden="true" tabindex="-1"></a>nx.draw(DG, with_labels <span class="op">=</span> <span class="va">True</span>, arrowsize <span class="op">=</span> <span class="dv">20</span>, font_color <span class="op">=</span> <span class="st">'white'</span>, font_weight <span class="op">=</span> <span class="st">'bold'</span>, node_color <span class="op">=</span> <span class="st">"steelblue"</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>, width <span class="op">=</span> <span class="fl">0.5</span>, edge_color <span class="op">=</span> <span class="st">"grey"</span>, node_size <span class="op">=</span> <span class="dv">1000</span>, ax <span class="op">=</span> ax)</span>
+<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
+<span id="cb10-230"><a href="#cb10-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-231"><a href="#cb10-231" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise </span></span>
+<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a>The in-eigenvector-centrality of a directed network is defined by the formula </span>
+<span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-235"><a href="#cb10-235" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-236"><a href="#cb10-236" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-237"><a href="#cb10-237" aria-hidden="true" tabindex="-1"></a>    c_i &amp;= \frac{1}{r} \sum_{j \in \text{in-neighbors of } i} c_j \, <span class="sc">\\</span></span>
+<span id="cb10-238"><a href="#cb10-238" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{r} \sum_{j=1}^n A_{ji}c_j \,.</span>
+<span id="cb10-239"><a href="#cb10-239" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-240"><a href="#cb10-240" aria-hidden="true" tabindex="-1"></a>$$ {#eq-in-eigenvector}</span>
+<span id="cb10-241"><a href="#cb10-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a>This is just like @eq-eigenvector, but we specify that we are summing over all the in-neighbors of $i$. </span>
+<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a>Calculate the in-degree eigenvector centrality  of each node in @fig-strong-component-exercise, using the component-wise formula @eq-in-eigenvector.</span>
+<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## Katz Centrality</span></span>
+<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a>It would be nice to be able to generalize eigenvector centrality while being able to avoid some of the issues that arose with nodes having zero centrality if they have zero in-degree.</span>
+<span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a>We could try to introduce an intuitive fix by giving each node some centrality "for free." That is, let's try the formula </span>
+<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-260"><a href="#cb10-260" aria-hidden="true" tabindex="-1"></a>    c_i = \alpha \sum_j A_{ij}c_j + \beta \,</span>
+<span id="cb10-261"><a href="#cb10-261" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-262"><a href="#cb10-262" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-263"><a href="#cb10-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-264"><a href="#cb10-264" aria-hidden="true" tabindex="-1"></a>where $\alpha, \beta &gt; 0$ are constants. The first term follows the form we derived for eigenvector centrality, and the second is the baseline level of centrality that all nodes get, regardless of their connections.</span>
+<span id="cb10-265"><a href="#cb10-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-266"><a href="#cb10-266" aria-hidden="true" tabindex="-1"></a>Writing in matrix-vector form, we arrive at a centrality measure ${\bf c}_{\mathrm{Katz}}$ due to @katz1953new:</span>
+<span id="cb10-267"><a href="#cb10-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-268"><a href="#cb10-268" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-269"><a href="#cb10-269" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-270"><a href="#cb10-270" aria-hidden="true" tabindex="-1"></a>    {\bf c}_{\mathrm{Katz}} = \alpha A {\bf c}_{\mathrm{Katz}} + \beta {\bf 1} \,.</span>
+<span id="cb10-271"><a href="#cb10-271" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-272"><a href="#cb10-272" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-273"><a href="#cb10-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-274"><a href="#cb10-274" aria-hidden="true" tabindex="-1"></a>If $I-\alpha A$ is invertible, then we will be able to write a nice expression for ${\bf c}_{\mathrm{Katz}}$.</span>
+<span id="cb10-275"><a href="#cb10-275" aria-hidden="true" tabindex="-1"></a>We know this matrix is not invertible when $\det(I-\alpha A) = 0$, which is equivalent to the scalar multiple $\det(\frac{1}{\alpha}I - A) = 0$. We deduce that this occurs when $\lambda = \frac{1}{\alpha}$, where $\lambda$ are the eigenvalues of the adjacency matrix.</span>
+<span id="cb10-276"><a href="#cb10-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-277"><a href="#cb10-277" aria-hidden="true" tabindex="-1"></a>Thus, if we want to be safe and guarantee convergence of our centrality measure, then we should choose $\alpha &lt; \frac{1}{\lambda_1}$, where $\lambda_1$ is the largest (most positive) eigenvalue of $A$. </span>
+<span id="cb10-278"><a href="#cb10-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-279"><a href="#cb10-279" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
+<span id="cb10-280"><a href="#cb10-280" aria-hidden="true" tabindex="-1"></a>::: {#def-katz}</span>
+<span id="cb10-281"><a href="#cb10-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-282"><a href="#cb10-282" aria-hidden="true" tabindex="-1"></a><span class="fu">## Katz Centrality</span></span>
+<span id="cb10-283"><a href="#cb10-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-284"><a href="#cb10-284" aria-hidden="true" tabindex="-1"></a>Let ${\bf A}$ be the $n \times n$ adjacency matrix, ${\bf 1}$ be the $n \times 1$ vector containing all ones, and $\beta &gt; 0$ constant. The **Katz centrality** vector ${\bf c}_{\mathrm{Katz}}$ is</span>
+<span id="cb10-285"><a href="#cb10-285" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-286"><a href="#cb10-286" aria-hidden="true" tabindex="-1"></a>    {\bf c}_{\mathrm{Katz}} = \beta \left({\bf I}-\alpha {\bf A}\right)^{-1} {\bf 1} \,.</span>
+<span id="cb10-287"><a href="#cb10-287" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-288"><a href="#cb10-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-289"><a href="#cb10-289" aria-hidden="true" tabindex="-1"></a>This centrality is guaranteed to exist provided that the matrix ${\bf I}-\alpha {\bf A}$ is invertible. This is guaranteed provided that we choose $\alpha$ such that $0 &lt; \alpha &lt; \frac{1}{\lambda_1}$, where $\lambda_1$ is the leading eigenvalue of ${\bf A}.$</span>
+<span id="cb10-290"><a href="#cb10-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-291"><a href="#cb10-291" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-292"><a href="#cb10-292" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-293"><a href="#cb10-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-294"><a href="#cb10-294" aria-hidden="true" tabindex="-1"></a>Often, we will choose to set $\beta = 1$ as a convenient normalization. </span>
+<span id="cb10-295"><a href="#cb10-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-296"><a href="#cb10-296" aria-hidden="true" tabindex="-1"></a>Within the constraint $0 &lt; \alpha &lt; \frac{1}{\lambda_1}$, $\alpha$ acts like a tunable parameter: As $\alpha \to 0$, all the nodes have the same centrality. As $\alpha \to \frac{1}{\lambda_1}$ and $\beta \rightarrow 0$, we recover eigenvector centrality. </span>
+<span id="cb10-297"><a href="#cb10-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-298"><a href="#cb10-298" aria-hidden="true" tabindex="-1"></a>Let's go ahead and do an example calculation of Katz centrality for the Zachary karate club network.</span>
+<span id="cb10-299"><a href="#cb10-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-300"><a href="#cb10-300" aria-hidden="true" tabindex="-1"></a>Now let's implement Katz centrality in NetworkX. Calculate an appropriate range for $\alpha$, and then explore how varying $\alpha$ changes the centrality scores. <span class="co">[</span><span class="ot">Rather than doing the linear algebra by hand, we could also use `nx.katz_centrality()`.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-301"><a href="#cb10-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-304"><a href="#cb10-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-305"><a href="#cb10-305" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Visualiation of Katz centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. We can again compare and contrast with our previous centrality measures."</span></span>
+<span id="cb10-306"><a href="#cb10-306" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
+<span id="cb10-307"><a href="#cb10-307" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
+<span id="cb10-308"><a href="#cb10-308" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-katz</span></span>
+<span id="cb10-309"><a href="#cb10-309" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb10-310"><a href="#cb10-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-311"><a href="#cb10-311" aria-hidden="true" tabindex="-1"></a><span class="co">## Katz centrality</span></span>
+<span id="cb10-312"><a href="#cb10-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-313"><a href="#cb10-313" aria-hidden="true" tabindex="-1"></a><span class="co"># let's figure out the upper bound on alpha</span></span>
+<span id="cb10-314"><a href="#cb10-314" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb10-315"><a href="#cb10-315" aria-hidden="true" tabindex="-1"></a>alpha_max <span class="op">=</span> <span class="bu">min</span>(np.<span class="bu">abs</span>(<span class="dv">1</span><span class="op">/</span>np.linalg.eig(A)[<span class="dv">0</span>]))</span>
+<span id="cb10-316"><a href="#cb10-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-317"><a href="#cb10-317" aria-hidden="true" tabindex="-1"></a><span class="co"># we'll pick a value in the middle of the value range</span></span>
+<span id="cb10-318"><a href="#cb10-318" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>alpha_max</span>
+<span id="cb10-319"><a href="#cb10-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-320"><a href="#cb10-320" aria-hidden="true" tabindex="-1"></a><span class="co"># linear algebra calculation</span></span>
+<span id="cb10-321"><a href="#cb10-321" aria-hidden="true" tabindex="-1"></a>katz <span class="op">=</span> np.linalg.inv(np.eye(<span class="bu">len</span>(A)) <span class="op">-</span> alpha<span class="op">*</span>A).dot(np.ones(<span class="bu">len</span>(A)))</span>
+<span id="cb10-322"><a href="#cb10-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-323"><a href="#cb10-323" aria-hidden="true" tabindex="-1"></a><span class="co"># and now let's plot!</span></span>
+<span id="cb10-324"><a href="#cb10-324" aria-hidden="true" tabindex="-1"></a>plot_centrality(G, pos, katz)</span>
+<span id="cb10-325"><a href="#cb10-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-326"><a href="#cb10-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-327"><a href="#cb10-327" aria-hidden="true" tabindex="-1"></a>Our results look pretty similar to the eigenvector centrality, but with a bit more uniformity in the centrality scores due to choosing $\alpha$ in the middle of the valid range. </span>
+<span id="cb10-328"><a href="#cb10-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-329"><a href="#cb10-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-330"><a href="#cb10-330" aria-hidden="true" tabindex="-1"></a><span class="fu">### Advantages and Disadvantages</span></span>
+<span id="cb10-331"><a href="#cb10-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-332"><a href="#cb10-332" aria-hidden="true" tabindex="-1"></a>Katz centrality keeps several of the nice features of eigenvector centrality while avoiding the zero-centrality pitfalls in directed networks. It's also relatively quick to calculate.</span>
+<span id="cb10-333"><a href="#cb10-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-334"><a href="#cb10-334" aria-hidden="true" tabindex="-1"></a>However, if a node with high Katz centrality points to many other nodes in a directed network, then those nodes will all "inherit" this high centrality as well. This may be intended behavior in some cases, but in other contexts it might seem strange to allow a single node to contribute lots of centrality to a large number of its neighbors. </span>
+<span id="cb10-335"><a href="#cb10-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-336"><a href="#cb10-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## PageRank</span></span>
+<span id="cb10-337"><a href="#cb10-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-338"><a href="#cb10-338" aria-hidden="true" tabindex="-1"></a>Neither eigenvector nor Katz centrality measures penalize high-centrality nodes with a large number of edges. Suppose we wanted to think more of centrality like currency: each node has an allotted amount that it may divide among its edges, so that if you were sharing with more edges, you would have to give a smaller amount to each. This idea would essentially "dilute" centrality based on the number of out-edges. This might be relevant in the example of webpages: Just because a page is linked from a very popular site (say, Wikipedia) does not mean that linked page is itself important. Wikipedia links to many, many, many pages!  </span>
+<span id="cb10-339"><a href="#cb10-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-340"><a href="#cb10-340" aria-hidden="true" tabindex="-1"></a>We can implement this idea with a small modification to Katz centrality, where we divide by out-degree of each node.</span>
+<span id="cb10-341"><a href="#cb10-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-342"><a href="#cb10-342" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-343"><a href="#cb10-343" aria-hidden="true" tabindex="-1"></a>    c_i = \alpha \sum_j A_{ij} \frac{c_j}{k_{j}^{\mathrm{out}}} + \beta </span>
+<span id="cb10-344"><a href="#cb10-344" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-345"><a href="#cb10-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-346"><a href="#cb10-346" aria-hidden="true" tabindex="-1"></a>where we define $k_j^{\mathrm{out}} = 1$ for nodes that have no out-edges to make our expression well-defined. <span class="co">[</span><span class="ot">Defining $k_j^{\mathrm{out}}=1$ in this ad hoc way might seem shady, but in fact it is an equivalent expression to the original desired system because $A_{ij}=0$ if a node j has no out-edges.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-347"><a href="#cb10-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-348"><a href="#cb10-348" aria-hidden="true" tabindex="-1"></a>Following the same arguments as for Katz centrality, this means we can write our PageRank centrality ${\bf c}_{\mathrm{PR}}$ as </span>
+<span id="cb10-349"><a href="#cb10-349" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-350"><a href="#cb10-350" aria-hidden="true" tabindex="-1"></a>    {\bf c}_{\mathrm{PR}} = \alpha \mathbf{A} \mathbf{D}^{-1} {\bf c}_{\mathrm{PR}} + \beta {\bf 1} \,,</span>
+<span id="cb10-351"><a href="#cb10-351" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-352"><a href="#cb10-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-353"><a href="#cb10-353" aria-hidden="true" tabindex="-1"></a>where $D$ is the diagonal matrix with diagonal elements $D_{ii} = \max<span class="sc">\{</span>k_i^{\mathrm{out}}, 1<span class="sc">\}</span>$. If we set $\beta = 1$ and as long as we have chosen $\alpha$ appropriately (using similar arguments as before), we can write **PageRank centrality** in closed form.</span>
+<span id="cb10-354"><a href="#cb10-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-355"><a href="#cb10-355" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
+<span id="cb10-356"><a href="#cb10-356" aria-hidden="true" tabindex="-1"></a>::: {#def-pagerank}</span>
+<span id="cb10-357"><a href="#cb10-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-358"><a href="#cb10-358" aria-hidden="true" tabindex="-1"></a><span class="fu">## PageRank Centrality</span></span>
+<span id="cb10-359"><a href="#cb10-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-360"><a href="#cb10-360" aria-hidden="true" tabindex="-1"></a>Let ${\bf A}$ be the $n \times n$ adjacency matrix, ${\bf D}$ is the $n \times n$ diagonal matrix with diagonal elements $D_{ii} = \max<span class="sc">\{</span>k_i^{\mathrm{out}}, 1<span class="sc">\}</span>$, and ${\bf 1}$ be the $n \times 1$ vector containing all ones. The **PageRank centrality vector** ${\bf c}_{\mathrm{PR}}$ is</span>
+<span id="cb10-361"><a href="#cb10-361" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-362"><a href="#cb10-362" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-363"><a href="#cb10-363" aria-hidden="true" tabindex="-1"></a>    {\bf c}_{\mathrm{PR}} = \left({\bf I}-\alpha {\bf A} {\bf D}^{-1}\right)^{-1} {\bf 1} \,,</span>
+<span id="cb10-364"><a href="#cb10-364" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-365"><a href="#cb10-365" aria-hidden="true" tabindex="-1"></a>$${#eq-pagerank}</span>
+<span id="cb10-366"><a href="#cb10-366" aria-hidden="true" tabindex="-1"></a>where $\alpha$ is a parameter chosen so that ${\bf I}-\alpha {\bf A} {\bf D}^{-1}$ is invertible. </span>
+<span id="cb10-367"><a href="#cb10-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-368"><a href="#cb10-368" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-369"><a href="#cb10-369" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-370"><a href="#cb10-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-371"><a href="#cb10-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-372"><a href="#cb10-372" aria-hidden="true" tabindex="-1"></a>The name "PageRank" comes from Google <span class="co">[</span><span class="ot">@brin1998anatomy</span><span class="co">]</span>, who used this idea as a basis of their original web search algorithm. See @langville2005survey for a survey on PageRank and related methods. There are several other perspectives on PageRank which we'll explore in further lectures. </span>
+<span id="cb10-373"><a href="#cb10-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-374"><a href="#cb10-374" aria-hidden="true" tabindex="-1"></a>Here's a quick computation of PageRank using @eq-pagerank.</span>
+<span id="cb10-375"><a href="#cb10-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-378"><a href="#cb10-378" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-379"><a href="#cb10-379" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Visualiation of PageRank centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. We can again compare and contrast with our previous centrality measures."</span></span>
+<span id="cb10-380"><a href="#cb10-380" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
+<span id="cb10-381"><a href="#cb10-381" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
+<span id="cb10-382"><a href="#cb10-382" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-pagerank</span></span>
+<span id="cb10-383"><a href="#cb10-383" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb10-384"><a href="#cb10-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-385"><a href="#cb10-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-386"><a href="#cb10-386" aria-hidden="true" tabindex="-1"></a><span class="co">## PageRank</span></span>
+<span id="cb10-387"><a href="#cb10-387" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="fl">0.85</span>                                     <span class="co">#&lt;1&gt; </span></span>
+<span id="cb10-388"><a href="#cb10-388" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb10-389"><a href="#cb10-389" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> A.shape[<span class="dv">0</span>]</span>
+<span id="cb10-390"><a href="#cb10-390" aria-hidden="true" tabindex="-1"></a>ones <span class="op">=</span> np.ones(n)</span>
+<span id="cb10-391"><a href="#cb10-391" aria-hidden="true" tabindex="-1"></a>D_inv <span class="op">=</span> np.diag(<span class="dv">1</span><span class="op">/</span>np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb10-392"><a href="#cb10-392" aria-hidden="true" tabindex="-1"></a>pr <span class="op">=</span> np.linalg.inv(np.eye(n) <span class="op">-</span> A <span class="op">@</span> D_inv)<span class="op">@</span>ones   <span class="co">#&lt;2&gt; </span></span>
+<span id="cb10-393"><a href="#cb10-393" aria-hidden="true" tabindex="-1"></a>plot_centrality(G, pos, pr)</span>
+<span id="cb10-394"><a href="#cb10-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-395"><a href="#cb10-395" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>This is a standard choice for the value of $\alpha$, although tuning is also possible. </span>
+<span id="cb10-396"><a href="#cb10-396" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Main calculation </span>
+<span id="cb10-397"><a href="#cb10-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-398"><a href="#cb10-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-399"><a href="#cb10-399" aria-hidden="true" tabindex="-1"></a><span class="fu">## Summary</span></span>
+<span id="cb10-400"><a href="#cb10-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-401"><a href="#cb10-401" aria-hidden="true" tabindex="-1"></a>We have derived a family of centrality measures that are all oriented around the idea that the centrality of a node depends on the neighbors of that node. Degree centrality simply counts the number of neighbors; eigenvector centrality adds up the centrality of neighbors; Katz centrality is eigenvector centrality with a baseline constant assigned to each node; and PageRank centrality is Katz centrality with a normalization by out-degree. </span>
+<span id="cb10-402"><a href="#cb10-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-403"><a href="#cb10-403" aria-hidden="true" tabindex="-1"></a>Here's a simple summary: </span>
+<span id="cb10-404"><a href="#cb10-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-405"><a href="#cb10-405" aria-hidden="true" tabindex="-1"></a>| | With constant | Without constant |</span>
+<span id="cb10-406"><a href="#cb10-406" aria-hidden="true" tabindex="-1"></a>| ----- | -------| ------ |</span>
+<span id="cb10-407"><a href="#cb10-407" aria-hidden="true" tabindex="-1"></a>| **Divide by out-degree** | PageRank &lt;br&gt; ${\bf c} = \left(\mathbf{I}-\alpha \mathbf{A}\mathbf{D}^{-1}\right)^{-1}{\bf 1}$ | Degree &lt;br&gt; ${\bf c} = \mathbf{A}\mathbf{D}^{-1} {\bf c}$ |</span>
+<span id="cb10-408"><a href="#cb10-408" aria-hidden="true" tabindex="-1"></a>| **No division** | Katz &lt;br&gt; ${\bf c} = (\mathbf{I}-\alpha \mathbf{A})^{-1}{\bf 1}$ | Eigenvector &lt;br&gt; ${\bf c} = r \mathbf{A} {\bf c}$ |</span>
+<span id="cb10-409"><a href="#cb10-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-410"><a href="#cb10-410" aria-hidden="true" tabindex="-1"></a>There are many other perspectives on these centrality measures, some of which we'll develop elsewhere. </span>
+<span id="cb10-411"><a href="#cb10-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-412"><a href="#cb10-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-413"><a href="#cb10-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-414"><a href="#cb10-414" aria-hidden="true" tabindex="-1"></a><span class="fu">## Path-based Centrality Measures</span></span>
+<span id="cb10-415"><a href="#cb10-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-416"><a href="#cb10-416" aria-hidden="true" tabindex="-1"></a>All of the centrality measures we've explored thus far are built off variations on the theme of scoring importance based on the number of adjacent nodes. However, an alternate way to think about importance is through a node's impact on network connectivity through paths.</span>
+<span id="cb10-417"><a href="#cb10-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-418"><a href="#cb10-418" aria-hidden="true" tabindex="-1"></a><span class="fu">### Closeness Centrality</span></span>
+<span id="cb10-419"><a href="#cb10-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-420"><a href="#cb10-420" aria-hidden="true" tabindex="-1"></a>One way to encode this type of importance would be to start with the assumption that a node should have high centrality if it has a small distance to many other nodes. This might be important in transportation or geographic networks, for example.</span>
+<span id="cb10-421"><a href="#cb10-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-422"><a href="#cb10-422" aria-hidden="true" tabindex="-1"></a>Consider a connected graph $G$. Suppose $d_{ij}$ is the shortest (geodesic) distance from node $i$ to node $j$ (that is, the walk of minimum length from $i$ to $j$). Then, the mean shortest distance $l_i$ from node $i$ to any other node in the network is </span>
+<span id="cb10-423"><a href="#cb10-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-424"><a href="#cb10-424" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-425"><a href="#cb10-425" aria-hidden="true" tabindex="-1"></a>    l_i = \frac{1}{n-1} \sum_{j=1}^n d_{ij} \,.</span>
+<span id="cb10-426"><a href="#cb10-426" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-427"><a href="#cb10-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-428"><a href="#cb10-428" aria-hidden="true" tabindex="-1"></a>Notice that the qualitative behavior of this quantity is the opposite of what we might usually define for centrality: it has small values for nodes that are separated by others only a short distance (on average) and larger values for longer average distances. If we want our centrality score to be larger for nodes that are close to many other nodes, one way to achieve this is to take the reciprocal. This strategy gives the **closeness centrality** $c_i = \frac{1}{l_i}$ of node $i$. This centrality measure dates back to (at least) 1950 from @bavelas1950communication.</span>
+<span id="cb10-429"><a href="#cb10-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-430"><a href="#cb10-430" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
+<span id="cb10-431"><a href="#cb10-431" aria-hidden="true" tabindex="-1"></a>::: {#def-closeness}</span>
+<span id="cb10-432"><a href="#cb10-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-433"><a href="#cb10-433" aria-hidden="true" tabindex="-1"></a><span class="fu">## Closeness Centrality</span></span>
+<span id="cb10-434"><a href="#cb10-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-435"><a href="#cb10-435" aria-hidden="true" tabindex="-1"></a>Consider a (strongly) connected network. Let $d_{ij}$ be the geodesic distance between node $i$ and node $j$. We define the **closeness centrality** of node $i$ as</span>
+<span id="cb10-436"><a href="#cb10-436" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-437"><a href="#cb10-437" aria-hidden="true" tabindex="-1"></a>    c_i = \frac{n-1}{\sum_{j\neq i} d_{ij}}\,.</span>
+<span id="cb10-438"><a href="#cb10-438" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-439"><a href="#cb10-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-440"><a href="#cb10-440" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-441"><a href="#cb10-441" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-442"><a href="#cb10-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-443"><a href="#cb10-443" aria-hidden="true" tabindex="-1"></a>To compute the closeness centrality of each node, we need to be able to compute geodesic distances between each pair of nodes. The Floyd-Warshall algorithm gives an efficient way to do this. <span class="co">[</span><span class="ot">We could also compute the closeness centrality using the `nx.closeness_centrality` built-in function.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-444"><a href="#cb10-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-447"><a href="#cb10-447" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-448"><a href="#cb10-448" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Visualiation of closeness centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality." </span></span>
+<span id="cb10-449"><a href="#cb10-449" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
+<span id="cb10-450"><a href="#cb10-450" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
+<span id="cb10-451"><a href="#cb10-451" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-closeness</span></span>
+<span id="cb10-452"><a href="#cb10-452" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb10-453"><a href="#cb10-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-454"><a href="#cb10-454" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(G.nodes)</span>
+<span id="cb10-455"><a href="#cb10-455" aria-hidden="true" tabindex="-1"></a>GD <span class="op">=</span> nx.floyd_warshall_numpy(G)</span>
+<span id="cb10-456"><a href="#cb10-456" aria-hidden="true" tabindex="-1"></a>closeness <span class="op">=</span> (n<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span><span class="dv">1</span><span class="op">/</span>(GD.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb10-457"><a href="#cb10-457" aria-hidden="true" tabindex="-1"></a>plot_centrality(G, pos, closeness)</span>
+<span id="cb10-458"><a href="#cb10-458" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-459"><a href="#cb10-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-460"><a href="#cb10-460" aria-hidden="true" tabindex="-1"></a>This centrality measure has a clear disadvantage for directed or disconnected networks, as it requires the geodesic distance to be defined for all nodes. One simple strategy to fix this would be to compute closeness by only summing geodesic distance to nodes in the same (strongly) connected component. However, be aware that you may not be able to compare centralities between components if you use this strategy: nodes in smaller components will tend to have higher closeness than they would in larger components.</span>
+<span id="cb10-461"><a href="#cb10-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-462"><a href="#cb10-462" aria-hidden="true" tabindex="-1"></a>Another strategy is to compute the reciprocal of the harmonic mean of the distances, which is a modification by @beauchamp1965improved sometimes referred to as **harmonic centrality**:</span>
+<span id="cb10-463"><a href="#cb10-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-464"><a href="#cb10-464" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-465"><a href="#cb10-465" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-466"><a href="#cb10-466" aria-hidden="true" tabindex="-1"></a>    c_i = \frac{1}{n-1} \sum_{j \neq i, \ d_{ij}&lt;\infty} \frac{1}{d_{ij}}</span>
+<span id="cb10-467"><a href="#cb10-467" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-468"><a href="#cb10-468" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-469"><a href="#cb10-469" aria-hidden="true" tabindex="-1"></a>where we take the convention $\frac{1}{d_{ij}} = 0$ if $i$ and $j$ are not path-connected.</span>
+<span id="cb10-470"><a href="#cb10-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-471"><a href="#cb10-471" aria-hidden="true" tabindex="-1"></a><span class="fu">### Betweenness Centrality</span></span>
+<span id="cb10-472"><a href="#cb10-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-473"><a href="#cb10-473" aria-hidden="true" tabindex="-1"></a>Another possibility in using paths to measure importance is to encode the idea that a node is important if it lies on paths between many other nodes. Nodes like this might be important because their removal could disrupt paths. Depending on the application, nodes that lie on many paths may have information, goods, data, etc. that pass through frequently.</span>
+<span id="cb10-474"><a href="#cb10-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-475"><a href="#cb10-475" aria-hidden="true" tabindex="-1"></a>Let's start by considering an undirected network with at most one shortest path between nodes. Let $n_{st}^i = 1$ if node $i$ lies on the shortest path from node $s$ to node $t$ and 0 otherwise. Then, we could sum the number of these unique shortest paths for node $i$ as </span>
+<span id="cb10-476"><a href="#cb10-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-477"><a href="#cb10-477" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-478"><a href="#cb10-478" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
+<span id="cb10-479"><a href="#cb10-479" aria-hidden="true" tabindex="-1"></a>    x_i = \sum_{s\in N} \sum_{t \in N\setminus <span class="sc">\{</span>s<span class="sc">\}</span>} n_{st}^i \,.</span>
+<span id="cb10-480"><a href="#cb10-480" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
+<span id="cb10-481"><a href="#cb10-481" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-482"><a href="#cb10-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-483"><a href="#cb10-483" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Notice that this counts the path from $s$ to $t$ and the path from $t$ to $s$ as two separate paths. In undirected networks, this doesn't make a difference in the centrality score because it's only the relative ranking that matters. It also applies as written to directed networks.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-484"><a href="#cb10-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-485"><a href="#cb10-485" aria-hidden="true" tabindex="-1"></a>Accounting for the fact that shortest paths may not be unique gives us our definition of betweenness centrality below.</span>
+<span id="cb10-486"><a href="#cb10-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-487"><a href="#cb10-487" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
+<span id="cb10-488"><a href="#cb10-488" aria-hidden="true" tabindex="-1"></a>::: {#def-betweenness}</span>
+<span id="cb10-489"><a href="#cb10-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-490"><a href="#cb10-490" aria-hidden="true" tabindex="-1"></a>Let $n_{st}^i$ be the number of shortest paths from $s$ to $t$ that pass through $i$, and let $g_{st} = \max<span class="sc">\{</span>1,\ \text{number of shortest paths from } s \text{ to } t<span class="sc">\}</span>.$ Then the **betweenness centrality** of node $i$ is</span>
+<span id="cb10-491"><a href="#cb10-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-492"><a href="#cb10-492" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-493"><a href="#cb10-493" aria-hidden="true" tabindex="-1"></a>    c_i = \sum_{s\in N} \sum_{t \in N\setminus <span class="sc">\{</span>s<span class="sc">\}</span>} \frac{n_{st}^i}{g_{st}} \,.</span>
+<span id="cb10-494"><a href="#cb10-494" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-495"><a href="#cb10-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-496"><a href="#cb10-496" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-497"><a href="#cb10-497" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-498"><a href="#cb10-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-499"><a href="#cb10-499" aria-hidden="true" tabindex="-1"></a>Direction of travel is accounted for in this definition, and so this can be used without modification in directed networks.</span>
+<span id="cb10-500"><a href="#cb10-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-501"><a href="#cb10-501" aria-hidden="true" tabindex="-1"></a>Computation of betweenness centrality requires that we enumerate all shortest paths between all pairs of nodes in the graph. This is often computationally prohibitive, although for a small network like this one it's not too bad. </span>
+<span id="cb10-502"><a href="#cb10-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-505"><a href="#cb10-505" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-506"><a href="#cb10-506" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false </span></span>
+<span id="cb10-507"><a href="#cb10-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-508"><a href="#cb10-508" aria-hidden="true" tabindex="-1"></a>paths <span class="op">=</span> <span class="bu">list</span>(nx.all_pairs_all_shortest_paths(G))</span>
+<span id="cb10-509"><a href="#cb10-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-510"><a href="#cb10-510" aria-hidden="true" tabindex="-1"></a><span class="co"># example of how to access the paths between a specific pair of nodes</span></span>
+<span id="cb10-511"><a href="#cb10-511" aria-hidden="true" tabindex="-1"></a>source <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-512"><a href="#cb10-512" aria-hidden="true" tabindex="-1"></a>target <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb10-513"><a href="#cb10-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-514"><a href="#cb10-514" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The shortest paths from node </span><span class="sc">{</span>source<span class="sc">}</span><span class="ss"> to node </span><span class="sc">{</span>target<span class="sc">}</span><span class="ss"> are:</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb10-515"><a href="#cb10-515" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> path <span class="kw">in</span> paths[source][<span class="dv">1</span>][target]:</span>
+<span id="cb10-516"><a href="#cb10-516" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(path)</span>
+<span id="cb10-517"><a href="#cb10-517" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-518"><a href="#cb10-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-519"><a href="#cb10-519" aria-hidden="true" tabindex="-1"></a>Having calculated all the shortest paths, we can now construct the betweenness centrality vector: </span>
+<span id="cb10-520"><a href="#cb10-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-523"><a href="#cb10-523" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-524"><a href="#cb10-524" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Visualiation of Betweenness centrality. Node size and color are proportional to centrality: larger nodes in darker blue have higher centrality. What do you notice about this centrality measure?"</span></span>
+<span id="cb10-525"><a href="#cb10-525" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
+<span id="cb10-526"><a href="#cb10-526" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
+<span id="cb10-527"><a href="#cb10-527" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-betweenness</span></span>
+<span id="cb10-528"><a href="#cb10-528" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb10-529"><a href="#cb10-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-530"><a href="#cb10-530" aria-hidden="true" tabindex="-1"></a><span class="co">## Betweenness</span></span>
+<span id="cb10-531"><a href="#cb10-531" aria-hidden="true" tabindex="-1"></a>betweenness <span class="op">=</span> np.zeros(n)</span>
+<span id="cb10-532"><a href="#cb10-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-533"><a href="#cb10-533" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> source <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb10-534"><a href="#cb10-534" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> target <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb10-535"><a href="#cb10-535" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> source <span class="op">!=</span> target:</span>
+<span id="cb10-536"><a href="#cb10-536" aria-hidden="true" tabindex="-1"></a>            num_paths <span class="op">=</span> <span class="bu">len</span>(paths[source][<span class="dv">1</span>][target])</span>
+<span id="cb10-537"><a href="#cb10-537" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> path <span class="kw">in</span> paths[source][<span class="dv">1</span>][target]:</span>
+<span id="cb10-538"><a href="#cb10-538" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> node <span class="kw">in</span> path[<span class="dv">1</span>:<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb10-539"><a href="#cb10-539" aria-hidden="true" tabindex="-1"></a>                    betweenness[node] <span class="op">+=</span> <span class="dv">1</span><span class="op">/</span>num_paths</span>
+<span id="cb10-540"><a href="#cb10-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-541"><a href="#cb10-541" aria-hidden="true" tabindex="-1"></a>plot_centrality(G, pos, betweenness)</span>
+<span id="cb10-542"><a href="#cb10-542" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-543"><a href="#cb10-543" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-544"><a href="#cb10-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-545"><a href="#cb10-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-546"><a href="#cb10-546" aria-hidden="true" tabindex="-1"></a>The many loops required to construct this vector suggest the challenges associated with computing the betweennecess centrality in large graphs. </span>
+<span id="cb10-547"><a href="#cb10-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-548"><a href="#cb10-548" aria-hidden="true" tabindex="-1"></a>This centrality measure seems to have originated from @freeman1977set. There are many additional variants and generalizations of betweenness centrality that can be found in the literature.</span>
+<span id="cb10-549"><a href="#cb10-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-550"><a href="#cb10-550" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

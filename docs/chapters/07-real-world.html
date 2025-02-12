@@ -385,7 +385,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07-real-world.html">Real-World Networks</a></li><li class="breadcrumb-item"><a href="../chapters/07-real-world.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></h1>
+</div>
 </div>
 
 
@@ -416,7 +416,7 @@ window.Quarto = {
 <li><code>karate</code>: The Zachary Karate Club social network <span class="citation" data-cites="zachary1977information">(<a href="#ref-zachary1977information" role="doc-biblioref">Zachary 1977</a>)</span>, which is packaged with NetworkX.</li>
 <li><code>les_mis</code>: A network of character interactions in the novel <em>Les Miserables</em> by Victor Hugo, also packaged with NetworkX.</li>
 </ul>
-<div id="8526b2d4" class="cell" data-execution_count="1">
+<div id="8526b2d4" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -448,7 +448,7 @@ window.Quarto = {
 </blockquote>
 <div class="page-columns page-full"><p>There are many reasonable answers to this question, and we’ll explore several of them when we come to the study of random graphs. For now, we are going to compare each of our real networks to a <em>synthetic random graph with a similar degree sequence</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Technically, we are using a model that reproduces the degree sequence <em>approximately and in expectation</em>. This model is due to <span class="citation" data-cites="chung2002connected">Chung and Lu (<a href="#ref-chung2002connected" role="doc-biblioref">2002</a>)</span>.</span></div></div>
 <p>The following code constructs a random synthetic counterpart graph for each of our empirical graphs. It then adds all of these to a dictionary so that we can easily access both the real and synthetic graphs later.</p>
-<div id="abb8e940" class="cell" data-execution_count="2">
+<div id="abb8e940" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
@@ -474,7 +474,7 @@ window.Quarto = {
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_les_mis, <span class="st">"les_mis"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To help us compute and compare measurements on these graphs, we’ll define the following function which will manage these computations and organize the result as a table. This function takes as an argument a function <code>fun</code> which accepts a graph as an input and returns a scalar value.</p>
-<div id="a8b0f61b" class="cell" data-execution_count="3">
+<div id="a8b0f61b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metric(fun <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">0</span>, compare <span class="op">=</span> <span class="va">True</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Data Set"</span> <span class="op">+</span> <span class="st">" "</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="st">"Real"</span>, end <span class="op">=</span> <span class="st">""</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> compare: </span>
@@ -497,7 +497,7 @@ window.Quarto = {
 <section id="node-and-edge-counts" class="level2">
 <h2 class="anchored" data-anchor-id="node-and-edge-counts">Node and Edge Counts</h2>
 <p>Let’s start with something simple: how many nodes and edges are in each graph?</p>
-<div id="54f6abec" class="cell" data-execution_count="4">
+<div id="54f6abec" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of nodes"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: x.number_of_nodes())</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of edges"</span>)</span>
@@ -525,7 +525,7 @@ les_mis         254.00          253.00</code></pre>
 <section id="clustering-coefficient" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="clustering-coefficient">Clustering Coefficient</h2>
 <p>Let’s move on to something more complex. Take a moment and think of two of your friends, whom we’ll call <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Are <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> themselves friends with each other? If they do, then we say that there is a <em>triad</em> or <em>triangle</em> in the network.</p>
-<div id="e21b6a0f" class="cell page-columns page-full" data-fig-height="2" data-fig-width="2" data-execution_count="5">
+<div id="e21b6a0f" class="cell page-columns page-full" data-fig-height="2" data-fig-width="2" data-execution_count="6">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -544,7 +544,7 @@ les_mis         254.00          253.00</code></pre>
 \]</span></p>
 <p>Here, <span class="math inline">\(\mathbf{A}\)</span> is the adjacency matrix of <span class="math inline">\(G\)</span> and <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>.</p>
 <p>The numerator of this expression is proportional to the number of triangles in the network (technically, it is off by a factor of 6) and the denominator is proportional to the number of paths of length two in the network. You can think of a triplet as a possible triangle: just add one more edge and a triangle forms. bn</p>
-<div id="6b548ef4" class="cell page-columns page-full" data-fig-height="1" data-fig-width="1" data-execution_count="6">
+<div id="6b548ef4" class="cell page-columns page-full" data-fig-height="1" data-fig-width="1" data-execution_count="7">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -555,7 +555,7 @@ les_mis         254.00          253.00</code></pre>
 </div>
 </div></div></div>
 <p>Let’s write a function to compute the transitivity of a graph.</p>
-<div id="b2266fbe" class="cell" data-execution_count="7">
+<div id="b2266fbe" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_transitivity(G):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.adjacency_matrix(G).toarray()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># A = 1*(A &gt;= 1) # convert to unweighted form</span></span>
@@ -570,7 +570,7 @@ les_mis         254.00          253.00</code></pre>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> num_triangles <span class="op">/</span> num_triplets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s compare our function to the built-in function supplied by NetworkX.</p>
-<div id="ad100d4c" class="cell" data-execution_count="8">
+<div id="ad100d4c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_transitivity(G_karate))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nx.transitivity(G_karate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -579,7 +579,7 @@ les_mis         254.00          253.00</code></pre>
 </div>
 </div>
 <p>Looks good! We’ll move forward with the NetworkX version, as it is substantially faster on larger graphs.</p>
-<div id="9d50a1a1" class="cell" data-execution_count="9">
+<div id="9d50a1a1" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.transitivity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
@@ -595,7 +595,7 @@ les_mis           0.50            0.25</code></pre>
 <section id="connected-components" class="level2">
 <h2 class="anchored" data-anchor-id="connected-components">Connected Components</h2>
 <p>What about the number of connected components in the network?</p>
-<div id="19e73fb9" class="cell" data-execution_count="10">
+<div id="19e73fb9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">list</span>(nx.connected_components(x))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
@@ -619,7 +619,7 @@ les_mis           1.00           10.00</code></pre>
 \]</span></p>
 <div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">If you are familiar with probability and statistics, this formula is equivalent to <span class="math inline">\(C = \frac{\mathrm{cov}(K_1,K_2)}{\sqrt{\mathrm{var}(K_1)\mathrm{var}(K_2)}}\)</span>, where <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span> are the degrees of the nodes at the ends of an edge selected uniformly at random from <span class="math inline">\(G\)</span>. This is also the Pearson correlation coefficient between <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span>.</span></div></div>
 <p>An <em>assortative</em> network (with high assortativity) is one in which nodes of high degree tend to connect to each other frequently. A <em>disassortative</em> network (with negative assortativity) is one in which nodes of high degree tend to connect to nodes of low degree. Let’s take a look at the assortativity values in our networks:</p>
-<div id="7332426c" class="cell" data-execution_count="11">
+<div id="7332426c" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.degree_assortativity_coefficient)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
@@ -636,7 +636,7 @@ les_mis          -0.17           -0.05</code></pre>
 <h2 class="anchored" data-anchor-id="shortest-path-lengths">Shortest Path Lengths</h2>
 <p>In a famous study, Stanley <span class="citation" data-cites="milgram1967small">Milgram (<a href="#ref-milgram1967small" role="doc-biblioref">1967</a>)</span> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> asked participants to ensure that a letter reached a target person, whom they did not know, in a US city. However, the participants were only allowed to send the letter to someone they knew on a first-name basis. That person could then send the letter to another person they knew on a first-name basis, and so on, until the letter was delivered (or lost). Perhaps surprisingly, many participants were able to reach the target person in only a few steps, on average. This experiment is the origin of the famous phrase <em>six degrees of separation</em>: in many social networks, most individuals are separated by relatively few links, even when the network is very large.</p>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Yes, <a href="https://en.wikipedia.org/wiki/Milgram_experiment"><em>that</em> Milgram</a> <span class="citation" data-cites="milgram1963behavioral">(<a href="#ref-milgram1963behavioral" role="doc-biblioref">Milgram 1963</a>)</span>.</p></div></div><p>To test this in our networks, we’ll compute the length of the shortest path between a pair of nodes, averaged across all possible pairs. This quantity isn’t defined for the random counterpart networks that have multiple disconnected components (why?), and so we’ll stick to calculating it on the real-world networks.</p>
-<div id="6d0c7749" class="cell" data-execution_count="12">
+<div id="6d0c7749" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.average_shortest_path_length, compare <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real
@@ -652,6 +652,8 @@ les_mis           2.64</code></pre>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
+
+<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-chung2002connected" class="csl-entry" role="listitem">
@@ -766,6 +768,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1108,7 +1161,257 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-summary:</span><span class="co"> "Show code"</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="an">cache:</span><span class="co"> true</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Structure of Empirical Networks</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/07-real-world.ipynb).* </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>It's all well and good to study the theoretical properties of hypothetical networks. In this set of notes, we'll start addressing an important empirical question: </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; What are *real* networks like? </span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>Of course, there's no simple answer to this question: we observe network data sets across a wide variety of domains, and many of them have different properties. For our purposes today, we'll look at a sample of four networks:</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`twitch`</span>: A network of mutual friends on the Twitch streaming platform. The data set was collected by @musae. </span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`chameleon`</span>: A network of Wikipedia pages on topics related to chameleons (yes, the animal). An edge exists between two nodes if the corresponding Wikipedia pages link to each other. The data set was collected by @musae. </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`karate`</span>: The Zachary Karate Club social network <span class="co">[</span><span class="ot">@zachary1977information</span><span class="co">]</span>, which is packaged with NetworkX. </span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`les_mis`</span>: A network of character interactions in the novel *Les Miserables* by Victor Hugo, also packaged with NetworkX.</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> factorial</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="co"># acquire twitch data</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ZHTW_edges.csv"</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>G_twitch <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"from"</span>, <span class="st">"to"</span>, create_using<span class="op">=</span>nx.Graph)</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="co"># acquire chameleon data</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/chameleon_edges.csv"</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>G_chameleon <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"id1"</span>, <span class="st">"id2"</span>, create_using<span class="op">=</span>nx.Graph)</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="co"># two built-in networkx data sets. </span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>G_karate <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>G_les_mis <span class="op">=</span> nx.les_miserables_graph()</span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>A fundamental principle in measuring networks is to *compare*. If we say that a network has a high value of some measurement $X$, then the correct reply is: </span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; High compared to what? </span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>There are many reasonable answers to this question, and we'll explore several of them when we come to the study of random graphs. For now, we are going to compare each of our real networks to a *synthetic random graph with a similar degree sequence*. [Technically, we are using a model that reproduces the degree sequence *approximately and in expectation*. This model is due to @chung2002connected.]{.aside}</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a>The following code constructs a random synthetic counterpart graph for each of our empirical graphs. It then adds all of these to a dictionary so that we can easily access both the real and synthetic graphs later. </span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_counterpart(G):</span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> [deg <span class="cf">for</span> (node, deg) <span class="kw">in</span> G.degree()]</span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># G_random = nx.configuration_model(degrees, create_using=nx.Graph)</span></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>    G_random <span class="op">=</span> nx.expected_degree_graph(degrees, selfloops<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a>    G_random.remove_edges_from(nx.selfloop_edges(G_random))</span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G_random</span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_to_dataset_dict(dataset_dict, G, name):</span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>    unweight(G)</span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a>    dataset_dict[name] <span class="op">=</span> {</span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>        <span class="st">"graph"</span> : G,</span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a>        <span class="st">"random"</span> : random_counterpart(G)</span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a>dataset_dict <span class="op">=</span> {}</span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_twitch, <span class="st">"twitch"</span>)</span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_chameleon, <span class="st">"chameleon"</span>)</span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_karate, <span class="st">"karate"</span>)</span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a>add_to_dataset_dict(dataset_dict, G_les_mis, <span class="st">"les_mis"</span>)</span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a>To help us compute and compare measurements on these graphs, we'll define the following function which will manage these computations and organize the result as a table. This function takes as an argument a function <span class="in">`fun`</span> which accepts a graph as an input and returns a scalar value. </span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metric(fun <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">0</span>, compare <span class="op">=</span> <span class="va">True</span>):</span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Data Set"</span> <span class="op">+</span> <span class="st">" "</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="st">"Real"</span>, end <span class="op">=</span> <span class="st">""</span>)</span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> compare: </span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="st">"Random"</span>)</span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">22</span>, end <span class="op">=</span> <span class="st">""</span>)</span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> compare: </span>
+<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"-"</span><span class="op">*</span><span class="dv">18</span>)</span>
+<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>()</span>
+<span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> data_set <span class="kw">in</span> dataset_dict:</span>
+<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(data_set <span class="op">+</span> <span class="st">" "</span> <span class="op">*</span> (<span class="dv">14</span> <span class="op">-</span> <span class="bu">len</span>(data_set)) <span class="op">+</span> <span class="ss">f"</span><span class="sc">{</span>fun(dataset_dict[data_set][<span class="st">'graph'</span>])<span class="sc">:&gt;8.2f}</span><span class="ss">"</span>, end <span class="op">=</span> <span class="st">""</span>)</span>
+<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> compare:</span>
+<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">" "</span> <span class="op">*</span> (<span class="dv">8</span>) <span class="op">+</span> <span class="ss">f"</span><span class="sc">{</span>fun(dataset_dict[data_set][<span class="st">'random'</span>])<span class="sc">:&gt;8.2f}</span><span class="ss">"</span>)</span>
+<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: </span>
+<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>()</span>
+<span id="cb17-111"><a href="#cb17-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Node and Edge Counts</span></span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a>Let's start with something simple: how many nodes and edges are in each graph? </span>
+<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-121"><a href="#cb17-121" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of nodes"</span>)</span>
+<span id="cb17-122"><a href="#cb17-122" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: x.number_of_nodes())</span>
+<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of edges"</span>)</span>
+<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: x.number_of_edges())</span>
+<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a>Although the number of nodes agree exactly in the real and random networks, there are some small discrepancies in the edge counts. This is due to the fact that our procedure for constructing random graphs (a) only preserves the degrees *in expectation* rather than exactly and (b) can create some self-loops, which get discarded. </span>
+<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Clustering Coefficient</span></span>
+<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a>Let's move on to something more complex. Take a moment and think of two of your friends, whom we'll call $A$ and $B$. Are $A$ and $B$ themselves friends with each other? If they do, then we say that there is a *triad* or *triangle* in the network. </span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: margin</span></span>
+<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: A triangle in a social network</span></span>
+<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 2</span></span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 2</span></span>
+<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a>G.add_edges_from([(<span class="st">"A"</span>, <span class="st">"B"</span>), (<span class="st">"A"</span>, <span class="st">"You"</span>), (<span class="st">"B"</span>, <span class="st">"You"</span>)])</span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels <span class="op">=</span> <span class="va">True</span>, node_size <span class="op">=</span> <span class="dv">700</span>, node_color <span class="op">=</span> <span class="st">"lightblue"</span>, ax <span class="op">=</span> ax)</span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a>A stylized fact about many networks---especially social networks---is that triangles like these are common. In order to validate this stylized fact, we need to (a) determine how to measure the prevalence of triangles and (b) compare the value of this measure on our real networks to that of their random counterparts. </span>
+<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a>There are many possible measures of the prevalence of triangles, but here we will use the *transitivity*: the fraction of all possible triangles that are present in the network. The formula for transitivity is </span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a>    T(G) = \frac{\mathrm{trace}(\mathbf{A}^3)}{\sum_{i} k_i(k_i - 1)}</span>
+<span id="cb17-156"><a href="#cb17-156" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a>Here, $\mathbf{A}$ is the adjacency matrix of $G$ and $k_i$ is the degree of node $i$. </span>
+<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a>The numerator of this expression is proportional to the number of triangles in the network (technically, it is off by a factor of 6) and the denominator is proportional to the number of paths of length two in the network. You can think of a triplet as a possible triangle: just add one more edge and a triangle forms. bn</span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-166"><a href="#cb17-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: margin</span></span>
+<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: A triplet in a social network centered on you</span></span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 1</span></span>
+<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 1</span></span>
+<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a>G.add_edges_from([ (<span class="st">"A"</span>, <span class="st">"You"</span>), (<span class="st">"B"</span>, <span class="st">"You"</span>)])</span>
+<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels <span class="op">=</span> <span class="va">True</span>, node_size <span class="op">=</span> <span class="dv">700</span>, node_color <span class="op">=</span> <span class="st">"lightblue"</span>, ax <span class="op">=</span> ax)</span>
+<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a>Let's write a function to compute the transitivity of a graph. </span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_transitivity(G):</span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.adjacency_matrix(G).toarray()</span>
+<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a>    <span class="co"># A = 1*(A &gt;= 1) # convert to unweighted form</span></span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a>    <span class="co"># numerator</span></span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a>    num_triangles <span class="op">=</span> np.trace(A <span class="op">@</span> A <span class="op">@</span> A)</span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a>    <span class="co"># denominator</span></span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> A.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a>    num_triplets <span class="op">=</span> np.<span class="bu">sum</span>(degrees <span class="op">*</span> (degrees <span class="op">-</span> <span class="dv">1</span>))</span>
+<span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> num_triangles <span class="op">/</span> num_triplets</span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a>Let's compare our function to the built-in function supplied by NetworkX. </span>
+<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_transitivity(G_karate))</span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nx.transitivity(G_karate))</span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-206"><a href="#cb17-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-207"><a href="#cb17-207" aria-hidden="true" tabindex="-1"></a>Looks good! We'll move forward with the NetworkX version, as it is substantially faster on larger graphs. </span>
+<span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.transitivity)</span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-215"><a href="#cb17-215" aria-hidden="true" tabindex="-1"></a>We observe that the <span class="in">`chameleon`</span> and <span class="in">`les_mis`</span> graphs appear to have substantially greater transitivity than their random counterparts, while both <span class="in">`karate`</span> and <span class="in">`twitch`</span> have similar transitivity to their random counterparts. Under this comparison, *some* networks indeed display very high transitivity. </span>
+<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## Connected Components</span></span>
+<span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a>What about the number of connected components in the network? </span>
+<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">list</span>(nx.connected_components(x))))</span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a>Recall that we've engineered all of our real networks to have only one connected component, filtering if necessary. On the other hand, the random networks tend to have multiple connected components. </span>
+<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a>Would it be fair to say that real networks are more connected than would be expected at random? Some caution is required here. Many researchers collect network data using methods that are especially likely to produce connected networks. For example, *snowball sampling* in study design refers to the method of recruiting participants for a survey or other instrument by asking people to recommend their friends. Since they can't recommend people they don't know, the snowball sample collected from an individual is always connected. Similarly, data sets like the <span class="in">`chameleon`</span> data set are constructed by following links from one Wikipedia page to another. This method always produces a connected network as well. So, while it is true that many network data sets contain a single connected component, this is often an artifact of data collection rather than a fundamental property of the network.</span>
+<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## Degree-Degree Correlations</span></span>
+<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a>We have constructed random counterpart networks that have similar degree sequences to the real networks we are studying. Networks, however, can have interesting degree structures beyond just the degree sequence. One such structure is the *degree-assortativity*. The degree assortativity measures the extent to which nodes of similar degree are connected to each other. There are several ways to measure degree assortativity, but the most common one (due to @newman2018networks) has formula </span>
+<span id="cb17-235"><a href="#cb17-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-236"><a href="#cb17-236" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb17-238"><a href="#cb17-238" aria-hidden="true" tabindex="-1"></a>    C = \frac{\sum_{(u,v) \in G} k_u k_v - \frac{1}{m}\left(\sum_{(u,v) \in G}  k_u\right)^2}{\sum_{(u,v) \in G} k_u^2 - \frac{1}{m}\left(\sum_{(u,v) \in G}  k_u\right)^2}\;.</span>
+<span id="cb17-239"><a href="#cb17-239" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb17-240"><a href="#cb17-240" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb17-241"><a href="#cb17-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-242"><a href="#cb17-242" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">If you are familiar with probability and statistics, this formula is equivalent to $C = \frac{\mathrm{cov}(K_1,K_2)}{\sqrt{\mathrm{var}(K_1)\mathrm{var}(K_2)}}$, where $K_1$ and $K_2$ are the degrees of the nodes at the ends of an edge selected uniformly at random from $G$. This is also the Pearson correlation coefficient between $K_1$ and $K_2$.</span><span class="co">]</span>{.aside}</span>
+<span id="cb17-243"><a href="#cb17-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-244"><a href="#cb17-244" aria-hidden="true" tabindex="-1"></a>An *assortative* network (with high assortativity) is one in which nodes of high degree tend to connect to each other frequently. A *disassortative* network (with negative assortativity) is one in which nodes of high degree tend to connect to nodes of low degree. Let's take a look at the assortativity values in our networks: </span>
+<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-248"><a href="#cb17-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.degree_assortativity_coefficient)</span>
+<span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a>It looks like all of our networks are disassortative, and somewhat moreso than their random counterparts. Disassortativity is a common feature of many networks, and it is often attributed to the presence of *hubs* in the network. Hubs are nodes with very high degree, and they tend to connect to many other nodes. Since there are only a few hubs, they are more likely to connect to nodes of low degree than to other hubs.</span>
+<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## Shortest Path Lengths</span></span>
+<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-256"><a href="#cb17-256" aria-hidden="true" tabindex="-1"></a>In a famous study, Stanley @milgram1967small <span class="ot">[^1]</span> asked participants to ensure that a letter reached a target person, whom they did not know, in a US city. However, the participants were only allowed to send the letter to someone they knew on a first-name basis. That person could then send the letter to another person they knew on a first-name basis, and so on, until the letter was delivered (or lost). Perhaps surprisingly, many participants were able to reach the target person in only a few steps, on average. This experiment is the origin of the famous phrase *six degrees of separation*: in many social networks, most individuals are separated by relatively few links, even when the network is very large.  </span>
+<span id="cb17-257"><a href="#cb17-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-258"><a href="#cb17-258" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>Yes, <span class="co">[</span><span class="ot">*that* Milgram</span><span class="co">](https://en.wikipedia.org/wiki/Milgram_experiment)</span> <span class="co">[</span><span class="ot">@milgram1963behavioral</span><span class="co">]</span>.</span>
+<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-260"><a href="#cb17-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-261"><a href="#cb17-261" aria-hidden="true" tabindex="-1"></a>To test this in our networks, we'll compute the length of the shortest path between a pair of nodes, averaged across all possible pairs. This quantity isn't defined for the random counterpart networks that have multiple disconnected components (why?), and so we'll stick to calculating it on the real-world networks. </span>
+<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-265"><a href="#cb17-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-266"><a href="#cb17-266" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.average_shortest_path_length, compare <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb17-267"><a href="#cb17-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-268"><a href="#cb17-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-269"><a href="#cb17-269" aria-hidden="true" tabindex="-1"></a>Indeed, despite some of these networks having thousands of nodes and edges, the average shortest path length does not exceed 4 links. We'll consider some theoretical models that aim to explain this phenomenon later in the course. </span>
+<span id="cb17-270"><a href="#cb17-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-271"><a href="#cb17-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-272"><a href="#cb17-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## References </span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

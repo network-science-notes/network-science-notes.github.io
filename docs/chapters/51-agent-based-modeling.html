@@ -371,7 +371,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/51-agent-based-modeling.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></h1>
+</div>
 </div>
 
 
@@ -406,7 +406,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="first-example-simple-random-walk">First Example: Simple Random Walk</h2>
 <p>For our first agent-based model, we are going to code up an agent-based implementation of the simple random walk. There are lots of reasonable ways to do this, and Mesa is actually a bit of overkill for this particular problem. Still, we’ll learn some important techniques and concepts along the way.</p>
 <p>Let’s start by importing several tools that we’ll use.</p>
-<div id="7258a9fb" class="cell" data-execution_count="1">
+<div id="6439471b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa <span class="im">import</span> Model, Agent                 <span class="co"># core mesa classes</span></span>
@@ -419,7 +419,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Since this is a networks class, we’ll use a network-based grid. We imported the capability to do that above as the <code>mesa.space.NetworkGrid</code> class. Of course, we need a network to use. For this example, we’ll use the Les Miserable Graph, which is built in to NetworkX:</p>
-<div id="2ed98e3a" class="cell" data-execution_count="2">
+<div id="c25b5441" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
@@ -440,7 +440,7 @@ window.Quarto = {
 <li>What happens in a single time-step of the model, via the <code>step()</code> method.</li>
 </ul>
 <p>The model class actually has a lot more functionality than this. Fortunately, we don’t usually need to define this functionality, because the model class we create inherits the needed functionality from <code>mesa.Model</code> (which we imported above). Here’s our <code>SRWModel</code> class. The syntax can look a little complicated whenever we work with a new package, but what’s going on is fundamentally pretty simple. We’ve added annotations next to the most important lines of code; other lines are also necessary for correct functioning but are more boilerplate than informative.</p>
-<div id="cfffff7d" class="cell" data-execution_count="3">
+<div id="5d757893" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RWModel(Model):</span>
 <span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># model setup</span></span>
@@ -495,7 +495,7 @@ window.Quarto = {
 <section id="the-agent-class" class="level3">
 <h3 class="anchored" data-anchor-id="the-agent-class">The Agent Class</h3>
 <p>Now we’re ready to define what the agent is supposed to do! In the SRW, the agent looks at all nodes adjacent to theirs, chooses one of them uniformly at random, and moves to it. We need to implement this behavior in the <code>step()</code> method. While there are some more mesa functions involved that you may not have seen before, the approach is very simple.</p>
-<div id="91d1072f" class="cell" data-execution_count="4">
+<div id="d29992d5" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SRWAgent(Agent):</span>
@@ -521,7 +521,7 @@ window.Quarto = {
 <section id="experiment" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="experiment">Experiment</h3>
 <p>Phew, that’s it! Once we’ve defined our model class, we can then run it for a bunch of timesteps:</p>
-<div id="d7828df7" class="cell" data-execution_count="5">
+<div id="764103d8" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RWModel(G, SRWAgent)</span>
@@ -531,7 +531,7 @@ window.Quarto = {
 </details>
 </div>
 <p>We can get data on the behavior of the simulation using the <code>collector</code> attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead.</p>
-<div id="c4201c56" class="cell" data-execution_count="6">
+<div id="fe06924d" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>walk_report <span class="op">=</span> model.collector.get_agent_vars_dataframe()</span>
@@ -558,27 +558,27 @@ window.Quarto = {
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>30</td>
+<td>55</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">2</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>31</td>
+<td>59</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">3</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>23</td>
+<td>57</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">4</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>12</td>
+<td>64</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">5</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>23</td>
+<td>76</td>
 </tr>
 </tbody>
 </table>
@@ -588,7 +588,7 @@ window.Quarto = {
 </div>
 <div class="page-columns page-full"><p>Now let’s ask: is the simulation we just did lined up with what we know about the theory of the simple random walk?  Recall that the <em>stationary distribution</em> <span class="math inline">\(\pi\)</span> of the SRW is supposed to describe the long-term behavior of the walk, with <span class="math inline">\(\pi_i\)</span> giving the limiting probability that the walker is on node <span class="math inline">\(i\)</span>. Recall further that the stationary distribution for the SRW is actually known in closed form: it’s <span class="math inline">\(\pi_i = k_i / 2m\)</span>, where <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>. So, we would expect this to be a good estimate of the fraction of time that the walker spent on node <span class="math inline">\(i\)</span>. Let’s check this!</p><div class="no-row-height column-margin column-container"><span class="margin-aside">We derived this theory in <a href="50-random-walks.html#sec-srw" class="quarto-xref"><span>Section 15.1</span></a>.</span></div></div>
 <p>First, we can compute the fraction of time that the agent spent on each node:</p>
-<div id="95eb7bfe" class="cell" data-execution_count="7">
+<div id="1c356353" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> walk_report.groupby(<span class="st">"node"</span>).size()</span>
@@ -597,16 +597,16 @@ window.Quarto = {
 </details>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>node
-0    0.00217
-1    0.02014
-2    0.00640
-3    0.00613
-4    0.00212
+0    0.00202
+1    0.01866
+2    0.00590
+3    0.00522
+4    0.00174
 dtype: float64</code></pre>
 </div>
 </div>
 <p>Now we can compute the degree sequence and stationary distribution of the underlying graph:</p>
-<div id="1ab7c335" class="cell" data-execution_count="8">
+<div id="003a9925" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>degs <span class="op">=</span> [G.degree(i) <span class="cf">for</span> i <span class="kw">in</span> freqs.index]</span>
@@ -614,7 +614,7 @@ dtype: float64</code></pre>
 </details>
 </div>
 <p>Finally, we can plot and see whether the prediction lines up with the observation:</p>
-<div id="e49e7445" class="cell" data-execution_count="9">
+<div id="89c92bc9" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="fl">.12</span>], </span>
@@ -643,7 +643,7 @@ dtype: float64</code></pre>
 <section id="variation-pagerank" class="level3">
 <h3 class="anchored" data-anchor-id="variation-pagerank">Variation: PageRank</h3>
 <p>The reason that we parameterized the <code>RWModel</code> class with the argument <code>agent_class</code> is that we can now implement PageRank just by modifying the agent behavior. Let’s now make a new kind of agent that does the PageRank step:</p>
-<div id="04da0210" class="cell" data-execution_count="10">
+<div id="86cd9cb9" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PageRankAgent(Agent):</span>
@@ -665,7 +665,7 @@ dtype: float64</code></pre>
 </details>
 </div>
 <p>That’s all we need to do in order to implement PageRank in this graph. Let’s go ahead and run PageRank.</p>
-<div id="43f51e8b" class="cell" data-execution_count="11">
+<div id="f2319d4c" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pagerank_model <span class="op">=</span> RWModel(G, PageRankAgent, alpha <span class="op">=</span> <span class="fl">0.15</span>)</span>
@@ -675,7 +675,7 @@ dtype: float64</code></pre>
 </details>
 </div>
 <p>That’s it! Now we could check the match with the stationary distribution like we did last time. Instead, let’s simply draw the graph.</p>
-<div id="5df82a96" class="cell" data-execution_count="12">
+<div id="ca5cb33d" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>walk_report <span class="op">=</span> pagerank_model.collector.get_agent_vars_dataframe()</span>
@@ -700,7 +700,7 @@ dtype: float64</code></pre>
 <section id="multi-agent-models" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="multi-agent-models">Multi-Agent Models</h2>
 <div class="page-columns page-full"><p>Now let’s consider our first multi-agent model, the <em>voter model</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">In fact, there are many different models that are all called “the” voter model. The one we’ll discuss here is the simplest and most common.</span></div></div>
-<div id="1be51cfb" class="cell" data-execution_count="13">
+<div id="e8064f10" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa.time <span class="im">import</span> RandomActivation           </span>
@@ -732,7 +732,7 @@ dtype: float64</code></pre>
 <span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.collector.collect(<span class="va">self</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="4b6c5ff7" class="cell" data-execution_count="14">
+<div id="bba0c719" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CompartmentalAgent(Agent):</span>
@@ -752,7 +752,7 @@ dtype: float64</code></pre>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> adopt_from.state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="b311503b" class="cell" data-execution_count="15">
+<div id="0eff83bd" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> run <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
@@ -777,6 +777,8 @@ dtype: float64</code></pre>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
+
+<!-- -->
 
 </section>
 
@@ -870,6 +872,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1212,7 +1265,306 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-summary:</span><span class="co"> "Show code"</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># Agent-Based Modeling on Networks</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/51-agent-based-modeling.ipynb).* </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>Many of the problems that interest us in networks relate to agents making actions or decisions on network structures. While in some cases we can develop relatively complete mathematical descriptions of systems like these, in other cases we need to perform computational simulations and experiments. In this set of notes, we'll focus on basic techniques for *agent-based modeling* (ABM) in Python. </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>In agent-based modeling, we construct a model by defining a set of agents and the rules by which those agents interact. There are many good software packages for agent-based modeling, perhaps the most famous of which is <span class="co">[</span><span class="ot">NetLogo</span><span class="co">](https://en.wikipedia.org/wiki/NetLogo)</span>. <span class="co">[</span><span class="ot">For even more comparisons, see [this page](https://en.wikipedia.org/wiki/Comparison_of_agent-based_modeling_software).</span><span class="co">]</span>{.aside} In this class, we'll use one of several agent-based modeling frameworks developed for Python, called <span class="co">[</span><span class="ot">mesa</span><span class="co">](https://mesa.readthedocs.io/en/latest/)</span>. Mesa includes a number of useful tools for constructing, analyzing, and visualizing agent-based models. You can install Mesa using </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{bash}</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install mesa</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>at the command line or by searching for and installing it in the Environments tab of Anaconda Navigator. Once you've installed Mesa, you are ready to use its tools. </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Components of an Agent-Based Model</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>Let's start with some vocabulary. A Mesa model has several components: </span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>An **agent** is a representation of the individuals who make decisions and perform actions. Agents have a <span class="in">`step()`</span> method that describes their behavior. </span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **grid** is a representation of relationships between individuals. The grid can be, say, a 2d rectangle, in which case we could imagine it representing space. In this class, we'll of course use a *network grid*, in which we can use a network to specify relationships. </span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The **data collector** helps us gather data on our simulation. </span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## First Example: Simple Random Walk</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>For our first agent-based model, we are going to code up an agent-based implementation of the simple random walk. There are lots of reasonable ways to do this, and Mesa is actually a bit of overkill for this particular problem. Still, we'll learn some important techniques and concepts along the way. </span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>Let's start by importing several tools that we'll use. </span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa <span class="im">import</span> Model, Agent                 <span class="co"># core mesa classes</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa.space <span class="im">import</span> NetworkGrid             </span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa.datacollection <span class="im">import</span> DataCollector</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx                         <span class="co"># for the grid</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np                            <span class="co"># computations</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt          <span class="co"># visualizing output</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>Since this is a networks class, we'll use a network-based grid. We imported the capability to do that above as the <span class="in">`mesa.space.NetworkGrid`</span> class. Of course, we need a network to use. For this example, we'll use the Les Miserable Graph, which is built in to NetworkX: </span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>We'll soon use this to create our model. </span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Model Class</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>To specify an ABM in Mesa we need to define two classes: a class describing the model and a class describing each individual agent. The main responsibilities of the model class are to describe: </span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>How the model is initialized, via the <span class="in">`__init__()`</span> method. This includes: </span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Creating any agents needed. </span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Placing those agents on the grid and placing them in the schedule. </span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Defining any data collection tools. </span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>What happens in a single time-step of the model, via the <span class="in">`step()`</span> method. </span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a>The model class actually has a lot more functionality than this. Fortunately, we don't usually need to define this functionality, because the model class we create inherits the needed functionality from <span class="in">`mesa.Model`</span> (which we imported above). Here's our <span class="in">`SRWModel`</span> class. The syntax can look a little complicated whenever we work with a new package, but what's going on is fundamentally pretty simple. We've added annotations next to the most important lines of code; other lines are also necessary for correct functioning but are more boilerplate than informative. </span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RWModel(Model):</span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a>    <span class="co"># model setup</span></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, G, agent_class, <span class="op">**</span>kwargs):                 <span class="co"># &lt;1&gt;</span></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.grid     <span class="op">=</span> NetworkGrid(G)                            <span class="co"># &lt;2&gt;</span></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a>        agent <span class="op">=</span> agent_class(<span class="va">self</span>, <span class="op">**</span>kwargs)                       <span class="co"># &lt;3&gt;</span></span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a>        node <span class="op">=</span> <span class="va">self</span>.random.choice(<span class="bu">list</span>(G.nodes))                  </span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.grid.place_agent(agent, node)                        <span class="co"># &lt;4&gt;</span></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.collector <span class="op">=</span> DataCollector(                           <span class="co"># &lt;5&gt;</span></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a>            agent_reporters <span class="op">=</span> {</span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a>                <span class="st">"node"</span> : <span class="kw">lambda</span> a: a.pos</span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):                                              <span class="co"># &lt;6&gt;</span></span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.agents.do(<span class="st">"step"</span>) </span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.collector.collect(<span class="va">self</span>)                             <span class="co"># &lt;7&gt;</span></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>We initialize the model and choose its arguments. In this case, the arguments are <span class="in">`G`</span>. </span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The <span class="in">`self.grid`</span> object defines the space on which agents move. In our case, we can make a <span class="in">`NetworkGrid`</span> object directly out of a <span class="in">`NetworkX`</span> graph <span class="in">`G`</span>. </span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>This model is only going to have a single agent, whose behavior we'll define when we implement <span class="in">`Agent`</span> classes below. For now, we're going to let the model initialize a single agent of some user-specified class (passed in as part of the <span class="in">`__init__`</span> method.)</span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>We place the agent at a random node on the graph.</span>
+<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>The <span class="in">`DataCollector`</span> object will let us gather data on the behavior of the agent over time. Eventually, we'll be able to return this information as a Pandas data frame. </span>
+<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>The <span class="in">`step()`</span> method is where something actually happens in the model. In our case, we just need to have the agent call its <span class="in">`step`</span> method and then collect data. </span>
+<span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Agent Class</span></span>
+<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a>Now we're ready to define what the agent is supposed to do! In the SRW, the agent looks at all nodes adjacent to theirs, chooses one of them uniformly at random, and moves to it. We need to implement this behavior in the <span class="in">`step()`</span> method. While there are some more mesa functions involved that you may not have seen before, the approach is very simple. </span>
+<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SRWAgent(Agent):</span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model):</span>
+<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(model)</span>
+<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.unique_id <span class="op">=</span> <span class="st">"Anakin Graphwalker"</span></span>
+<span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-119"><a href="#cb17-119" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):</span>
+<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-121"><a href="#cb17-121" aria-hidden="true" tabindex="-1"></a>        <span class="co"># find all possible next steps</span></span>
+<span id="cb17-122"><a href="#cb17-122" aria-hidden="true" tabindex="-1"></a>        <span class="co"># include_center determines whether or not we count the </span></span>
+<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a>        <span class="co"># current position as a possibility</span></span>
+<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a>        options <span class="op">=</span> <span class="va">self</span>.model.grid.get_neighborhood(<span class="va">self</span>.pos, </span>
+<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a>                                                include_center <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a>        <span class="co"># pick a random one and go there</span></span>
+<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a>        new_node <span class="op">=</span> <span class="va">self</span>.random.choice(options)</span>
+<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model.grid.move_agent(<span class="va">self</span>, new_node)</span>
+<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a>Note that, in order to get information about the possible locations, and to move the agent, we needed to use the <span class="in">`grid`</span> attribute of the <span class="in">`SRWModel`</span> that we defined above. More generally, the grid handles all "spatial" operations that we usually need to do. </span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### Experiment</span></span>
+<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a>Phew, that's it! Once we've defined our model class, we can then run it for a bunch of timesteps:</span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RWModel(G, SRWAgent)</span>
+<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a>    model.step()</span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a>We can get data on the behavior of the simulation using the <span class="in">`collector`</span> attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead. </span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a>walk_report <span class="op">=</span> model.collector.get_agent_vars_dataframe()</span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a>walk_report.head()</span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-156"><a href="#cb17-156" aria-hidden="true" tabindex="-1"></a>Now let's ask: is the simulation we just did lined up with what we know about the theory of the simple random walk? <span class="co">[</span><span class="ot">We derived this theory in @sec-srw.</span><span class="co">]</span>{.aside} Recall that the *stationary distribution* $\pi$ of the SRW is supposed to describe the long-term behavior of the walk, with $\pi_i$ giving the limiting probability that the walker is on node $i$. Recall further that the stationary distribution for the SRW is actually known in closed form: it's $\pi_i = k_i / 2m$, where $k_i$ is the degree of node $i$. So, we would expect this to be a good estimate of the fraction of time that the walker spent on node $i$. Let's check this!  </span>
+<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a>First, we can compute the fraction of time that the agent spent on each node: </span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> walk_report.groupby(<span class="st">"node"</span>).size()</span>
+<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a>freqs <span class="op">=</span> counts <span class="op">/</span> <span class="bu">sum</span>(counts)</span>
+<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a>freqs.head()</span>
+<span id="cb17-166"><a href="#cb17-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a>Now we can compute the degree sequence and stationary distribution of the underlying graph: </span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a>degs <span class="op">=</span> [G.degree(i) <span class="cf">for</span> i <span class="kw">in</span> freqs.index]</span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a>stationary_dist <span class="op">=</span> degs <span class="op">/</span> np.<span class="bu">sum</span>(degs)</span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a>Finally, we can plot and see whether the prediction lines up with the observation: </span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="fl">.12</span>], </span>
+<span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a>         [<span class="dv">0</span>, <span class="fl">.12</span>], </span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a>         color <span class="op">=</span> <span class="st">"black"</span>, label <span class="op">=</span> <span class="st">"prediction"</span>)</span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a>plt.scatter(stationary_dist, </span>
+<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a>            freqs, </span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a>            zorder <span class="op">=</span> <span class="dv">100</span>, label <span class="op">=</span> <span class="st">"ABM"</span>)</span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a>plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="vs">r"$\frac</span><span class="sc">{k_i}{2m}</span><span class="vs">$"</span>, </span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a>              ylabel <span class="op">=</span> <span class="st">"</span><span class="sc">% o</span><span class="st">f time spent on node"</span>)</span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a>That's a match! </span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a><span class="fu">### Variation: PageRank</span></span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a>The reason that we parameterized the <span class="in">`RWModel`</span> class with the argument <span class="in">`agent_class`</span> is that we can now implement PageRank just by modifying the agent behavior. Let's now make a new kind of agent that does the PageRank step: </span>
+<span id="cb17-200"><a href="#cb17-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PageRankAgent(Agent):</span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-206"><a href="#cb17-206" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model, alpha):</span>
+<span id="cb17-207"><a href="#cb17-207" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(model)</span>
+<span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.alpha <span class="op">=</span> alpha</span>
+<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):</span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> <span class="va">self</span>.alpha:     <span class="co"># teleport</span></span>
+<span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a>            options <span class="op">=</span> <span class="bu">list</span>(<span class="va">self</span>.model.grid.G.nodes.keys())</span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:                              <span class="co"># standard RW step</span></span>
+<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a>            options <span class="op">=</span> <span class="va">self</span>.model.grid.get_neighborhood(<span class="va">self</span>.pos, </span>
+<span id="cb17-215"><a href="#cb17-215" aria-hidden="true" tabindex="-1"></a>                                                include_center <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a>        <span class="co"># pick a random one and go there</span></span>
+<span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a>        new_node <span class="op">=</span> np.random.choice(options)</span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model.grid.move_agent(<span class="va">self</span>, new_node)</span>
+<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-222"><a href="#cb17-222" aria-hidden="true" tabindex="-1"></a>That's all we need to do in order to implement PageRank in this graph. Let's go ahead and run PageRank.</span>
+<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a>pagerank_model <span class="op">=</span> RWModel(G, PageRankAgent, alpha <span class="op">=</span> <span class="fl">0.15</span>)</span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
+<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a>    pagerank_model.step()</span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a>That's it! Now we could check the match with the stationary distribution like we did last time. Instead, let's simply draw the graph. </span>
+<span id="cb17-234"><a href="#cb17-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-238"><a href="#cb17-238" aria-hidden="true" tabindex="-1"></a>walk_report <span class="op">=</span> pagerank_model.collector.get_agent_vars_dataframe()</span>
+<span id="cb17-239"><a href="#cb17-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-240"><a href="#cb17-240" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> walk_report.groupby(<span class="st">"node"</span>).size()</span>
+<span id="cb17-241"><a href="#cb17-241" aria-hidden="true" tabindex="-1"></a>freqs  <span class="op">=</span> counts <span class="op">/</span> np.<span class="bu">sum</span>(counts)</span>
+<span id="cb17-242"><a href="#cb17-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-243"><a href="#cb17-243" aria-hidden="true" tabindex="-1"></a>nx.draw(G, </span>
+<span id="cb17-244"><a href="#cb17-244" aria-hidden="true" tabindex="-1"></a>        node_size <span class="op">=</span> [<span class="dv">2000</span><span class="op">*</span>freqs[i] <span class="cf">for</span> i <span class="kw">in</span> G.nodes], </span>
+<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a>        edge_color <span class="op">=</span> <span class="st">"grey"</span>)</span>
+<span id="cb17-246"><a href="#cb17-246" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-247"><a href="#cb17-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-248"><a href="#cb17-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multi-Agent Models</span></span>
+<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a>Now let's consider our first multi-agent model, the *voter model*. <span class="co">[</span><span class="ot">In fact, there are many different models that are all called "the" voter model. The one we'll discuss here is the simplest and most common.</span><span class="co">]</span>{.aside}</span>
+<span id="cb17-256"><a href="#cb17-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-257"><a href="#cb17-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-258"><a href="#cb17-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-263"><a href="#cb17-263" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa.time <span class="im">import</span> RandomActivation           </span>
+<span id="cb17-264"><a href="#cb17-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-265"><a href="#cb17-265" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CompartmentalModel(Model):</span>
+<span id="cb17-266"><a href="#cb17-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-267"><a href="#cb17-267" aria-hidden="true" tabindex="-1"></a>    <span class="co"># model setup</span></span>
+<span id="cb17-268"><a href="#cb17-268" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, G, agent_class, possible_states <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">1</span>], state_density <span class="op">=</span> [<span class="fl">0.5</span>, <span class="fl">0.5</span>]):</span>
+<span id="cb17-269"><a href="#cb17-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-270"><a href="#cb17-270" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb17-271"><a href="#cb17-271" aria-hidden="true" tabindex="-1"></a>        <span class="co"># self.schedule = RandomActivation(self) # time structure</span></span>
+<span id="cb17-272"><a href="#cb17-272" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.grid <span class="op">=</span> NetworkGrid(G)            <span class="co"># space structure</span></span>
+<span id="cb17-273"><a href="#cb17-273" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb17-274"><a href="#cb17-274" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> node <span class="kw">in</span> <span class="bu">list</span>(G.nodes):</span>
+<span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a>            state <span class="op">=</span> np.random.choice(possible_states, p <span class="op">=</span> state_density)</span>
+<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a>            agent <span class="op">=</span> agent_class(<span class="va">self</span>, state)</span>
+<span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.grid.place_agent(agent, node)</span>
+<span id="cb17-278"><a href="#cb17-278" aria-hidden="true" tabindex="-1"></a>            <span class="co"># self.schedule.add(agent)</span></span>
+<span id="cb17-279"><a href="#cb17-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-280"><a href="#cb17-280" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.collector <span class="op">=</span> DataCollector(</span>
+<span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a>            agent_reporters <span class="op">=</span> {</span>
+<span id="cb17-282"><a href="#cb17-282" aria-hidden="true" tabindex="-1"></a>                <span class="st">"state"</span> : <span class="kw">lambda</span> a: a.state</span>
+<span id="cb17-283"><a href="#cb17-283" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb17-284"><a href="#cb17-284" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb17-285"><a href="#cb17-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-286"><a href="#cb17-286" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):</span>
+<span id="cb17-287"><a href="#cb17-287" aria-hidden="true" tabindex="-1"></a>        <span class="co"># self.schedule.step()</span></span>
+<span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.agents.shuffle_do(<span class="st">"step"</span>)</span>
+<span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.collector.collect(<span class="va">self</span>)</span>
+<span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CompartmentalAgent(Agent):</span>
+<span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model, state):</span>
+<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(model)</span>
+<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> state</span>
+<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):</span>
+<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a>        neighbors <span class="op">=</span> <span class="va">self</span>.model.grid.get_neighbors(<span class="va">self</span>.pos, </span>
+<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a>                                                include_center <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a>        <span class="co"># neighbors = self.model.grid.get_cell_list_contents(neighbor_locs)</span></span>
+<span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a>        adopt_from <span class="op">=</span> np.random.choice(neighbors)</span>
+<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> adopt_from.state</span>
+<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-313"><a href="#cb17-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> run <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a>    voter_model <span class="op">=</span> CompartmentalModel(G, CompartmentalAgent, [<span class="dv">0</span>, <span class="dv">1</span>], [<span class="fl">0.5</span>, <span class="fl">0.5</span>])</span>
+<span id="cb17-319"><a href="#cb17-319" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">50</span>):</span>
+<span id="cb17-320"><a href="#cb17-320" aria-hidden="true" tabindex="-1"></a>        voter_model.step()</span>
+<span id="cb17-321"><a href="#cb17-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-322"><a href="#cb17-322" aria-hidden="true" tabindex="-1"></a>    report <span class="op">=</span> voter_model.collector.get_agent_vars_dataframe()</span>
+<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a>    plt.plot(report.groupby(<span class="st">"Step"</span>).mean())</span>
+<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-325"><a href="#cb17-325" aria-hidden="true" tabindex="-1"></a>plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Timestep"</span>, ylabel <span class="op">=</span> <span class="st">"</span><span class="sc">% o</span><span class="st">f nodes with opinion 1"</span>)</span>
+<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-327"><a href="#cb17-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-329"><a href="#cb17-329" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

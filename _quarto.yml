@@ -29,6 +29,7 @@ format:
     toc-title: Contents
     fig-cap-location: margin
     highlight-style: atom-one
+    code-tools: true
 
 execute: 
   cache: false

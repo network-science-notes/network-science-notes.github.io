@@ -53,6 +53,7 @@ big_fig_size = (6, 4)
 #| out.width : 80%
 #| fig-cap-location: margin
 #| label: fig-network-example
+#| code-fold: false
 
 
 fig, ax = plt.subplots(1, 1, figsize = big_fig_size)
@@ -84,14 +85,16 @@ Simple graphs will be our primary focus throughout much of these notes. A simple
 #| fig-cap-location: margin
 #| label: fig-self-edge
 #| column: margin
+#| code-fold: false
 
 fig, ax = plt.subplots(1, 1, figsize = small_fig_size)
 
 #---
 G = nx.MultiDiGraph()
 G.add_edges_from([(1, 4), (2, 4), (3, 3), (3, 4), (4, 2)])
-nx.draw(G, ax = ax, connectionstyle='arc3, rad = 0.1', arrows = True, arrowsize = 0.1, **plot_kwargs)
 #---
+
+nx.draw(G, ax = ax, connectionstyle='arc3, rad = 0.1', arrows = True, arrowsize = 0.1, **plot_kwargs)
 ```
 
 ::: {.callout-note icon=false appearance="minimal"}
@@ -116,10 +119,7 @@ If there is more than one edge between the same two nodes, this is called a **mu
 #| fig-cap-location: margin
 #| label: fig-simple-graph
 #| column: margin
-
-from matplotlib import pyplot as plt
-import networkx as nx
-plt.style.use('seaborn-v0_8-whitegrid')
+#| code-fold: false
 
 fig, ax = plt.subplots(1, 1, figsize = small_fig_size)
 #---
@@ -127,8 +127,8 @@ fig, ax = plt.subplots(1, 1, figsize = small_fig_size)
 G = nx.Graph()
 edgelist = [(1, 4), (2, 5), (3, 5), (4, 5), (5, 6), (6, 1), (1, 4), (3, 6), (2, 3), (2, 4), (1, 3), (4, 6)]
 G.add_edges_from(edgelist)
-nx.draw(G, ax = ax, **plot_kwargs)
 #---
+nx.draw(G, ax = ax, **plot_kwargs)
 ```
 
 ::: {.callout-note icon=false appearance="minimal"}
@@ -184,6 +184,7 @@ In this course, we will spend much of our time focused on the analysis of undire
 #| fig-cap-location: margin
 #| label: fig-directed
 #| column: margin
+#| code-fold: false
 
 fig, ax = plt.subplots(1, 1, figsize = small_fig_size)
 
@@ -192,7 +193,15 @@ DG = nx.DiGraph()
 DG.add_edges_from([(0, 1), (0, 2), (2, 3), (3, 0), (0, 3)])
 #---
 
-nx.draw(DG, with_labels = True, arrowsize = 8, font_color = 'white', font_weight = 'bold',  ax = ax, edgecolors = "white", width = 0.5, edge_color = "darkgrey")
+nx.draw(DG, 
+        with_labels = True, 
+        arrowsize = 8, 
+        font_color = 'white', 
+        font_weight = 'bold',  
+        ax = ax, 
+        edgecolors = "white", 
+        width = 0.5, 
+        edge_color = "darkgrey")
 ```
 
 
@@ -317,8 +326,8 @@ fig, ax = plt.subplots(1, 1, figsize = small_fig_size)
 #---
 graph_dict = {1: [2], 2: [1, 3], 3:[2], 4: [2, 3]}
 G = nx.Graph(graph_dict) 
-nx.draw(G, ax =ax, **plot_kwargs)
 #---
+nx.draw(G, ax =ax, **plot_kwargs)
 ```
 
 It's also possible to "go backwards" and obtain the dictionary representation from the graph object using 
@@ -392,7 +401,15 @@ A = np.array([[0, 0, 0, 1],
               [0, 0, 1, 0]])
 
 G = nx.from_numpy_array(np.transpose(A), create_using = nx.DiGraph)
-nx.draw(G, with_labels = True, arrowsize = 8, font_color = 'white', font_weight = 'bold',  ax = ax, edgecolors = "white", width = 0.5, edge_color = "darkgrey")
+nx.draw(G, 
+        with_labels = True, 
+        arrowsize = 8, 
+        font_color = 'white', 
+        font_weight = 'bold',  
+        ax = ax, 
+        edgecolors = "white", 
+        width = 0.5, 
+        edge_color = "darkgrey")
 ```
 
 
@@ -443,18 +460,20 @@ A = np.array([[0, 1, 0, 0, 1],
               [1, 0, 0, 0, 0]])
 
 G = nx.from_numpy_array(np.transpose(A), create_using = nx.DiGraph)
-nx.draw(G, with_labels = True, arrowsize = 8, font_color = 'white', font_weight = 'bold', ax = ax, edgecolors = "white", width = 0.5, edge_color = "darkgrey")
 #---
+nx.draw(G, 
+        with_labels = True, 
+        arrowsize = 8, 
+        font_color = 'white', 
+        font_weight = 'bold', 
+        ax = ax, 
+        edgecolors = "white", 
+        width = 0.5, 
+        edge_color = "darkgrey")
 ```
 
 :::
 
-
-<details>
-<summary>test</summary>
-We'll discuss algorithms for visualizing networks (and why visualizing networks is not always a good idea) in a [later chapter](05-viz.qmd).
-Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-</details>
 
 
 

@@ -391,7 +391,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/07-real-world.html">Real-World Networks</a></li><li class="breadcrumb-item"><a href="../chapters/08-power-laws.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></h1>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -412,7 +412,7 @@ window.Quarto = {
 <section id="introduction" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>Last time, we studied several properties of real-world networks and compared them to randomized models of those networks in which the degrees were held constant. That is, we were looking at aspects of the structure of real-world networks that <strong>are not captured by the degree distribution alone</strong>. But what about the degree distribution itself? Do real world networks have degree distributions that are especially interesting? What models can account for the degree distributions that we observe?</p>
-<div id="e7ed1b82" class="cell" data-execution_count="1">
+<div id="e7ed1b82" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
@@ -422,7 +422,7 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To observe a degree distribution, let’s take a look at a data set collected from the streaming platform Twitch by <span class="citation" data-cites="musae">Rozemberczki, Allen, and Sarkar (<a href="#ref-musae" role="doc-biblioref">2021</a>)</span>. Nodes are users on Twitch. An edge exists between them if they are mutual friends on the platform. The authors collected data sets for users speaking several different languages; we’ll use the network of English-speaking users. Let’s now download the data (as a Pandas data frame) and convert it into a graph using Networkx.</p>
-<div id="9cd466bf" class="cell" data-execution_count="2">
+<div id="9cd466bf" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ENGB_edges.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"from"</span>, <span class="st">"to"</span>, create_using<span class="op">=</span>nx.Graph)</span>
@@ -436,7 +436,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="page-columns page-full"><p>Let’s now define some helper functions to extract and visualize the degree distribution of a graph. Our first function extracts the degree distribution for easy computation, while the second creates a variable-width histogram in which each bin has the <em>same width when plotted on a logarithmic horizontal axis</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This is called <em>logarithmic binning</em>.</span></div></div>
-<div id="87877a2a" class="cell" data-execution_count="3">
+<div id="87877a2a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> degree_sequence(G):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    degree_sequence <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
@@ -464,7 +464,7 @@ window.Quarto = {
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> plt.gca()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s use this function to inspect the degree distrubtion of the data:</p>
-<div id="66aac450" class="cell" data-execution_count="4">
+<div id="66aac450" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -476,7 +476,7 @@ window.Quarto = {
 </div>
 <p>There are a few things to notice about this degree distribution. First, most nodes have relatively small degrees, fewer tham the mean of 9.9. However, there are a small number of nodes that have degrees which are <em>much</em> larger: almost two orders of magnitude larger! You can think of these nodes as “super stars” or “hubs” of the network; they may correspond to especially popular or influential accounts.</p>
 <p>Recall that, from our discussion of the Erdős–Rényi model <span class="math inline">\(G(n,p)\)</span>, the degree distribution of a <span class="math inline">\(G(n,p)\)</span> model with mean degree <span class="math inline">\(\bar{d}\)</span> is approximately Poisson with mean <span class="math inline">\(\bar{d}\)</span>. Let’s compare this Poisson distribution to the data.</p>
-<div id="bca6eb66" class="cell" data-execution_count="5">
+<div id="bca6eb66" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mean_degree  <span class="op">=</span> deg_seq.mean()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">30</span>, <span class="dv">1</span>)</span>
@@ -525,7 +525,7 @@ window.Quarto = {
 \]</span></p>
 <p>So, <span class="math inline">\(\log p_d\)</span> is a linear function of <span class="math inline">\(\log d\)</span> with slope <span class="math inline">\(-\gamma\)</span>.</p>
 <p>Let’s try plotting such a distribution against the data. Since the power law distribution is defined for all <span class="math inline">\(d &gt; d_*\)</span>, we’ll need to choose a cutoff <span class="math inline">\(d_*\)</span> and an exponent <span class="math inline">\(\gamma\)</span>. For now, we’ll do this by eye. If we inspect the plot of the data above, it looks like linear behavior takes over somewhere around <span class="math inline">\(d_* = 10^\frac{3}{2} \approx 30\)</span>.</p>
-<div id="4ef88400" class="cell" data-execution_count="6">
+<div id="4ef88400" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
@@ -578,7 +578,7 @@ window.Quarto = {
 </ol>
 <p>We repeat this process as many times as desired. Intuitively, the preferential attachment model expresses the idea that “the rich get richer”: nodes that already have many connections are more likely to receive new connections.</p>
 <div class="page-columns page-full"><p>Here’s a quick implementation. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Note: this implementation of preferential attachment is useful for illustrating the mathematics and operations with Networkx. It is, however, not efficient.</span></div></div>
-<div id="9f38f3e4" class="cell" data-execution_count="7">
+<div id="9f38f3e4" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initial condition</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph() </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="dv">0</span>, <span class="dv">1</span>) </span>
@@ -604,7 +604,7 @@ window.Quarto = {
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    G.add_edge(u, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s go ahead and plot the result. We’ll add a visualization of the exponent <span class="math inline">\(\gamma\)</span> as well. How do we know the right value of <span class="math inline">\(\gamma\)</span>? It turns out that there is a theoretical estimate based on <span class="math inline">\(\alpha\)</span> which we’ll derive in the next section.</p>
-<div id="0ad41787" class="cell" data-execution_count="8">
+<div id="0ad41787" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
@@ -767,6 +767,8 @@ Exercise
 <p>Are power laws <em>really</em> that common in empirical data? <span class="citation" data-cites="broidoScalefreeNetworksAre2019">Broido and Clauset (<a href="#ref-broidoScalefreeNetworksAre2019" role="doc-biblioref">2019</a>)</span> controversially claimed that <em>scale free networks are rare</em>. In a bit more detail, the authors compare power-law distributions to several competing distributions as models of real-world network degree sequences. The authors find that that the competing models—especially <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">lognormal distributions</a>, which also have heavy tails—are often better fits to observed data than power laws. This paper stirred considerable controversy, which is briefly documented by <span class="citation" data-cites="holmeRareEverywherePerspectives2019">Holme (<a href="#ref-holmeRareEverywherePerspectives2019" role="doc-biblioref">2019</a>)</span>.</p>
 
 
+<!-- -->
+
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-barabasiEmergenceScalingRandom1999" class="csl-entry" role="listitem">
 Barabási, Albert-László, and Réka Albert. 1999. <span>“Emergence of <span>Scaling</span> in <span>Random Networks</span>.”</span> <em>Science</em> 286 (5439): 509–12. <a href="https://doi.org/10.1126/science.286.5439.509">https://doi.org/10.1126/science.286.5439.509</a>.
@@ -894,6 +896,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1236,7 +1289,468 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-summary:</span><span class="co"> "Show code"</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> env</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="an">toc:</span><span class="co"> true</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="an">cache:</span><span class="co"> true</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Power Law Degree Distributions</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/08-power-laws.ipynb).* </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>Last time, we studied several properties of real-world networks and compared them to randomized models of those networks in which the degrees were held constant. That is, we were looking at aspects of the structure of real-world networks that **are not captured by the degree distribution alone**. But what about the degree distribution itself? Do real world networks have degree distributions that are especially interesting? What models can account for the degree distributions that we observe? </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> factorial</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>To observe a degree distribution, let's take a look at a data set collected from the streaming platform Twitch by @musae. Nodes are users on Twitch. An edge exists between them if they are mutual friends on the platform. The authors collected data sets for users speaking several different languages; we'll use the network of English-speaking users. Let's now download the data (as a Pandas data frame) and convert it into a graph using Networkx. </span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ENGB_edges.csv"</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"from"</span>, <span class="st">"to"</span>, create_using<span class="op">=</span>nx.Graph)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>num_nodes <span class="op">=</span> G.number_of_nodes()</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>num_edges <span class="op">=</span> G.number_of_edges()</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"This graph has </span><span class="sc">{</span>num_nodes<span class="sc">}</span><span class="ss"> nodes and </span><span class="sc">{</span>num_edges<span class="sc">}</span><span class="ss"> edges. The mean degree is </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>num_edges<span class="op">/</span>num_nodes<span class="sc">:.1f}</span><span class="ss">."</span>)</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>Let's now define some helper functions to extract and visualize the degree distribution of a graph. Our first function extracts the degree distribution for easy computation, while the second creates a variable-width histogram in which each bin has the *same width when plotted on a logarithmic horizontal axis*. [This is called *logarithmic binning*.]{.aside} </span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> degree_sequence(G):</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    degree_sequence <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> degree_sequence</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_binned_histogram(degree_sequence, interval <span class="op">=</span> <span class="dv">5</span>, num_bins <span class="op">=</span> <span class="dv">20</span>):</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(degree_sequence, bins <span class="op">=</span> <span class="bu">min</span>(<span class="bu">int</span>(<span class="bu">len</span>(degree_sequence)<span class="op">/</span>interval), num_bins))</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>    bins <span class="op">=</span> np.logspace(np.log10(bins[<span class="dv">0</span>]),np.log10(bins[<span class="op">-</span><span class="dv">1</span>]),<span class="bu">len</span>(bins))</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(degree_sequence, bins <span class="op">=</span> bins)</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    binwidths <span class="op">=</span> bins[<span class="dv">1</span>:] <span class="op">-</span> bins[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>    hist <span class="op">=</span> hist <span class="op">/</span> binwidths</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> hist<span class="op">/</span>hist.<span class="bu">sum</span>()</span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bins[:<span class="op">-</span><span class="dv">1</span>], p</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_degree_distribution(G, <span class="op">**</span>kwargs):</span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a>    deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>    x, p <span class="op">=</span> log_binned_histogram(deg_seq, <span class="op">**</span>kwargs)</span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x, p,  facecolors<span class="op">=</span><span class="st">'none'</span>, edgecolors <span class="op">=</span>  <span class="st">'cornflowerblue'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">"Data"</span>)</span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Degree"</span>, xlim <span class="op">=</span> (<span class="fl">0.5</span>, x.<span class="bu">max</span>()<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(ylabel <span class="op">=</span> <span class="st">"Density"</span>)</span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>    plt.gca().loglog()</span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> plt.gca()</span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>Let's use this function to inspect the degree distrubtion of the data: </span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a>There are a few things to notice about this degree distribution. First, most nodes have relatively small degrees, fewer tham the mean of 9.9. However, there are a small number of nodes that have degrees which are *much* larger: almost two orders of magnitude larger! You can think of these nodes as "super stars" or "hubs" of the network; they may correspond to especially popular or influential accounts. </span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>Recall that, from our discussion of the Erdős–Rényi model $G(n,p)$, the degree distribution of a $G(n,p)$ model with mean degree $\bar{d}$ is approximately Poisson with mean $\bar{d}$. Let's compare this Poisson distribution to the data. </span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a>mean_degree  <span class="op">=</span> deg_seq.mean()</span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">30</span>, <span class="dv">1</span>)</span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>poisson <span class="op">=</span> np.exp(<span class="op">-</span>mean_degree)<span class="op">*</span>(mean_degree<span class="op">**</span>d_)<span class="op">/</span>factorial(d_)</span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>ax.plot(d_, poisson,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">"Poisson fit"</span>, color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>Comparing the Poisson fit predicted by the Erdős–Rényi model to the actual data, we see that the the Poisson places much higher probability mass on degrees that are *close to the mean* of 9.9. The Poisson would predict that almost no nodes would have degree higher than $10^2$, while in the data there are several. </span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>We often say that the Poisson has a "light right tail" -- the probability mass allocated by the Poisson dramatically drops off as we move to the right of the mean. In contrast, the data itself appears to have a "heavy tail": there is substantial probability mass even far to the right from the mean. </span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Power Laws As Models of Heavy-Tailed Distributions</span></span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>There are many probability distributions that have heavy tails. By far the most important (and controversial) in the history of network science is the *power law degree distribution*. </span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a>::: {#def-power-law}</span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## Power Law Distribution</span></span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a>A random variable $D$ has a *discrete power law distribution* with cutoff $d_*$ and exponent $\gamma &gt; 1$ if its probability mass function is has the form </span>
+<span id="cb10-119"><a href="#cb10-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-120"><a href="#cb10-120" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a>    p_d \triangleq \mathbb{P}<span class="co">[</span><span class="ot">D = d</span><span class="co">]</span> = C d^{-\gamma}\;,</span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a>$$ {#eq-power-law}</span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a>for all $d &gt; d_*$. Here, $C$ is a normalizing constant that ensures that the distribution sums to $1$. The entries of the distribution for $d \leq d_*$ are are arbitrary. </span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a>An important intuitive insight about power law distributions is that they are *linear on log-log axes*. To see this, we can take the logarithm of both sides in @eq-power-law: </span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a>    \log p_d = \log C - \gamma \log d\;.</span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a>So, $\log p_d$ is a linear function of $\log d$ with slope $-\gamma$. </span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a>Let's try plotting such a distribution against the data. Since the power law distribution is defined for all $d &gt; d_*$, we'll need to choose a cutoff $d_*$ and an exponent $\gamma$. For now, we'll do this by eye. If we inspect the plot of the data above, it looks like  linear behavior takes over somewhere around $d_* = 10^\frac{3}{2} \approx 30$. </span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a>gamma   <span class="op">=</span> <span class="fl">2.7</span></span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>power_law <span class="op">=</span> <span class="dv">18</span><span class="op">*</span>d_<span class="op">**</span>(<span class="op">-</span>gamma)</span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a>ax.plot(d_, power_law,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="vs">fr"Power law: $\gamma = </span><span class="sc">{</span>gamma<span class="sc">}</span><span class="vs">$"</span> , color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a>The power law appears to be a much better fit than the Poisson to the tail of the distribution, making apparently reasonable predictions about the numbers of nodes with very high degrees. <span class="co">[</span><span class="ot">Where do the parameters for the power law come from? Here we performed a fit "by eye", but we discuss some systematic approaches in @sec-power-law-estimation</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a>The claim that a given network "follows a power law" is a bit murky: like other models, power laws are idealizations that no real data set matches exactly. The idea of a power law is also fundamentally asymptotic in nature: the power law that we fit to the data also predicts that we should see nodes of degree $10^3$, $10^4$, or $10^5$ if we were to allow the network to keep growing. Since the network can't keep growing (it's data, we have a finite amount of it), we have to view the power law's predictions about very high-degree nodes as extrapolations toward an idealized, infinite-size data set to which we obviously do not have access. </span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a><span class="fu">### Statistical Properties of Power Laws</span></span>
+<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a>Power law distributions are much more *variable* than, say, Poisson distributions. Indeed, when $\gamma \leq 3$, the variance of a power law distribution is infinite. To show this, we calculate the second moment of the distribution: </span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a>    \mathbb{E}<span class="co">[</span><span class="ot">D^2</span><span class="co">]</span> &amp;= \sum_{d = 1}^\infty p_d d^2 <span class="sc">\\</span> </span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a>                    &amp;= \sum_{d = 1}^{d_*} p_d d^2 + \sum_{d = d_* + 1}^\infty d^2 C d^{-\gamma} <span class="sc">\\</span></span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a>                    &amp;= K + C \sum_{d = d_*}^\infty d^{2-\gamma}\;,</span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a>$$      </span>
+<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a>where $K$ is a (finite) constant. Now we draw upon a fact from calculus: the sequence $\sum_{x = 1}^\infty x^{-p}$ converges if and only if $p &gt; 1$. This means that the sum $\sum_{d = d_*}^\infty d^{2-\gamma}$ converges if and only if $2 - \gamma &lt; -1$, which requires $\gamma &gt; 3$. If $\gamma \leq 3$, the second moment (and therefore the variance) is undefined. Heuristically, this means that the distribution can generate samples which are are arbitrarily far from the mean, much as the data above includes samples which are orders of magnitude higher than the mean. </span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a><span class="fu">### Purported Universality of Power Laws</span></span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a>@barabasiEmergenceScalingRandom1999 made the first published that power-law degree distributions are very common in real-world networks. This initial paper has since been cited over 46,000 times (as of August 2024). *Many* subsequent studies have fit power-law tails to degree distributions in empirical networks across social, technological, and biological domains. <span class="co">[</span><span class="ot">@clausetPowerLawDistributionsEmpirical2009,  @broidoScalefreeNetworksAre2019 and @holmeRareEverywherePerspectives2019 provide some review and references for these claims.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a>The idea that power laws are common in real-world networks is sometimes called the "scale-free hypothesis." Part of the appeal of this hypothesis comes from statistical physics and complexity science, where power law distributions are common signatures of self-organizing systems. </span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Preferential Attachment Model: A Generative Model for Power Law Degrees</span></span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>Why would power-law degree distributions be common in empirical networks? A common way to answer questions like this is to propose a *generative model*. A *generative model* is a random network model that is intended to produce some kind of realistic structure. [Generative models contrast with *null models* like the $G(n,p)$ model, which are usually used to *contrast* with real networks. Generative models are models of what the data is like; null models are models of what the data is *not* like.]{.aside} If the mechanism proposed by the generative model is plausible as a real, common mechanism, then we might expect that the large-scale structure generated by that model would be commonly observed. </span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a>@barabasiEmergenceScalingRandom1999 are responsible for popularizing the claim that many empirical networks are scale-free. Alongside this claim, they offered a generative model called *preferential attachment*. The preferential attachment model offers a simple mechanism of network growth which leads to power-law degree distributions. Their model is closely related to the regrettably much less famous models of @yuleMathematicalTheoryEvolution1925, @simonClassSkewDistribution1955, and @price1976general. </span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a>Here's how the Yule-Simon-Price-Barabási-Albert model works. First, we start off with some initial graph $G_0$. Then, in each timestep $t=1,2,\ldots$, we: <span class="co">[</span><span class="ot">The model of @barabasiEmergenceScalingRandom1999 did not include a uniform selection mechanism, which corresponds to the case $\alpha = 1$.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Flip a coin with probability of heads equal to $\alpha$. If this coin lands heads, then: </span>
+<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a><span class="ss">    1. </span>Choose a node $u$ from $G_{t-1}$ with probability *proportional to its degree*. </span>
+<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Otherwise, if the coin lands tails, choose a node $u$ from $G_{t-1}$ uniformly at random. </span>
+<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Add a node $v$ to $G_{t-1}$. </span>
+<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Add edge $(u,v)$ to $G_{t-1}$. </span>
+<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a>We repeat this process as many times as desired. Intuitively, the preferential attachment model expresses the idea that "the rich get richer": nodes that already have many connections are more likely to receive new connections.</span>
+<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>Here's a quick implementation. <span class="co">[</span><span class="ot">Note: this implementation of preferential attachment is useful for illustrating the mathematics and operations with Networkx. It is, however, not efficient.</span><span class="co">]</span>{.aside}</span>
+<span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-203"><a href="#cb10-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-204"><a href="#cb10-204" aria-hidden="true" tabindex="-1"></a><span class="co"># initial condition</span></span>
+<span id="cb10-205"><a href="#cb10-205" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph() </span>
+<span id="cb10-206"><a href="#cb10-206" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="dv">0</span>, <span class="dv">1</span>) </span>
+<span id="cb10-207"><a href="#cb10-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-208"><a href="#cb10-208" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="dv">3</span><span class="op">/</span><span class="dv">5</span> <span class="co"># proportion of degree-based selection steps</span></span>
+<span id="cb10-209"><a href="#cb10-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-210"><a href="#cb10-210" aria-hidden="true" tabindex="-1"></a><span class="co"># main loop</span></span>
+<span id="cb10-211"><a href="#cb10-211" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>):</span>
+<span id="cb10-212"><a href="#cb10-212" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
+<span id="cb10-213"><a href="#cb10-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-214"><a href="#cb10-214" aria-hidden="true" tabindex="-1"></a>    <span class="co"># determine u using one of two mechanisms</span></span>
+<span id="cb10-215"><a href="#cb10-215" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> alpha: </span>
+<span id="cb10-216"><a href="#cb10-216" aria-hidden="true" tabindex="-1"></a>        deg_seq <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
+<span id="cb10-217"><a href="#cb10-217" aria-hidden="true" tabindex="-1"></a>        degree_weights <span class="op">=</span> deg_seq <span class="op">/</span> deg_seq.<span class="bu">sum</span>()</span>
+<span id="cb10-218"><a href="#cb10-218" aria-hidden="true" tabindex="-1"></a>        u <span class="op">=</span> np.random.choice(np.arange(<span class="bu">len</span>(degrees)), p <span class="op">=</span> degree_weights)</span>
+<span id="cb10-219"><a href="#cb10-219" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb10-220"><a href="#cb10-220" aria-hidden="true" tabindex="-1"></a>        u <span class="op">=</span> np.random.choice(np.arange(<span class="bu">len</span>(degrees)))</span>
+<span id="cb10-221"><a href="#cb10-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-222"><a href="#cb10-222" aria-hidden="true" tabindex="-1"></a>    <span class="co"># integer index of new node v</span></span>
+<span id="cb10-223"><a href="#cb10-223" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="bu">len</span>(degrees)</span>
+<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-225"><a href="#cb10-225" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add new edge to graph    </span></span>
+<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a>    G.add_edge(u, v)</span>
+<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-230"><a href="#cb10-230" aria-hidden="true" tabindex="-1"></a>Let's go ahead and plot the result. We'll add a visualization of the exponent $\gamma$ as well. How do we know the right value of $\gamma$? It turns out that there is a theoretical estimate based on $\alpha$ which we'll derive in the next section. </span>
+<span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb10-235"><a href="#cb10-235" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb10-236"><a href="#cb10-236" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
+<span id="cb10-237"><a href="#cb10-237" aria-hidden="true" tabindex="-1"></a>gamma   <span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> alpha) <span class="op">/</span> alpha</span>
+<span id="cb10-238"><a href="#cb10-238" aria-hidden="true" tabindex="-1"></a>power_law <span class="op">=</span> <span class="dv">10</span><span class="op">*</span>d_<span class="op">**</span>(<span class="op">-</span>gamma)</span>
+<span id="cb10-239"><a href="#cb10-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-240"><a href="#cb10-240" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">2</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
+<span id="cb10-241"><a href="#cb10-241" aria-hidden="true" tabindex="-1"></a>ax.plot(d_, power_law,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="vs">fr"Power law: $\gamma = </span><span class="sc">{</span>gamma<span class="sc">:.2f}</span><span class="vs">$"</span> , color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
+<span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a>This fit is somewhat noisy, reflecting the fact that we simulated a relatively small number of preferential attachment steps. </span>
+<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analyzing Preferential Attachment</span></span>
+<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a>Let's now see if we can understand mathematically why the preferential attachment model leads to networks with power-law degree distributions. There are many ways to demonstrate this fact, including both "casual" and highly rigorous techniques. Here, we'll use a "casual" argument from @mitzenmacherBriefHistoryGenerative2004. </span>
+<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a>Let $p_d^{(t)}$ be the *proportion* of nodes of degree $d \geq 2$ after algorithmic timestep $t$. Suppose that at this timestep there are $n$ nodes and $m$ edges. Then, the total *number* of nodes of degree $d$ is $n_d^{(t)} = np_d^{(t)}$. Suppose that we do one step of the preferential attachment model. Let's ask: what will be the new expected value of $n_d^{(t+1)}$? </span>
+<span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a>Well, in the previous timestep there were $n_d^{(t)}$ nodes of degree $d$. How could this quantity change? There are two processes that could make $n_d^{(t+1)}$  different from $n_d^{(t)}$. If we selected a node $u$ with degree $d-1$ in the model update, then this node will become a node of degree $d$ (since it will have one new edge attached to it), and will newly count towards the total $n_d^{(t+1)}$.  On the other hand, if we select a node  $u$ of degree $d$, then this node will become a node of degree $d+1$, and therefore no longer count for $n_d^{(t+1)}$. </span>
+<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a>So, we can write down our estimate for the expected value of $n_d^{(t+1)}$. </span>
+<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-260"><a href="#cb10-260" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-261"><a href="#cb10-261" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-262"><a href="#cb10-262" aria-hidden="true" tabindex="-1"></a>    \mathbb{E}\left<span class="co">[</span><span class="ot">n_d^{(t+1)}\right</span><span class="co">]</span> - n_d^{(t)} = \mathbb{P}<span class="co">[</span><span class="ot">d_u = d-1</span><span class="co">]</span> - \mathbb{P}<span class="co">[</span><span class="ot">d_u = d</span><span class="co">]</span>\;.</span>
+<span id="cb10-263"><a href="#cb10-263" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-264"><a href="#cb10-264" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-265"><a href="#cb10-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-266"><a href="#cb10-266" aria-hidden="true" tabindex="-1"></a>Let's compute the probabilities appearing on the righthand side. With probability $\alpha$, we select a node from $G_t$ proportional to its degree. This means that, if a *specific* node $u$ has degree $d-1$, the probability of picking $u$ is </span>
+<span id="cb10-267"><a href="#cb10-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-268"><a href="#cb10-268" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-269"><a href="#cb10-269" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-270"><a href="#cb10-270" aria-hidden="true" tabindex="-1"></a>    \mathbb{P}<span class="co">[</span><span class="ot">u \text{ is picked}</span><span class="co">]</span> = \frac{d-1}{\sum_{w \in G} d_w} = \frac{d-1}{2m^{(t)}}\;.</span>
+<span id="cb10-271"><a href="#cb10-271" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-272"><a href="#cb10-272" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-273"><a href="#cb10-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-274"><a href="#cb10-274" aria-hidden="true" tabindex="-1"></a>Of all the nodew we could pick, $p_{d-1}^{(t)}n$ of them have degree $d-1$. So, the probability of picking a node with degree $d-1$ is $n p_{d-1}^{(t)}\frac{d-1}{2m}$. On the other hand, if we flipped a tails (with probability $1-\alpha$), then we pick a node uniformly at random; each one is equally probable and $p_{d-1}^{(t)}$ of them have degree $d-1$. So, in this case the probability is simply $p_{d-1}^{(t)}$. Combining using the law of total probability, we have </span>
+<span id="cb10-275"><a href="#cb10-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-276"><a href="#cb10-276" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-277"><a href="#cb10-277" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-278"><a href="#cb10-278" aria-hidden="true" tabindex="-1"></a>    \mathbb{P}<span class="co">[</span><span class="ot">d_u = d-1</span><span class="co">]</span> &amp;= \alpha n p_{d-1}^{(t)}\frac{d-1}{2m^{(t)}} + (1-\alpha)p_{d-1}^{(t)} <span class="sc">\\</span> </span>
+<span id="cb10-279"><a href="#cb10-279" aria-hidden="true" tabindex="-1"></a>                          &amp;= \left<span class="co">[</span><span class="ot">\alpha n \frac{d-1}{2m} + (1-\alpha)\right</span><span class="co">]</span>p_{d-1}^{(t)}\;. </span>
+<span id="cb10-280"><a href="#cb10-280" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-281"><a href="#cb10-281" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-282"><a href="#cb10-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-283"><a href="#cb10-283" aria-hidden="true" tabindex="-1"></a>A similar calculation shows that </span>
+<span id="cb10-284"><a href="#cb10-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-285"><a href="#cb10-285" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-286"><a href="#cb10-286" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-287"><a href="#cb10-287" aria-hidden="true" tabindex="-1"></a>    \mathbb{P}<span class="co">[</span><span class="ot">d_u = d</span><span class="co">]</span> &amp;= \alpha n p_{d}^{(t)}\frac{d}{2m^{(t)}} + (1-\alpha)p_{d}^{(t)} <span class="sc">\\</span> </span>
+<span id="cb10-288"><a href="#cb10-288" aria-hidden="true" tabindex="-1"></a>                          &amp;= \left<span class="co">[</span><span class="ot">\alpha n \frac{d}{2m} + (1-\alpha)\right</span><span class="co">]</span>p_{d}^{(t)}\;, </span>
+<span id="cb10-289"><a href="#cb10-289" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-290"><a href="#cb10-290" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-291"><a href="#cb10-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-292"><a href="#cb10-292" aria-hidden="true" tabindex="-1"></a>so our expectation is </span>
+<span id="cb10-293"><a href="#cb10-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-294"><a href="#cb10-294" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-295"><a href="#cb10-295" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-296"><a href="#cb10-296" aria-hidden="true" tabindex="-1"></a>    \mathbb{E}\left<span class="co">[</span><span class="ot">n_d^{(t+1)}\right</span><span class="co">]</span> - n_d^{(t)} = \left<span class="co">[</span><span class="ot">\alpha n \frac{d-1}{2m} + (1-\alpha)\right</span><span class="co">]</span>p_{d-1}^{(t)} - \left<span class="co">[</span><span class="ot">\alpha n \frac{d}{2m} + (1-\alpha)\right</span><span class="co">]</span>p_{d}^{(t)}\;.</span>
+<span id="cb10-297"><a href="#cb10-297" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-298"><a href="#cb10-298" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-299"><a href="#cb10-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-300"><a href="#cb10-300" aria-hidden="true" tabindex="-1"></a>Up until now, everything has been exact: no approximations involved. Now we're going to start making approximations and assumptions. These can all be justified by rigorous probabilistic arguments, but we won't do this here. </span>
+<span id="cb10-301"><a href="#cb10-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-302"><a href="#cb10-302" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>We'll assume that $n_d^{(t+1)}$ is equal to its expectation. </span>
+<span id="cb10-303"><a href="#cb10-303" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>In each timestep, we add one new node and one new edge. This means that, after enough timesteps, the number of nodes $n$ and number of edges $m$ should be approximately equal. We'll therefore assume that $t$ is sufficiently large that $\frac{n}{m} \approx 1$. </span>
+<span id="cb10-304"><a href="#cb10-304" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Stationarity**: we'll assume that, for sufficiently large $t$, $p_d^{(t)}$ is a *constant*: $p_d^{(t)} = p_d^{(t+1)} \triangleq p_d$. </span>
+<span id="cb10-305"><a href="#cb10-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-306"><a href="#cb10-306" aria-hidden="true" tabindex="-1"></a>To track these assumptions, we'll use the symbol $\doteq$ to mean "equal under these assumptions."</span>
+<span id="cb10-307"><a href="#cb10-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-308"><a href="#cb10-308" aria-hidden="true" tabindex="-1"></a>With these assumptions, we can simplify. First, we'll replace $\mathbb{E}\left<span class="co">[</span><span class="ot">n_d^{(t+1)}\right</span><span class="co">]</span>$ with $n_d^{(t+1)}$, which we'll write as $(n+1)p_d^{(t+1)}$ </span>
+<span id="cb10-309"><a href="#cb10-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-310"><a href="#cb10-310" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-311"><a href="#cb10-311" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-312"><a href="#cb10-312" aria-hidden="true" tabindex="-1"></a>    (n+1)p_d^{(t+1)} - np_d^{(t)} \doteq \left<span class="co">[</span><span class="ot">\alpha n \frac{d-1}{2m} + (1-\alpha)\right</span><span class="co">]</span>p_{d-1}^{(t)} - \left<span class="co">[</span><span class="ot">\alpha n \frac{d}{2m} + (1-\alpha)\right</span><span class="co">]</span>p_{d}^{(t)}\;.</span>
+<span id="cb10-313"><a href="#cb10-313" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-314"><a href="#cb10-314" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-315"><a href="#cb10-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-316"><a href="#cb10-316" aria-hidden="true" tabindex="-1"></a>Next, we'll assume $\frac{n}{m} \approx 1$: </span>
+<span id="cb10-317"><a href="#cb10-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-318"><a href="#cb10-318" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-319"><a href="#cb10-319" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-320"><a href="#cb10-320" aria-hidden="true" tabindex="-1"></a>    (n+1)p_d^{(t+1)} - np_d^{(t)} \doteq \left<span class="co">[</span><span class="ot">\alpha  \frac{d-1}{2} + (1-\alpha)\right</span><span class="co">]</span>p_{d-1}^{(t)} - \left<span class="co">[</span><span class="ot">\alpha \frac{d}{2} + (1-\alpha)\right</span><span class="co">]</span>p_{d}^{(t)}\;.</span>
+<span id="cb10-321"><a href="#cb10-321" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-322"><a href="#cb10-322" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-323"><a href="#cb10-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-324"><a href="#cb10-324" aria-hidden="true" tabindex="-1"></a>Finally, we'll assume stationarity: </span>
+<span id="cb10-325"><a href="#cb10-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-326"><a href="#cb10-326" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-327"><a href="#cb10-327" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-328"><a href="#cb10-328" aria-hidden="true" tabindex="-1"></a>    (n+1)p_d - np_d \doteq \left<span class="co">[</span><span class="ot">\alpha  \frac{d-1}{2} + (1-\alpha)\right</span><span class="co">]</span>p_{d-1} - \left<span class="co">[</span><span class="ot">\alpha \frac{d}{2} + (1-\alpha)\right</span><span class="co">]</span>p_{d}\;.</span>
+<span id="cb10-329"><a href="#cb10-329" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-330"><a href="#cb10-330" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-331"><a href="#cb10-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-332"><a href="#cb10-332" aria-hidden="true" tabindex="-1"></a>After a long setup, this looks much more manageable! Our next step is to solve for $p_d$, from which we find </span>
+<span id="cb10-333"><a href="#cb10-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-334"><a href="#cb10-334" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-335"><a href="#cb10-335" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-336"><a href="#cb10-336" aria-hidden="true" tabindex="-1"></a>    p_d &amp;\doteq \frac{\alpha  \frac{d-1}{2} + (1-\alpha)}{1 + \alpha \frac{d}{2} + (1-\alpha)} p_{d-1} <span class="sc">\\</span> </span>
+<span id="cb10-337"><a href="#cb10-337" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{2(1-\alpha) + (d-1)\alpha}{2(1-\alpha) + 2 + d\alpha }p_{d-1} <span class="sc">\\</span></span>
+<span id="cb10-338"><a href="#cb10-338" aria-hidden="true" tabindex="-1"></a>    &amp;= \left(1 - \frac{2 + \alpha }{2(1-\alpha) + 2 + d\alpha }\right)p_{d-1}\;.</span>
+<span id="cb10-339"><a href="#cb10-339" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-340"><a href="#cb10-340" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-341"><a href="#cb10-341" aria-hidden="true" tabindex="-1"></a>When $d$ grows large, this expression is approximately </span>
+<span id="cb10-342"><a href="#cb10-342" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-343"><a href="#cb10-343" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-344"><a href="#cb10-344" aria-hidden="true" tabindex="-1"></a>    p_d \simeq \left(1 - \frac{1}{d}\frac{2+\alpha}{\alpha}\right) p_{d-1}\;.</span>
+<span id="cb10-345"><a href="#cb10-345" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-346"><a href="#cb10-346" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-347"><a href="#cb10-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-348"><a href="#cb10-348" aria-hidden="true" tabindex="-1"></a>Now for a trick "out of thin air." As $d$ grows large, </span>
+<span id="cb10-349"><a href="#cb10-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-350"><a href="#cb10-350" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-351"><a href="#cb10-351" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-352"><a href="#cb10-352" aria-hidden="true" tabindex="-1"></a>    1 - \frac{1}{d}\frac{2+\alpha}{\alpha} \rightarrow \left(\frac{d-1}{d} \right)^{\frac{2 + \alpha}{\alpha}}</span>
+<span id="cb10-353"><a href="#cb10-353" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-354"><a href="#cb10-354" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-355"><a href="#cb10-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-356"><a href="#cb10-356" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb10-357"><a href="#cb10-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-358"><a href="#cb10-358" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
+<span id="cb10-359"><a href="#cb10-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-360"><a href="#cb10-360" aria-hidden="true" tabindex="-1"></a>Justify the approximation above. To do this, Taylor-expand the function $f(x) = x^{\gamma}$ to first order around the point $x_0 = 1$ and use this expansion to estimate the value of $1 - \frac{1}{d}$.</span>
+<span id="cb10-361"><a href="#cb10-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-362"><a href="#cb10-362" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-363"><a href="#cb10-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-364"><a href="#cb10-364" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
+<span id="cb10-365"><a href="#cb10-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-366"><a href="#cb10-366" aria-hidden="true" tabindex="-1"></a>We will use a Taylor expansion to find a first-order approximation about $x_0 = 1$:</span>
+<span id="cb10-367"><a href="#cb10-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-368"><a href="#cb10-368" aria-hidden="true" tabindex="-1"></a>The Taylor expansion to first order is</span>
+<span id="cb10-369"><a href="#cb10-369" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-370"><a href="#cb10-370" aria-hidden="true" tabindex="-1"></a>f(x) \approx f(x_0) + f'(x_0)(x-x_0).</span>
+<span id="cb10-371"><a href="#cb10-371" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-372"><a href="#cb10-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-373"><a href="#cb10-373" aria-hidden="true" tabindex="-1"></a>Let $f(x) = x^{\gamma}$. Then $f'(x) = \gamma x ^{\gamma - 1}.$ This means that</span>
+<span id="cb10-374"><a href="#cb10-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-375"><a href="#cb10-375" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-376"><a href="#cb10-376" aria-hidden="true" tabindex="-1"></a>f(x) \approx 1 +\gamma (x-1).</span>
+<span id="cb10-377"><a href="#cb10-377" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-378"><a href="#cb10-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-379"><a href="#cb10-379" aria-hidden="true" tabindex="-1"></a>Furthermore, note that $\frac{1}{d} &lt;&lt;1$ for $d$ large. Substituting in $x = 1-\frac{1}{d}$ and $\gamma = \frac{2+\alpha}{\alpha}$ gives</span>
+<span id="cb10-380"><a href="#cb10-380" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-381"><a href="#cb10-381" aria-hidden="true" tabindex="-1"></a>f(1-\frac{1}{d}) \approx 1-\frac{1}{d} \frac{2+\alpha}{\alpha}.</span>
+<span id="cb10-382"><a href="#cb10-382" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-383"><a href="#cb10-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-384"><a href="#cb10-384" aria-hidden="true" tabindex="-1"></a>This justifies the approximation: the expression we derived could be thought of as a first-order approximation of the function $\left(\frac{d - 1}{d}\right)^{\frac{2+\alpha}{\alpha}}.$</span>
+<span id="cb10-385"><a href="#cb10-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-386"><a href="#cb10-386" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-387"><a href="#cb10-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-388"><a href="#cb10-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-389"><a href="#cb10-389" aria-hidden="true" tabindex="-1"></a>Applying this last approximation, we have shown that, for sufficiently large $d$, </span>
+<span id="cb10-390"><a href="#cb10-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-391"><a href="#cb10-391" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-392"><a href="#cb10-392" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-393"><a href="#cb10-393" aria-hidden="true" tabindex="-1"></a>    p_d \simeq \left(\frac{d-1}{d} \right)^{\frac{2 + \alpha}{\alpha}} p_{d-1}\;.</span>
+<span id="cb10-394"><a href="#cb10-394" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-395"><a href="#cb10-395" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-396"><a href="#cb10-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-397"><a href="#cb10-397" aria-hidden="true" tabindex="-1"></a>This recurrence relation, if it were exact, would imply that $p_d = C d^{-\frac{2+\alpha}{\alpha}}$, as shown by the following exercise:  </span>
+<span id="cb10-398"><a href="#cb10-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-399"><a href="#cb10-399" aria-hidden="true" tabindex="-1"></a>::: {.callout-important} </span>
+<span id="cb10-400"><a href="#cb10-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-401"><a href="#cb10-401" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
+<span id="cb10-402"><a href="#cb10-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-403"><a href="#cb10-403" aria-hidden="true" tabindex="-1"></a>Suppose that $p_d$ is a probability distribution with the property that, for some $d_*$ and for all $d &gt; d_*$, it holds that </span>
+<span id="cb10-404"><a href="#cb10-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-405"><a href="#cb10-405" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-406"><a href="#cb10-406" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-407"><a href="#cb10-407" aria-hidden="true" tabindex="-1"></a>    p_d = \left(\frac{d-1}{d}\right)^{\gamma} p_{d-1}\;.</span>
+<span id="cb10-408"><a href="#cb10-408" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-409"><a href="#cb10-409" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-410"><a href="#cb10-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-411"><a href="#cb10-411" aria-hidden="true" tabindex="-1"></a>Prove using induction that $p_d = C d^{-\gamma}$ for some constant $C$, and explain how to compute $C$. </span>
+<span id="cb10-412"><a href="#cb10-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-413"><a href="#cb10-413" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-414"><a href="#cb10-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-415"><a href="#cb10-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-416"><a href="#cb10-416" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
+<span id="cb10-417"><a href="#cb10-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-418"><a href="#cb10-418" aria-hidden="true" tabindex="-1"></a>Our proof is by induction. </span>
+<span id="cb10-419"><a href="#cb10-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-420"><a href="#cb10-420" aria-hidden="true" tabindex="-1"></a>**Base Case:** Since the statement is claimed to hold for all $d &gt; d_*$, our base case is $d = d_* + 1$. In this case we have $p_d = \left(\frac{d_*}{d}\right)^{\gamma} p_{d_*} = \left[p_{d_*}d_*^{\gamma}\right]d^{-\gamma}$. We'll let $C = p_{d_*}d_*^\gamma$. </span>
+<span id="cb10-421"><a href="#cb10-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-422"><a href="#cb10-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-423"><a href="#cb10-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-424"><a href="#cb10-424" aria-hidden="true" tabindex="-1"></a>**Inductive Step:**  Suppose that the statement holds for some arbitrary $d = \hat{d} &gt; d_*$. We'll show that the statement also holds for $d = \hat{d} + 1$. We can calculate directly </span>
+<span id="cb10-425"><a href="#cb10-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-426"><a href="#cb10-426" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-427"><a href="#cb10-427" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-428"><a href="#cb10-428" aria-hidden="true" tabindex="-1"></a>    p_{\hat{d} +  1} &amp;= \left(\frac{\hat{d}}{\hat{d} + 1}\right)^{\gamma} p_{\hat{d}} <span class="sc">\\</span> </span>
+<span id="cb10-429"><a href="#cb10-429" aria-hidden="true" tabindex="-1"></a>    &amp;= C \left(\frac{\hat{d}}{\hat{d} + 1}\right)^{\gamma} \hat{d}^{-\gamma} <span class="sc">\\</span></span>
+<span id="cb10-430"><a href="#cb10-430" aria-hidden="true" tabindex="-1"></a>    &amp;= C (\hat{d} + 1)^{-\gamma}\;.</span>
+<span id="cb10-431"><a href="#cb10-431" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-432"><a href="#cb10-432" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-433"><a href="#cb10-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-434"><a href="#cb10-434" aria-hidden="true" tabindex="-1"></a>This completes the inductive step and the proof. </span>
+<span id="cb10-435"><a href="#cb10-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-436"><a href="#cb10-436" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb10-437"><a href="#cb10-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-438"><a href="#cb10-438" aria-hidden="true" tabindex="-1"></a>This concludes our argument. Although this argument contains many approximations, it is also possible to reach the same conclusion using fully rigorous probabilistic arguments <span class="co">[</span><span class="ot">@bollobasDegreeSequenceScale2001</span><span class="co">]</span>. </span>
+<span id="cb10-439"><a href="#cb10-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-440"><a href="#cb10-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-441"><a href="#cb10-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-442"><a href="#cb10-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-443"><a href="#cb10-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-444"><a href="#cb10-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-445"><a href="#cb10-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-446"><a href="#cb10-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-447"><a href="#cb10-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-448"><a href="#cb10-448" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-449"><a href="#cb10-449" aria-hidden="true" tabindex="-1"></a><span class="fu">## Estimating Power Laws From Data {#sec-power-law-estimation}</span></span>
+<span id="cb10-450"><a href="#cb10-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-451"><a href="#cb10-451" aria-hidden="true" tabindex="-1"></a>After the publication of @barabasiEmergenceScalingRandom1999, there was a proliferation of papers purporting to find power-law degree distributions in empirical networks. For a time, the standard method for estimating the exponent $\gamma$ was to use the key visual signature of power laws -- power laws are linear on log-log axes. This suggests performing linear regression in log-log space; the slope of the regression line is the estimate of $\gamma$. This approach, however, is badly flawed: errors can be large, and uncertainty quantification is not reliably available. @clausetPowerLawDistributionsEmpirical2009 discuss this problem in greater detail, and propose an alternative scheme based on maximum likelihood estimation and goodness-of-fit tests. Although the exact maximum-likelihood estimate of $\gamma$ is the output of a maximization problem and is not available in closed form, the authors supply a relatively accurate approximation: </span>
+<span id="cb10-452"><a href="#cb10-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-453"><a href="#cb10-453" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-454"><a href="#cb10-454" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb10-455"><a href="#cb10-455" aria-hidden="true" tabindex="-1"></a>    \hat{\gamma} = 1 + n\left(\sum_{i=1}^n \log \frac{d_i}{d_*}\right)^{-1}\;.</span>
+<span id="cb10-456"><a href="#cb10-456" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb10-457"><a href="#cb10-457" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb10-458"><a href="#cb10-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-459"><a href="#cb10-459" aria-hidden="true" tabindex="-1"></a>As they show, this estimate and related methods are much more reliable estimators of $\gamma$ than the linear regression method. </span>
+<span id="cb10-460"><a href="#cb10-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-461"><a href="#cb10-461" aria-hidden="true" tabindex="-1"></a>An important cautionary note: the estimate $\hat{\gamma}$ can be formed regardless of whether or not the power law is a good descriptor of the data. Supplementary methods such as goodness-of-fit tests are necessary to determine whether a power law is appropriate at all. @clausetPowerLawDistributionsEmpirical2009 give some guidance on such methods as well. </span>
+<span id="cb10-462"><a href="#cb10-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-463"><a href="#cb10-463" aria-hidden="true" tabindex="-1"></a><span class="fu">### Preferential Attachment in Growing Graphs</span></span>
+<span id="cb10-464"><a href="#cb10-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-465"><a href="#cb10-465" aria-hidden="true" tabindex="-1"></a>What if we are able to observe more than the degree distribution of a network? What if we could also observe the growth of the network, and actually know which edges were added at which times? Under such circumstances, it is possible to estimate more directly the extent to which a graph might grow via the preferential attachment mechanism, possibly alongside additional mechanisms. </span>
+<span id="cb10-466"><a href="#cb10-466" aria-hidden="true" tabindex="-1"></a>@overgoorChoosingGrowGraph2019 supply details on how to estimate the parameters of a general class of models, including preferential attachment, from observed network growth.</span>
+<span id="cb10-467"><a href="#cb10-467" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-468"><a href="#cb10-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-469"><a href="#cb10-469" aria-hidden="true" tabindex="-1"></a><span class="fu">## Are Power Laws Good Descriptors of Real-World Networks?</span></span>
+<span id="cb10-470"><a href="#cb10-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-471"><a href="#cb10-471" aria-hidden="true" tabindex="-1"></a>Are power laws *really* that common in empirical data? @broidoScalefreeNetworksAre2019 controversially claimed that *scale free networks are rare*. In a bit more detail, the authors compare power-law  distributions to several competing distributions as models of real-world network degree sequences. The authors find that that the competing models---especially <span class="co">[</span><span class="ot">lognormal distributions</span><span class="co">](https://en.wikipedia.org/wiki/Log-normal_distribution)</span>, which also have heavy tails---are often better fits to observed data than power laws. This paper stirred considerable controversy, which is briefly documented by @holmeRareEverywherePerspectives2019. </span>
+<span id="cb10-472"><a href="#cb10-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-473"><a href="#cb10-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-474"><a href="#cb10-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-475"><a href="#cb10-475" aria-hidden="true" tabindex="-1"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
