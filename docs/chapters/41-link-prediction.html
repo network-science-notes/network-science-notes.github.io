@@ -391,7 +391,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/13-modularity-maximization.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/41-link-prediction.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></a></li></ol></nav>
 <div class="quarto-title">
-</div>
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></h1>
 </div>
 
 
@@ -421,7 +421,7 @@ window.Quarto = {
 <section id="data-acquisition-and-splitting" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="data-acquisition-and-splitting">Data Acquisition and Splitting</h3>
 <p>Our data set for this experiment is the network of social interactions in a French high school <span class="citation" data-cites="fournet2014contact">(<a href="#ref-fournet2014contact" role="doc-biblioref">Fournet and Barrat 2014</a>)</span>, which we also studied in a <a href="../chapters/13-modularity-maximization.html">previous chapter on modularity maximization</a>.</p>
-<div id="3a08eb0e" class="cell" data-execution_count="1">
+<div id="666d7ecd" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -441,7 +441,7 @@ window.Quarto = {
 <div class="no-row-height column-margin column-container"><div class="">
 <p>This hidden code cell imports several packages that we’ll need for the experiments shown in this chapter.</p>
 </div></div><p>Let’s go ahead and acquire the data. We’ll also do a bit of cleaning.</p>
-<div id="722df152" class="cell" data-execution_count="2">
+<div id="dca10b28" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/network-science-notes/network-science-notes.github.io/refs/heads/main/data/contact-high-school.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>contact <span class="op">=</span> pd.read_csv(url, sep <span class="op">=</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, names <span class="op">=</span> [<span class="st">"time"</span>, <span class="st">"source"</span>, <span class="st">"target"</span>, <span class="st">"class1"</span>, <span class="st">"class2"</span>])[[<span class="st">"source"</span>, <span class="st">"target"</span>]]</span>
@@ -453,7 +453,7 @@ window.Quarto = {
 <section id="train-test-split" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="train-test-split">Train-Test Split</h3>
 <p>Now we’ll perform a split into training and testing data. The idea is that we will use the training data for tuning our model, while we’ll use the testing data for evaluating the model. We won’t actually compute the predictive performance of the model on the testing data until we are done with all of our training.</p>
-<div id="cf8a13c2" class="cell" data-execution_count="3">
+<div id="b2ff27fa" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of interactions to include in training data</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>m_train <span class="op">=</span> <span class="dv">30000</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -461,7 +461,7 @@ window.Quarto = {
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> contact.loc[m_train:,:].copy()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>It can be very difficult to make useful predictions about whether or not an edge emerges if we don’t know anything already about the nodes. For this reason, we are going to restrict the test set so that all nodes in the test set are also seen at least once in the training set.</p>
-<div id="599fe706" class="cell" data-execution_count="4">
+<div id="ccf4832e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we are only going to attempt to make predictions about the existence of an </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># edge between two nodes in cases when both nodes had at least one edge </span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># in the training data. </span></span>
@@ -472,12 +472,12 @@ window.Quarto = {
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test[test.found_source <span class="op">&amp;</span> test.found_target]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, rather than try to predict the <em>number</em> of interactions between two agents, we are instead just going to focus on whether or not there was at least one. To do this, we’ll create new versions of our data frames in which each pair appears exactly once.</p>
-<div id="326f1e34" class="cell" data-execution_count="5">
+<div id="b919288c" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>train   <span class="op">=</span> train.groupby([<span class="st">"source"</span>, <span class="st">"target"</span>]).count().reset_index()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>test    <span class="op">=</span> test.groupby([<span class="st">"source"</span>, <span class="st">"target"</span>]).count().reset_index()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Our final data sets</p>
-<div id="2fa1893d" class="cell" data-execution_count="6">
+<div id="6c99ad1d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>train<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> edges in training data."</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>test<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> edges in testing data."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -486,11 +486,11 @@ window.Quarto = {
 </div>
 </div>
 <p>Although we’ve been working with these data sets as data frames, they do both define networks: a training network and a testing network.</p>
-<div id="c34d5906" class="cell" data-execution_count="7">
+<div id="92a64858" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>G_train <span class="op">=</span> nx.from_pandas_edgelist(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="page-columns page-full"><p>Here’s a picture of the resulting network, with communities found via the Louvain algorithm for approximate modularity maximization: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">We could also study the “communities” defined by the true labels in the data, although we won’t pursue that here.</span></div></div>
-<div id="b524a3a0" class="cell" data-execution_count="8">
+<div id="6ebd4b81" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> louvain_communities(G, return_partition <span class="op">=</span> <span class="va">False</span>):</span>
@@ -536,7 +536,7 @@ window.Quarto = {
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>This hidden code cell implements the code for the <code>louvain_plot</code> function used below.</p>
-</div></div><div id="d36bcc58" class="cell page-columns page-full" data-execution_count="9" data-cap-location="undefined">
+</div></div><div id="b1a8cc5e" class="cell page-columns page-full" data-execution_count="9" data-cap-location="undefined">
 <div class="sourceCode cell-code" id="cb10" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>louvain_plot(G_train, ax <span class="op">=</span> ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display page-columns page-full">
@@ -557,7 +557,7 @@ window.Quarto = {
 <section id="negative-examples" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="negative-examples">Negative Examples</h4>
 <p>Let’s go ahead and implement negative examples.</p>
-<div id="9a8fa92f" class="cell" data-execution_count="10">
+<div id="1be53ac2" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_negative_examples(df):</span>
@@ -582,7 +582,7 @@ window.Quarto = {
 <div class="no-row-height column-margin column-container"><div class="">
 <p>The function in the hidden code block creates a new data frame that contains <em>all</em> pairs of nodes in the graph. A new <code>link</code> column distinguishes which pairs of nodes actually have edges.</p>
 </div></div><p>Here’s how this looks:</p>
-<div id="a5961087" class="cell" data-execution_count="11">
+<div id="aaf06a56" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> add_negative_examples(train)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>train.sort_values(<span class="st">"link"</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
@@ -673,7 +673,7 @@ window.Quarto = {
 </div>
 </div>
 <p>After this step, the training data actually contains very few positive examples:</p>
-<div id="7725d917" class="cell" data-execution_count="12">
+<div id="7f648190" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>train[<span class="st">"link"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>np.float64(0.11414997431946584)</code></pre>
@@ -692,7 +692,7 @@ window.Quarto = {
 <li>The number of common neighbors of <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> in the training data, which we’ll call <span class="math inline">\(c_{ij}\)</span>. This idea is related to <em>triadic closure</em>, which we studied earlier in these notes – if the two nodes share a lot of common neighbors, then a link between them would result in more closed triangles.</li>
 </ul>
 <p>The following, rather complicated function creates a data frame containing all of these features. Because we’re adding columns to <code>pandas</code> data frames, we usually <code>apply</code> functions in order to skip <code>for</code>-loops and their ilk.</p>
-<div id="592dff66" class="cell" data-execution_count="13">
+<div id="609d2153" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_features(df, G <span class="op">=</span> <span class="va">None</span>, comm_dict <span class="op">=</span> <span class="va">None</span>):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make the graph if it's not supplied externally</span></span>
@@ -725,12 +725,12 @@ window.Quarto = {
 <span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s apply this function to our training data. To do so, we need to supply a community partition:</p>
-<div id="2c7fcfc3" class="cell" data-execution_count="14">
+<div id="1500a011" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>comm_dict_train <span class="op">=</span> louvain_communities(G_train)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> compute_features(train, G_train, comm_dict_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Time to inspect the results!</p>
-<div id="a4c87d49" class="cell" data-execution_count="15">
+<div id="d572a748" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
@@ -797,9 +797,9 @@ window.Quarto = {
 <td>10</td>
 <td>0</td>
 <td>False</td>
+<td>False</td>
+<td>False</td>
 <td>True</td>
-<td>False</td>
-<td>False</td>
 <td>...</td>
 <td>False</td>
 <td>False</td>
@@ -821,9 +821,9 @@ window.Quarto = {
 <td>16</td>
 <td>0</td>
 <td>False</td>
+<td>False</td>
+<td>False</td>
 <td>True</td>
-<td>False</td>
-<td>False</td>
 <td>...</td>
 <td>False</td>
 <td>False</td>
@@ -845,9 +845,9 @@ window.Quarto = {
 <td>17</td>
 <td>1</td>
 <td>False</td>
+<td>False</td>
+<td>False</td>
 <td>True</td>
-<td>False</td>
-<td>False</td>
 <td>...</td>
 <td>False</td>
 <td>False</td>
@@ -869,9 +869,9 @@ window.Quarto = {
 <td>17</td>
 <td>1</td>
 <td>False</td>
+<td>False</td>
+<td>False</td>
 <td>True</td>
-<td>False</td>
-<td>False</td>
 <td>...</td>
 <td>False</td>
 <td>False</td>
@@ -930,7 +930,7 @@ window.Quarto = {
 <td>False</td>
 <td>False</td>
 <td>False</td>
-<td>False</td>
+<td>True</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15572</td>
@@ -954,7 +954,7 @@ window.Quarto = {
 <td>False</td>
 <td>False</td>
 <td>False</td>
-<td>False</td>
+<td>True</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">15573</td>
@@ -978,7 +978,7 @@ window.Quarto = {
 <td>False</td>
 <td>False</td>
 <td>False</td>
-<td>False</td>
+<td>True</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15574</td>
@@ -1002,7 +1002,7 @@ window.Quarto = {
 <td>False</td>
 <td>False</td>
 <td>False</td>
-<td>False</td>
+<td>True</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">15575</td>
@@ -1026,7 +1026,7 @@ window.Quarto = {
 <td>False</td>
 <td>False</td>
 <td>False</td>
-<td>False</td>
+<td>True</td>
 </tr>
 </tbody>
 </table>
@@ -1058,19 +1058,19 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 \]</span></p>
 <p>where <span class="math inline">\(C_i\)</span> and <span class="math inline">\(C_j\)</span> are the communities of nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, respectively. The <span class="math inline">\(\gamma\)</span> terms are coefficients that are specific to each pair of communities. The idea is that we’ll compute scores for all possible pairs of nodes, and predict that the pairs with the highest scores are the ones that are most likely to have edges form between them.</p>
 <p>In order to do this, we need to figure out how to learn the parameters <span class="math inline">\(\beta_0,\; \beta_1,\; \beta_2,\; \beta_3,\; \gamma\)</span> from data. We’ll do this using logistic regression. To do this, we extract a matrix <code>X_train</code> containing only the feature columns, and a vector <code>y_train</code> containing the target <code>link</code> variable.</p>
-<div id="1b008565" class="cell" data-execution_count="16">
+<div id="1454a754" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> train.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"source"</span>, <span class="st">"target"</span>, <span class="st">"link"</span>]]</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train[feature_cols]</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train[<span class="st">"link"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can fit the model:</p>
-<div id="a1b854fb" class="cell" data-execution_count="17">
+<div id="2d416114" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model   <span class="op">=</span> LogisticRegression(solver <span class="op">=</span> <span class="st">"liblinear"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fit     <span class="op">=</span> model.fit(X_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What did our model learn about the features? Which of these features help predict whether an edge is going to be observed between two nodes? Let’s take a look at the coefficients:</p>
-<div id="25e40dcb" class="cell" data-execution_count="18">
+<div id="5b8a9909" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"feature"</span> : model.feature_names_in_,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"coef"</span> : model.coef_[<span class="dv">0</span>]</span>
@@ -1091,7 +1091,7 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>deg_source</td>
-<td>0.017153</td>
+<td>0.017152</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
@@ -1111,77 +1111,77 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>C01</td>
-<td>-1.084058</td>
+<td>-0.478191</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>C02</td>
-<td>-0.478190</td>
+<td>-0.114538</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
 <td>C03</td>
-<td>-0.114537</td>
+<td>-1.084059</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
 <td>C10</td>
-<td>-0.745285</td>
+<td>0.271523</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
 <td>C11</td>
-<td>0.357313</td>
+<td>0.928956</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
 <td>C12</td>
-<td>-0.985560</td>
+<td>-0.087188</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>C13</td>
-<td>-1.535485</td>
+<td>-1.220549</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
 <td>C20</td>
-<td>0.271519</td>
+<td>0.172175</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
 <td>C21</td>
-<td>-1.220549</td>
+<td>-0.050789</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">13</td>
 <td>C22</td>
-<td>0.928957</td>
+<td>1.685178</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">14</td>
 <td>C23</td>
-<td>-0.087189</td>
+<td>-1.869866</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
 <td>C30</td>
-<td>0.172168</td>
+<td>-0.745288</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">16</td>
 <td>C31</td>
-<td>-1.869867</td>
+<td>-0.985561</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">17</td>
 <td>C32</td>
-<td>-0.050789</td>
+<td>-1.535487</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">18</td>
 <td>C33</td>
-<td>1.685180</td>
+<td>0.357312</td>
 </tr>
 </tbody>
 </table>
@@ -1201,7 +1201,7 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 <section id="model-evaluation" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="model-evaluation">Model Evaluation</h3>
 <p>It’s all well and good to fit our model on training data and interpret the coefficient, but this doesn’t necessarily tell us anything about the ability of our model to make <em>predictions</em> about the future. To do this, we need to look at our test data. In this case, it’s important that we pass the test data through the same preprocessing as we did before, adding negative examples and feature columns. Very importantly, we pass the graph <code>G_train</code> and the community labels <code>comm_dict_train</code> as an argument to <code>compute_features</code> in order to ensure that things like degree and community structure are calculated using only training data, not testing data. Using testing data to construct the features would be cheating!</p>
-<div id="e07df69e" class="cell" data-execution_count="19">
+<div id="90474f8d" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> add_negative_examples(test)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> compute_features(test, G_train, comm_dict_train)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1209,11 +1209,11 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test[<span class="st">"link"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="page-columns page-full"><p>We can now get the model’s predicted probability of edge presence for each pair of nodes. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The predicted probability of an edge between nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> is <span class="math inline">\(\sigma(s_{ij})\)</span>, where <span class="math inline">\(s_{ij}\)</span> is the score for the pair <span class="math inline">\((i,j)\)</span> and <span class="math inline">\(\sigma(x) = \frac{1}{1 + e^{-x}}\)</span> is the logistic sigmoid function.</span></div></div>
-<div id="6e509ca4" class="cell" data-execution_count="20">
+<div id="733772af" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict_proba(X_test)[::,<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can interpret these predictions like this:</p>
-<div id="fd20fc51" class="cell" data-execution_count="21">
+<div id="a17fa43a" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1932</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ss">f"Our model predicts that the probability of a new edge between nodes </span><span class="sc">{</span>test[<span class="st">'source'</span>][i]<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>test[<span class="st">'target'</span>][i]<span class="sc">}</span><span class="ss"> is approximately </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(y_pred[i], <span class="dv">2</span>)<span class="sc">}</span><span class="ss">."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
@@ -1221,14 +1221,14 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 </div>
 </div>
 <div class="page-columns page-full"><p>How accurate are these predictions? We can use the <code>score</code> method of the model to compute the accuracy of the model on the test data on the prediction task. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">By default, the model is predicting the presence of an edge iff <span class="math inline">\(\sigma(s_{ij}) &gt; 0.5\)</span>.</span></div></div>
-<div id="2d78d9c6" class="cell" data-execution_count="22">
+<div id="c2c58b38" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>model.score(X_test, y_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>0.9143348795451145</code></pre>
 </div>
 </div>
 <p>Over all, our model achieves an accuracy of roughly 90% in the task of predicting the presence of edges in the test data. Is this a good result? Not especially, actually. The reason is that the test set contains very few positive examples:</p>
-<div id="7ff41938" class="cell" data-execution_count="23">
+<div id="f4635b4f" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>test[<span class="st">"link"</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>np.float64(0.07661229986532994)</code></pre>
@@ -1236,7 +1236,7 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 </div>
 <p>So, an algorithm that predicted that no edges would form between any pair of nodes would have an accuracy of around 92%. Our model isn’t any better than this!</p>
 <p>This doesn’t mean that our model is poor, just that accuracy is not the right way to assess it. A more sophisticated way to assess a binary classification model is to compute the area under the receiver operating characteristic curve (often just called the “area under the curve” or “AUC” for short). The AUC measures the tradeoff between false positive and true positive rates when varying the threshold score required to predict the presence of an edge.</p>
-<div id="09ca5f58" class="cell page-columns page-full" data-execution_count="24" data-cap-location="undefined">
+<div id="5a1eb46d" class="cell page-columns page-full" data-execution_count="24" data-cap-location="undefined">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb29" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
@@ -1271,7 +1271,7 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 <li>Train a link prediction model on the current state of the network.</li>
 <li>Update the network by allowing some edges to decay and replacing them with new edges that the model predicts are likely to form.</li>
 </ol>
-<div id="db1d3e45" class="cell" data-execution_count="25">
+<div id="aba13e1c" class="cell" data-execution_count="25">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LinkPredictionSimulator:</span>
@@ -1383,12 +1383,12 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 <div class="no-row-height column-margin column-container"><div class="">
 <p>This hidden code cell defines a class that simulates the impact of a link prediction algorithm on a social network. The class has methods for training a link prediction model, updating the network, and measuring the modularity and degree Gini coefficient of the network.</p>
 </div></div><p>Let’s now instantiate the simulator, using the entire <code>contact</code> network.</p>
-<div id="ffeaeb53" class="cell" data-execution_count="26">
+<div id="d03e3b54" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> contact.groupby([<span class="st">"source"</span>, <span class="st">"target"</span>]).count().reset_index()</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>LPS <span class="op">=</span> LinkPredictionSimulator(edges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’re going to conduct our simulation. Along the way, we’ve set up code so that we can see the graph (and its community partition) before and after the simulation. While we do the simulation, we’ll collect the modularity and degree Gini coefficient, which measures how unequal the degrees in the graph are.</p>
-<div id="b6f26930" class="cell page-columns page-full" data-execution_count="27" data-cap-location="undefined">
+<div id="7c4dbe43" class="cell page-columns page-full" data-execution_count="27" data-cap-location="undefined">
 <div class="sourceCode cell-code" id="cb32" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up the plot</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="dv">5</span>))</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.fruchterman_reingold_layout(LPS.G)</span>
@@ -1419,7 +1419,7 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 </div>
 </div>
 <p>Here’s what happened to the modularity and the degree Gini inequality as the simulation progressed:</p>
-<div id="37f7366f" class="cell page-columns page-full" data-execution_count="28" data-cap-location="undefined">
+<div id="792a40a2" class="cell page-columns page-full" data-execution_count="28" data-cap-location="undefined">
 <div class="sourceCode cell-code" id="cb33" data-cap-location="undefined"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>ax.plot(Q, label <span class="op">=</span> <span class="st">"Modularity of original partition"</span>, color <span class="op">=</span> plt.cm.Set3(<span class="dv">4</span>))</span>
@@ -1447,8 +1447,6 @@ s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighb
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
-
-<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bak2021stewardship" class="csl-entry" role="listitem">
@@ -1553,57 +1551,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1946,597 +1893,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb34" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-summary:</span><span class="co"> "Show code"</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> ../refs.bib</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="an">cap-location:</span><span class="co"> margin</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu"># Link Prediction and Feedback Loops</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/41-link-prediction.ipynb).* </span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>In this set of lectures, we'll study an important task in network data science: **link prediction**. <span class="co">[</span><span class="ot">Link prediction was popularized as a task in network analysis and machine learning by @liben2003link</span><span class="co">]</span>{.aside} The link prediction task is to, given a current network and possibly some additional data, predict future edges. This task has many applications: </span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In scientific tasks, we may not be able to collect data on all the edges that we are interested in. If we can develop a model that allows us to predict missing edges, we might be able to learn something about the overall network structure even from partial data. </span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Many online recommendation systems are in fact link prediction algorithms. When Facebook recommends a friend to you, for example, this is usually done by training an algorithm that predicts edges in a social network based on attributes, shared friends, etc. </span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>In the first part of these lecture notes, we'll implement a simple link prediction model. In the second part, we'll do a simple simulation to learn about how link prediction models can change the structure of social networks. </span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">We mostly won't write our own code in these notes: a lot of the code involves manipulation of data frames or machine learning workflows which we don't assume that you've learned yet. The [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/) by Jake VanderPlas is an outstanding resource for learning these tools.</span><span class="co">]</span>{.aside}</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Implementing Link Prediction</span></span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Acquisition and Splitting</span></span>
-<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>Our data set for this experiment is the network of social interactions in a French high school <span class="co">[</span><span class="ot">@fournet2014contact</span><span class="co">]</span>, which we also studied in a <span class="co">[</span><span class="ot">previous chapter on modularity maximization</span><span class="co">](13-modularity-maximization.qmd)</span>. </span>
-<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> product</span>
-<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression </span>
-<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
-<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a>This hidden code cell imports several packages that we'll need for the experiments shown in this chapter. </span>
-<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-51"><a href="#cb34-51" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-53"><a href="#cb34-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-54"><a href="#cb34-54" aria-hidden="true" tabindex="-1"></a>Let's go ahead and acquire the data. We'll also do a bit of cleaning. </span>
-<span id="cb34-55"><a href="#cb34-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-58"><a href="#cb34-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-59"><a href="#cb34-59" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/network-science-notes/network-science-notes.github.io/refs/heads/main/data/contact-high-school.csv"</span></span>
-<span id="cb34-60"><a href="#cb34-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-61"><a href="#cb34-61" aria-hidden="true" tabindex="-1"></a>contact <span class="op">=</span> pd.read_csv(url, sep <span class="op">=</span> <span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, names <span class="op">=</span> [<span class="st">"time"</span>, <span class="st">"source"</span>, <span class="st">"target"</span>, <span class="st">"class1"</span>, <span class="st">"class2"</span>])[[<span class="st">"source"</span>, <span class="st">"target"</span>]]</span>
-<span id="cb34-62"><a href="#cb34-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-63"><a href="#cb34-63" aria-hidden="true" tabindex="-1"></a><span class="co"># remove a small number of self-loops</span></span>
-<span id="cb34-64"><a href="#cb34-64" aria-hidden="true" tabindex="-1"></a>contact <span class="op">=</span> contact[contact[<span class="st">"source"</span>] <span class="op">&lt;</span> contact[<span class="st">"target"</span>]]</span>
-<span id="cb34-65"><a href="#cb34-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-66"><a href="#cb34-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-67"><a href="#cb34-67" aria-hidden="true" tabindex="-1"></a><span class="fu">### Train-Test Split</span></span>
-<span id="cb34-68"><a href="#cb34-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-69"><a href="#cb34-69" aria-hidden="true" tabindex="-1"></a>Now we'll perform a split into training and testing data. The idea is that we will use the training data for tuning our model, while we'll use the testing data for evaluating the model. We won't actually compute the predictive performance of the model on the testing data until we are done with all of our training. </span>
-<span id="cb34-70"><a href="#cb34-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-73"><a href="#cb34-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-74"><a href="#cb34-74" aria-hidden="true" tabindex="-1"></a><span class="co"># number of interactions to include in training data</span></span>
-<span id="cb34-75"><a href="#cb34-75" aria-hidden="true" tabindex="-1"></a>m_train <span class="op">=</span> <span class="dv">30000</span></span>
-<span id="cb34-76"><a href="#cb34-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-77"><a href="#cb34-77" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> contact.loc[<span class="dv">0</span>:m_train,:].copy()</span>
-<span id="cb34-78"><a href="#cb34-78" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> contact.loc[m_train:,:].copy()</span>
-<span id="cb34-79"><a href="#cb34-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-80"><a href="#cb34-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-81"><a href="#cb34-81" aria-hidden="true" tabindex="-1"></a>It can be very difficult to make useful predictions about whether or not an edge emerges if we don't know anything already about the nodes. For this reason, we are going to restrict the test set so that all nodes in the test set are also seen at least once in the training set. </span>
-<span id="cb34-82"><a href="#cb34-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-85"><a href="#cb34-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-86"><a href="#cb34-86" aria-hidden="true" tabindex="-1"></a><span class="co"># we are only going to attempt to make predictions about the existence of an </span></span>
-<span id="cb34-87"><a href="#cb34-87" aria-hidden="true" tabindex="-1"></a><span class="co"># edge between two nodes in cases when both nodes had at least one edge </span></span>
-<span id="cb34-88"><a href="#cb34-88" aria-hidden="true" tabindex="-1"></a><span class="co"># in the training data. </span></span>
-<span id="cb34-89"><a href="#cb34-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-90"><a href="#cb34-90" aria-hidden="true" tabindex="-1"></a>train_nodes <span class="op">=</span> np.unique(np.concatenate([train.source, train.target]))</span>
-<span id="cb34-91"><a href="#cb34-91" aria-hidden="true" tabindex="-1"></a>test[<span class="st">"found_source"</span>] <span class="op">=</span> test.source.<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="kw">in</span> train_nodes)</span>
-<span id="cb34-92"><a href="#cb34-92" aria-hidden="true" tabindex="-1"></a>test[<span class="st">"found_target"</span>] <span class="op">=</span> test.target.<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="kw">in</span> train_nodes)</span>
-<span id="cb34-93"><a href="#cb34-93" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> test[test.found_source <span class="op">&amp;</span> test.found_target]</span>
-<span id="cb34-94"><a href="#cb34-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-95"><a href="#cb34-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-96"><a href="#cb34-96" aria-hidden="true" tabindex="-1"></a>Finally, rather than try to predict the *number* of interactions between two agents, we are instead just going to focus on whether or not there was at least one. To do this, we'll create new versions of our data frames in which each pair appears exactly once. </span>
-<span id="cb34-97"><a href="#cb34-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-100"><a href="#cb34-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-101"><a href="#cb34-101" aria-hidden="true" tabindex="-1"></a>train   <span class="op">=</span> train.groupby([<span class="st">"source"</span>, <span class="st">"target"</span>]).count().reset_index()</span>
-<span id="cb34-102"><a href="#cb34-102" aria-hidden="true" tabindex="-1"></a>test    <span class="op">=</span> test.groupby([<span class="st">"source"</span>, <span class="st">"target"</span>]).count().reset_index()</span>
-<span id="cb34-103"><a href="#cb34-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-104"><a href="#cb34-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-105"><a href="#cb34-105" aria-hidden="true" tabindex="-1"></a>Our final data sets </span>
-<span id="cb34-106"><a href="#cb34-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-109"><a href="#cb34-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-110"><a href="#cb34-110" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>train<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> edges in training data."</span>)</span>
-<span id="cb34-111"><a href="#cb34-111" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>test<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> edges in testing data."</span>)</span>
-<span id="cb34-112"><a href="#cb34-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-113"><a href="#cb34-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-114"><a href="#cb34-114" aria-hidden="true" tabindex="-1"></a>Although we've been working with these data sets as data frames, they do both define networks: a training network and a testing network. </span>
-<span id="cb34-115"><a href="#cb34-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-118"><a href="#cb34-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-119"><a href="#cb34-119" aria-hidden="true" tabindex="-1"></a>G_train <span class="op">=</span> nx.from_pandas_edgelist(train)</span>
-<span id="cb34-120"><a href="#cb34-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-121"><a href="#cb34-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-122"><a href="#cb34-122" aria-hidden="true" tabindex="-1"></a>Here's a picture of the resulting network, with communities found via the Louvain algorithm for approximate modularity maximization: <span class="co">[</span><span class="ot">We could also study the "communities" defined by the true labels in the data, although we won't pursue that here.</span><span class="co">]</span>{.aside}</span>
-<span id="cb34-123"><a href="#cb34-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-126"><a href="#cb34-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-127"><a href="#cb34-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb34-128"><a href="#cb34-128" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> louvain_communities(G, return_partition <span class="op">=</span> <span class="va">False</span>):</span>
-<span id="cb34-129"><a href="#cb34-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-130"><a href="#cb34-130" aria-hidden="true" tabindex="-1"></a>    <span class="co"># run Louvain</span></span>
-<span id="cb34-131"><a href="#cb34-131" aria-hidden="true" tabindex="-1"></a>    comms  <span class="op">=</span> nx.community.louvain_communities(G, resolution <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb34-132"><a href="#cb34-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-133"><a href="#cb34-133" aria-hidden="true" tabindex="-1"></a>    <span class="co"># process the labels</span></span>
-<span id="cb34-134"><a href="#cb34-134" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> [l <span class="cf">for</span> i <span class="kw">in</span> G.nodes <span class="cf">for</span> l <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(comms)) <span class="cf">if</span> i <span class="kw">in</span> comms[l]]</span>
-<span id="cb34-135"><a href="#cb34-135" aria-hidden="true" tabindex="-1"></a>    node_list <span class="op">=</span> <span class="bu">list</span>(G.nodes)</span>
-<span id="cb34-136"><a href="#cb34-136" aria-hidden="true" tabindex="-1"></a>    comm_dict <span class="op">=</span> {node_list[i] : labels[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(node_list))}</span>
-<span id="cb34-137"><a href="#cb34-137" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-138"><a href="#cb34-138" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> return_partition:</span>
-<span id="cb34-139"><a href="#cb34-139" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> comm_dict, comms</span>
-<span id="cb34-140"><a href="#cb34-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-141"><a href="#cb34-141" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> comm_dict</span>
-<span id="cb34-142"><a href="#cb34-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-143"><a href="#cb34-143" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> louvain_plot(G, ax, clusters <span class="op">=</span> <span class="va">None</span>, pos <span class="op">=</span> <span class="va">None</span>, <span class="op">**</span>kwargs):</span>
-<span id="cb34-144"><a href="#cb34-144" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-145"><a href="#cb34-145" aria-hidden="true" tabindex="-1"></a>    node_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">50</span>, <span class="st">"edgecolors"</span> : <span class="st">'black'</span>}</span>
-<span id="cb34-146"><a href="#cb34-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-147"><a href="#cb34-147" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> clusters:</span>
-<span id="cb34-148"><a href="#cb34-148" aria-hidden="true" tabindex="-1"></a>        clusters <span class="op">=</span> louvain_communities(G)</span>
-<span id="cb34-149"><a href="#cb34-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-150"><a href="#cb34-150" aria-hidden="true" tabindex="-1"></a>    <span class="co"># draw the result</span></span>
-<span id="cb34-151"><a href="#cb34-151" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> pos: </span>
-<span id="cb34-152"><a href="#cb34-152" aria-hidden="true" tabindex="-1"></a>        pos <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
-<span id="cb34-153"><a href="#cb34-153" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> [clusters[i] <span class="cf">for</span> i <span class="kw">in</span> G.nodes]</span>
-<span id="cb34-154"><a href="#cb34-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-155"><a href="#cb34-155" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> clusters <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>: </span>
-<span id="cb34-156"><a href="#cb34-156" aria-hidden="true" tabindex="-1"></a>        num_clusters <span class="op">=</span> np.unique(<span class="bu">list</span>(clusters.values())).shape[<span class="dv">0</span>]</span>
-<span id="cb34-157"><a href="#cb34-157" aria-hidden="true" tabindex="-1"></a>        cluster_to_color <span class="op">=</span> [plt.cm.Set3(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_clusters)]</span>
-<span id="cb34-158"><a href="#cb34-158" aria-hidden="true" tabindex="-1"></a>        node_kwargs[<span class="st">"node_color"</span>] <span class="op">=</span> [cluster_to_color[clusters[i]] <span class="cf">for</span> i <span class="kw">in</span> G.nodes()]</span>
-<span id="cb34-159"><a href="#cb34-159" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pos <span class="kw">is</span> <span class="va">None</span>: </span>
-<span id="cb34-160"><a href="#cb34-160" aria-hidden="true" tabindex="-1"></a>        pos <span class="op">=</span> nx.spring_layout(G)</span>
-<span id="cb34-161"><a href="#cb34-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-162"><a href="#cb34-162" aria-hidden="true" tabindex="-1"></a>    edge_kwargs <span class="op">=</span> {<span class="st">"edge_color"</span> : <span class="st">"gray"</span>, <span class="st">"alpha"</span> : <span class="fl">0.3</span>}</span>
-<span id="cb34-163"><a href="#cb34-163" aria-hidden="true" tabindex="-1"></a>    nx.draw_networkx_edges(G, pos, ax <span class="op">=</span> ax, <span class="op">**</span>edge_kwargs)</span>
-<span id="cb34-164"><a href="#cb34-164" aria-hidden="true" tabindex="-1"></a>    nx.draw_networkx_nodes(G, pos, ax <span class="op">=</span> ax, <span class="op">**</span>node_kwargs)</span>
-<span id="cb34-165"><a href="#cb34-165" aria-hidden="true" tabindex="-1"></a>    off <span class="op">=</span> ax.axis(<span class="st">"off"</span>)</span>
-<span id="cb34-166"><a href="#cb34-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-167"><a href="#cb34-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-168"><a href="#cb34-168" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb34-169"><a href="#cb34-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-170"><a href="#cb34-170" aria-hidden="true" tabindex="-1"></a>This hidden code cell implements the code for the <span class="in">`louvain_plot`</span> function used below. </span>
-<span id="cb34-171"><a href="#cb34-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-172"><a href="#cb34-172" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-173"><a href="#cb34-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-176"><a href="#cb34-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-177"><a href="#cb34-177" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: High-school contact network, with community structure found via the Louvain algorithm for modularity maximization.  </span></span>
-<span id="cb34-178"><a href="#cb34-178" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
-<span id="cb34-179"><a href="#cb34-179" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb34-180"><a href="#cb34-180" aria-hidden="true" tabindex="-1"></a>louvain_plot(G_train, ax <span class="op">=</span> ax)</span>
-<span id="cb34-181"><a href="#cb34-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-182"><a href="#cb34-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-183"><a href="#cb34-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-184"><a href="#cb34-184" aria-hidden="true" tabindex="-1"></a><span class="fu">### Data Preparation</span></span>
-<span id="cb34-185"><a href="#cb34-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-186"><a href="#cb34-186" aria-hidden="true" tabindex="-1"></a>There are two important steps of data preparation that we need to implement. </span>
-<span id="cb34-187"><a href="#cb34-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-188"><a href="#cb34-188" aria-hidden="true" tabindex="-1"></a>In the first step, we need to add *negative examples* to our training data. A negative example is simply a pair of nodes that *don't* have an edge between them. We want our algorithm to be able to tell the difference between interactions which occurred and *interactions which did not occur*. To do this, we need to be able to show our model some potential interactions which did not actually occur in the data. We'll therefore add *negative examples*: pairs of nodes which did *not* interact. </span>
-<span id="cb34-189"><a href="#cb34-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-190"><a href="#cb34-190" aria-hidden="true" tabindex="-1"></a>In the second step, we are going to engineer *features* for each pair of nodes. This is an extremely flexible step, which can make use of many different kinds of techniques. We're going to use some of the tools that we developed in this course as features. </span>
-<span id="cb34-191"><a href="#cb34-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-192"><a href="#cb34-192" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Negative Examples</span></span>
-<span id="cb34-193"><a href="#cb34-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-194"><a href="#cb34-194" aria-hidden="true" tabindex="-1"></a>Let's go ahead and implement negative examples. </span>
-<span id="cb34-195"><a href="#cb34-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-198"><a href="#cb34-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-199"><a href="#cb34-199" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb34-200"><a href="#cb34-200" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_negative_examples(df):</span>
-<span id="cb34-201"><a href="#cb34-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-202"><a href="#cb34-202" aria-hidden="true" tabindex="-1"></a>    <span class="co"># new copy of input data frame, with a new column</span></span>
-<span id="cb34-203"><a href="#cb34-203" aria-hidden="true" tabindex="-1"></a>    df_ <span class="op">=</span> df.copy()</span>
-<span id="cb34-204"><a href="#cb34-204" aria-hidden="true" tabindex="-1"></a>    df_[<span class="st">"link"</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb34-205"><a href="#cb34-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-206"><a href="#cb34-206" aria-hidden="true" tabindex="-1"></a>    <span class="co"># data frame with all node pairs</span></span>
-<span id="cb34-207"><a href="#cb34-207" aria-hidden="true" tabindex="-1"></a>    node_list <span class="op">=</span> np.unique(np.append(df_[<span class="st">"source"</span>], df_[<span class="st">"target"</span>]))</span>
-<span id="cb34-208"><a href="#cb34-208" aria-hidden="true" tabindex="-1"></a>    negative <span class="op">=</span> pd.DataFrame(product(node_list, node_list), columns <span class="op">=</span> [<span class="st">"source"</span>, <span class="st">"target"</span>])</span>
-<span id="cb34-209"><a href="#cb34-209" aria-hidden="true" tabindex="-1"></a>    negative <span class="op">=</span> negative[negative[<span class="st">"source"</span>] <span class="op">&lt;</span> negative[<span class="st">"target"</span>]]</span>
-<span id="cb34-210"><a href="#cb34-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-211"><a href="#cb34-211" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add real data and make a column distinguishing positive from negative examples</span></span>
-<span id="cb34-212"><a href="#cb34-212" aria-hidden="true" tabindex="-1"></a>    merged_df <span class="op">=</span> pd.merge(negative, df_, on <span class="op">=</span> [<span class="st">"source"</span>, <span class="st">"target"</span>], how <span class="op">=</span> <span class="st">"left"</span>)</span>
-<span id="cb34-213"><a href="#cb34-213" aria-hidden="true" tabindex="-1"></a>    merged_df[<span class="st">"link"</span>] <span class="op">=</span> merged_df[<span class="st">"link"</span>] <span class="op">==</span> <span class="dv">1</span></span>
-<span id="cb34-214"><a href="#cb34-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-215"><a href="#cb34-215" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> merged_df</span>
-<span id="cb34-216"><a href="#cb34-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-217"><a href="#cb34-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-218"><a href="#cb34-218" aria-hidden="true" tabindex="-1"></a>::: {.column-margin} </span>
-<span id="cb34-219"><a href="#cb34-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-220"><a href="#cb34-220" aria-hidden="true" tabindex="-1"></a>The function in the hidden code block creates a new data frame that contains *all* pairs of nodes in the graph. A new <span class="in">`link`</span> column distinguishes which pairs of nodes actually have edges. </span>
-<span id="cb34-221"><a href="#cb34-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-222"><a href="#cb34-222" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-223"><a href="#cb34-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-224"><a href="#cb34-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-225"><a href="#cb34-225" aria-hidden="true" tabindex="-1"></a>Here's how this looks: </span>
-<span id="cb34-226"><a href="#cb34-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-229"><a href="#cb34-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-230"><a href="#cb34-230" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> add_negative_examples(train)</span>
-<span id="cb34-231"><a href="#cb34-231" aria-hidden="true" tabindex="-1"></a>train.sort_values(<span class="st">"link"</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb34-232"><a href="#cb34-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-233"><a href="#cb34-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-234"><a href="#cb34-234" aria-hidden="true" tabindex="-1"></a>After this step, the training data actually contains very few positive examples: </span>
-<span id="cb34-235"><a href="#cb34-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-238"><a href="#cb34-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-239"><a href="#cb34-239" aria-hidden="true" tabindex="-1"></a>train[<span class="st">"link"</span>].mean()</span>
-<span id="cb34-240"><a href="#cb34-240" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-241"><a href="#cb34-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-242"><a href="#cb34-242" aria-hidden="true" tabindex="-1"></a>We're hoping that our model is able to learn some information about what makes these 11% of node pairs more likely to have edges than the other 89%. </span>
-<span id="cb34-243"><a href="#cb34-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-244"><a href="#cb34-244" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Feature Engineering</span></span>
-<span id="cb34-245"><a href="#cb34-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-246"><a href="#cb34-246" aria-hidden="true" tabindex="-1"></a>We now need to create *features* for our model to use to make predictions. We can think of features as "things we think should be useful for predicting the presence of an edge." This is where we need to bring in some theory: what *does* make two nodes more likely to have an edge between them? There are a lot of possibilities here, not all of which will necessarily work. Here, we're going to predict whether or not there is an edge between nodes $i$ and $j$ using the following features: </span>
-<span id="cb34-247"><a href="#cb34-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-248"><a href="#cb34-248" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The class of the source node $i$, $g_i$. </span>
-<span id="cb34-249"><a href="#cb34-249" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The class of the target node $j$, $g_j$.</span>
-<span id="cb34-250"><a href="#cb34-250" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The number of interactions that the source node $i$ has had in the training data (i.e. the degree of $i$), $k_i$.</span>
-<span id="cb34-251"><a href="#cb34-251" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The number of interactions that the target node $j$ has had in the training data (i.e. the degree of $j$), $k_j$.</span>
-<span id="cb34-252"><a href="#cb34-252" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The number of common neighbors of $i$ and $j$ in the training data, which we'll call $c_{ij}$. This idea is related to *triadic closure*, which we studied earlier in these notes -- if the two nodes share a lot of common neighbors, then a link between them would result in more closed triangles. </span>
-<span id="cb34-253"><a href="#cb34-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-254"><a href="#cb34-254" aria-hidden="true" tabindex="-1"></a>The following, rather complicated function creates a data frame containing all of these features. Because we're adding columns to <span class="in">`pandas`</span> data frames, we usually <span class="in">`apply`</span> functions in order to skip <span class="in">`for`</span>-loops and their ilk. </span>
-<span id="cb34-255"><a href="#cb34-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-258"><a href="#cb34-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-259"><a href="#cb34-259" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_features(df, G <span class="op">=</span> <span class="va">None</span>, comm_dict <span class="op">=</span> <span class="va">None</span>):</span>
-<span id="cb34-260"><a href="#cb34-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-261"><a href="#cb34-261" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make the graph if it's not supplied externally</span></span>
-<span id="cb34-262"><a href="#cb34-262" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> G:</span>
-<span id="cb34-263"><a href="#cb34-263" aria-hidden="true" tabindex="-1"></a>        edges <span class="op">=</span> df[df[<span class="st">"link"</span>]]</span>
-<span id="cb34-264"><a href="#cb34-264" aria-hidden="true" tabindex="-1"></a>        G <span class="op">=</span> nx.from_pandas_edgelist(edges)</span>
-<span id="cb34-265"><a href="#cb34-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-266"><a href="#cb34-266" aria-hidden="true" tabindex="-1"></a>    <span class="co"># make the community labels if not supplied externally. </span></span>
-<span id="cb34-267"><a href="#cb34-267" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> comm_dict: </span>
-<span id="cb34-268"><a href="#cb34-268" aria-hidden="true" tabindex="-1"></a>        comm_dict <span class="op">=</span> louvain_communities(G)</span>
-<span id="cb34-269"><a href="#cb34-269" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-270"><a href="#cb34-270" aria-hidden="true" tabindex="-1"></a>    <span class="co"># columns for degree of each node in G</span></span>
-<span id="cb34-271"><a href="#cb34-271" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"deg_source"</span>] <span class="op">=</span> df.source.<span class="bu">apply</span>(<span class="kw">lambda</span> x: G.degree(x))</span>
-<span id="cb34-272"><a href="#cb34-272" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"deg_target"</span>] <span class="op">=</span> df.target.<span class="bu">apply</span>(<span class="kw">lambda</span> x: G.degree(x))</span>
-<span id="cb34-273"><a href="#cb34-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-274"><a href="#cb34-274" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-275"><a href="#cb34-275" aria-hidden="true" tabindex="-1"></a>    <span class="co"># communities of each node in G</span></span>
-<span id="cb34-276"><a href="#cb34-276" aria-hidden="true" tabindex="-1"></a>    comm_source <span class="op">=</span> df.source.<span class="bu">apply</span>(<span class="kw">lambda</span> x: comm_dict[x])</span>
-<span id="cb34-277"><a href="#cb34-277" aria-hidden="true" tabindex="-1"></a>    comm_target <span class="op">=</span> df.target.<span class="bu">apply</span>(<span class="kw">lambda</span> x: comm_dict[x])</span>
-<span id="cb34-278"><a href="#cb34-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-279"><a href="#cb34-279" aria-hidden="true" tabindex="-1"></a>    <span class="co"># number of common neighbors -- networkx has a handy function that does</span></span>
-<span id="cb34-280"><a href="#cb34-280" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this for us! Just gotta get a little fancy with the anonymous function </span></span>
-<span id="cb34-281"><a href="#cb34-281" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calls. </span></span>
-<span id="cb34-282"><a href="#cb34-282" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"common_neighbors"</span>] <span class="op">=</span> df[[<span class="st">"source"</span>, <span class="st">"target"</span>]].<span class="bu">apply</span>(<span class="kw">lambda</span> pair: <span class="bu">len</span>(<span class="bu">list</span>(nx.common_neighbors(G, pair.source, pair.target))), axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb34-283"><a href="#cb34-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-284"><a href="#cb34-284" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add dummy columns for the combination of each community. </span></span>
-<span id="cb34-285"><a href="#cb34-285" aria-hidden="true" tabindex="-1"></a>    combined_comm <span class="op">=</span> <span class="st">"C"</span> <span class="op">+</span> comm_source.<span class="bu">map</span>(<span class="bu">str</span>) <span class="op">+</span> comm_target.<span class="bu">map</span>(<span class="bu">str</span>)</span>
-<span id="cb34-286"><a href="#cb34-286" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.concat([df, pd.get_dummies(combined_comm)], axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb34-287"><a href="#cb34-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-288"><a href="#cb34-288" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span>
-<span id="cb34-289"><a href="#cb34-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-290"><a href="#cb34-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-291"><a href="#cb34-291" aria-hidden="true" tabindex="-1"></a>Let's apply this function to our training data. To do so, we need to supply a community partition:</span>
-<span id="cb34-292"><a href="#cb34-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-295"><a href="#cb34-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-296"><a href="#cb34-296" aria-hidden="true" tabindex="-1"></a>comm_dict_train <span class="op">=</span> louvain_communities(G_train)</span>
-<span id="cb34-297"><a href="#cb34-297" aria-hidden="true" tabindex="-1"></a>train <span class="op">=</span> compute_features(train, G_train, comm_dict_train)</span>
-<span id="cb34-298"><a href="#cb34-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-299"><a href="#cb34-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-300"><a href="#cb34-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-301"><a href="#cb34-301" aria-hidden="true" tabindex="-1"></a>Time to inspect the results! </span>
-<span id="cb34-304"><a href="#cb34-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-305"><a href="#cb34-305" aria-hidden="true" tabindex="-1"></a>train</span>
-<span id="cb34-306"><a href="#cb34-306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-307"><a href="#cb34-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-308"><a href="#cb34-308" aria-hidden="true" tabindex="-1"></a>We can see that we have a lot more columns that we started with. The <span class="in">`C`</span> columns hold information about the communities of the nodes involved. For example, <span class="in">`C13`</span> means that the <span class="in">`source`</span> node is in community <span class="in">`1`</span> and the <span class="in">`target`</span> node is in community <span class="in">`3`</span>. In each row, only one of these columns can have value <span class="in">`True`</span>.  </span>
-<span id="cb34-309"><a href="#cb34-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-310"><a href="#cb34-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-311"><a href="#cb34-311" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb34-312"><a href="#cb34-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-313"><a href="#cb34-313" aria-hidden="true" tabindex="-1"></a>Brainstorm! What are some other examples of features that you would compute between a pair of nodes in order to assess whether or not they are likely to have an edge between them? What if you had access to additional metadata about the nodes? What if the network was directed? </span>
-<span id="cb34-314"><a href="#cb34-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-315"><a href="#cb34-315" aria-hidden="true" tabindex="-1"></a>::: </span>
-<span id="cb34-316"><a href="#cb34-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-317"><a href="#cb34-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-318"><a href="#cb34-318" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model Training and Interpretation</span></span>
-<span id="cb34-319"><a href="#cb34-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-320"><a href="#cb34-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-321"><a href="#cb34-321" aria-hidden="true" tabindex="-1"></a>We have now assembled a number of features for our data. How are we going to turn these features into predictions? Our overall strategy will be to use a linear model. A linear model assigns a score $s_{ij}$ to each pair of nodes $i$ and $j$, which is computed using the features we have constructed. Our score function for this set of features will be: </span>
-<span id="cb34-322"><a href="#cb34-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-323"><a href="#cb34-323" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb34-324"><a href="#cb34-324" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb34-325"><a href="#cb34-325" aria-hidden="true" tabindex="-1"></a>s_{ij} = \beta_0 + \beta_1 k_{i} + \beta_2 k_{j}  + \beta_3 \text{(common neighbors)}_{ij} + \gamma_{C_i,C_j}\;,</span>
-<span id="cb34-326"><a href="#cb34-326" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb34-327"><a href="#cb34-327" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb34-328"><a href="#cb34-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-329"><a href="#cb34-329" aria-hidden="true" tabindex="-1"></a>where $C_i$ and $C_j$ are the communities of nodes $i$ and $j$, respectively. The $\gamma$ terms are coefficients that are specific to each pair of communities. The idea is that we'll compute scores for all possible pairs of nodes, and predict that the pairs with the highest scores are the ones that are most likely to have edges form between them.</span>
-<span id="cb34-330"><a href="#cb34-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-331"><a href="#cb34-331" aria-hidden="true" tabindex="-1"></a>In order to do this, we need to figure out how to learn the parameters $\beta_0,\; \beta_1,\; \beta_2,\; \beta_3,\; \gamma$ from data. We'll do this using logistic regression. To do this, we extract a matrix <span class="in">`X_train`</span> containing only the feature columns, and a vector <span class="in">`y_train`</span> containing the target <span class="in">`link`</span> variable.</span>
-<span id="cb34-332"><a href="#cb34-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-335"><a href="#cb34-335" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-336"><a href="#cb34-336" aria-hidden="true" tabindex="-1"></a>feature_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> train.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"source"</span>, <span class="st">"target"</span>, <span class="st">"link"</span>]]</span>
-<span id="cb34-337"><a href="#cb34-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-338"><a href="#cb34-338" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train[feature_cols]</span>
-<span id="cb34-339"><a href="#cb34-339" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> train[<span class="st">"link"</span>]</span>
-<span id="cb34-340"><a href="#cb34-340" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-341"><a href="#cb34-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-342"><a href="#cb34-342" aria-hidden="true" tabindex="-1"></a>Now we can fit the model: </span>
-<span id="cb34-343"><a href="#cb34-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-346"><a href="#cb34-346" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-347"><a href="#cb34-347" aria-hidden="true" tabindex="-1"></a>model   <span class="op">=</span> LogisticRegression(solver <span class="op">=</span> <span class="st">"liblinear"</span>)</span>
-<span id="cb34-348"><a href="#cb34-348" aria-hidden="true" tabindex="-1"></a>fit     <span class="op">=</span> model.fit(X_train, y_train)</span>
-<span id="cb34-349"><a href="#cb34-349" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-350"><a href="#cb34-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-351"><a href="#cb34-351" aria-hidden="true" tabindex="-1"></a>What did our model learn about the features? Which of these features help predict whether an edge is going to be observed between two nodes? Let's take a look at the coefficients: </span>
-<span id="cb34-352"><a href="#cb34-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-353"><a href="#cb34-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-356"><a href="#cb34-356" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-357"><a href="#cb34-357" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
-<span id="cb34-358"><a href="#cb34-358" aria-hidden="true" tabindex="-1"></a>    <span class="st">"feature"</span> : model.feature_names_in_,</span>
-<span id="cb34-359"><a href="#cb34-359" aria-hidden="true" tabindex="-1"></a>    <span class="st">"coef"</span> : model.coef_[<span class="dv">0</span>]</span>
-<span id="cb34-360"><a href="#cb34-360" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb34-361"><a href="#cb34-361" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-362"><a href="#cb34-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-363"><a href="#cb34-363" aria-hidden="true" tabindex="-1"></a>*Positive* coefficients indicate that larger values of the feature make edges more likely, while negative coefficients indicate the opposite. There's a lot to take in, but let's focus on some of the big picture highlights: </span>
-<span id="cb34-364"><a href="#cb34-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-365"><a href="#cb34-365" aria-hidden="true" tabindex="-1"></a>First, the first three features all have positive coefficients. This indicates that an edge is more likely between two nodes when: </span>
-<span id="cb34-366"><a href="#cb34-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-367"><a href="#cb34-367" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Each node has higher degree. </span>
-<span id="cb34-368"><a href="#cb34-368" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The two nodes share many common neighbors. </span>
-<span id="cb34-369"><a href="#cb34-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-370"><a href="#cb34-370" aria-hidden="true" tabindex="-1"></a>It's interesting to note that the coefficient of the number of common neighbors is *so* much higher than the coefficients for the individual node degrees. According to our model, adding 5 neighbors to each node in a pair has less of an impact on the likelihood of an edge than adding a single neighbor that is *shared* by both of them. </span>
-<span id="cb34-371"><a href="#cb34-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-372"><a href="#cb34-372" aria-hidden="true" tabindex="-1"></a>Second, while the community features can be a little hard to interpret, the thing that sticks out is that the features with the most positive coefficients are the ones in which both nodes belong to the same community. This tells us that edges are more likely to exist between nodes in the same community, which makes sense -- this is pretty much guaranteed based on how modularity maximization defines communities in the first place. </span>
-<span id="cb34-373"><a href="#cb34-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-374"><a href="#cb34-374" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model Evaluation</span></span>
-<span id="cb34-375"><a href="#cb34-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-376"><a href="#cb34-376" aria-hidden="true" tabindex="-1"></a>It's all well and good to fit our model on training data and interpret the coefficient, but this doesn't necessarily tell us anything about the ability of our model to make *predictions* about the future. To do this, we need to look at our test data. In this case, it's important that we pass the test data through the same preprocessing as we did before, adding negative examples and feature columns. Very importantly, we pass the graph <span class="in">`G_train`</span> and the community labels <span class="in">`comm_dict_train`</span> as an argument to <span class="in">`compute_features`</span> in order to ensure that things like degree and community structure are calculated using only training data, not testing data. Using testing data to construct the features would be cheating!</span>
-<span id="cb34-377"><a href="#cb34-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-380"><a href="#cb34-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-381"><a href="#cb34-381" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> add_negative_examples(test)</span>
-<span id="cb34-382"><a href="#cb34-382" aria-hidden="true" tabindex="-1"></a>test <span class="op">=</span> compute_features(test, G_train, comm_dict_train)</span>
-<span id="cb34-383"><a href="#cb34-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-384"><a href="#cb34-384" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test[feature_cols]</span>
-<span id="cb34-385"><a href="#cb34-385" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test[<span class="st">"link"</span>]</span>
-<span id="cb34-386"><a href="#cb34-386" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-387"><a href="#cb34-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-388"><a href="#cb34-388" aria-hidden="true" tabindex="-1"></a>We can now get the model's predicted probability of edge presence for each pair of nodes. <span class="co">[</span><span class="ot">The predicted probability of an edge between nodes $i$ and $j$ is $\sigma(s_{ij})$, where $s_{ij}$ is the score for the pair $(i,j)$ and $\sigma(x) = \frac{1}{1 + e^{-x}}$ is the logistic sigmoid function.</span><span class="co">]</span>{.aside}</span>
-<span id="cb34-389"><a href="#cb34-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-392"><a href="#cb34-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-393"><a href="#cb34-393" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict_proba(X_test)[::,<span class="dv">1</span>]</span>
-<span id="cb34-394"><a href="#cb34-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-395"><a href="#cb34-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-396"><a href="#cb34-396" aria-hidden="true" tabindex="-1"></a>We can interpret these predictions like this: </span>
-<span id="cb34-397"><a href="#cb34-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-400"><a href="#cb34-400" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-401"><a href="#cb34-401" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1932</span></span>
-<span id="cb34-402"><a href="#cb34-402" aria-hidden="true" tabindex="-1"></a><span class="ss">f"Our model predicts that the probability of a new edge between nodes </span><span class="sc">{</span>test[<span class="st">'source'</span>][i]<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>test[<span class="st">'target'</span>][i]<span class="sc">}</span><span class="ss"> is approximately </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(y_pred[i], <span class="dv">2</span>)<span class="sc">}</span><span class="ss">."</span></span>
-<span id="cb34-403"><a href="#cb34-403" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-404"><a href="#cb34-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-405"><a href="#cb34-405" aria-hidden="true" tabindex="-1"></a>How accurate are these predictions? We can use the <span class="in">`score`</span> method of the model to compute the accuracy of the model on the test data on the prediction task. <span class="co">[</span><span class="ot">By default, the model is predicting the presence of an edge iff $\sigma(s_{ij}) &gt; 0.5$. </span><span class="co">]</span>{.aside}</span>
-<span id="cb34-406"><a href="#cb34-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-409"><a href="#cb34-409" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-410"><a href="#cb34-410" aria-hidden="true" tabindex="-1"></a>model.score(X_test, y_test)</span>
-<span id="cb34-411"><a href="#cb34-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-412"><a href="#cb34-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-413"><a href="#cb34-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-414"><a href="#cb34-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-415"><a href="#cb34-415" aria-hidden="true" tabindex="-1"></a>Over all, our model achieves an accuracy of roughly 90% in the task of predicting the presence of edges in the test data. Is this a good result? Not especially, actually. The reason is that the test set contains very few positive examples: </span>
-<span id="cb34-416"><a href="#cb34-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-419"><a href="#cb34-419" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-420"><a href="#cb34-420" aria-hidden="true" tabindex="-1"></a>test[<span class="st">"link"</span>].mean()</span>
-<span id="cb34-421"><a href="#cb34-421" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-422"><a href="#cb34-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-423"><a href="#cb34-423" aria-hidden="true" tabindex="-1"></a>So, an algorithm that predicted that no edges would form between any pair of nodes would have an accuracy of around 92%. Our model isn't any better than this! </span>
-<span id="cb34-424"><a href="#cb34-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-425"><a href="#cb34-425" aria-hidden="true" tabindex="-1"></a>This doesn't mean that our model is poor, just that accuracy is not the right way to assess it. A more sophisticated way to assess a binary classification model is to compute the area under the receiver operating characteristic curve (often just called the "area under the curve" or "AUC" for short). The AUC measures the tradeoff between false positive and true positive rates when varying the threshold score required to predict the presence of an edge.</span>
-<span id="cb34-426"><a href="#cb34-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-429"><a href="#cb34-429" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-430"><a href="#cb34-430" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Receiver operating characteristic curve for the link prediction model. A curve that bends farther toward the top-left corner indicates a better model. The hidden code block shows how to compute and plot the ROC curve for our model and compute the AUC. </span></span>
-<span id="cb34-431"><a href="#cb34-431" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
-<span id="cb34-432"><a href="#cb34-432" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb34-433"><a href="#cb34-433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-434"><a href="#cb34-434" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb34-435"><a href="#cb34-435" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-436"><a href="#cb34-436" aria-hidden="true" tabindex="-1"></a>auc <span class="op">=</span> metrics.roc_auc_score(y_test, y_pred)</span>
-<span id="cb34-437"><a href="#cb34-437" aria-hidden="true" tabindex="-1"></a>false_positive_rate, false_negative_rate, _ <span class="op">=</span> metrics.roc_curve(y_test,  y_pred)</span>
-<span id="cb34-438"><a href="#cb34-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-439"><a href="#cb34-439" aria-hidden="true" tabindex="-1"></a>ax.plot(false_positive_rate,false_negative_rate)</span>
-<span id="cb34-440"><a href="#cb34-440" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"Area Under ROC = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(auc, <span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>, </span>
-<span id="cb34-441"><a href="#cb34-441" aria-hidden="true" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">"True Positive Rate"</span>, </span>
-<span id="cb34-442"><a href="#cb34-442" aria-hidden="true" tabindex="-1"></a>       xlabel <span class="op">=</span> <span class="st">"False Positive Rate"</span>)</span>
-<span id="cb34-443"><a href="#cb34-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-444"><a href="#cb34-444" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
-<span id="cb34-445"><a href="#cb34-445" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-446"><a href="#cb34-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-447"><a href="#cb34-447" aria-hidden="true" tabindex="-1"></a>An AUC of 50% corresponds to a model that has failed to learn anything about the data, while an AUC of 100% corresponds to perfect prediction. The AUC we've realized here isn't perfect, but it shows that we are able to predict the formation of new edges much more accurately than would be possible by random chance. </span>
-<span id="cb34-448"><a href="#cb34-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-449"><a href="#cb34-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-450"><a href="#cb34-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-451"><a href="#cb34-451" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-452"><a href="#cb34-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-453"><a href="#cb34-453" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-454"><a href="#cb34-454" aria-hidden="true" tabindex="-1"></a><span class="fu">## Impact of Algorithmic Recommendations on Social Networks</span></span>
-<span id="cb34-455"><a href="#cb34-455" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-456"><a href="#cb34-456" aria-hidden="true" tabindex="-1"></a>Link prediction algorithms are often used by apps and platforms to make recommendations. When Twitter suggests a new profile for you to follow, for example, they often do this on the basis of a link prediction algorithm: users like you have often followed profiles like that one in the past, and so they think that you might like to follow it now. From the perspective of the company making these recommendations, the overall purpose is to increase "engagement" on their platform. More engagement leads to more time spent scrolling, which leads to more time watching money-making ads. </span>
-<span id="cb34-457"><a href="#cb34-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-458"><a href="#cb34-458" aria-hidden="true" tabindex="-1"></a>But what happens to the structure of social networks under the influence of link-prediction algorithms? The details of course here depend on the algorithm, but let's use a version of the one we used in the previous section. We're going to wrap the whole thing up in a Python class. The idea is that we are going to repeatedly:</span>
-<span id="cb34-459"><a href="#cb34-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-460"><a href="#cb34-460" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Train a link prediction model on the current state of the network.</span>
-<span id="cb34-461"><a href="#cb34-461" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Update the network by allowing some edges to decay and replacing them with new edges that the model predicts are likely to form.</span>
-<span id="cb34-462"><a href="#cb34-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-463"><a href="#cb34-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-466"><a href="#cb34-466" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-467"><a href="#cb34-467" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb34-468"><a href="#cb34-468" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LinkPredictionSimulator:</span>
-<span id="cb34-469"><a href="#cb34-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-470"><a href="#cb34-470" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, edge_df, <span class="op">**</span>kwargs):</span>
-<span id="cb34-471"><a href="#cb34-471" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-472"><a href="#cb34-472" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.edge_df <span class="op">=</span> edge_df.copy()</span>
-<span id="cb34-473"><a href="#cb34-473" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.G <span class="op">=</span> nx.from_pandas_edgelist(<span class="va">self</span>.edge_df)</span>
-<span id="cb34-474"><a href="#cb34-474" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.kwargs <span class="op">=</span> kwargs</span>
-<span id="cb34-475"><a href="#cb34-475" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.node_list <span class="op">=</span> <span class="bu">list</span>(<span class="va">self</span>.G.nodes)</span>
-<span id="cb34-476"><a href="#cb34-476" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.comm_dict, <span class="va">self</span>.comms <span class="op">=</span> louvain_communities(<span class="va">self</span>.G, <span class="va">True</span>)</span>
-<span id="cb34-477"><a href="#cb34-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-478"><a href="#cb34-478" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ---------------------------------------------</span></span>
-<span id="cb34-479"><a href="#cb34-479" aria-hidden="true" tabindex="-1"></a>    <span class="co"># SIMULATION FUNCTIONS</span></span>
-<span id="cb34-480"><a href="#cb34-480" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ---------------------------------------------</span></span>
-<span id="cb34-481"><a href="#cb34-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-482"><a href="#cb34-482" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> prep_data(<span class="va">self</span>):</span>
-<span id="cb34-483"><a href="#cb34-483" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb34-484"><a href="#cb34-484" aria-hidden="true" tabindex="-1"></a><span class="co">        add negative examples and compute features on the current data frame of edges, using stored community labels for community features. </span></span>
-<span id="cb34-485"><a href="#cb34-485" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb34-486"><a href="#cb34-486" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_df <span class="op">=</span> add_negative_examples(<span class="va">self</span>.edge_df)</span>
-<span id="cb34-487"><a href="#cb34-487" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_df <span class="op">=</span> compute_features(<span class="va">self</span>.train_df, comm_dict <span class="op">=</span> <span class="va">self</span>.comm_dict, <span class="op">**</span><span class="va">self</span>.kwargs)</span>
-<span id="cb34-488"><a href="#cb34-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-489"><a href="#cb34-489" aria-hidden="true" tabindex="-1"></a>        <span class="co"># store the names of the feature columns for later</span></span>
-<span id="cb34-490"><a href="#cb34-490" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.feature_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> <span class="va">self</span>.train_df.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"source"</span>, <span class="st">"target"</span>, <span class="st">"link"</span>]]</span>
-<span id="cb34-491"><a href="#cb34-491" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb34-492"><a href="#cb34-492" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> train_model(<span class="va">self</span>):</span>
-<span id="cb34-493"><a href="#cb34-493" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb34-494"><a href="#cb34-494" aria-hidden="true" tabindex="-1"></a><span class="co">        Train a logistic classifier on the current data after features have been added. </span></span>
-<span id="cb34-495"><a href="#cb34-495" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb34-496"><a href="#cb34-496" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> <span class="va">self</span>.train_df[<span class="va">self</span>.feature_cols]</span>
-<span id="cb34-497"><a href="#cb34-497" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> <span class="va">self</span>.train_df[<span class="st">"link"</span>]</span>
-<span id="cb34-498"><a href="#cb34-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-499"><a href="#cb34-499" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model <span class="op">=</span> LogisticRegression(solver <span class="op">=</span> <span class="st">"liblinear"</span>)</span>
-<span id="cb34-500"><a href="#cb34-500" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.model.fit(X, y)</span>
-<span id="cb34-501"><a href="#cb34-501" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb34-502"><a href="#cb34-502" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_predicted_edges(<span class="va">self</span>, m_replace):</span>
-<span id="cb34-503"><a href="#cb34-503" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb34-504"><a href="#cb34-504" aria-hidden="true" tabindex="-1"></a><span class="co">        Return a data frame containing the m_replace most likely new edges that are not already present in the graph. </span></span>
-<span id="cb34-505"><a href="#cb34-505" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb34-506"><a href="#cb34-506" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb34-507"><a href="#cb34-507" aria-hidden="true" tabindex="-1"></a>        <span class="co"># data frame of candidate pairs</span></span>
-<span id="cb34-508"><a href="#cb34-508" aria-hidden="true" tabindex="-1"></a>        pairs <span class="op">=</span> pd.DataFrame(product(<span class="va">self</span>.node_list, <span class="va">self</span>.node_list), columns <span class="op">=</span> [<span class="st">"source"</span>, <span class="st">"target"</span>])</span>
-<span id="cb34-509"><a href="#cb34-509" aria-hidden="true" tabindex="-1"></a>        pairs <span class="op">=</span> pairs[pairs[<span class="st">"source"</span>] <span class="op">&lt;</span> pairs[<span class="st">"target"</span>]]</span>
-<span id="cb34-510"><a href="#cb34-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-511"><a href="#cb34-511" aria-hidden="true" tabindex="-1"></a>        <span class="co"># add features to the candidate pairs</span></span>
-<span id="cb34-512"><a href="#cb34-512" aria-hidden="true" tabindex="-1"></a>        pairs <span class="op">=</span> compute_features(pairs, comm_dict <span class="op">=</span> <span class="va">self</span>.comm_dict, G <span class="op">=</span> <span class="va">self</span>.G, <span class="op">**</span><span class="va">self</span>.kwargs)</span>
-<span id="cb34-513"><a href="#cb34-513" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-514"><a href="#cb34-514" aria-hidden="true" tabindex="-1"></a>        <span class="co"># add the model predictions</span></span>
-<span id="cb34-515"><a href="#cb34-515" aria-hidden="true" tabindex="-1"></a>        pairs[<span class="st">"edge_score"</span>] <span class="op">=</span> <span class="va">self</span>.model.predict_proba(pairs[<span class="va">self</span>.feature_cols])[:,<span class="dv">1</span>]</span>
-<span id="cb34-516"><a href="#cb34-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-517"><a href="#cb34-517" aria-hidden="true" tabindex="-1"></a>        <span class="co"># remove pairs that already present in the graph</span></span>
-<span id="cb34-518"><a href="#cb34-518" aria-hidden="true" tabindex="-1"></a>        pairs <span class="op">=</span> pd.merge(pairs, <span class="va">self</span>.edge_df, on <span class="op">=</span> [<span class="st">"source"</span>, <span class="st">"target"</span>], indicator <span class="op">=</span> <span class="va">True</span>, how <span class="op">=</span> <span class="st">"outer"</span>)</span>
-<span id="cb34-519"><a href="#cb34-519" aria-hidden="true" tabindex="-1"></a>        pairs <span class="op">=</span> pairs[pairs._merge <span class="op">==</span> <span class="st">"left_only"</span>]</span>
-<span id="cb34-520"><a href="#cb34-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-521"><a href="#cb34-521" aria-hidden="true" tabindex="-1"></a>        <span class="co"># get the m_replace pairs with the highest predicted probability</span></span>
-<span id="cb34-522"><a href="#cb34-522" aria-hidden="true" tabindex="-1"></a>        <span class="co"># and return them</span></span>
-<span id="cb34-523"><a href="#cb34-523" aria-hidden="true" tabindex="-1"></a>        pairs <span class="op">=</span> pairs.sort_values(<span class="st">"edge_score"</span>, ascending <span class="op">=</span> <span class="va">False</span>).head(m_replace)</span>
-<span id="cb34-524"><a href="#cb34-524" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pairs[[<span class="st">"source"</span>, <span class="st">"target"</span>]]</span>
-<span id="cb34-525"><a href="#cb34-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-526"><a href="#cb34-526" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> update_edges(<span class="va">self</span>, m_replace):</span>
-<span id="cb34-527"><a href="#cb34-527" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb34-528"><a href="#cb34-528" aria-hidden="true" tabindex="-1"></a><span class="co">        removes m_replace edges from the current graph, and replaces them with m_replace predicted edges from get_predicted_edges. </span></span>
-<span id="cb34-529"><a href="#cb34-529" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb34-530"><a href="#cb34-530" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-531"><a href="#cb34-531" aria-hidden="true" tabindex="-1"></a>        <span class="co"># remove m_replace random edges</span></span>
-<span id="cb34-532"><a href="#cb34-532" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.edge_df <span class="op">=</span> <span class="va">self</span>.edge_df.sample(<span class="bu">len</span>(<span class="va">self</span>.edge_df) <span class="op">-</span> m_replace)</span>
-<span id="cb34-533"><a href="#cb34-533" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-534"><a href="#cb34-534" aria-hidden="true" tabindex="-1"></a>        <span class="co"># add m_replace recommended edges </span></span>
-<span id="cb34-535"><a href="#cb34-535" aria-hidden="true" tabindex="-1"></a>        new_edges <span class="op">=</span> <span class="va">self</span>.get_predicted_edges(m_replace)</span>
-<span id="cb34-536"><a href="#cb34-536" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.edge_df <span class="op">=</span> pd.concat([<span class="va">self</span>.edge_df, new_edges])</span>
-<span id="cb34-537"><a href="#cb34-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-538"><a href="#cb34-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-539"><a href="#cb34-539" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>, m_replace <span class="op">=</span> <span class="dv">1</span>, train <span class="op">=</span> <span class="va">True</span>):</span>
-<span id="cb34-540"><a href="#cb34-540" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb34-541"><a href="#cb34-541" aria-hidden="true" tabindex="-1"></a><span class="co">        main simulation function. In each step, we do the data preparation steps, train the model, and update the graph. </span></span>
-<span id="cb34-542"><a href="#cb34-542" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb34-543"><a href="#cb34-543" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.prep_data()</span>
-<span id="cb34-544"><a href="#cb34-544" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.train_model()</span>
-<span id="cb34-545"><a href="#cb34-545" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.update_edges(m_replace)</span>
-<span id="cb34-546"><a href="#cb34-546" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.G <span class="op">=</span> nx.from_pandas_edgelist(<span class="va">self</span>.edge_df)</span>
-<span id="cb34-547"><a href="#cb34-547" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.G.add_nodes_from(<span class="va">self</span>.node_list)</span>
-<span id="cb34-548"><a href="#cb34-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-549"><a href="#cb34-549" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ---------------------------------------------</span></span>
-<span id="cb34-550"><a href="#cb34-550" aria-hidden="true" tabindex="-1"></a>    <span class="co"># MEASUREMENT FUNCTIONS</span></span>
-<span id="cb34-551"><a href="#cb34-551" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ---------------------------------------------</span></span>
-<span id="cb34-552"><a href="#cb34-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-553"><a href="#cb34-553" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> degree_gini(<span class="va">self</span>):</span>
-<span id="cb34-554"><a href="#cb34-554" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb34-555"><a href="#cb34-555" aria-hidden="true" tabindex="-1"></a><span class="co">        The Gini coefficient is a measure of inequality. We are going to use it to measure the extent of inequality in the degree distribution. Higher Gini = more inequality in the degree distribution. </span></span>
-<span id="cb34-556"><a href="#cb34-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-557"><a href="#cb34-557" aria-hidden="true" tabindex="-1"></a><span class="co">        code from https://stackoverflow.com/questions/39512260/calculating-gini-coefficient-in-python-numpy</span></span>
-<span id="cb34-558"><a href="#cb34-558" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb34-559"><a href="#cb34-559" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb34-560"><a href="#cb34-560" aria-hidden="true" tabindex="-1"></a>        degs <span class="op">=</span> np.array([<span class="va">self</span>.G.degree[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="va">self</span>.G.nodes])</span>
-<span id="cb34-561"><a href="#cb34-561" aria-hidden="true" tabindex="-1"></a>        mad <span class="op">=</span> np.<span class="bu">abs</span>(np.subtract.outer(degs, degs)).mean()</span>
-<span id="cb34-562"><a href="#cb34-562" aria-hidden="true" tabindex="-1"></a>        rmad <span class="op">=</span> mad<span class="op">/</span>np.mean(degs)</span>
-<span id="cb34-563"><a href="#cb34-563" aria-hidden="true" tabindex="-1"></a>        g <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> rmad</span>
-<span id="cb34-564"><a href="#cb34-564" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> g</span>
-<span id="cb34-565"><a href="#cb34-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-566"><a href="#cb34-566" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> modularity(<span class="va">self</span>):</span>
-<span id="cb34-567"><a href="#cb34-567" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb34-568"><a href="#cb34-568" aria-hidden="true" tabindex="-1"></a><span class="co">        modularity of the stored partition</span></span>
-<span id="cb34-569"><a href="#cb34-569" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb34-570"><a href="#cb34-570" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> nx.algorithms.community.modularity(<span class="va">self</span>.G, <span class="va">self</span>.comms)</span>
-<span id="cb34-571"><a href="#cb34-571" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-572"><a href="#cb34-572" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-573"><a href="#cb34-573" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb34-574"><a href="#cb34-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-575"><a href="#cb34-575" aria-hidden="true" tabindex="-1"></a>This hidden code cell defines a class that simulates the impact of a link prediction algorithm on a social network. The class has methods for training a link prediction model, updating the network, and measuring the modularity and degree Gini coefficient of the network.</span>
-<span id="cb34-576"><a href="#cb34-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-577"><a href="#cb34-577" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-578"><a href="#cb34-578" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-579"><a href="#cb34-579" aria-hidden="true" tabindex="-1"></a>Let's now instantiate the simulator, using the entire <span class="in">`contact`</span> network. </span>
-<span id="cb34-580"><a href="#cb34-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-583"><a href="#cb34-583" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-584"><a href="#cb34-584" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> contact.groupby([<span class="st">"source"</span>, <span class="st">"target"</span>]).count().reset_index()</span>
-<span id="cb34-585"><a href="#cb34-585" aria-hidden="true" tabindex="-1"></a>LPS <span class="op">=</span> LinkPredictionSimulator(edges)</span>
-<span id="cb34-586"><a href="#cb34-586" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-587"><a href="#cb34-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-588"><a href="#cb34-588" aria-hidden="true" tabindex="-1"></a>Now we're going to conduct our simulation. Along the way, we've set up code so that we can see the graph (and its community partition) before and after the simulation. While we do the simulation, we'll collect the modularity and degree Gini coefficient, which measures how unequal the degrees in the graph are. </span>
-<span id="cb34-589"><a href="#cb34-589" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-592"><a href="#cb34-592" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-593"><a href="#cb34-593" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Before-and-after visualizations of the high school contact network after 50 iterations of the link prediction recommender system simulation. </span></span>
-<span id="cb34-594"><a href="#cb34-594" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
-<span id="cb34-595"><a href="#cb34-595" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-596"><a href="#cb34-596" aria-hidden="true" tabindex="-1"></a><span class="co"># set up the plot</span></span>
-<span id="cb34-597"><a href="#cb34-597" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="dv">5</span>))</span>
-<span id="cb34-598"><a href="#cb34-598" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.fruchterman_reingold_layout(LPS.G)</span>
-<span id="cb34-599"><a href="#cb34-599" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-600"><a href="#cb34-600" aria-hidden="true" tabindex="-1"></a><span class="co"># initial state of the graph</span></span>
-<span id="cb34-601"><a href="#cb34-601" aria-hidden="true" tabindex="-1"></a>louvain_plot(LPS.G, clusters <span class="op">=</span> LPS.comm_dict, ax <span class="op">=</span> axarr[<span class="dv">0</span>], pos <span class="op">=</span> pos)</span>
-<span id="cb34-602"><a href="#cb34-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-603"><a href="#cb34-603" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize tracking the modularity and gini coefficients</span></span>
-<span id="cb34-604"><a href="#cb34-604" aria-hidden="true" tabindex="-1"></a>Q    <span class="op">=</span> []</span>
-<span id="cb34-605"><a href="#cb34-605" aria-hidden="true" tabindex="-1"></a>gini <span class="op">=</span> []</span>
-<span id="cb34-606"><a href="#cb34-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-607"><a href="#cb34-607" aria-hidden="true" tabindex="-1"></a><span class="co"># main loop</span></span>
-<span id="cb34-608"><a href="#cb34-608" aria-hidden="true" tabindex="-1"></a>LPS.step(<span class="dv">0</span>, train <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb34-609"><a href="#cb34-609" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">50</span>):</span>
-<span id="cb34-610"><a href="#cb34-610" aria-hidden="true" tabindex="-1"></a>    LPS.step(<span class="dv">100</span>, train <span class="op">=</span> <span class="va">True</span>)</span>
-<span id="cb34-611"><a href="#cb34-611" aria-hidden="true" tabindex="-1"></a>    Q.append(LPS.modularity())</span>
-<span id="cb34-612"><a href="#cb34-612" aria-hidden="true" tabindex="-1"></a>    gini.append(LPS.degree_gini())</span>
-<span id="cb34-613"><a href="#cb34-613" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-614"><a href="#cb34-614" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize final state of the graph</span></span>
-<span id="cb34-615"><a href="#cb34-615" aria-hidden="true" tabindex="-1"></a>louvain_plot(LPS.G, clusters <span class="op">=</span> LPS.comm_dict, ax <span class="op">=</span> axarr[<span class="dv">1</span>], pos <span class="op">=</span> pos)</span>
-<span id="cb34-616"><a href="#cb34-616" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-617"><a href="#cb34-617" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-618"><a href="#cb34-618" aria-hidden="true" tabindex="-1"></a>Here's what happened to the modularity and the degree Gini inequality as the simulation progressed: </span>
-<span id="cb34-619"><a href="#cb34-619" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-622"><a href="#cb34-622" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb34-623"><a href="#cb34-623" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Modularity and degree Gini coefficient of the high school contact network across iterations of the link prediction recommender system simulation.</span></span>
-<span id="cb34-624"><a href="#cb34-624" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
-<span id="cb34-625"><a href="#cb34-625" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-626"><a href="#cb34-626" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb34-627"><a href="#cb34-627" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-628"><a href="#cb34-628" aria-hidden="true" tabindex="-1"></a>ax.plot(Q, label <span class="op">=</span> <span class="st">"Modularity of original partition"</span>, color <span class="op">=</span> plt.cm.Set3(<span class="dv">4</span>))</span>
-<span id="cb34-629"><a href="#cb34-629" aria-hidden="true" tabindex="-1"></a>ax.plot(gini, label <span class="op">=</span> <span class="st">"Gini inequality in degrees"</span>, color <span class="op">=</span> plt.cm.Set3(<span class="dv">5</span>))</span>
-<span id="cb34-630"><a href="#cb34-630" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
-<span id="cb34-631"><a href="#cb34-631" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-632"><a href="#cb34-632" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Timestep"</span>, ylabel <span class="op">=</span> <span class="st">"Value"</span>)</span>
-<span id="cb34-633"><a href="#cb34-633" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-634"><a href="#cb34-634" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-635"><a href="#cb34-635" aria-hidden="true" tabindex="-1"></a>***In this specific, simple model***, algorithmic recommendations caused the network to change considerably in its structure. </span>
-<span id="cb34-636"><a href="#cb34-636" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-637"><a href="#cb34-637" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There are more closed-off, insular communities as indicated by the higher modularity score. </span>
-<span id="cb34-638"><a href="#cb34-638" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There is increased inequality of influence, at least as measured by the node degree. </span>
-<span id="cb34-639"><a href="#cb34-639" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-640"><a href="#cb34-640" aria-hidden="true" tabindex="-1"></a>It's important to note that these results have multiple interpretations. Tighter communities could just mean that the platform is better at helping people connect to their interests, and in some cases this might be harmless. On the other hand, such tight communities also smack of echo chambers; in cases related to opinion exchange or debate, it might be difficult for people to actually encounter contrary opinions in this setting. Equality of influence might seem like a good thing, but could also indicate that people with extreme or repugnant viewpoints have become mainstreamed. So, while it's clear that the algorithm has significantly changed the overall structure of the social network, it's important to think critically in context in order to understand whether that's truly a bad thing or not. </span>
-<span id="cb34-641"><a href="#cb34-641" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-642"><a href="#cb34-642" aria-hidden="true" tabindex="-1"></a>Overall, our findings suggest that the influence of automated recommendation algorithms have the possibility to change the overall shape of social networks in ways that may be harmful or helpful. For some perspectives on how algorithmic influence shapes collective behavior, and what this might imply, see @bak2021stewardship.  </span>
-<span id="cb34-643"><a href="#cb34-643" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-644"><a href="#cb34-644" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 

@@ -384,7 +384,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/13-modularity-maximization.html">Network Algorithms</a></li><li class="breadcrumb-item"><a href="../chapters/19-spectral-clustering.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></h1>
 </div>
 
 
@@ -426,7 +426,7 @@ $$
 \]</span></p>
 </div>
 <p>Let’s implement the cut and volume functions in Python given an adjacency matrix <span class="math inline">\(\mathbf{A}\)</span> and a partition <span class="math inline">\((C_0, C_1)\)</span> encoded as a vector <span class="math inline">\(\mathbf{z}\in \left\{0,1\right\}^n\)</span>. First, we’ll load some libraries and grab a graph for clustering:</p>
-<div id="f02deca6" class="cell" data-execution_count="1">
+<div id="52b1ed84" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
@@ -441,7 +441,7 @@ $$
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll implement the cut and volume.</p>
-<div id="baf5e82d" class="cell" data-execution_count="2">
+<div id="c1dc2b7e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cut(A, z):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> <span class="dv">0</span>][:, z <span class="op">==</span> <span class="dv">1</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -449,7 +449,7 @@ $$
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To get a feel for things, let’s see how cut scores look for two clusterings, one of which looks “visually pretty good” and one of which is completely random.</p>
-<div id="e1b734a7" class="cell" data-execution_count="3">
+<div id="5790733d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get a "pretty good" set of clusters using a built-in algorithm. </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>partition <span class="op">=</span> nx.algorithms.community.louvain.louvain_communities(G, resolution <span class="op">=</span> <span class="fl">0.4</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.array([<span class="dv">0</span> <span class="cf">if</span> node <span class="kw">in</span> partition[<span class="dv">0</span>] <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> node <span class="kw">in</span> G.nodes()])</span>
@@ -512,16 +512,16 @@ $$
 \]</span></p>
 <div class="page-columns page-full"><p>This is the <em>normalized cut</em> or <em>NormCut</em> objective function, and its minimization is the problem that will guide our development of spectral clustering. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Our choice of the NormCut objective function will guide us towards the spectral clustering algorithm of <span class="citation" data-cites="shi2000normalized">Shi and Malik (<a href="#ref-shi2000normalized" role="doc-biblioref">2000</a>)</span>. There are alternative objective functions which also lead to forms of Laplacian spectral clustering; <span class="citation" data-cites="luxburgTutorialSpectralClustering2007">Luxburg (<a href="#ref-luxburgTutorialSpectralClustering2007" role="doc-biblioref">2007</a>)</span> offer a comprehensive discussion.</span></div></div>
 <p>Let’s implement the normalized cut and check that it gives a lower score to the “good” clustering than to the random clustering:</p>
-<div id="ed308443" class="cell" data-execution_count="4">
+<div id="0a64bd94" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> norm_cut(A, z):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cut(A, z)<span class="op">*</span>(<span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c36411ee" class="cell" data-execution_count="5">
+<div id="76a762c3" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of good clustering: </span><span class="sc">{</span>norm_cut(A, z)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of random clustering: </span><span class="sc">{</span>norm_cut(A, z_rand)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NormCut of good clustering: 0.26
-NormCut of random clustering: 1.08</code></pre>
+NormCut of random clustering: 1.12</code></pre>
 </div>
 </div>
 <p>As expected, the normcut of the good clustering is much lower than the normcut of the random clustering.</p>
@@ -651,7 +651,7 @@ Exercise
 <li>Assign node <span class="math inline">\(i\)</span> to cluster <span class="math inline">\(0\)</span> if <span class="math inline">\(y_i &lt; 0\)</span> and cluster <span class="math inline">\(1\)</span> if <span class="math inline">\(y_i \geq 0\)</span>.</li>
 </ol>
 <p>Let’s go ahead and implement this algorithm. The centerpiece of our implementation is a function that accepts a graph <span class="math inline">\(G\)</span> and returns the eigenvector <span class="math inline">\(\mathbf{y}_2\)</span>. This eigenvector is often called the <em>Fielder eigenvector</em> of the graph after <a href="https://en.wikipedia.org/wiki/Miroslav_Fiedler">Miroslav Fiedler</a>, who pioneered the idea that the eigenvalues of the Laplacian could be used to study the connectivity structure of graphs.</p>
-<div id="69fff2f1" class="cell" data-execution_count="6">
+<div id="59136124" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fiedler_eigenvector(G):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
@@ -661,11 +661,11 @@ Exercise
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> eigvecs[:, <span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try computing the Fiedler eigenvector on the karate club graph:</p>
-<div id="1d8e4be4" class="cell" data-execution_count="7">
+<div id="6aba57a7" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fiedler <span class="op">=</span> fiedler_eigenvector(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>And now let’s visualize it!</p>
-<div id="b4988abd" class="cell" data-execution_count="8">
+<div id="76d1f289" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="fl">3.75</span>))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax, node_color <span class="op">=</span> fiedler, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, vmax <span class="op">=</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -677,7 +677,7 @@ Exercise
 </div>
 </div>
 <p>We can think of the Fiedler eigenvector as returning a “soft” clustering that gives each node a score rather than a fixed label. We can obtain labels by thresholding according to sign:</p>
-<div id="0fda3924" class="cell" data-execution_count="9">
+<div id="fdb150ab" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>z_fiedler <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>(fiedler <span class="op">&gt;</span> <span class="dv">0</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="dv">4</span>))</span>
@@ -703,7 +703,7 @@ Exercise
 \end{aligned}
 \]</span></p>
 <p>The row <span class="math inline">\(\mathbf{y}_i = [v_{i1}, v_{i2}, \ldots, v_{ik}]\)</span> of <span class="math inline">\(\mathbf{Y}\)</span> can be thought of as a set of spatial (Euclidean) coordinates for node <span class="math inline">\(i\)</span>. We can then use a Euclidean clustering algorithm like <span class="math inline">\(k\)</span>-means in the space of these coordinates in order to obtain a final clustering.</p>
-<div id="55dd3c36" class="cell" data-execution_count="10">
+<div id="b660b92a" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiway_spectral(G, k):</span>
@@ -725,7 +725,7 @@ Exercise
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> KM.labels_</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try this on the Les Mis graph!</p>
-<div id="d5c54db4" class="cell" data-execution_count="11">
+<div id="7e6522d8" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.les_miserables_graph())</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> multiway_spectral(G, <span class="dv">5</span>)</span>
@@ -746,8 +746,6 @@ Exercise
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
-
-<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-gleich2016mining" class="csl-entry" role="listitem">
@@ -856,57 +854,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1249,540 +1196,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> ../refs.bib</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Spectral Clustering</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/19-spectral-clustering.ipynb).* </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>::: {.hidden}</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>\newcommand{\mA}{\mathbf{A}}</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>\newcommand{\mD}{\mathbf{D}}</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>\newcommand{\mL}{\mathbf{L}}</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>\newcommand{\mY}{\mathbf{Y}}</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>\newcommand{\vz}{\mathbf{z}}</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>\newcommand{\vy}{\mathbf{y}}</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>\newcommand{\vx}{\mathbf{x}}</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>\newcommand{\cY}{\mathcal{Y}}</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>\newcommand{\cL}{\mathcal{L}}</span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>\newcommand{\vones}{\mathbb{1}}</span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>\newcommand{\vzero}{\mathbb{0}}</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>\newcommand{\braces}<span class="co">[</span><span class="ot">1</span><span class="co">]</span>{\left<span class="sc">\{</span>#1\right<span class="sc">\}</span>}</span>
-<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>\newcommand{\brackets}<span class="co">[</span><span class="ot">1</span><span class="co">]</span>{\left<span class="co">[</span><span class="ot">#1\right</span><span class="co">]</span>}</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>\newcommand{\paren}<span class="co">[</span><span class="ot">1</span><span class="co">]</span>{\left(#1\right)}</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>\newcommand{\R}{\mathbb{R}}</span>
-<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>\newcommand{\norm}<span class="co">[</span><span class="ot">1</span><span class="co">]</span>{\lVert #1 \rVert}</span>
-<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>\newcommand{\cut}<span class="co">[</span><span class="ot">2</span><span class="co">]</span>{\mathrm{\mathbf{{cut}}}\paren{#1,#2}}</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>\newcommand{\vol}<span class="co">[</span><span class="ot">1</span><span class="co">]</span>{\mathrm{\mathbf{{vol}}}\paren{#1}}</span>
-<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>\DeclareMathOperator*{\argmin}{arg\,min}</span>
-<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>We continue our study of the clustering problem. We'll focus today on the problem of splitting a graph into two pieces. Suppose we have a graph $G = (N,E)$ with adjacency matrix $\mA \in \R^n$. Our aim is to determine a vector $\vz \in \braces{0,1}^n$ that splits the graph into two clusters: $C_0 = \braces{i \in N  : z_i = 0}$ and $C_1 = \braces{i \in N: z_i = 1}$. We aim for these clusters to be "good" in some sense, which usually means that there are many edges within each $C_i$ but relatively few edges between $C_0$ and $C_1$. <span class="co">[</span><span class="ot">The problem of splitting a graph into two clusters is sometimes called the *biclustering problem*.</span><span class="co">]</span>{.aside}</span>
-<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>In this set of notes, we'll introduce *Laplacian spectral clustering*, which we'll usually just abbreviate to *spectral clustering*. Spectral clustering is an eigenvector-based method for determining such a vector $\vz$, or, equivalently, the  two sets $C_0$ and $C_1$. </span>
-<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Defining the Spectral Clustering Objective</span></span>
-<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>Many clustering algorithms proceed by optimizing or approximately optimizing a certain objective function.<span class="ot">[^1]</span> Spectral clustering is one such approximate optimization approach. In order to define the objective function for spectral clustering, we first need to introduce some notation. </span>
-<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>Modularity maximization is an example we've seen before.</span>
-<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a>::: {#def-cut-and-vol}</span>
-<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-52"><a href="#cb13-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cut and Volume</span></span>
-<span id="cb13-53"><a href="#cb13-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-54"><a href="#cb13-54" aria-hidden="true" tabindex="-1"></a>The *cut* of a partition $(C_0, C_1)$ on a graph $G$, written $\cut{C_0}{C_1}$, is  the number of edges with an edge in each cluster:  </span>
-<span id="cb13-55"><a href="#cb13-55" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-56"><a href="#cb13-56" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-57"><a href="#cb13-57" aria-hidden="true" tabindex="-1"></a>    \cut{C_0}{C_1} &amp;\triangleq \sum_{i \in C_0, j \in C_1} a_{ij}</span>
-<span id="cb13-58"><a href="#cb13-58" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-59"><a href="#cb13-59" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-60"><a href="#cb13-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-61"><a href="#cb13-61" aria-hidden="true" tabindex="-1"></a>The *volume* of a set $C\subseteq N$ is the sum of the degrees of the nodes in $C$:</span>
-<span id="cb13-62"><a href="#cb13-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-65"><a href="#cb13-65" aria-hidden="true" tabindex="-1"></a>    \vol{C} &amp;\triangleq \sum_{i \in C} k_i = \sum_{i \in C} \sum_{j \in N} a_{ij}\;.</span>
-<span id="cb13-66"><a href="#cb13-66" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-67"><a href="#cb13-67" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-68"><a href="#cb13-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-69"><a href="#cb13-69" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-70"><a href="#cb13-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-71"><a href="#cb13-71" aria-hidden="true" tabindex="-1"></a>Let's implement the cut and volume functions in Python given an adjacency matrix $\mA$ and a partition $(C_0, C_1)$ encoded as a vector $\vz \in \braces{0,1}^n$. First, we'll load some libraries and grab a graph for clustering: </span>
-<span id="cb13-72"><a href="#cb13-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-75"><a href="#cb13-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-76"><a href="#cb13-76" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb13-77"><a href="#cb13-77" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb13-78"><a href="#cb13-78" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
-<span id="cb13-79"><a href="#cb13-79" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb13-80"><a href="#cb13-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-81"><a href="#cb13-81" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
-<span id="cb13-82"><a href="#cb13-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
-<span id="cb13-83"><a href="#cb13-83" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb13-84"><a href="#cb13-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
-<span id="cb13-85"><a href="#cb13-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-86"><a href="#cb13-86" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.karate_club_graph())</span>
-<span id="cb13-87"><a href="#cb13-87" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb13-88"><a href="#cb13-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-89"><a href="#cb13-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-90"><a href="#cb13-90" aria-hidden="true" tabindex="-1"></a>Now we'll implement the cut and volume. </span>
-<span id="cb13-91"><a href="#cb13-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-94"><a href="#cb13-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-95"><a href="#cb13-95" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cut(A, z):</span>
-<span id="cb13-96"><a href="#cb13-96" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> <span class="dv">0</span>][:, z <span class="op">==</span> <span class="dv">1</span>])</span>
-<span id="cb13-97"><a href="#cb13-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-98"><a href="#cb13-98" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vol(A, z, i):</span>
-<span id="cb13-99"><a href="#cb13-99" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(A[z <span class="op">==</span> i])</span>
-<span id="cb13-100"><a href="#cb13-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-101"><a href="#cb13-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-102"><a href="#cb13-102" aria-hidden="true" tabindex="-1"></a>To get a feel for things, let's see how cut scores look for two clusterings, one of which looks "visually pretty good" and one of which is completely random. </span>
-<span id="cb13-103"><a href="#cb13-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-104"><a href="#cb13-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-105"><a href="#cb13-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-108"><a href="#cb13-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-109"><a href="#cb13-109" aria-hidden="true" tabindex="-1"></a><span class="co"># get a "pretty good" set of clusters using a built-in algorithm. </span></span>
-<span id="cb13-110"><a href="#cb13-110" aria-hidden="true" tabindex="-1"></a>partition <span class="op">=</span> nx.algorithms.community.louvain.louvain_communities(G, resolution <span class="op">=</span> <span class="fl">0.4</span>)</span>
-<span id="cb13-111"><a href="#cb13-111" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.array([<span class="dv">0</span> <span class="cf">if</span> node <span class="kw">in</span> partition[<span class="dv">0</span>] <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> node <span class="kw">in</span> G.nodes()])</span>
-<span id="cb13-112"><a href="#cb13-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-113"><a href="#cb13-113" aria-hidden="true" tabindex="-1"></a><span class="co"># random clusters</span></span>
-<span id="cb13-114"><a href="#cb13-114" aria-hidden="true" tabindex="-1"></a>z_rand <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">34</span>)</span>
-<span id="cb13-115"><a href="#cb13-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-116"><a href="#cb13-116" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the two clusterings side-by-side</span></span>
-<span id="cb13-117"><a href="#cb13-117" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)</span>
-<span id="cb13-118"><a href="#cb13-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-119"><a href="#cb13-119" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="fl">3.75</span>))</span>
-<span id="cb13-120"><a href="#cb13-120" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax[<span class="dv">0</span>], node_color <span class="op">=</span> z, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, vmax <span class="op">=</span> <span class="fl">1.5</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>)</span>
-<span id="cb13-121"><a href="#cb13-121" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax[<span class="dv">1</span>], node_color <span class="op">=</span> z_rand, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, vmax <span class="op">=</span> <span class="fl">1.5</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>)</span>
-<span id="cb13-122"><a href="#cb13-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-123"><a href="#cb13-123" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax[<span class="dv">0</span>].set_title(<span class="vs">fr'"Good" clustering: $cut(C_0, C_1)$ = </span><span class="sc">{</span>cut(A, z)<span class="sc">:.0f}</span><span class="vs">'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span>   <span class="vs">fr'$vol(C_0)$ = </span><span class="sc">{</span>vol(A, z, <span class="dv">0</span>)<span class="sc">:.0f}</span><span class="vs">,   $vol(C_1)$ = </span><span class="sc">{</span>vol(A, z, <span class="dv">1</span>)<span class="sc">:.0f}</span><span class="vs">'</span>)</span>
-<span id="cb13-124"><a href="#cb13-124" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax[<span class="dv">1</span>].set_title(<span class="vs">fr'Random clustering: $cut(C_0, C_1)$ = </span><span class="sc">{</span>cut(A, z_rand)<span class="sc">:.0f}</span><span class="vs">'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span>   <span class="vs">fr'$vol(C_0)$ = </span><span class="sc">{</span>vol(A, z_rand, <span class="dv">0</span>)<span class="sc">:.0f}</span><span class="vs">,   $vol(C_1)$ = </span><span class="sc">{</span>vol(A, z_rand, <span class="dv">1</span>)<span class="sc">:.0f}</span><span class="vs">'</span>)</span>
-<span id="cb13-125"><a href="#cb13-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-126"><a href="#cb13-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-127"><a href="#cb13-127" aria-hidden="true" tabindex="-1"></a>The visually appealing clustering has a substantially lower cut score than the random clustering.</span>
-<span id="cb13-128"><a href="#cb13-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-129"><a href="#cb13-129" aria-hidden="true" tabindex="-1"></a><span class="fu">## Engineering an Objective Function</span></span>
-<span id="cb13-130"><a href="#cb13-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-131"><a href="#cb13-131" aria-hidden="true" tabindex="-1"></a>How can we use the cut and volume to find useful clusterings? Our general idea is to seek a biclustering $(C_0, C_1)$ that that minimizes some function $f(C_0, C_1)$ defined in terms of the cut and volume: </span>
-<span id="cb13-132"><a href="#cb13-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-133"><a href="#cb13-133" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-134"><a href="#cb13-134" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-135"><a href="#cb13-135" aria-hidden="true" tabindex="-1"></a>    C_0^*, C_1^* = \argmin_{C_0, C_1} f(C_0, C_1)\;.</span>
-<span id="cb13-136"><a href="#cb13-136" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-137"><a href="#cb13-137" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-138"><a href="#cb13-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-139"><a href="#cb13-139" aria-hidden="true" tabindex="-1"></a>The function $f$ should be small when $(C_0, C_1)$ is a "good" clustering and large when $(C_0, C_1)$ is a "bad" clustering. How can we combine the cut and volume in order to express this idea? </span>
-<span id="cb13-140"><a href="#cb13-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-141"><a href="#cb13-141" aria-hidden="true" tabindex="-1"></a>One initially appealing idea is to simply let $f$ be the cut size: </span>
-<span id="cb13-142"><a href="#cb13-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-143"><a href="#cb13-143" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-144"><a href="#cb13-144" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-145"><a href="#cb13-145" aria-hidden="true" tabindex="-1"></a>    f(C_0, C_1) = \cut{C_0}{C_1}\;.</span>
-<span id="cb13-146"><a href="#cb13-146" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-147"><a href="#cb13-147" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-148"><a href="#cb13-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-149"><a href="#cb13-149" aria-hidden="true" tabindex="-1"></a>The problem with this approach is that it encourages us to put every node in the same cluster. For example, if $C_0 = N$ and $C_1 = \emptyset$, then all nodes have label $0$ and $\cut{C_0}{C_1} = 0$. This is the smallest realizable cut size, but isn't a very useful solution to the clustering problem! </span>
-<span id="cb13-150"><a href="#cb13-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-151"><a href="#cb13-151" aria-hidden="true" tabindex="-1"></a>A general intuition that guides many approaches to the clustering problem is: </span>
-<span id="cb13-152"><a href="#cb13-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-153"><a href="#cb13-153" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; A good clustering produces a small cut while maintaining relatively large volumes for all clusters. </span></span>
-<span id="cb13-154"><a href="#cb13-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-155"><a href="#cb13-155" aria-hidden="true" tabindex="-1"></a>That is, we want $f(C_0, C_1)$ to be small when $\cut{C_0}{C_1}$ is small and $\vol{C_0}$ and $\vol{C_1}$ are large.</span>
-<span id="cb13-156"><a href="#cb13-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-157"><a href="#cb13-157" aria-hidden="true" tabindex="-1"></a>Here's one candidate $f$ that encodes this intuition. Let $\vol{G} = \sum_{i \in N} k_i = 2m$ be the total volume of the graph. Then, let </span>
-<span id="cb13-158"><a href="#cb13-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-159"><a href="#cb13-159" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-160"><a href="#cb13-160" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-161"><a href="#cb13-161" aria-hidden="true" tabindex="-1"></a>    f(C_0, C_1) = \cut{C_0}{C_1} + \frac{1}{4\vol{G}}\paren{\vol{C_0} - \vol{C_1}}^2\;.</span>
-<span id="cb13-162"><a href="#cb13-162" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-163"><a href="#cb13-163" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-164"><a href="#cb13-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-165"><a href="#cb13-165" aria-hidden="true" tabindex="-1"></a>Observe that this function $f$ has two counterbalancing terms. The first term is small when the cut term is small, while the second term is small when the two clusters $C_0$ and $C_1$ have similar volumes, and vanishes in the case when the two clusters have identical volumes. </span>
-<span id="cb13-166"><a href="#cb13-166" aria-hidden="true" tabindex="-1"></a>In fact, this function $f$ is a disguised form of the modularity, <span class="co">[</span><span class="ot">which we have previously seen</span><span class="co">](06-modularity.qmd)</span>. As shown by @gleich2016mining, minimizing $f$ is equivalent to maximizing the modularity.</span>
-<span id="cb13-167"><a href="#cb13-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-168"><a href="#cb13-168" aria-hidden="true" tabindex="-1"></a>Since we've already seen modularity maximization, let's consider a different way of managing the tradeoff between cut and volume. Consider the objective function </span>
-<span id="cb13-169"><a href="#cb13-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-170"><a href="#cb13-170" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-171"><a href="#cb13-171" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-172"><a href="#cb13-172" aria-hidden="true" tabindex="-1"></a>    f(C_0, C_1) = \cut{C_0}{C_1}\paren{\frac{1}{\vol{C_0}} + \frac{1}{\vol{C_1}}}\;.</span>
-<span id="cb13-173"><a href="#cb13-173" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-174"><a href="#cb13-174" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-175"><a href="#cb13-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-176"><a href="#cb13-176" aria-hidden="true" tabindex="-1"></a>This is the *normalized cut* or *NormCut* objective function, and its minimization is the problem that will guide our development of spectral clustering. <span class="co">[</span><span class="ot">Our choice of the NormCut objective function will guide us towards the spectral clustering algorithm of @shi2000normalized. There are alternative objective functions which also lead to forms of Laplacian spectral clustering;  @luxburgTutorialSpectralClustering2007 offer a comprehensive discussion.</span><span class="co">]</span>{.aside}</span>
-<span id="cb13-177"><a href="#cb13-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-178"><a href="#cb13-178" aria-hidden="true" tabindex="-1"></a>Let's implement the normalized cut and check that it gives a lower score to the "good" clustering than to the random clustering: </span>
-<span id="cb13-179"><a href="#cb13-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-182"><a href="#cb13-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-183"><a href="#cb13-183" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> norm_cut(A, z):</span>
-<span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cut(A, z)<span class="op">*</span>(<span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">/</span>vol(A, z, <span class="dv">1</span>))</span>
-<span id="cb13-185"><a href="#cb13-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-186"><a href="#cb13-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-187"><a href="#cb13-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-190"><a href="#cb13-190" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-191"><a href="#cb13-191" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of good clustering: </span><span class="sc">{</span>norm_cut(A, z)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-192"><a href="#cb13-192" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"NormCut of random clustering: </span><span class="sc">{</span>norm_cut(A, z_rand)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb13-193"><a href="#cb13-193" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-194"><a href="#cb13-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-195"><a href="#cb13-195" aria-hidden="true" tabindex="-1"></a>As expected, the normcut of the good clustering is much lower than the normcut of the random clustering.</span>
-<span id="cb13-196"><a href="#cb13-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-197"><a href="#cb13-197" aria-hidden="true" tabindex="-1"></a><span class="fu">## From NormCut to Eigenvectors</span></span>
-<span id="cb13-198"><a href="#cb13-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-199"><a href="#cb13-199" aria-hidden="true" tabindex="-1"></a>Is that it? Are we done? Could we simply define a clustering algorithm that finds clusters which minimize the NormCut? Unfortunately, this appealing idea isn't practical: the problem of finding the partition that minimizes the normalized cut is NP-hard <span class="co">[</span><span class="ot">@wagner1993between</span><span class="co">]</span>. So, in order to work with large instances, we need to find an *approximate* solution of the NormCut minimization problem that admits an efficient solution. <span class="co">[</span><span class="ot">Our development in the remainder of these notes closely follows that of @luxburgTutorialSpectralClustering2007, which in turn follows the original development of @shi2000normalized.</span><span class="co">]</span>{.aside}</span>
-<span id="cb13-200"><a href="#cb13-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-201"><a href="#cb13-201" aria-hidden="true" tabindex="-1"></a>Our strategy is to express the NormCut objective in linear algebraic terms. To do this, define the vector $\vy \in \R^n$ with entries <span class="co">[</span><span class="ot">Recall that the condition $i \in C_0$ is equivalent to $z_i = 0$.</span><span class="co">]</span>{.aside}</span>
-<span id="cb13-202"><a href="#cb13-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-203"><a href="#cb13-203" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-204"><a href="#cb13-204" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-205"><a href="#cb13-205" aria-hidden="true" tabindex="-1"></a>    y_i = \begin{cases}</span>
-<span id="cb13-206"><a href="#cb13-206" aria-hidden="true" tabindex="-1"></a>        &amp;\frac{1}{\sqrt{2m}}\sqrt{\frac{\vol{C_1}}{\vol{C_0}}} &amp; \text{if } i \in C_0\;, <span class="sc">\\</span></span>
-<span id="cb13-207"><a href="#cb13-207" aria-hidden="true" tabindex="-1"></a>        -&amp;\frac{1}{\sqrt{2m}}\sqrt{\frac{\vol{C_0}}{\vol{C_1}}} &amp; \text{if } i \in C_1\;.</span>
-<span id="cb13-208"><a href="#cb13-208" aria-hidden="true" tabindex="-1"></a>    \end{cases} </span>
-<span id="cb13-209"><a href="#cb13-209" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-210"><a href="#cb13-210" aria-hidden="true" tabindex="-1"></a>$$ {#eq-y}</span>
-<span id="cb13-211"><a href="#cb13-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-212"><a href="#cb13-212" aria-hidden="true" tabindex="-1"></a>The vector $\vy$ is as good as $\vz$ for the purposes of clustering: the sign of $y_i$ completely determines the cluster of node $i$. </span>
-<span id="cb13-213"><a href="#cb13-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-214"><a href="#cb13-214" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb13-215"><a href="#cb13-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-216"><a href="#cb13-216" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb13-217"><a href="#cb13-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-218"><a href="#cb13-218" aria-hidden="true" tabindex="-1"></a>Prove the following properties of $\vy$:</span>
-<span id="cb13-219"><a href="#cb13-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-220"><a href="#cb13-220" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Normalization**: $\vy^T\mD\vy = 1$. </span>
-<span id="cb13-221"><a href="#cb13-221" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Objective**: $\mathrm{NormCut}(C_0, C_1) = \vy^T \mL \vy$, where $\mD$ is the diagonal matrix with entries $d_{ii} = k_i$, the degree of node $i$, and $\mL = \mD - \mA$ is our good friend the combinatorial graph Laplacian. </span>
-<span id="cb13-222"><a href="#cb13-222" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Orthogonality**: $\vy^T\mD \vones = 0$, where $\vones$ is the all-ones vector.</span>
-<span id="cb13-223"><a href="#cb13-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-224"><a href="#cb13-224" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-225"><a href="#cb13-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-226"><a href="#cb13-226" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb13-227"><a href="#cb13-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-228"><a href="#cb13-228" aria-hidden="true" tabindex="-1"></a>It's convenient to first check normalization. We have </span>
-<span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a>    \vy^T\mD\vy &amp;= \sum_{1 \leq i,j \leq n} d_{ij} y_i y_j <span class="sc">\\</span> </span>
-<span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a>    &amp;= \sum_{1 \leq i \leq n} k_{i}y_i^2 \quad \text{($\mD$ is diagonal)}<span class="sc">\\</span> </span>
-<span id="cb13-233"><a href="#cb13-233" aria-hidden="true" tabindex="-1"></a>    &amp;= \sum_{i \in C_0} k_{i}y_i^2 + \sum_{i \in C_1} k_{i}y_i^2 &amp;<span class="sc">\\</span> </span>
-<span id="cb13-234"><a href="#cb13-234" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{2m}\brackets{ \frac{\vol{C_1}}{\vol{C_0}} \sum_{i \in C_0} k_{i} +  \frac{\vol{C_0}}{\vol{C_1}} \sum_{i \in C_1} k_{i}} <span class="sc">\\</span> </span>
-<span id="cb13-235"><a href="#cb13-235" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{2m}\brackets{ \frac{\vol{C_1}}{\vol{C_0}} \vol{C_0} +  \frac{\vol{C_0}}{\vol{C_1}} \vol{C_1}} &amp;\quad \text{(def. of $\vol{C}$)} <span class="sc">\\</span></span>
-<span id="cb13-236"><a href="#cb13-236" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{2m}\brackets{\vol{C_0} + \vol{C_1}} <span class="sc">\\</span> </span>
-<span id="cb13-237"><a href="#cb13-237" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{2m} 2m<span class="sc">\\</span> </span>
-<span id="cb13-238"><a href="#cb13-238" aria-hidden="true" tabindex="-1"></a>    &amp;= 1 \;.</span>
-<span id="cb13-239"><a href="#cb13-239" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-240"><a href="#cb13-240" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-241"><a href="#cb13-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-242"><a href="#cb13-242" aria-hidden="true" tabindex="-1"></a>Now let's check the objective. Since $\vy^T\mL\vy = \vy^T\mD\vy - \vy^T\mA\vy$, we only need to compute $\vy^T\mA\vy$. It's helpful to keep in mind here that </span>
-<span id="cb13-243"><a href="#cb13-243" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-244"><a href="#cb13-244" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-245"><a href="#cb13-245" aria-hidden="true" tabindex="-1"></a>    y_iy_j = \begin{cases}</span>
-<span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a>        -\frac{1}{2m} &amp; \text{if } i \in C_0, j \in C_1 \text{ or } i \in C_1, j \in C_0\;, <span class="sc">\\</span></span>
-<span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>        \frac{1}{2m} \frac{\vol{C_1}}{\vol{C_0}} &amp; \text{if } i, j \in C_0\;, <span class="sc">\\</span></span>
-<span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a>        \frac{1}{2m} \frac{\vol{C_0}}{\vol{C_1}} &amp; \text{if } i, j \in C_1\;.</span>
-<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a>    \end{cases}</span>
-<span id="cb13-250"><a href="#cb13-250" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-251"><a href="#cb13-251" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-252"><a href="#cb13-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-253"><a href="#cb13-253" aria-hidden="true" tabindex="-1"></a>Another pair of useful identities is </span>
-<span id="cb13-254"><a href="#cb13-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-255"><a href="#cb13-255" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-256"><a href="#cb13-256" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-257"><a href="#cb13-257" aria-hidden="true" tabindex="-1"></a>    \sum_{i \in C_0, j \in C_0}a_{ij} &amp;= \sum_{i \in C_0, j \in N} a_{ij} - \sum_{i \in C_0, j \in C_1} a_{ij} = \vol{C_0} - \cut{C_0}{C_1} <span class="sc">\\</span> </span>
-<span id="cb13-258"><a href="#cb13-258" aria-hidden="true" tabindex="-1"></a>    \sum_{i \in C_1, j \in C_1}a_{ij} &amp;= \sum_{i \in C_1, j \in N} a_{ij} - \sum_{i \in C_1, j \in C_0} a_{ij} = \vol{C_1} - \cut{C_0}{C_1}\;.</span>
-<span id="cb13-259"><a href="#cb13-259" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-260"><a href="#cb13-260" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-261"><a href="#cb13-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-262"><a href="#cb13-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-263"><a href="#cb13-263" aria-hidden="true" tabindex="-1"></a>We'll now proceed with the computation: </span>
-<span id="cb13-264"><a href="#cb13-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-265"><a href="#cb13-265" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-266"><a href="#cb13-266" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-267"><a href="#cb13-267" aria-hidden="true" tabindex="-1"></a>\vy^T \mA \vy &amp;= \sum_{1 \leq i, j \leq n} a_{ij} y_i y_j <span class="sc">\\</span> </span>
-<span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a>&amp;= \sum_{i \in C_0, j \in C_1} a_{ij} y_i y_j + \sum_{i \in C_1, j \in C_0} a_{ij} y_i y_j + \sum_{i \in C_0, j \in C_0} a_{ij} y_i y_j + \sum_{i \in C_1, j \in C_1} a_{ij} y_i y_j <span class="sc">\\</span></span>
-<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{1}{2m} \brackets{-\sum_{i \in C_0, j \in C_1} a_{ij} - \sum_{i \in C_1, j \in C_0} a_{ij} + \frac{\vol{C_1}}{\vol{C_0}} \sum_{i \in C_0, j \in C_0}a_{ij} + \frac{\vol{C_0}}{\vol{C_1}} \sum_{i \in C_1, j \in C_1} a_{ij} } <span class="sc">\\</span> </span>
-<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{1}{2m} \brackets{-2\cut{C_0}{C_1} + \frac{\vol{C_1}}{\vol{C_0}} \paren{\vol{C_0} - \cut{C_0}{C_1}} + \frac{\vol{C_0}}{\vol{C_1}} \paren{\vol{C_1} - \cut{C_0}{C_1}} }<span class="sc">\\</span>  </span>
-<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{1}{2m} \brackets{-2\cut{C_0}{C_1} + \vol{C_1} + \vol{C_0} - \cut{C_0}{C_1} \paren{\frac{\vol{C_1}}{\vol{C_0}} + \frac{\vol{C_0}}{\vol{C_1}}}} <span class="sc">\\</span></span>
-<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{1}{2m} \brackets{2m - \cut{C_0}{C_1} \paren{2 + \frac{\vol{C_1}}{\vol{C_0}} + \frac{\vol{C_0}}{\vol{C_1}}}} <span class="sc">\\</span></span>
-<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a>&amp;= 1 - \frac{1}{2m} \cut{C_0}{C_1} \paren{\frac{\vol{C_0} + \vol{C_1}}{\vol{C_0}} + \frac{\vol{C_1} + \vol{C_0}}{\vol{C_1}}} <span class="sc">\\</span> </span>
-<span id="cb13-274"><a href="#cb13-274" aria-hidden="true" tabindex="-1"></a>&amp;= 1 - \frac{1}{2m} \cut{C_0}{C_1} \paren{\frac{2m}{\vol{C_0}} + \frac{2m}{\vol{C_1}}} <span class="sc">\\</span> </span>
-<span id="cb13-275"><a href="#cb13-275" aria-hidden="true" tabindex="-1"></a>&amp;= 1 - \mathrm{NormCut}(C_0, C_1)\;. </span>
-<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a>It follows that $\vy^T\mL\vy = \vy^T \mD\vy - \vy^T\mA\vy = \mathrm{NormCut}(C_0, C_1)$, as was to be shown. </span>
-<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a>Now onto orthogonality: we can calculate </span>
-<span id="cb13-282"><a href="#cb13-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-283"><a href="#cb13-283" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-284"><a href="#cb13-284" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-285"><a href="#cb13-285" aria-hidden="true" tabindex="-1"></a>    \vy^T\mD\vones &amp;= \sum_{i \in N} k_i y_i = \sum_{i \in C_0} k_i y_i + \sum_{i \in C_1} k_i y_i <span class="sc">\\</span> </span>
-<span id="cb13-286"><a href="#cb13-286" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{2m}\brackets{\vol{C_0} \sqrt{\frac{\vol{C_1}}{\vol{C_0}}} - \vol{C_1} \sqrt{\frac{\vol{C_0}}{\vol{C_1}}}} <span class="sc">\\</span> </span>
-<span id="cb13-287"><a href="#cb13-287" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{1}{2m}\brackets{\sqrt{\vol{C_1}\vol{C_0}} - \sqrt{\vol{C_1}\vol{C_0}}} <span class="sc">\\</span> </span>
-<span id="cb13-288"><a href="#cb13-288" aria-hidden="true" tabindex="-1"></a>    &amp;= 0\;.</span>
-<span id="cb13-289"><a href="#cb13-289" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-290"><a href="#cb13-290" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-291"><a href="#cb13-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-292"><a href="#cb13-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a>These  properties tell us something important about $\vy$: </span>
-<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The NormCut objective function can be expressed as a quadratic form in $\vy$; we want to find a choice of $\vy$ that minimizes this objective. </span>
-<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The vector $\vy$ has a natural scale; it always satisfies $\vy^T\mD\vy = 1$. </span>
-<span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The vector $\vy\mD$ is orthogonal to the all-ones vector $\vones$. This is an expression of the idea that the volumes of the two clusters shouldn't be too different; we must have $\sum_{i \in C_0} y_i k_{i} = \sum_{i \in C_1} y_i k_{i}$.</span>
-<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a>So, the problem of minimizing the NormCut objective is the same as the problem <span class="co">[</span><span class="ot">We've ignored the factor of $2m$ in the objective function since it wouldn't change our choice of optimal $\vy$.</span><span class="co">]</span>{.aside}</span>
-<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a>    \vy^* = \argmin_{\vy\in \cY} \; \vy^T \mL \vy  \quad \text{ subject to } \quad \vy^T\mD\vy = 1 \quad \text{and} \quad \vy\mD \vones = 0\;,</span>
-<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a>$$ {#eq-optimization}</span>
-<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-309"><a href="#cb13-309" aria-hidden="true" tabindex="-1"></a>where $\cY$ is the set of all vectors $\vy$ of the form specified by @eq-y for some choice of $\vz$.</span>
-<span id="cb13-310"><a href="#cb13-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-311"><a href="#cb13-311" aria-hidden="true" tabindex="-1"></a>Let's now change our perspective a bit: rather than requiring that $\vy \in \cY$ have the exact form described above, we'll instead treat $\vy$ as an arbitrary unknown vector in $\R^n$ and attempt to minimize over this domain instead: </span>
-<span id="cb13-312"><a href="#cb13-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-313"><a href="#cb13-313" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-314"><a href="#cb13-314" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-315"><a href="#cb13-315" aria-hidden="true" tabindex="-1"></a>    \vy^* = \argmin_{\vy\in \R^n} \; \vy^T \mL \vy   \quad \text{ subject to } \quad \vy^T\mD\vy = 1 \quad \text{and} \quad \vy\mD \vones = 0\;,</span>
-<span id="cb13-316"><a href="#cb13-316" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-317"><a href="#cb13-317" aria-hidden="true" tabindex="-1"></a>$$ {#eq-optimization-relaxed}</span>
-<span id="cb13-318"><a href="#cb13-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-319"><a href="#cb13-319" aria-hidden="true" tabindex="-1"></a>This is an approximation to the original problem and the approach is common enough to have a name: <span class="co">[</span><span class="ot">Problem @eq-optimization-relaxed</span><span class="co">]</span> is the *continuous relaxation* of <span class="co">[</span><span class="ot">Problem @eq-optimization</span><span class="co">]</span>. This relaxed problem is the problem solved by Laplacian spectral clustering. </span>
-<span id="cb13-320"><a href="#cb13-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-321"><a href="#cb13-321" aria-hidden="true" tabindex="-1"></a>It is now time to explain the word "spectral" in "Laplacian spectral clustering." As you may remember, "spectral methods" are methods which rely on the eigenvalues and eigenvectors of matrices. So, our claim is that we are going to solve <span class="co">[</span><span class="ot">Problem @eq-optimization-relaxed</span><span class="co">]</span> by finding the eigenvector of a certain matrix. Let's see why. </span>
-<span id="cb13-322"><a href="#cb13-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-323"><a href="#cb13-323" aria-hidden="true" tabindex="-1"></a>Let's make a small change of variables. Define $\vx = \mD^{1/2} \vy$. Then, we can rewrite the objective function as a function of $\vx$:</span>
-<span id="cb13-324"><a href="#cb13-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-325"><a href="#cb13-325" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-326"><a href="#cb13-326" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-327"><a href="#cb13-327" aria-hidden="true" tabindex="-1"></a>    \vx^* =  \argmin_{\vx \in \R^n} \; \vx^T \tilde{\mL} \vx \quad \text{subject to} \quad \norm{\vx} = 1\quad  \text{and} \quad \vx^T \mD^{1/2} \vones = 0\;,</span>
-<span id="cb13-328"><a href="#cb13-328" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-329"><a href="#cb13-329" aria-hidden="true" tabindex="-1"></a>$$ {#eq-optimization-relaxed-transformed}</span>
-<span id="cb13-330"><a href="#cb13-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-331"><a href="#cb13-331" aria-hidden="true" tabindex="-1"></a>where we have defined $\tilde{\mL} = \mD^{-1/2} \mL \mD^{-1/2}$. </span>
-<span id="cb13-332"><a href="#cb13-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-333"><a href="#cb13-333" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb13-334"><a href="#cb13-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-335"><a href="#cb13-335" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb13-336"><a href="#cb13-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-337"><a href="#cb13-337" aria-hidden="true" tabindex="-1"></a>Prove that the vector $\mD^{1/2}\vones$ is an eigenvector of the matrix $\tilde{\mL}$ with eigenvalue $0$. Explain why this is the smallest eigenvalue of $\tilde{\mL}$. </span>
-<span id="cb13-338"><a href="#cb13-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-339"><a href="#cb13-339" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-340"><a href="#cb13-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-341"><a href="#cb13-341" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb13-342"><a href="#cb13-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-343"><a href="#cb13-343" aria-hidden="true" tabindex="-1"></a>We can calculate directly that </span>
-<span id="cb13-344"><a href="#cb13-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-345"><a href="#cb13-345" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-346"><a href="#cb13-346" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-347"><a href="#cb13-347" aria-hidden="true" tabindex="-1"></a>    \tilde{\mL} \mD^{1/2}\vones &amp;= \mD^{-1/2} \mL \mD^{-1/2} \mD^{1/2}\vones <span class="sc">\\</span> </span>
-<span id="cb13-348"><a href="#cb13-348" aria-hidden="true" tabindex="-1"></a>    &amp;= \mD^{-1/2} \mL \vones <span class="sc">\\</span> </span>
-<span id="cb13-349"><a href="#cb13-349" aria-hidden="true" tabindex="-1"></a>    &amp;= \mD^{-1/2} \vzero <span class="sc">\\</span> </span>
-<span id="cb13-350"><a href="#cb13-350" aria-hidden="true" tabindex="-1"></a>    &amp;= \vzero\;.</span>
-<span id="cb13-351"><a href="#cb13-351" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-352"><a href="#cb13-352" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-353"><a href="#cb13-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-354"><a href="#cb13-354" aria-hidden="true" tabindex="-1"></a>We know that this is the smallest eigenvalue of $\tilde{\mL}$ because $\mL$ is positive semidefinite, so for any $\vx$, </span>
-<span id="cb13-355"><a href="#cb13-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-356"><a href="#cb13-356" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-357"><a href="#cb13-357" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-358"><a href="#cb13-358" aria-hidden="true" tabindex="-1"></a>    \vx^T \tilde{\mL} \vx = \vx^T \mD^{-1/2} \mL \mD^{-1/2} \vx =  \paren{\vx^T \mD^{-1/2}} \mL \paren{\mD^{-1/2} \vx} \geq 0. </span>
-<span id="cb13-359"><a href="#cb13-359" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-360"><a href="#cb13-360" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-361"><a href="#cb13-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-362"><a href="#cb13-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-363"><a href="#cb13-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-364"><a href="#cb13-364" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-365"><a href="#cb13-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-366"><a href="#cb13-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-367"><a href="#cb13-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-368"><a href="#cb13-368" aria-hidden="true" tabindex="-1"></a>The previous exercise shows that <span class="co">[</span><span class="ot">Problem @eq-optimization-relaxed-transformed</span><span class="co">]</span> involves minimizing the quadratic form $\vx^T \tilde{\mL} \vx$ subject to the constraint $\norm{\vx} = 1$ and the requirement that $\vx$ be orthogonal to the smallest eigenvalue of $\tilde{\mL}$. We proved on a homework assignment a while back that the solution to this problem is the eigenvector $\vx^*$ corresponding to the *second-smallest eigenvalue* $\lambda_2$ of $\tilde{\mL}$. [A more general version of this result is called the *Courant-Fischer-Weyl theorem*.]{.aside}</span>
-<span id="cb13-369"><a href="#cb13-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-370"><a href="#cb13-370" aria-hidden="true" tabindex="-1"></a>Remember that $\vx^*$ wasn't actually the vector we wanted; we were looking for $\vy^* = \mD^{-1/2} \vx^*$. What can we say about $\vy^*$? Consider the eigenvalue relation for $\vx^*$: </span>
-<span id="cb13-371"><a href="#cb13-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-372"><a href="#cb13-372" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-373"><a href="#cb13-373" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-374"><a href="#cb13-374" aria-hidden="true" tabindex="-1"></a>    \tilde{\mL} \vx^* = \lambda_2 \vx^*\;.</span>
-<span id="cb13-375"><a href="#cb13-375" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-376"><a href="#cb13-376" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-377"><a href="#cb13-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-378"><a href="#cb13-378" aria-hidden="true" tabindex="-1"></a>Let's replace $\vx^*$ with $\mD^{1/2} \vy^*$:</span>
-<span id="cb13-379"><a href="#cb13-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-380"><a href="#cb13-380" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-381"><a href="#cb13-381" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-382"><a href="#cb13-382" aria-hidden="true" tabindex="-1"></a>    \tilde{\mL} \mD^{1/2} \vy^* = \lambda_2 \mD^{1/2} \vy^*\;.</span>
-<span id="cb13-383"><a href="#cb13-383" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-384"><a href="#cb13-384" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-385"><a href="#cb13-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-386"><a href="#cb13-386" aria-hidden="true" tabindex="-1"></a>Finally, let's multiply on both sides by $\mD^{-1/2}$:</span>
-<span id="cb13-387"><a href="#cb13-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-388"><a href="#cb13-388" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-389"><a href="#cb13-389" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-390"><a href="#cb13-390" aria-hidden="true" tabindex="-1"></a>    \mD^{-1/2} \tilde{\mL} \mD^{1/2} \vy^* = \lambda_2 \vy^*\;.</span>
-<span id="cb13-391"><a href="#cb13-391" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-392"><a href="#cb13-392" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-393"><a href="#cb13-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-394"><a href="#cb13-394" aria-hidden="true" tabindex="-1"></a>The lefthand side simplifies, since $\tilde{\mL} = \mD^{-1/2} \mL \mD^{-1/2}$:</span>
-<span id="cb13-395"><a href="#cb13-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-396"><a href="#cb13-396" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-397"><a href="#cb13-397" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-398"><a href="#cb13-398" aria-hidden="true" tabindex="-1"></a>    \lambda_2 \vy^* = \mD^{-1/2} \tilde{\mL} \mD^{1/2} \vy^* = \mD^{-1}\mL \vy^*\;.</span>
-<span id="cb13-399"><a href="#cb13-399" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-400"><a href="#cb13-400" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-401"><a href="#cb13-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-402"><a href="#cb13-402" aria-hidden="true" tabindex="-1"></a>That is, the optimal vector $\vy^*$ is an eigenvector of the matrix $\hat{\mL} = \mD^{-1}\mL$ with eigenvalue $\lambda_2$. The matrix $\hat{\mL}$ is sometimes called the *random-walk Laplacian* and indeed has applications in the study of random walks on graphs. </span>
-<span id="cb13-403"><a href="#cb13-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-404"><a href="#cb13-404" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb13-405"><a href="#cb13-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-406"><a href="#cb13-406" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb13-407"><a href="#cb13-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-408"><a href="#cb13-408" aria-hidden="true" tabindex="-1"></a>Prove that the eigenvalues of $\hat{\mL}$ are the same as the eigenvalues of $\tilde{\mL}$. In particular, $\lambda_2$ is *also* the second-smallest eigenvalue of $\hat{\mL}$. </span>
-<span id="cb13-409"><a href="#cb13-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-410"><a href="#cb13-410" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-411"><a href="#cb13-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-412"><a href="#cb13-412" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb13-413"><a href="#cb13-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-414"><a href="#cb13-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-415"><a href="#cb13-415" aria-hidden="true" tabindex="-1"></a>Suppose that $\vx$ is an eigenvector of $\tilde{\mL}$ with eigenvalue $\lambda$. Then, $\tilde{\mL} \vx= \lambda \vx$, or $\mD^{-1/2} \mL \mD^{-1/2}  \vx =  \lambda \vx$. If we multiply both sides by the (invertible) matrix $\mD^{-1/2}$, we find that </span>
-<span id="cb13-416"><a href="#cb13-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-417"><a href="#cb13-417" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-418"><a href="#cb13-418" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-419"><a href="#cb13-419" aria-hidden="true" tabindex="-1"></a>    \hat{\mL}\mD^{-1/2}\vx = \lambda \mD^{-1/2}\vx\;,</span>
-<span id="cb13-420"><a href="#cb13-420" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-421"><a href="#cb13-421" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-422"><a href="#cb13-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-423"><a href="#cb13-423" aria-hidden="true" tabindex="-1"></a>which shows that $\mD^{-1/2}\vx$ is an eigenvector of $\hat{\mL}$ with eigenvalue $\lambda$. Since $\mD^{-1/2}$ is invertible, we can also pursue the same calculation in the other direction to show that any eigenvalue of $\hat{\mL}$ is also an eigenvalue of $\tilde{\mL}$.</span>
-<span id="cb13-424"><a href="#cb13-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-425"><a href="#cb13-425" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb13-426"><a href="#cb13-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-427"><a href="#cb13-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-428"><a href="#cb13-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-429"><a href="#cb13-429" aria-hidden="true" tabindex="-1"></a>The signs of the entries of $\vy$ then give us a guide to the clusters in which we should place nodes. </span>
-<span id="cb13-430"><a href="#cb13-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-431"><a href="#cb13-431" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Spectral Biclustering Algorithm</span></span>
-<span id="cb13-432"><a href="#cb13-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-433"><a href="#cb13-433" aria-hidden="true" tabindex="-1"></a>We have come a long way to derive a relatively simple algorithm. Spectral clustering says that, to find a good clustering of a (connected) graph, we should: </span>
-<span id="cb13-434"><a href="#cb13-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-435"><a href="#cb13-435" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Form the matrix $\hat{\mL} = D^{-1}(D - \mA)$. </span>
-<span id="cb13-436"><a href="#cb13-436" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Compute the eigenvector $\vy_2$ corresponding to the second-smallest eigenvalue $\lambda_2$. </span>
-<span id="cb13-437"><a href="#cb13-437" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Assign node $i$ to cluster $0$ if $y_i &lt; 0$ and cluster $1$ if $y_i \geq 0$.</span>
-<span id="cb13-438"><a href="#cb13-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-439"><a href="#cb13-439" aria-hidden="true" tabindex="-1"></a>Let's go ahead and implement this algorithm. The centerpiece of our implementation is a function that accepts a graph $G$ and returns the eigenvector $\vy_2$. This eigenvector is often called the *Fielder eigenvector* of the graph after <span class="co">[</span><span class="ot">Miroslav Fiedler</span><span class="co">](https://en.wikipedia.org/wiki/Miroslav_Fiedler)</span>, who pioneered the idea that the eigenvalues of the Laplacian could be used to study the connectivity structure of graphs. </span>
-<span id="cb13-440"><a href="#cb13-440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-443"><a href="#cb13-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-444"><a href="#cb13-444" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fiedler_eigenvector(G):</span>
-<span id="cb13-445"><a href="#cb13-445" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb13-446"><a href="#cb13-446" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb13-447"><a href="#cb13-447" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> D <span class="op">-</span> A</span>
-<span id="cb13-448"><a href="#cb13-448" aria-hidden="true" tabindex="-1"></a>    L_hat <span class="op">=</span> np.linalg.inv(D) <span class="op">@</span> L</span>
-<span id="cb13-449"><a href="#cb13-449" aria-hidden="true" tabindex="-1"></a>    eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L_hat)</span>
-<span id="cb13-450"><a href="#cb13-450" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> eigvecs[:, <span class="dv">1</span>]</span>
-<span id="cb13-451"><a href="#cb13-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-452"><a href="#cb13-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-453"><a href="#cb13-453" aria-hidden="true" tabindex="-1"></a>Let's try computing the Fiedler eigenvector on the karate club graph: </span>
-<span id="cb13-454"><a href="#cb13-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-457"><a href="#cb13-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-458"><a href="#cb13-458" aria-hidden="true" tabindex="-1"></a>fiedler <span class="op">=</span> fiedler_eigenvector(G)</span>
-<span id="cb13-459"><a href="#cb13-459" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-460"><a href="#cb13-460" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-461"><a href="#cb13-461" aria-hidden="true" tabindex="-1"></a>And now let's visualize it! </span>
-<span id="cb13-462"><a href="#cb13-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-465"><a href="#cb13-465" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-466"><a href="#cb13-466" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="fl">3.75</span>))</span>
-<span id="cb13-467"><a href="#cb13-467" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax, node_color <span class="op">=</span> fiedler, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span>, vmax <span class="op">=</span> <span class="fl">0.2</span>)</span>
-<span id="cb13-468"><a href="#cb13-468" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-469"><a href="#cb13-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-470"><a href="#cb13-470" aria-hidden="true" tabindex="-1"></a>We can think of the Fiedler eigenvector as returning a "soft" clustering that gives each node a score rather than a fixed label. We can obtain labels by thresholding according to sign: </span>
-<span id="cb13-471"><a href="#cb13-471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-474"><a href="#cb13-474" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-475"><a href="#cb13-475" aria-hidden="true" tabindex="-1"></a>z_fiedler <span class="op">=</span> <span class="dv">1</span><span class="op">*</span>(fiedler <span class="op">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb13-476"><a href="#cb13-476" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-477"><a href="#cb13-477" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="fl">4.5</span>, <span class="dv">4</span>))</span>
-<span id="cb13-478"><a href="#cb13-478" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax, node_color <span class="op">=</span> z_fiedler, cmap <span class="op">=</span> plt.cm.BrBG, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>, vmin <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, vmax <span class="op">=</span> <span class="fl">1.5</span>)</span>
-<span id="cb13-479"><a href="#cb13-479" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-480"><a href="#cb13-480" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.set_title(<span class="vs">fr'Laplacian clustering: $cut(C_0, C_1)$ = </span><span class="sc">{</span>cut(A, z_fiedler)<span class="sc">:.0f}</span><span class="vs">'</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span>   <span class="vs">fr'$vol(C_0)$ = </span><span class="sc">{</span>vol(A, z_fiedler, <span class="dv">0</span>)<span class="sc">:.0f}</span><span class="vs">,   $vol(C_1)$ = </span><span class="sc">{</span>vol(A, z_fiedler, <span class="dv">1</span>)<span class="sc">:.0f}</span><span class="vs">'</span>)</span>
-<span id="cb13-481"><a href="#cb13-481" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-482"><a href="#cb13-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-483"><a href="#cb13-483" aria-hidden="true" tabindex="-1"></a>This clustering looks pretty reasonable! Since we are only *approximately* solving the NormCut problem, it is not strictly guaranteed that this clustering is the best possible one in any sense. </span>
-<span id="cb13-484"><a href="#cb13-484" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-485"><a href="#cb13-485" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiway Spectral Clustering</span></span>
-<span id="cb13-486"><a href="#cb13-486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-487"><a href="#cb13-487" aria-hidden="true" tabindex="-1"></a>It is also possible to use spectral clustering to split a graph into more than two pieces. The general idea is that, when $k$ clusters are desired, we should compute the eigenvectors corresponding to the $k$ smallest eigenvalues of the matrix $\hat{\mL}$ and collect them in a matrix </span>
-<span id="cb13-488"><a href="#cb13-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-489"><a href="#cb13-489" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-490"><a href="#cb13-490" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb13-491"><a href="#cb13-491" aria-hidden="true" tabindex="-1"></a>    \mY = \begin{bmatrix} \vy_1 &amp; \vy_2 &amp; \cdots &amp; \vy_k \end{bmatrix}\;.</span>
-<span id="cb13-492"><a href="#cb13-492" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb13-493"><a href="#cb13-493" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb13-494"><a href="#cb13-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-495"><a href="#cb13-495" aria-hidden="true" tabindex="-1"></a>The row $\vy_i = <span class="co">[</span><span class="ot">v_{i1}, v_{i2}, \ldots, v_{ik}</span><span class="co">]</span>$ of $\mY$ can be thought of as a set of spatial (Euclidean) coordinates for node $i$. We can then use a Euclidean clustering algorithm like $k$-means in the space of these coordinates in order to obtain a final clustering. </span>
-<span id="cb13-496"><a href="#cb13-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-499"><a href="#cb13-499" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-500"><a href="#cb13-500" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cluster <span class="im">import</span> KMeans</span>
-<span id="cb13-501"><a href="#cb13-501" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-502"><a href="#cb13-502" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> multiway_spectral(G, k):</span>
-<span id="cb13-503"><a href="#cb13-503" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-504"><a href="#cb13-504" aria-hidden="true" tabindex="-1"></a>    <span class="co"># same as before</span></span>
-<span id="cb13-505"><a href="#cb13-505" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb13-506"><a href="#cb13-506" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb13-507"><a href="#cb13-507" aria-hidden="true" tabindex="-1"></a>    L <span class="op">=</span> D <span class="op">-</span> A</span>
-<span id="cb13-508"><a href="#cb13-508" aria-hidden="true" tabindex="-1"></a>    L_hat <span class="op">=</span> np.linalg.inv(D) <span class="op">@</span> L</span>
-<span id="cb13-509"><a href="#cb13-509" aria-hidden="true" tabindex="-1"></a>    eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L_hat)</span>
-<span id="cb13-510"><a href="#cb13-510" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-511"><a href="#cb13-511" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Now we get the eigenvectors from the second to the k-th smallest</span></span>
-<span id="cb13-512"><a href="#cb13-512" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> np.argsort(eigvals)</span>
-<span id="cb13-513"><a href="#cb13-513" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> eigvecs[:, idx[<span class="dv">0</span>:k]]</span>
-<span id="cb13-514"><a href="#cb13-514" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-515"><a href="#cb13-515" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cluster in the Euclidean space </span></span>
-<span id="cb13-516"><a href="#cb13-516" aria-hidden="true" tabindex="-1"></a>    KM <span class="op">=</span> KMeans(n_clusters <span class="op">=</span> k)</span>
-<span id="cb13-517"><a href="#cb13-517" aria-hidden="true" tabindex="-1"></a>    KM.fit(Y)</span>
-<span id="cb13-518"><a href="#cb13-518" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> KM.labels_</span>
-<span id="cb13-519"><a href="#cb13-519" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-520"><a href="#cb13-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-521"><a href="#cb13-521" aria-hidden="true" tabindex="-1"></a>Let's try this on the Les Mis graph! </span>
-<span id="cb13-522"><a href="#cb13-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-525"><a href="#cb13-525" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb13-526"><a href="#cb13-526" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.les_miserables_graph())</span>
-<span id="cb13-527"><a href="#cb13-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-528"><a href="#cb13-528" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> multiway_spectral(G, <span class="dv">5</span>)</span>
-<span id="cb13-529"><a href="#cb13-529" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-530"><a href="#cb13-530" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">5</span>))</span>
-<span id="cb13-531"><a href="#cb13-531" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-532"><a href="#cb13-532" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, cmap <span class="op">=</span> plt.cm.Set3, node_color <span class="op">=</span> labels, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">'black'</span>)</span>
-<span id="cb13-533"><a href="#cb13-533" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb13-534"><a href="#cb13-534" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-535"><a href="#cb13-535" aria-hidden="true" tabindex="-1"></a>Visually, the results look fairly reasonable. Multiway spectral clustering can also be justified in terms of approximate normalized cut minimization; see @luxburgTutorialSpectralClustering2007 for details.</span>
-<span id="cb13-536"><a href="#cb13-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-537"><a href="#cb13-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-538"><a href="#cb13-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-539"><a href="#cb13-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-540"><a href="#cb13-540" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-541"><a href="#cb13-541" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-542"><a href="#cb13-542" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-543"><a href="#cb13-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-544"><a href="#cb13-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-545"><a href="#cb13-545" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb13-546"><a href="#cb13-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-547"><a href="#cb13-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-548"><a href="#cb13-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-549"><a href="#cb13-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-550"><a href="#cb13-550" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-551"><a href="#cb13-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-552"><a href="#cb13-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-553"><a href="#cb13-553" aria-hidden="true" tabindex="-1"></a></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 

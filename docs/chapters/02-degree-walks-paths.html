@@ -395,7 +395,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
 <div class="quarto-title">
-</div>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></h1>
 </div>
 
 
@@ -412,7 +412,7 @@ window.Quarto = {
 </header>
 
 
-<div id="d7347e53" class="cell" data-execution_count="1">
+<div id="12b66225" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
@@ -474,7 +474,7 @@ Exercise
 <section id="computing-with-degrees" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="computing-with-degrees">Computing with Degrees</h3>
 <div class="page-columns page-full"><p>Let’s grab some sample data. We’ll use the <em>Les Miserables</em> network, which is a network of coappearances of characters in the book <em>Les Miserables</em> by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter. This data set is supplied as a built-in example in NetworkX, and for this reason we’ll use it several times throughout these notes. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This hidden code cell imports several packages and defines an <code>unweight</code> function which we’ll use to convert the network from its native weighted format to an unweighted format.</span></div></div>
-<div id="6c32476d" class="cell" data-execution_count="2">
+<div id="b35ed243" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3" data-lst-cap="hidden code ahoy!"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -516,7 +516,7 @@ Figure&nbsp;2.1: A network of coappearances of characters in the book Les Misera
 <section id="degrees-from-the-adjacency-matrix" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="degrees-from-the-adjacency-matrix">Degrees from the Adjacency Matrix</h4>
 <div class="page-columns page-full"><p>One way to compute the degrees of the nodes in a graph is to use the adjacency matrix, as directly described by <a href="#def-degree" class="quarto-xref">Definition&nbsp;<span>2.1</span></a>. With convenient functions from NetworkX and NumPy, this is a two-liner: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">For undirected graphs, we could equally do <code>np.sum(A, axis = 0)</code> because <span class="math inline">\(\mathbf{A}\)</span> is a symmetric matrix. When we discuss directed graphs soon, it will become necessary to be careful!</span></div></div>
-<div id="7b28f205" class="cell" data-execution_count="4">
+<div id="a26dc879" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># computing degrees directly from the adjacency matrix</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_LesMis)   <span class="co"># extract the adjacency matrix</span></span>
@@ -527,12 +527,12 @@ Figure&nbsp;2.1: A network of coappearances of characters in the book Les Misera
 </div>
 </div>
 <p>Networkx also has a helpful built-in function to calculate the complete set of degrees:</p>
-<div id="05699394" class="cell" data-execution_count="5">
+<div id="87527061" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>degree_view <span class="op">=</span> G_LesMis.degree()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result is a <code>DegreeView</code> object which behaves much like a Python dictionary (and which can be easily converted to a dictionary using the <code>dict</code> constructor).</p>
 <p>Let’s take a moment to compare the first few nodes to make sure that our two methods agree:</p>
-<div id="0737df5b" class="cell" data-execution_count="6">
+<div id="e662772f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(degree_view).items():</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
@@ -627,7 +627,7 @@ Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent 
 </div>
 </div>
 <p>Let’s calculate the in-degrees of the nodes in the Hamilton network using the adjacency matrix and compare to the networkx built-ins.</p>
-<div id="615ab695" class="cell" data-execution_count="8">
+<div id="321c354a" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_Hamilton)       <span class="co"># grab the adjacency matrix</span></span>
@@ -675,7 +675,7 @@ Exercise
 </div>
 </div>
 <p>Some special cases of regular graphs are <strong>lattices</strong> (e.g., a square lattice is 4-regular) and the <strong>complete graph</strong> where every node is connected to every other node (which is <span class="math inline">\((n-1)\)</span>-regular).</p>
-<div id="de19cf57" class="cell page-columns page-full" data-execution_count="9">
+<div id="4ca2bc05" class="cell page-columns page-full" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">2</span>, <span class="dv">2</span>))</span>
@@ -728,7 +728,7 @@ Exercise
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div id="183977dd" class="cell" data-execution_count="10">
+<div id="9b799fd3" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -928,7 +928,7 @@ Exercise
 </div>
 </div>
 <p>Here is an example of a geodesic path between two nodes in Zachary’s Karate Club network. The geodesic distance between these two nodes is 5.</p>
-<div id="413b3dcf" class="cell page-columns page-full" data-execution_count="12">
+<div id="a9d44ef7" class="cell page-columns page-full" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># code example adapted from: https://stackoverflow.com/questions/24024411/highlighting-the-shortest-path-in-a-networkx-graph</span></span>
@@ -1031,7 +1031,7 @@ Exercise
 </div>
 </div>
 <p>Now that we’re convinced that the algorithm works, let’s go ahead and implement it in Python. Our implementation accepts a NetworkX <code>DiGraph</code> object as an argument, returning <code>True</code> if the network is cyclic and <code>False</code> if the network is acyclic.</p>
-<div id="4ed4bcd3" class="cell" data-execution_count="13">
+<div id="53cea819" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_cyclic(G):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> G.number_of_nodes() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        zero_out_degree <span class="op">=</span> [node <span class="cf">for</span> node <span class="kw">in</span> G.nodes <span class="cf">if</span> G.out_degree(node) <span class="op">==</span> <span class="dv">0</span>]</span>
@@ -1119,7 +1119,7 @@ Figure&nbsp;2.5: The Hamilton mention network, a directed network which contains
 </div>
 <p>All trees are necessarily simple graphs, because self- and multiedges would create cycles. Trees always have exactly <span class="math inline">\(n-1\)</span> edges, as can be proven via induction. Furthermore, any connected graph with <span class="math inline">\(n-1\)</span> edges is a tree.</p>
 <p>Trees are often drawn as <em>rooted trees</em> with a <em>root node</em> at the top and <em>leaf nodes</em> below. Any node can be chosen as the root of a tree.</p>
-<div id="672aaf23" class="cell page-columns page-full" data-out.width="80%" data-execution_count="16">
+<div id="ea68e211" class="cell page-columns page-full" data-out.width="80%" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">4</span>), (<span class="dv">2</span>,<span class="dv">5</span>), (<span class="dv">2</span>,<span class="dv">6</span>), (<span class="dv">2</span>, <span class="dv">7</span>), (<span class="dv">7</span>, <span class="dv">8</span>)]</span>
@@ -1155,8 +1155,6 @@ Figure&nbsp;2.5: The Hamilton mention network, a directed network which contains
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
-
-<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-dijkstra2022note" class="csl-entry" role="listitem">
@@ -1258,57 +1256,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1651,735 +1598,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb24" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="an">fig-cap-location:</span><span class="co"> margin</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(sys.executable)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Degree, Walks, and Paths</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/02-degree-walks-paths.ipynb).* </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>In our previous lecture we introduced the fundamentals of different representations of networks: mathematically through graphs and their matrix representations, and computationally through the Python package NetworkX. We're now ready to start defining and measuring some more complex properties of networks.</span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>The fundamental *point* of networks is that they are connected -- we can "move along the edges" in order to understand the network structure. Our unifying theme in this set of lecture notes is how the idea of "taking steps in the network" unifies some important ideas: node degrees, walks between nodes, and paths between nodes. </span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Degree of a Node</span></span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>::: {#def-degree}</span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>The *degree* of a node in an undirected network is the number of edges connected to it: <span class="co">[</span><span class="ot">A small complication in this definition is that, if there is a self-loop on node $i$, then $A_{ii} = 2$. So, when we say that the degree is the number of connected edges, we need to remember that self-loops count twice!</span><span class="co">]</span>{.aside}</span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    k_i = \sum_{j=1}^n A_{ij} \,.</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>We can collect all the node degrees together into the *degree sequence* $\mathbf{k} \in \mathbb{R}^n$ whose $i$th entry is $k_i$, the degree of node $i$.</span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>There is an important relationship between the degree sequence and the total number of edges $m$ in the network: </span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>Give a formula for $m$ in terms of the degree sequence $\mathbf{k}$. </span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>The key here is to notice that degree counts *ends* of edges (sometimes we call these *stubs*). This means the total number of stubs will be the sum of the degrees of all the nodes. However, each edge is counted twice (each edge has two stubs), so the number of edges $m$ in an undirected network is</span>
-<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>    m = \frac{1}{2}\sum_{i=1}^n k_i = \frac{1}{2}\sum_{i=1}^n \sum_{j=1}^n A_{ij}\,.</span>
-<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>This relationship between degree and number of edges is a useful fact!</span>
-<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-63"><a href="#cb24-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-64"><a href="#cb24-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-65"><a href="#cb24-65" aria-hidden="true" tabindex="-1"></a>The *mean degree* of a network is the average of the degree sequence: $c = \frac{1}{n} \sum_{i = 1}^n k_i$. </span>
-<span id="cb24-66"><a href="#cb24-66" aria-hidden="true" tabindex="-1"></a>Give a formula for the mean degree in terms of $m$ and $n$ alone.  </span>
-<span id="cb24-67"><a href="#cb24-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-68"><a href="#cb24-68" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-69"><a href="#cb24-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-70"><a href="#cb24-70" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-71"><a href="#cb24-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-72"><a href="#cb24-72" aria-hidden="true" tabindex="-1"></a>Let $c$ represent the mean (or expected) degree of a node in an undirected network. Using the previous exercise, </span>
-<span id="cb24-73"><a href="#cb24-73" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
-<span id="cb24-74"><a href="#cb24-74" aria-hidden="true" tabindex="-1"></a>    c &amp;= \frac{1}{n} \sum_{i = 1}^n k_i \,, <span class="sc">\\</span></span>
-<span id="cb24-75"><a href="#cb24-75" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{2m}{n} \,.</span>
-<span id="cb24-76"><a href="#cb24-76" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
-<span id="cb24-77"><a href="#cb24-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-78"><a href="#cb24-78" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-79"><a href="#cb24-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-80"><a href="#cb24-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### Computing with Degrees</span></span>
-<span id="cb24-81"><a href="#cb24-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-82"><a href="#cb24-82" aria-hidden="true" tabindex="-1"></a>Let's grab some sample data. We'll use the *Les Miserables* network, which is a network of coappearances of characters in the book *Les Miserables* by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter. This data set is supplied as a built-in example in NetworkX, and for this reason we'll use it several times throughout these notes. <span class="co">[</span><span class="ot">This hidden code cell imports several packages and defines an `unweight` function which we'll use to convert the network from its native weighted format to an unweighted format.</span><span class="co">]</span>{.aside}</span>
-<span id="cb24-83"><a href="#cb24-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-86"><a href="#cb24-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-87"><a href="#cb24-87" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb24-88"><a href="#cb24-88" aria-hidden="true" tabindex="-1"></a><span class="co">#| lst-cap: hidden code ahoy!</span></span>
-<span id="cb24-89"><a href="#cb24-89" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb24-90"><a href="#cb24-90" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb24-91"><a href="#cb24-91" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb24-92"><a href="#cb24-92" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb24-93"><a href="#cb24-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-94"><a href="#cb24-94" aria-hidden="true" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">100</span>, <span class="st">"edgecolors"</span> : <span class="st">'white'</span>, <span class="st">"node_color"</span> : <span class="st">"steelblue"</span>, <span class="st">"width"</span> : <span class="fl">0.5</span>, <span class="st">"edge_color"</span> : <span class="st">"darkgrey"</span>}</span>
-<span id="cb24-95"><a href="#cb24-95" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
-<span id="cb24-96"><a href="#cb24-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-97"><a href="#cb24-97" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
-<span id="cb24-98"><a href="#cb24-98" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
-<span id="cb24-99"><a href="#cb24-99" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb24-100"><a href="#cb24-100" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
-<span id="cb24-101"><a href="#cb24-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-102"><a href="#cb24-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-103"><a href="#cb24-103" aria-hidden="true" tabindex="-1"></a>Here's how this network looks: </span>
-<span id="cb24-104"><a href="#cb24-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-107"><a href="#cb24-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-108"><a href="#cb24-108" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "A network of coappearances of characters in the book Les Miserables by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter."</span></span>
-<span id="cb24-109"><a href="#cb24-109" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb24-110"><a href="#cb24-110" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
-<span id="cb24-111"><a href="#cb24-111" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-lesmis</span></span>
-<span id="cb24-112"><a href="#cb24-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-113"><a href="#cb24-113" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">4</span>))</span>
-<span id="cb24-114"><a href="#cb24-114" aria-hidden="true" tabindex="-1"></a>G_LesMis <span class="op">=</span> unweight(nx.les_miserables_graph())</span>
-<span id="cb24-115"><a href="#cb24-115" aria-hidden="true" tabindex="-1"></a>nx.draw(G_LesMis, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb24-116"><a href="#cb24-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-117"><a href="#cb24-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-118"><a href="#cb24-118" aria-hidden="true" tabindex="-1"></a>Now let's compute the degree of each node. There are multiple ways to achieve this task: we can work directly using the adjacency matrix, or we can use the built-in NetworkX function <span class="in">`nx.degree()`</span>.</span>
-<span id="cb24-119"><a href="#cb24-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-120"><a href="#cb24-120" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Degrees from the Adjacency Matrix</span></span>
-<span id="cb24-121"><a href="#cb24-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-122"><a href="#cb24-122" aria-hidden="true" tabindex="-1"></a>One way to compute the degrees of the nodes in a graph is to use the adjacency matrix, as directly described by @def-degree. With convenient functions from NetworkX and NumPy, this is a two-liner: <span class="co">[</span><span class="ot">For undirected graphs, we could equally do `np.sum(A, axis = 0)` because $\mathbf{A}$ is a symmetric matrix. When we discuss directed graphs soon, it will become necessary to be careful!</span><span class="co">]</span>{.aside}</span>
-<span id="cb24-123"><a href="#cb24-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-126"><a href="#cb24-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-127"><a href="#cb24-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb24-128"><a href="#cb24-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-129"><a href="#cb24-129" aria-hidden="true" tabindex="-1"></a><span class="co"># computing degrees directly from the adjacency matrix</span></span>
-<span id="cb24-130"><a href="#cb24-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-131"><a href="#cb24-131" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_LesMis)   <span class="co"># extract the adjacency matrix</span></span>
-<span id="cb24-132"><a href="#cb24-132" aria-hidden="true" tabindex="-1"></a>degree_vector <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>) <span class="co"># sum the adjacency matrix over rows</span></span>
-<span id="cb24-133"><a href="#cb24-133" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The degree vector has shape </span><span class="sc">{</span>degree_vector<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb24-134"><a href="#cb24-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-135"><a href="#cb24-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-136"><a href="#cb24-136" aria-hidden="true" tabindex="-1"></a>Networkx also has a helpful built-in function to calculate the complete set of degrees: </span>
-<span id="cb24-137"><a href="#cb24-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-140"><a href="#cb24-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-141"><a href="#cb24-141" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb24-142"><a href="#cb24-142" aria-hidden="true" tabindex="-1"></a>degree_view <span class="op">=</span> G_LesMis.degree()</span>
-<span id="cb24-143"><a href="#cb24-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-144"><a href="#cb24-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-145"><a href="#cb24-145" aria-hidden="true" tabindex="-1"></a>The result is a <span class="in">`DegreeView`</span> object which behaves much like a Python dictionary (and which can be easily converted to a dictionary using the <span class="in">`dict`</span> constructor).  </span>
-<span id="cb24-146"><a href="#cb24-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-147"><a href="#cb24-147" aria-hidden="true" tabindex="-1"></a>Let's take a moment to compare the first few nodes to make sure that our two methods agree: </span>
-<span id="cb24-148"><a href="#cb24-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-149"><a href="#cb24-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-152"><a href="#cb24-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-153"><a href="#cb24-153" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb24-154"><a href="#cb24-154" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb24-155"><a href="#cb24-155" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(degree_view).items():</span>
-<span id="cb24-156"><a href="#cb24-156" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
-<span id="cb24-157"><a href="#cb24-157" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> has degree: </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss"> (networkx) and </span><span class="sc">{</span>degree_vector[i]<span class="sc">}</span><span class="ss"> (adjacency matrix)"</span>)</span>
-<span id="cb24-158"><a href="#cb24-158" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb24-159"><a href="#cb24-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-160"><a href="#cb24-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-161"><a href="#cb24-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### Degree in directed graphs</span></span>
-<span id="cb24-162"><a href="#cb24-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-163"><a href="#cb24-163" aria-hidden="true" tabindex="-1"></a>We have to be a little more subtle in how we define degree in a directed network because there is a distinction between in-edges and out-edges in these networks.</span>
-<span id="cb24-164"><a href="#cb24-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-165"><a href="#cb24-165" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-166"><a href="#cb24-166" aria-hidden="true" tabindex="-1"></a>::: {#def-directeddegree}</span>
-<span id="cb24-167"><a href="#cb24-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-168"><a href="#cb24-168" aria-hidden="true" tabindex="-1"></a>In a directed network, the **in-degree** is the number of ingoing edges to a node and the **out-degree** is the number of outgoing edges. These are defined by the formulas </span>
-<span id="cb24-169"><a href="#cb24-169" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-170"><a href="#cb24-170" aria-hidden="true" tabindex="-1"></a>    k_i^{\text{in}} = \sum_{j=1}^n A_{ij}</span>
-<span id="cb24-171"><a href="#cb24-171" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-172"><a href="#cb24-172" aria-hidden="true" tabindex="-1"></a>and the out-degree is</span>
-<span id="cb24-173"><a href="#cb24-173" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-174"><a href="#cb24-174" aria-hidden="true" tabindex="-1"></a>    k_j^{\text{out}} = \sum_{i=1}^n A_{ij}</span>
-<span id="cb24-175"><a href="#cb24-175" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-176"><a href="#cb24-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-177"><a href="#cb24-177" aria-hidden="true" tabindex="-1"></a>Just as before, we can also define the in-degree sequence $\mathbf{k}^{\mathrm{in}}$ and out-degree sequence $\mathbf{k}^{\mathrm{out}}$.</span>
-<span id="cb24-178"><a href="#cb24-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-179"><a href="#cb24-179" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-180"><a href="#cb24-180" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-181"><a href="#cb24-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-182"><a href="#cb24-182" aria-hidden="true" tabindex="-1"></a>We will repeat the exercises above for directed networks.</span>
-<span id="cb24-183"><a href="#cb24-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-184"><a href="#cb24-184" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-185"><a href="#cb24-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-186"><a href="#cb24-186" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-187"><a href="#cb24-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-188"><a href="#cb24-188" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Express the total number of edges $m$ in a directed graph in terms of the degree sequences $\mathbf{k}^{\text{in}}$ and $\mathbf{k}^{\text{out}}$.</span>
-<span id="cb24-189"><a href="#cb24-189" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Determine the mean in-degree and mean out-degree of a directed graph in terms of $m$ and $n$.</span>
-<span id="cb24-190"><a href="#cb24-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-191"><a href="#cb24-191" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-192"><a href="#cb24-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-193"><a href="#cb24-193" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-194"><a href="#cb24-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-195"><a href="#cb24-195" aria-hidden="true" tabindex="-1"></a>The number of edges in a directed network is equal to the total number of ingoing (respectively, outgoing) ends of edges, so,</span>
-<span id="cb24-196"><a href="#cb24-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-197"><a href="#cb24-197" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-198"><a href="#cb24-198" aria-hidden="true" tabindex="-1"></a>    m = \sum_{i=1}^n k_i^{\text{in}} = \sum_{j=1}^n k_i^{\text{out}} = \sum_{i=1}^n \sum_{j=1}^n A_{ij} \,.</span>
-<span id="cb24-199"><a href="#cb24-199" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-200"><a href="#cb24-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-201"><a href="#cb24-201" aria-hidden="true" tabindex="-1"></a>This means that the expected in-degree and expected out-degree are also equal:</span>
-<span id="cb24-202"><a href="#cb24-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-203"><a href="#cb24-203" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-204"><a href="#cb24-204" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
-<span id="cb24-205"><a href="#cb24-205" aria-hidden="true" tabindex="-1"></a>    c_{\text{in}} &amp;= \frac{1}{n} \sum_{i=1}^n k_i^{\text{in}} <span class="sc">\\</span></span>
-<span id="cb24-206"><a href="#cb24-206" aria-hidden="true" tabindex="-1"></a>     &amp;= \frac{1}{n}\sum_{j=1}^n k_i^{\text{out}} <span class="sc">\\</span></span>
-<span id="cb24-207"><a href="#cb24-207" aria-hidden="true" tabindex="-1"></a>    &amp;= c_{\text{out}} <span class="sc">\\</span></span>
-<span id="cb24-208"><a href="#cb24-208" aria-hidden="true" tabindex="-1"></a>    &amp;= c \,.</span>
-<span id="cb24-209"><a href="#cb24-209" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
-<span id="cb24-210"><a href="#cb24-210" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-211"><a href="#cb24-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-212"><a href="#cb24-212" aria-hidden="true" tabindex="-1"></a>Combining these gives $c = \frac{m}{n}$. </span>
-<span id="cb24-213"><a href="#cb24-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-214"><a href="#cb24-214" aria-hidden="true" tabindex="-1"></a>Notice that this differs by a factor of 2 from the case of undirected networks.</span>
-<span id="cb24-215"><a href="#cb24-215" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-216"><a href="#cb24-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-217"><a href="#cb24-217" aria-hidden="true" tabindex="-1"></a>Let's see these definitions in action on a directed graph. This time, we'll use the *mention graph* from the musical *Hamilton*. Each node in this graph is a character. There is a directed edge from character $i$ to character $j$ if character $i$ mentions character $j$ in a song. </span>
-<span id="cb24-218"><a href="#cb24-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-221"><a href="#cb24-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-222"><a href="#cb24-222" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "A network of mentions in the musical Hamilton. Nodes represent characters; there is an edge from character $i$ to character $j$ if $i$ mentions $j$. This data set was collected and publicly shared by [The Hamilton Project](https://newtfire.org/hamilton/)."</span></span>
-<span id="cb24-223"><a href="#cb24-223" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb24-224"><a href="#cb24-224" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
-<span id="cb24-225"><a href="#cb24-225" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-hamilton</span></span>
-<span id="cb24-226"><a href="#cb24-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-227"><a href="#cb24-227" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb24-228"><a href="#cb24-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-229"><a href="#cb24-229" aria-hidden="true" tabindex="-1"></a><span class="co"># import data for our directed network</span></span>
-<span id="cb24-230"><a href="#cb24-230" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv"</span>, </span>
-<span id="cb24-231"><a href="#cb24-231" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"mentioner"</span>, <span class="st">"mentioned"</span>])</span>
-<span id="cb24-232"><a href="#cb24-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-233"><a href="#cb24-233" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"mentioner"</span>] <span class="op">!=</span> df[<span class="st">"mentioned"</span>]]</span>
-<span id="cb24-234"><a href="#cb24-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-235"><a href="#cb24-235" aria-hidden="true" tabindex="-1"></a>G_Hamilton <span class="op">=</span> nx.from_pandas_edgelist(df, </span>
-<span id="cb24-236"><a href="#cb24-236" aria-hidden="true" tabindex="-1"></a>                            source <span class="op">=</span> <span class="st">"mentioner"</span>, </span>
-<span id="cb24-237"><a href="#cb24-237" aria-hidden="true" tabindex="-1"></a>                            target <span class="op">=</span> <span class="st">"mentioned"</span>, </span>
-<span id="cb24-238"><a href="#cb24-238" aria-hidden="true" tabindex="-1"></a>                            edge_attr<span class="op">=</span><span class="va">None</span>, </span>
-<span id="cb24-239"><a href="#cb24-239" aria-hidden="true" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span>
-<span id="cb24-240"><a href="#cb24-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-241"><a href="#cb24-241" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.arf_layout(G_Hamilton)</span>
-<span id="cb24-242"><a href="#cb24-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-243"><a href="#cb24-243" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">7</span>))</span>
-<span id="cb24-244"><a href="#cb24-244" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Hamilton, pos <span class="op">=</span> layout,  with_labels <span class="op">=</span> <span class="va">True</span>, edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>, width <span class="op">=</span> <span class="fl">0.5</span>, node_color <span class="op">=</span> <span class="st">"lavender"</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>)</span>
-<span id="cb24-245"><a href="#cb24-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-246"><a href="#cb24-246" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
-<span id="cb24-247"><a href="#cb24-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-248"><a href="#cb24-248" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print a numpy array of node in-degrees and out-degrees directly from the adjacency matrix</span></span>
-<span id="cb24-249"><a href="#cb24-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-250"><a href="#cb24-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-251"><a href="#cb24-251" aria-hidden="true" tabindex="-1"></a>Let's calculate the in-degrees of the nodes in the Hamilton network using the adjacency matrix and compare to the networkx built-ins. </span>
-<span id="cb24-252"><a href="#cb24-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-255"><a href="#cb24-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-256"><a href="#cb24-256" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_Hamilton)       <span class="co"># grab the adjacency matrix</span></span>
-<span id="cb24-257"><a href="#cb24-257" aria-hidden="true" tabindex="-1"></a>in_degree_vector <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">0</span>)    <span class="co"># manual in-degrees from A</span></span>
-<span id="cb24-258"><a href="#cb24-258" aria-hidden="true" tabindex="-1"></a>in_degree_view   <span class="op">=</span> G_Hamilton.in_degree() <span class="co"># networkx builtin</span></span>
-<span id="cb24-259"><a href="#cb24-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-260"><a href="#cb24-260" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb24-261"><a href="#cb24-261" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(in_degree_view).items():</span>
-<span id="cb24-262"><a href="#cb24-262" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
-<span id="cb24-263"><a href="#cb24-263" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> has degree: </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss"> (networkx) and </span><span class="sc">{</span>in_degree_vector[i]<span class="sc">}</span><span class="ss"> (adjacency matrix)"</span>)</span>
-<span id="cb24-264"><a href="#cb24-264" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb24-265"><a href="#cb24-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-266"><a href="#cb24-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-267"><a href="#cb24-267" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-268"><a href="#cb24-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-269"><a href="#cb24-269" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-270"><a href="#cb24-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-271"><a href="#cb24-271" aria-hidden="true" tabindex="-1"></a>Repeat this calculation and check that you can also compute *out*-degrees, with a matching result. </span>
-<span id="cb24-272"><a href="#cb24-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-273"><a href="#cb24-273" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-274"><a href="#cb24-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-275"><a href="#cb24-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-276"><a href="#cb24-276" aria-hidden="true" tabindex="-1"></a>The degree sequence can contain a lot of information about the graph structure. One important class of graphs has constant degree:  </span>
-<span id="cb24-277"><a href="#cb24-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-278"><a href="#cb24-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-279"><a href="#cb24-279" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-280"><a href="#cb24-280" aria-hidden="true" tabindex="-1"></a>::: {#def-regulargraph}</span>
-<span id="cb24-281"><a href="#cb24-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-282"><a href="#cb24-282" aria-hidden="true" tabindex="-1"></a>A network in which all nodes have the same degree is called a **regular graph** or **regular network**. A regular graph where all nodes have degree $k$ is called **$k$-regular**.</span>
-<span id="cb24-283"><a href="#cb24-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-284"><a href="#cb24-284" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-285"><a href="#cb24-285" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-286"><a href="#cb24-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-287"><a href="#cb24-287" aria-hidden="true" tabindex="-1"></a>Some special cases of regular graphs are **lattices** (e.g., a square lattice is 4-regular) and the **complete graph** where every node is connected to every other node (which is $(n-1)$-regular).</span>
-<span id="cb24-288"><a href="#cb24-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-291"><a href="#cb24-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-292"><a href="#cb24-292" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: margin</span></span>
-<span id="cb24-293"><a href="#cb24-293" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "A complete graph on 5 nodes. Each node has degree exactly equal to $5-1 = 4$." </span></span>
-<span id="cb24-294"><a href="#cb24-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-295"><a href="#cb24-295" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb24-296"><a href="#cb24-296" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.complete_graph(<span class="dv">5</span>)</span>
-<span id="cb24-297"><a href="#cb24-297" aria-hidden="true" tabindex="-1"></a>nx.draw(G, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb24-298"><a href="#cb24-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-299"><a href="#cb24-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-300"><a href="#cb24-300" aria-hidden="true" tabindex="-1"></a>Regular graphs are of great interst in theoretical mathematics and computer science. We don't *usually* spend a lot of time studying them in network science because most interesting systems and data sets are not regular. </span>
-<span id="cb24-301"><a href="#cb24-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-302"><a href="#cb24-302" aria-hidden="true" tabindex="-1"></a><span class="fu">## Density and Sparsity</span></span>
-<span id="cb24-303"><a href="#cb24-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-304"><a href="#cb24-304" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-305"><a href="#cb24-305" aria-hidden="true" tabindex="-1"></a>::: {#def-density}</span>
-<span id="cb24-306"><a href="#cb24-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-307"><a href="#cb24-307" aria-hidden="true" tabindex="-1"></a>The **density** or **connectance** $\rho$ of a simple network is the fraction of possible edges that are actually present. That is,</span>
-<span id="cb24-308"><a href="#cb24-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-309"><a href="#cb24-309" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-310"><a href="#cb24-310" aria-hidden="true" tabindex="-1"></a>    \rho = \frac{\text{number of edges}}{\text{possible edges}} = \frac{m}{\binom{n}{2}} \,.</span>
-<span id="cb24-311"><a href="#cb24-311" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-312"><a href="#cb24-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-313"><a href="#cb24-313" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-314"><a href="#cb24-314" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-315"><a href="#cb24-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-316"><a href="#cb24-316" aria-hidden="true" tabindex="-1"></a>One way to interpret density is to think of it as a probability that a pair of nodes picked uniformly at random is connected by an edge.</span>
-<span id="cb24-317"><a href="#cb24-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-318"><a href="#cb24-318" aria-hidden="true" tabindex="-1"></a>We can rewrite density in terms of expected degree using our earlier exercises <span class="co">[</span><span class="ot">This simplification comes from the binomial coefficient formula $\binom{n}{k} = \frac{n!}{k!(n-k)!}$. Also, we can notice the cool fact that $n \choose 2$ is equivalent to the sum of the first $n-1$ integers!</span><span class="co">]</span>{.aside}:</span>
-<span id="cb24-319"><a href="#cb24-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-320"><a href="#cb24-320" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-321"><a href="#cb24-321" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
-<span id="cb24-322"><a href="#cb24-322" aria-hidden="true" tabindex="-1"></a>    \rho &amp;= \frac{m}{\binom{n}{2}} <span class="sc">\\</span></span>
-<span id="cb24-323"><a href="#cb24-323" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{m}{\frac{1}{2}n(n-1)} <span class="sc">\\</span></span>
-<span id="cb24-324"><a href="#cb24-324" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{2m}{n(n-1)} <span class="sc">\\</span></span>
-<span id="cb24-325"><a href="#cb24-325" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{c}{n-1} \,.</span>
-<span id="cb24-326"><a href="#cb24-326" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
-<span id="cb24-327"><a href="#cb24-327" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-328"><a href="#cb24-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-329"><a href="#cb24-329" aria-hidden="true" tabindex="-1"></a>If a network is sufficiently large, you can approximate the density as $\rho \approx \frac{c}{n}.$</span>
-<span id="cb24-330"><a href="#cb24-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-331"><a href="#cb24-331" aria-hidden="true" tabindex="-1"></a>Let's compute density in network below using three different strategies:</span>
-<span id="cb24-332"><a href="#cb24-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-333"><a href="#cb24-333" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Calculating directly using number of edges and number of nodes;</span>
-<span id="cb24-334"><a href="#cb24-334" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Calculating directly using mean degree and number of nodes;</span>
-<span id="cb24-335"><a href="#cb24-335" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Using the built-in NetworkX function <span class="in">`nx.density()`</span>.</span>
-<span id="cb24-336"><a href="#cb24-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-339"><a href="#cb24-339" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-340"><a href="#cb24-340" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb24-341"><a href="#cb24-341" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb24-342"><a href="#cb24-342" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb24-343"><a href="#cb24-343" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb24-344"><a href="#cb24-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-345"><a href="#cb24-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an unweighted version of the Les Mis network</span></span>
-<span id="cb24-346"><a href="#cb24-346" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> G_LesMis</span>
-<span id="cb24-347"><a href="#cb24-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-348"><a href="#cb24-348" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
-<span id="cb24-349"><a href="#cb24-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-350"><a href="#cb24-350" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate density directly using number of edges and number of nodes</span></span>
-<span id="cb24-351"><a href="#cb24-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-352"><a href="#cb24-352" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> G.number_of_nodes()</span>
-<span id="cb24-353"><a href="#cb24-353" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> G.number_of_edges()</span>
-<span id="cb24-354"><a href="#cb24-354" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Density using nodes and edges: </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>m<span class="op">/</span>(n<span class="op">*</span>(n<span class="op">-</span><span class="dv">1</span>))<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb24-355"><a href="#cb24-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-356"><a href="#cb24-356" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate density directly using mean degree and number of nodes</span></span>
-<span id="cb24-357"><a href="#cb24-357" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: you may want to calculate degree from the adjacency matrix so that you can calculate mean using numpy</span></span>
-<span id="cb24-358"><a href="#cb24-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-359"><a href="#cb24-359" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G)</span>
-<span id="cb24-360"><a href="#cb24-360" aria-hidden="true" tabindex="-1"></a>degree <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb24-361"><a href="#cb24-361" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> np.mean(degree)</span>
-<span id="cb24-362"><a href="#cb24-362" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calculating using mean degree </span><span class="sc">{</span>c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb24-363"><a href="#cb24-363" aria-hidden="true" tabindex="-1"></a><span class="co">#----</span></span>
-<span id="cb24-364"><a href="#cb24-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-365"><a href="#cb24-365" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the built-in NetworkX function nx.density()</span></span>
-<span id="cb24-366"><a href="#cb24-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-367"><a href="#cb24-367" aria-hidden="true" tabindex="-1"></a>density <span class="op">=</span> nx.density(G)</span>
-<span id="cb24-368"><a href="#cb24-368" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Density with NetworkX built-in: </span><span class="sc">{</span>density<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb24-369"><a href="#cb24-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-370"><a href="#cb24-370" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-371"><a href="#cb24-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-372"><a href="#cb24-372" aria-hidden="true" tabindex="-1"></a>Informally, we call a network *sparse* when it has low density. This is pretty tricky to formally define: how low is "low enough?" There isn't a universally agreed upon threshold for density below which a real-world network would be considered sparse. However, we can create a definition which applies for certain theoretical models of networks. Many models are defined for graphs on $n$ nodes. If we have a model where we can take a formal limit as $n$ grows large, then such a network is *sparse* if $\rho \to 0$ as $n \to \infty$. In this scenario, the mean degree grows (much) more slowly than the number of nodes. We'll study limiting arguments about sparse graphs much more when we discuss <span class="co">[</span><span class="ot">random graphs</span><span class="co">](09-random-graphs.qmd)</span>.  </span>
-<span id="cb24-373"><a href="#cb24-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-374"><a href="#cb24-374" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-375"><a href="#cb24-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-376"><a href="#cb24-376" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-377"><a href="#cb24-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-378"><a href="#cb24-378" aria-hidden="true" tabindex="-1"></a>Let $<span class="sc">\{</span>G_n<span class="sc">\}</span>$ be a sequence of networks on $n$ nodes which are $k$-regular for some fixed constant $k$. Show that this sequence is sparse in the sense defined above. <span class="co">[</span><span class="ot">There is a small cheat in this problem statement, since if $k$ and $n$ are both odd then it is not possible to form a valid network (since $kn = 2m$, $kn$ must always ben even). This kind of detail does not usually pose difficulties in the study of sparse network.</span><span class="co">]</span>{.aside}</span>
-<span id="cb24-379"><a href="#cb24-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-380"><a href="#cb24-380" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-381"><a href="#cb24-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-382"><a href="#cb24-382" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-383"><a href="#cb24-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-384"><a href="#cb24-384" aria-hidden="true" tabindex="-1"></a>The density of $G_n$ is $\rho = \frac{k}{n-1}$ by the previous problem, so we have $\lim_{n\to\infty} \rho = 0$.</span>
-<span id="cb24-385"><a href="#cb24-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-386"><a href="#cb24-386" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-387"><a href="#cb24-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-388"><a href="#cb24-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-389"><a href="#cb24-389" aria-hidden="true" tabindex="-1"></a><span class="fu">## Walks and Paths</span></span>
-<span id="cb24-390"><a href="#cb24-390" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-391"><a href="#cb24-391" aria-hidden="true" tabindex="-1"></a>We may like to know if it it is possible to reach one node from another by traversing edges. For this task, we introduce the notion of a *walk*.</span>
-<span id="cb24-392"><a href="#cb24-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-393"><a href="#cb24-393" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-394"><a href="#cb24-394" aria-hidden="true" tabindex="-1"></a>::: {#def-walk}</span>
-<span id="cb24-395"><a href="#cb24-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-396"><a href="#cb24-396" aria-hidden="true" tabindex="-1"></a>A **walk** of length $k \geq 2$ is a set of edges $<span class="sc">\{</span> (i_1,j_1), (i_2, j_2), \dots, (i_k, j_k)<span class="sc">\}</span>$ with the property that $i_l = j_{l-1}$ for each $2 \leq l \leq k$. We say this is a walk from node $i_1$ to node $j_k.$</span>
-<span id="cb24-397"><a href="#cb24-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-398"><a href="#cb24-398" aria-hidden="true" tabindex="-1"></a>The **length** of a walk is the number of edges it contains.</span>
-<span id="cb24-399"><a href="#cb24-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-400"><a href="#cb24-400" aria-hidden="true" tabindex="-1"></a>A single edge $(i,j)$ is always considered a walk of length 1 from $i$ to $j$.</span>
-<span id="cb24-401"><a href="#cb24-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-402"><a href="#cb24-402" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-403"><a href="#cb24-403" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-404"><a href="#cb24-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-405"><a href="#cb24-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-406"><a href="#cb24-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-409"><a href="#cb24-409" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-410"><a href="#cb24-410" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "Not all pairs of nodes in this network have a walk between them."</span></span>
-<span id="cb24-411"><a href="#cb24-411" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb24-412"><a href="#cb24-412" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
-<span id="cb24-413"><a href="#cb24-413" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-walk-nonexample</span></span>
-<span id="cb24-414"><a href="#cb24-414" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: margin</span></span>
-<span id="cb24-415"><a href="#cb24-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-416"><a href="#cb24-416" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb24-417"><a href="#cb24-417" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb24-418"><a href="#cb24-418" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb24-419"><a href="#cb24-419" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb24-420"><a href="#cb24-420" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-421"><a href="#cb24-421" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb24-422"><a href="#cb24-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-423"><a href="#cb24-423" aria-hidden="true" tabindex="-1"></a>graph_dict <span class="op">=</span> {<span class="dv">1</span>: [<span class="dv">2</span>], <span class="dv">2</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="dv">3</span>:[<span class="dv">2</span>], <span class="dv">4</span>:[<span class="dv">5</span>,<span class="dv">6</span>], <span class="dv">7</span>: [<span class="dv">4</span>]}</span>
-<span id="cb24-424"><a href="#cb24-424" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph(graph_dict) </span>
-<span id="cb24-425"><a href="#cb24-425" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels <span class="op">=</span> <span class="va">True</span>, font_color <span class="op">=</span> <span class="st">'white'</span>, font_weight <span class="op">=</span> <span class="st">'bold'</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>, ax <span class="op">=</span> ax, node_size <span class="op">=</span> <span class="dv">200</span>, font_size <span class="op">=</span> <span class="dv">10</span>, edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>)</span>
-<span id="cb24-426"><a href="#cb24-426" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-427"><a href="#cb24-427" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-428"><a href="#cb24-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-429"><a href="#cb24-429" aria-hidden="true" tabindex="-1"></a><span class="fu">### Connected Graphs </span></span>
-<span id="cb24-430"><a href="#cb24-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-431"><a href="#cb24-431" aria-hidden="true" tabindex="-1"></a>It is not always the case that there exists a walk between two specified nodes, as shown in @fig-walk-nonexample. In many networks, it's very important that there exist a walk between any two nodes (think, for example, of a power grid!), and we have a special definition to reflect this: </span>
-<span id="cb24-432"><a href="#cb24-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-433"><a href="#cb24-433" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-434"><a href="#cb24-434" aria-hidden="true" tabindex="-1"></a>::: {#def-tree}</span>
-<span id="cb24-435"><a href="#cb24-435" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-436"><a href="#cb24-436" aria-hidden="true" tabindex="-1"></a>A **connected graph** is a graph with the property that, between every pair of nodes $i$ and $j$, there exists a path from $i$ to $j$. </span>
-<span id="cb24-437"><a href="#cb24-437" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-438"><a href="#cb24-438" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-439"><a href="#cb24-439" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-440"><a href="#cb24-440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-441"><a href="#cb24-441" aria-hidden="true" tabindex="-1"></a>There are several ways to determine computationally whether a graph is connected. </span>
-<span id="cb24-442"><a href="#cb24-442" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-443"><a href="#cb24-443" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-444"><a href="#cb24-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-445"><a href="#cb24-445" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-446"><a href="#cb24-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-447"><a href="#cb24-447" aria-hidden="true" tabindex="-1"></a>Outline an algorithm for determining whether a simple undirected graph is connected by progressively querying node neighbors. Assume that you know ahead of time how many total nodes exist in the network. </span>
-<span id="cb24-448"><a href="#cb24-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-449"><a href="#cb24-449" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-450"><a href="#cb24-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-451"><a href="#cb24-451" aria-hidden="true" tabindex="-1"></a><span class="fu">### Counting Walks</span></span>
-<span id="cb24-452"><a href="#cb24-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-453"><a href="#cb24-453" aria-hidden="true" tabindex="-1"></a>A question that pops up a lot in network analysis is "How many walks of length $r$ exist between nodes $i$ and $j$?" The adjacency matrix gives a concise way to address this question. First, let’s consider $r=1$. That’s just the number of edges from node $j$ to $i$, which is exactly $A_{ij}$. Said in a slightly more cumbersome way,</span>
-<span id="cb24-454"><a href="#cb24-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-455"><a href="#cb24-455" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; The $ij$th entry of ${\bf A}^1$ counts the number of walks of length 1 from node $j$ to node $i$.</span></span>
-<span id="cb24-456"><a href="#cb24-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-457"><a href="#cb24-457" aria-hidden="true" tabindex="-1"></a>This observation generalizes by induction.</span>
-<span id="cb24-458"><a href="#cb24-458" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-459"><a href="#cb24-459" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip icon=false collapse=true}</span>
-<span id="cb24-460"><a href="#cb24-460" aria-hidden="true" tabindex="-1"></a>::: {#thm-walks}</span>
-<span id="cb24-461"><a href="#cb24-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-462"><a href="#cb24-462" aria-hidden="true" tabindex="-1"></a><span class="fu">## Counting Walks with Powers of $\mathbf{A}$</span></span>
-<span id="cb24-463"><a href="#cb24-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-464"><a href="#cb24-464" aria-hidden="true" tabindex="-1"></a>The $ij$th entry of the matrix ${\bf A}^r$ contains the number of walks of length $r$ from $j$ to $i$.</span>
-<span id="cb24-465"><a href="#cb24-465" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-466"><a href="#cb24-466" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-467"><a href="#cb24-467" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-468"><a href="#cb24-468" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-469"><a href="#cb24-469" aria-hidden="true" tabindex="-1"></a>::: {.hide .proof}</span>
-<span id="cb24-470"><a href="#cb24-470" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-471"><a href="#cb24-471" aria-hidden="true" tabindex="-1"></a>We proceed by induction on walk length $r$. We discussed the base case above: that is, the $ij$th entry of the adjacency matrix ${\bf A}_{ij} =  {\bf A}_{ij}^1$ gives us walks of length 1, by definition.</span>
-<span id="cb24-472"><a href="#cb24-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-473"><a href="#cb24-473" aria-hidden="true" tabindex="-1"></a>Now, suppose that ${\bf A}^r$ gives the number of walks of length $r$; we will show that ${\bf A}^{r+1}$ gives the number of walks of length ${r+1}$. By definition, ${\bf A}^{r+1} = {\bf A}^{r}{\bf A}.$ Thinking about matrix multiplication as an inner product, we see that the $ij$ entry can be written</span>
-<span id="cb24-474"><a href="#cb24-474" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-475"><a href="#cb24-475" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-476"><a href="#cb24-476" aria-hidden="true" tabindex="-1"></a>    A_{ij}^{r+1} = \sum_{l=1}^n A_{il}^rA_{lj} \,,</span>
-<span id="cb24-477"><a href="#cb24-477" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-478"><a href="#cb24-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-479"><a href="#cb24-479" aria-hidden="true" tabindex="-1"></a>that is, entry $ij$ comes from summing the componentwise product of the $i$th row of ${\bf A}^r$ with the $j$th column of ${\bf A}.$</span>
-<span id="cb24-480"><a href="#cb24-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-481"><a href="#cb24-481" aria-hidden="true" tabindex="-1"></a>The number of walks from node $j$ to $i$ of length $r+1$ is equivalent to the number of walks of length $r$ from $j$ to $l$ multiplied by the number of length $1$ walks from $l$ to $i$, which is exactly the quantity we have written above. This completes the proof. </span>
-<span id="cb24-482"><a href="#cb24-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-483"><a href="#cb24-483" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-484"><a href="#cb24-484" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-485"><a href="#cb24-485" aria-hidden="true" tabindex="-1"></a>There are many applications of this idea: </span>
-<span id="cb24-486"><a href="#cb24-486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-487"><a href="#cb24-487" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-488"><a href="#cb24-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-489"><a href="#cb24-489" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise </span></span>
-<span id="cb24-490"><a href="#cb24-490" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-491"><a href="#cb24-491" aria-hidden="true" tabindex="-1"></a>What is $\frac{1}{2}\mathrm{trace} \; \mathbf{A}^2$, in terms of quantities we've seen before? </span>
-<span id="cb24-492"><a href="#cb24-492" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-493"><a href="#cb24-493" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-494"><a href="#cb24-494" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-495"><a href="#cb24-495" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-496"><a href="#cb24-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-497"><a href="#cb24-497" aria-hidden="true" tabindex="-1"></a>By definition, $<span class="co">[</span><span class="ot">\mathbf{A}^2</span><span class="co">]</span>_{ii}$ is the number of walks of length $2$ from node $i$ to itself. The only way to do a walk of length 2 is to go from $i$ to $j$ and then back to $i$, where $j$ is a neighbor of $i$. So, $[A^2]_{ii} = \sum_{j=1}^n A_{ij}A_{ji} = \sum_{j=1}^n A_{ij}^2 = k_i$. The trace of a matrix is the sum of its diagonal entries, so $\frac{1}{2}\mathrm{trace} \; \mathbf{A}^2 = \frac{1}{2}\sum_{i=1}^n k_i = m$.</span>
-<span id="cb24-498"><a href="#cb24-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-499"><a href="#cb24-499" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-500"><a href="#cb24-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-501"><a href="#cb24-501" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-502"><a href="#cb24-502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-503"><a href="#cb24-503" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-504"><a href="#cb24-504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-505"><a href="#cb24-505" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-506"><a href="#cb24-506" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-507"><a href="#cb24-507" aria-hidden="true" tabindex="-1"></a>Give a mathematical criterion for a graph to be connected by considering the matrix </span>
-<span id="cb24-508"><a href="#cb24-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-509"><a href="#cb24-509" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-510"><a href="#cb24-510" aria-hidden="true" tabindex="-1"></a>\mathbf{M} = \sum_{i = 1}^{n-1} \mathbf{A}^i \,.</span>
-<span id="cb24-511"><a href="#cb24-511" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb24-512"><a href="#cb24-512" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-513"><a href="#cb24-513" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-514"><a href="#cb24-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-515"><a href="#cb24-515" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-516"><a href="#cb24-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-517"><a href="#cb24-517" aria-hidden="true" tabindex="-1"></a>If $G$ is connected, then there must be a walk from any node to any other node. We can assume without loss of generality that these walks are of length $n-1$ or less, since otherwise we would be unnecessarily revisiting nodes. So, $G$ is connected if and only if there exists a walk of no more than length $n-1$ from any node to any other node. This is equivalent to the requirement that all the entries of the matrix $\mathbf{M}$ above be strictly positive. </span>
-<span id="cb24-518"><a href="#cb24-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-519"><a href="#cb24-519" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-520"><a href="#cb24-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-521"><a href="#cb24-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-522"><a href="#cb24-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-523"><a href="#cb24-523" aria-hidden="true" tabindex="-1"></a><span class="fu">### Paths</span></span>
-<span id="cb24-524"><a href="#cb24-524" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-525"><a href="#cb24-525" aria-hidden="true" tabindex="-1"></a>Paths are special walks which do not repeat any edges. </span>
-<span id="cb24-526"><a href="#cb24-526" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-527"><a href="#cb24-527" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-528"><a href="#cb24-528" aria-hidden="true" tabindex="-1"></a>::: {#def-path}</span>
-<span id="cb24-529"><a href="#cb24-529" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-530"><a href="#cb24-530" aria-hidden="true" tabindex="-1"></a>A **path** is a walk that is not self-intersecting. That is, any edge $(i,j)$ shows up in a path at most once.</span>
-<span id="cb24-531"><a href="#cb24-531" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-532"><a href="#cb24-532" aria-hidden="true" tabindex="-1"></a>A **geodesic path** or **shortest path** is from $i$ to $j$ is a path fom </span>
-<span id="cb24-533"><a href="#cb24-533" aria-hidden="true" tabindex="-1"></a>$i$ to $j$ of minimum length; i.e. a path such that no other path has shorter length. </span>
-<span id="cb24-534"><a href="#cb24-534" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-535"><a href="#cb24-535" aria-hidden="true" tabindex="-1"></a>The length of a geodesic path is called the **(geodesic) distance** between $i$ and $j$. If two nodes are not path-connected, their geodesic distance is undefined.</span>
-<span id="cb24-536"><a href="#cb24-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-537"><a href="#cb24-537" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-538"><a href="#cb24-538" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-539"><a href="#cb24-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-540"><a href="#cb24-540" aria-hidden="true" tabindex="-1"></a>Here is an example of a geodesic path between two nodes in Zachary's Karate Club network. The geodesic distance between these two nodes is 5. </span>
-<span id="cb24-541"><a href="#cb24-541" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-544"><a href="#cb24-544" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-545"><a href="#cb24-545" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "A geodesic path between two nodes in the Karate Club network."</span></span>
-<span id="cb24-546"><a href="#cb24-546" aria-hidden="true" tabindex="-1"></a><span class="co"># code example adapted from: https://stackoverflow.com/questions/24024411/highlighting-the-shortest-path-in-a-networkx-graph</span></span>
-<span id="cb24-547"><a href="#cb24-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-548"><a href="#cb24-548" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
-<span id="cb24-549"><a href="#cb24-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-550"><a href="#cb24-550" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.karate_club_graph()</span>
-<span id="cb24-551"><a href="#cb24-551" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)</span>
-<span id="cb24-552"><a href="#cb24-552" aria-hidden="true" tabindex="-1"></a>nx.draw(G,pos, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb24-553"><a href="#cb24-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-554"><a href="#cb24-554" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> nx.shortest_path(G, source <span class="op">=</span> <span class="dv">14</span>, target <span class="op">=</span> <span class="dv">16</span>)</span>
-<span id="cb24-555"><a href="#cb24-555" aria-hidden="true" tabindex="-1"></a>pos_path <span class="op">=</span> {i: pos[i] <span class="cf">for</span> i <span class="kw">in</span> path}</span>
-<span id="cb24-556"><a href="#cb24-556" aria-hidden="true" tabindex="-1"></a>path_edges <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(path,path[<span class="dv">1</span>:]))</span>
-<span id="cb24-557"><a href="#cb24-557" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_nodes(G,pos_path,nodelist<span class="op">=</span>path,node_color<span class="op">=</span><span class="st">'steelblue'</span>, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">"black"</span>)</span>
-<span id="cb24-558"><a href="#cb24-558" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_edges(G,pos_path,edgelist<span class="op">=</span>path_edges,edge_color<span class="op">=</span><span class="st">'k'</span>,width<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb24-559"><a href="#cb24-559" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-560"><a href="#cb24-560" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-561"><a href="#cb24-561" aria-hidden="true" tabindex="-1"></a>Shortest paths are not necessarily unique; there may be more than one path of the same length between two nodes. There exist several algorithms for computing the shortest path between a pair of nodes or between every pair of nodes in a graph. </span>
-<span id="cb24-562"><a href="#cb24-562" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-563"><a href="#cb24-563" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dijkstra's algorithm <span class="co">[</span><span class="ot">@dijkstra2022note</span><span class="co">]</span> is frequently used to compute shortest paths with a single fixed node as the point of origin. </span>
-<span id="cb24-564"><a href="#cb24-564" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The Floyd-Warshall algorithm <span class="co">[</span><span class="ot">@rosen2011discrete</span><span class="co">]</span> is a common choice for computing the shortest path between all pairs of nodes in a graph.</span>
-<span id="cb24-565"><a href="#cb24-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-566"><a href="#cb24-566" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-567"><a href="#cb24-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-568"><a href="#cb24-568" aria-hidden="true" tabindex="-1"></a>Explain briefly why shortest paths are *self-avoiding*: the same node cannot appear twice in a shortest path.</span>
-<span id="cb24-569"><a href="#cb24-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-570"><a href="#cb24-570" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-571"><a href="#cb24-571" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-572"><a href="#cb24-572" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-573"><a href="#cb24-573" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-574"><a href="#cb24-574" aria-hidden="true" tabindex="-1"></a>This is because if a shortest path intersected itself, this would create a loop which could be removed to create a shorter path.</span>
-<span id="cb24-575"><a href="#cb24-575" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-576"><a href="#cb24-576" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-577"><a href="#cb24-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-578"><a href="#cb24-578" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-579"><a href="#cb24-579" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-580"><a href="#cb24-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-581"><a href="#cb24-581" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cyclic and Acyclic graphs</span></span>
-<span id="cb24-582"><a href="#cb24-582" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-583"><a href="#cb24-583" aria-hidden="true" tabindex="-1"></a>Many algorithms and measures of graph structure reflect the existence of *cycles* within a graph. </span>
-<span id="cb24-584"><a href="#cb24-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-585"><a href="#cb24-585" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-586"><a href="#cb24-586" aria-hidden="true" tabindex="-1"></a>::: {#def-cycle}</span>
-<span id="cb24-587"><a href="#cb24-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-588"><a href="#cb24-588" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cycles</span></span>
-<span id="cb24-589"><a href="#cb24-589" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-590"><a href="#cb24-590" aria-hidden="true" tabindex="-1"></a>A **cycle** is a path from a node $i$ to itself.</span>
-<span id="cb24-591"><a href="#cb24-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-592"><a href="#cb24-592" aria-hidden="true" tabindex="-1"></a>A network with no cycles is **acyclic**.</span>
-<span id="cb24-593"><a href="#cb24-593" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-594"><a href="#cb24-594" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-595"><a href="#cb24-595" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-596"><a href="#cb24-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-597"><a href="#cb24-597" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">By definition, self-edges are cycles of length 1. Multigraphs without self-edges can have cycles of length 2. Cycles in simple graphs are always of length 3 or more.</span><span class="co">]</span>{.aside}</span>
-<span id="cb24-598"><a href="#cb24-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-599"><a href="#cb24-599" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-600"><a href="#cb24-600" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-601"><a href="#cb24-601" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-602"><a href="#cb24-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-603"><a href="#cb24-603" aria-hidden="true" tabindex="-1"></a>How could we use the adjacency matrix $\mathbf{A}$ to compute the number of cycles of length $r$ in a network starting and ending at node $i$?</span>
-<span id="cb24-604"><a href="#cb24-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-605"><a href="#cb24-605" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-606"><a href="#cb24-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-607"><a href="#cb24-607" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb24-608"><a href="#cb24-608" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-609"><a href="#cb24-609" aria-hidden="true" tabindex="-1"></a>Since a cycle can be represented as a walk from a node $i$ to itself @thm-walks tells us that we are looking for $<span class="co">[</span><span class="ot">\mathbf{A}^r</span><span class="co">]</span>_{ii}$, the $i$th diagonal element of the matrix $\mathbf{A}^r$. </span>
-<span id="cb24-610"><a href="#cb24-610" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-611"><a href="#cb24-611" aria-hidden="true" tabindex="-1"></a>**Note**: this quantity separately counts cycles where the same nodes are visited in a different order. For example, the cycle $1 \to 2 \to 3 \to 1$ is counted separately as the cycle $1 \to 3 \to 2 \to 1.$ </span>
-<span id="cb24-612"><a href="#cb24-612" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-613"><a href="#cb24-613" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-614"><a href="#cb24-614" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-615"><a href="#cb24-615" aria-hidden="true" tabindex="-1"></a>In some cases, it is useful to check a network to determine whether it contains *any* cycles. </span>
-<span id="cb24-616"><a href="#cb24-616" aria-hidden="true" tabindex="-1"></a>While the adjacency matrix can be used to count cycles of a specific length, it could be quite inefficient to use to detect whether we have a cycle of any length (because we may have to check the diagonal entries of ${\bf A}^r$ for all possible cycle lengths $r$). We can construct a simple algorithm to determine computationally whether a network is cyclic or acyclic. For the purposes of this algorithm, we'll consider directed graphs; the algorithm can be easily adapted to undirected graphs. Here it is: </span>
-<span id="cb24-617"><a href="#cb24-617" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-618"><a href="#cb24-618" aria-hidden="true" tabindex="-1"></a>While $n &gt; 0$: </span>
-<span id="cb24-619"><a href="#cb24-619" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-620"><a href="#cb24-620" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Find a node $i$ with no out-edges (i.e. $k_i^{\mathrm{out}} = 0$). </span>
-<span id="cb24-621"><a href="#cb24-621" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>If no such node exists, *then the network is cyclic*.</span>
-<span id="cb24-622"><a href="#cb24-622" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Remove node $i$ and all its edges. </span>
-<span id="cb24-623"><a href="#cb24-623" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-624"><a href="#cb24-624" aria-hidden="true" tabindex="-1"></a>If all nodes can be removed this way, *then the network is acyclic*. </span>
-<span id="cb24-625"><a href="#cb24-625" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-626"><a href="#cb24-626" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb24-627"><a href="#cb24-627" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-628"><a href="#cb24-628" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb24-629"><a href="#cb24-629" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-630"><a href="#cb24-630" aria-hidden="true" tabindex="-1"></a>Give a simple argument for why the algorithm above works. In particular: </span>
-<span id="cb24-631"><a href="#cb24-631" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-632"><a href="#cb24-632" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Why is this algorithm guaranteed to terminate? </span>
-<span id="cb24-633"><a href="#cb24-633" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Why is this algorithm guaranteed to give the correct answer upon termination?</span>
-<span id="cb24-634"><a href="#cb24-634" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-635"><a href="#cb24-635" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-636"><a href="#cb24-636" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-637"><a href="#cb24-637" aria-hidden="true" tabindex="-1"></a>Now that we're convinced that the algorithm works, let's go ahead and implement it in Python. Our implementation accepts a NetworkX <span class="in">`DiGraph`</span> object as an argument, returning <span class="in">`True`</span> if the network is cyclic and <span class="in">`False`</span> if the network is acyclic.</span>
-<span id="cb24-638"><a href="#cb24-638" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-641"><a href="#cb24-641" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-642"><a href="#cb24-642" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb24-643"><a href="#cb24-643" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-644"><a href="#cb24-644" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_cyclic(G):</span>
-<span id="cb24-645"><a href="#cb24-645" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> G.number_of_nodes() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb24-646"><a href="#cb24-646" aria-hidden="true" tabindex="-1"></a>        zero_out_degree <span class="op">=</span> [node <span class="cf">for</span> node <span class="kw">in</span> G.nodes <span class="cf">if</span> G.out_degree(node) <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb24-647"><a href="#cb24-647" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(zero_out_degree) <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb24-648"><a href="#cb24-648" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb24-649"><a href="#cb24-649" aria-hidden="true" tabindex="-1"></a>        G.remove_nodes_from(zero_out_degree)</span>
-<span id="cb24-650"><a href="#cb24-650" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
-<span id="cb24-651"><a href="#cb24-651" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
-<span id="cb24-652"><a href="#cb24-652" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-653"><a href="#cb24-653" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-654"><a href="#cb24-654" aria-hidden="true" tabindex="-1"></a>Now let's test our algorithm on a few examples. First, we'll construct a random toy directed graph that we know does not possess any cycles by its construction. Indeed, our implemented cycle detector indicates that no cycles are present. </span>
-<span id="cb24-655"><a href="#cb24-655" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-658"><a href="#cb24-658" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-659"><a href="#cb24-659" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "The binomial tree, a directed network containing no cycles."</span></span>
-<span id="cb24-660"><a href="#cb24-660" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb24-661"><a href="#cb24-661" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
-<span id="cb24-662"><a href="#cb24-662" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-check-acyclic</span></span>
-<span id="cb24-663"><a href="#cb24-663" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: margin</span></span>
-<span id="cb24-664"><a href="#cb24-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-665"><a href="#cb24-665" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Binomial Tree:'</span>, end <span class="op">=</span> <span class="st">" "</span>)</span>
-<span id="cb24-666"><a href="#cb24-666" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-667"><a href="#cb24-667" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb24-668"><a href="#cb24-668" aria-hidden="true" tabindex="-1"></a>G_Tree <span class="op">=</span> nx.binomial_tree(<span class="dv">4</span>, create_using <span class="op">=</span> nx.DiGraph)</span>
-<span id="cb24-669"><a href="#cb24-669" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Tree,  <span class="op">**</span>plot_kwargs)</span>
-<span id="cb24-670"><a href="#cb24-670" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> is_cyclic(G_Tree): </span>
-<span id="cb24-671"><a href="#cb24-671" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"cyclic."</span>)</span>
-<span id="cb24-672"><a href="#cb24-672" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb24-673"><a href="#cb24-673" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"acyclic."</span>)</span>
-<span id="cb24-674"><a href="#cb24-674" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-675"><a href="#cb24-675" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-676"><a href="#cb24-676" aria-hidden="true" tabindex="-1"></a>On the other hand, the Hamilton mentions network contains at least one cycle: </span>
-<span id="cb24-677"><a href="#cb24-677" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-680"><a href="#cb24-680" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-681"><a href="#cb24-681" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "The Hamilton mention network, a directed network which contains many cycles."</span></span>
-<span id="cb24-682"><a href="#cb24-682" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb24-683"><a href="#cb24-683" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
-<span id="cb24-684"><a href="#cb24-684" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-hamilton-again</span></span>
-<span id="cb24-685"><a href="#cb24-685" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: margin</span></span>
-<span id="cb24-686"><a href="#cb24-686" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-687"><a href="#cb24-687" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hamilton Network:'</span>, end <span class="op">=</span> <span class="st">" "</span>)</span>
-<span id="cb24-688"><a href="#cb24-688" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.arf_layout(G_Hamilton)</span>
-<span id="cb24-689"><a href="#cb24-689" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb24-690"><a href="#cb24-690" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Hamilton, layout, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb24-691"><a href="#cb24-691" aria-hidden="true" tabindex="-1"></a>is_cyclic(G_Hamilton)</span>
-<span id="cb24-692"><a href="#cb24-692" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> is_cyclic(G_Hamilton): </span>
-<span id="cb24-693"><a href="#cb24-693" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"cyclic."</span>)</span>
-<span id="cb24-694"><a href="#cb24-694" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb24-695"><a href="#cb24-695" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"acyclic."</span>)</span>
-<span id="cb24-696"><a href="#cb24-696" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-697"><a href="#cb24-697" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-698"><a href="#cb24-698" aria-hidden="true" tabindex="-1"></a>This algorithm has a nice mathematical consequence. If we label the nodes in an acyclic network according to the order we removed them, we will end up with an adjacency matrix that is *strictly upper triangular*. This is because each node that is removed could only have out-edges that were already removed previously, i.e., nonzero entries of the $i$th column could only occur between columns 1 and $i-1$. There exists at least one such labeling for any acyclic network.</span>
-<span id="cb24-699"><a href="#cb24-699" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-700"><a href="#cb24-700" aria-hidden="true" tabindex="-1"></a><span class="fu">### Trees</span></span>
-<span id="cb24-701"><a href="#cb24-701" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-702"><a href="#cb24-702" aria-hidden="true" tabindex="-1"></a>::: {.callout-note icon=false appearance="minimal"}</span>
-<span id="cb24-703"><a href="#cb24-703" aria-hidden="true" tabindex="-1"></a>::: {#def-tree}</span>
-<span id="cb24-704"><a href="#cb24-704" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-705"><a href="#cb24-705" aria-hidden="true" tabindex="-1"></a>A **tree** is a connected, acyclic network. By "connected", we mean every node is reachable from every other node by traversing a sequence of edges, i.e., there exists a walk between any two nodes. </span>
-<span id="cb24-706"><a href="#cb24-706" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-707"><a href="#cb24-707" aria-hidden="true" tabindex="-1"></a>Trees can be both directed and undirected. When we refer to *trees* with no further descriptors, we usually mean undirected trees. </span>
-<span id="cb24-708"><a href="#cb24-708" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-709"><a href="#cb24-709" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-710"><a href="#cb24-710" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb24-711"><a href="#cb24-711" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-712"><a href="#cb24-712" aria-hidden="true" tabindex="-1"></a>All trees are necessarily simple graphs, because self- and multiedges would create cycles. Trees always have exactly $n-1$ edges, as can be proven via induction. Furthermore, any connected graph with $n-1$ edges is a tree.</span>
-<span id="cb24-713"><a href="#cb24-713" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-714"><a href="#cb24-714" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-715"><a href="#cb24-715" aria-hidden="true" tabindex="-1"></a>Trees are often drawn as *rooted trees* with a *root node* at the top and *leaf nodes* below. Any node can be chosen as the root of a tree. </span>
-<span id="cb24-716"><a href="#cb24-716" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-717"><a href="#cb24-717" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-720"><a href="#cb24-720" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb24-721"><a href="#cb24-721" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb24-722"><a href="#cb24-722" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap : "A simple rooted tree with 9 nodes."</span></span>
-<span id="cb24-723"><a href="#cb24-723" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb24-724"><a href="#cb24-724" aria-hidden="true" tabindex="-1"></a><span class="co">#| column: margin</span></span>
-<span id="cb24-725"><a href="#cb24-725" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-726"><a href="#cb24-726" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-727"><a href="#cb24-727" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">4</span>), (<span class="dv">2</span>,<span class="dv">5</span>), (<span class="dv">2</span>,<span class="dv">6</span>), (<span class="dv">2</span>, <span class="dv">7</span>), (<span class="dv">7</span>, <span class="dv">8</span>)]</span>
-<span id="cb24-728"><a href="#cb24-728" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-729"><a href="#cb24-729" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> {</span>
-<span id="cb24-730"><a href="#cb24-730" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span> : (<span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb24-731"><a href="#cb24-731" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> : (<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>),</span>
-<span id="cb24-732"><a href="#cb24-732" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> : (<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>),</span>
-<span id="cb24-733"><a href="#cb24-733" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span> : (<span class="op">-</span><span class="fl">1.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
-<span id="cb24-734"><a href="#cb24-734" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span> : (<span class="op">-</span><span class="fl">0.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
-<span id="cb24-735"><a href="#cb24-735" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> : (<span class="fl">0.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
-<span id="cb24-736"><a href="#cb24-736" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span> : (<span class="fl">1.0</span>, <span class="op">-</span><span class="dv">2</span>), </span>
-<span id="cb24-737"><a href="#cb24-737" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span> : (<span class="fl">1.5</span>, <span class="op">-</span><span class="dv">2</span>), </span>
-<span id="cb24-738"><a href="#cb24-738" aria-hidden="true" tabindex="-1"></a>    <span class="dv">8</span>:  (<span class="fl">1.5</span>, <span class="op">-</span><span class="dv">3</span>)</span>
-<span id="cb24-739"><a href="#cb24-739" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb24-740"><a href="#cb24-740" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-741"><a href="#cb24-741" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb24-742"><a href="#cb24-742" aria-hidden="true" tabindex="-1"></a>G_Tree <span class="op">=</span> nx.Graph(edges)</span>
-<span id="cb24-743"><a href="#cb24-743" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Tree, pos <span class="op">=</span> pos, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb24-744"><a href="#cb24-744" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-745"><a href="#cb24-745" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-746"><a href="#cb24-746" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-747"><a href="#cb24-747" aria-hidden="true" tabindex="-1"></a>Trees play important roles, especially in math and computer science. Trees have many useful properties that we can exploit for network analysis. One of the most important ones is the uniqueness of paths: there is exactly one path between any pair of nodes (as long as we don't allow "backtracking"). Many calculations on networks with this property are simple(r).</span>
-<span id="cb24-748"><a href="#cb24-748" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-749"><a href="#cb24-749" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-750"><a href="#cb24-750" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb24-751"><a href="#cb24-751" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-752"><a href="#cb24-752" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-753"><a href="#cb24-753" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-754"><a href="#cb24-754" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-755"><a href="#cb24-755" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-756"><a href="#cb24-756" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-757"><a href="#cb24-757" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-758"><a href="#cb24-758" aria-hidden="true" tabindex="-1"></a></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 

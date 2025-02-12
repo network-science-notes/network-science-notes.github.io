@@ -403,7 +403,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></a></li></ol></nav>
 <div class="quarto-title">
-</div>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></h1>
 </div>
 
 
@@ -540,7 +540,7 @@ window.Quarto = {
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" width="597" height="431">
+<div id="fig-clustering-decay" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="431" width="597">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-clustering-decay-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-clustering-decay-output-1.png" id="fig-clustering-decay" width="597" height="431" class="figure-img">
@@ -766,7 +766,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div id="14d42075" class="cell" data-execution_count="2">
+<div id="c298e3ee" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -788,7 +788,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 4.90.
+Average over experiments is 5.15.
 
 Theoretical expectation is 5.00.
 </code></pre>
@@ -860,7 +860,7 @@ Theoretical expectation is 5.00.
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    axarr[i].<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"c = </span><span class="sc">{</span>c[i]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-giant-component-illustration" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" width="540" height="409">
+<div id="fig-giant-component-illustration" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="409" width="540">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-giant-component-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-giant-component-illustration-output-1.png" id="fig-giant-component-illustration" width="540" height="409" class="figure-img">
@@ -940,7 +940,7 @@ s = 1- e^{-cs}
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-giant-component" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" width="589" height="429">
+<div id="fig-giant-component" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" height="429" width="589">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-giant-component-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="09-random-graphs_files/figure-html/fig-giant-component-output-1.png" id="fig-giant-component" width="589" height="429" class="figure-img">
@@ -957,8 +957,6 @@ Figure&nbsp;9.4
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
 
-
-<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-erdHos1960evolution" class="csl-entry" role="listitem">
@@ -1067,57 +1065,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1460,558 +1407,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Configuration models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-summary:</span><span class="co"> "Show code"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Random Graphs: Erdős–Rényi</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/09-random-graphs.ipynb).* </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>A random graph is a probability distribution over graphs. In this set of lecture notes, we'll begin our exploration of several random graphs. </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why Random Graphs?</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>Why should we even study random graphs? There are a few reasons!</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random Graphs as Insightful Models</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>Random graphs allow us to build our intuition and skills in the study of networks. In many simple random graphs, quantities of interest (clustering coefficients, diameters, etc) can be calculated with pencil and paper. This allows us to build mathematical insight into the structure of many real-world models, without the need for detailed simulations. </span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random Graphs as Mathematical Puzzles</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>Many properties of even simple random graphs are still under investigation by research mathematicians. While some properties can be calculated simply, others require extremely sophisticated machinery in order to understand. There are many mathematicians who spend their careers studying random graphs, and their cousins, random matrices. </span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random Graphs as Null Hypotheses</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>Suppose that you compute the global clustering coefficient of a graph and find it to be $0.31$. How do we interpret that? Is that high? Low? In this case, we should ask: *compared to what?* Random graphs allow us one way to make a comparison: that clustering coefficient is "high" if it's larger than the clustering coefficient in a suitably chosen, comparable random graph. How to choose a comparable random graph is an important question, and the answer is not always clear! </span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>In this way, random graphs often serve as the *null hypothesis*, in exactly the same way you might have heard of the null hypothesis for other kinds of statistical tests. </span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Random Graphs and Statistical Inference</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>Many statistical algorithms for tasks like graph clustering, ranking, and prediction come from random graph models. The idea, generally speaking, is to imagine that we observe a graph, and then try to make the best educated guess possible about the model that generated that graph. This is classical statistical inference. </span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## The $G(n,p)$ Model (Erdős–Rényi)</span></span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>The model of @erdHos1960evolution is the simplest and most fundamental model of a random graph. Our primary interest in the ER model is for mathematical insight and null modeling. The ER model is *mostly* understood in its major mathematical properties, and it's almost never used in statistical inference. [The ER model is, however, a building block of models that *are* used in statistical inference. The <span class="co">[</span><span class="ot">stochastic blockmodel</span><span class="co">](https://en.wikipedia.org/wiki/Stochastic_block_model)</span>, for example, is often used for graph clustering and community detection. In its simplest form, it's a bunch of ER graphs glued together.]{.aside}</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>::: {#def-ER}</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Erdős–Rényi Random Graph</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>An *Erdős–Rényi random graph* with $n$ nodes and connection probability $p$, written $G(n,p)$, is a random graph constructed by placing an edge with probability $p$ between each pair of distinct nodes. </span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>We can imagine visiting each possible pair of edges $(i,j)$ and flipping a coin with probability of heads $p$. If heads, we add $(i,j) \in E$; otherwise, we don't. </span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>**Exercise**: Let $i$ be a fixed node in a $G(n,p)$ graph, and let $K_i$ be its (random) degree. Show that $K_i$ has binomial distribution with success probability $p$ and $n-1$ trials. </span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>A given node $u$ is connected to each of the other $n-1$ nodes (independently) with probability $p$. The probability of being connected to a particular set of $k$ nodes is </span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
-<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>    \mathbb{P}<span class="co">[</span><span class="ot">\text{connected to $k$ given nodes}</span><span class="co">]</span> &amp;= \mathbb{P}<span class="co">[</span><span class="ot">\text{$k$ successes}</span><span class="co">]</span>\mathbb{P}<span class="co">[</span><span class="ot">\text{$n-1-k$ failures}</span><span class="co">]</span> <span class="sc">\\</span></span>
-<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>    &amp;= p^k (1-p)^{n-1-k} \,.</span>
-<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
-<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>Building on this, the probability of being connected to $k$ other nodes in any way is</span>
-<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>\begin{align}</span>
-<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>    \mathbb{P}<span class="co">[</span><span class="ot">\text{connected to $k$ nodes}</span><span class="co">]</span> &amp;= \left( \text{number of ways to choose $k$ nodes }\right) \mathbb{P}<span class="co">[</span><span class="ot">\text{$k$ successes}</span><span class="co">]</span>\mathbb{P}<span class="co">[</span><span class="ot">\text{$n-1-k$ failures}</span><span class="co">]</span> <span class="sc">\\</span> <span class="sc">\\</span></span>
-<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    &amp;= {n-1 \choose k} p^k (1-p)^{n-1-k} \,.</span>
-<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>\end{align}</span>
-<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>Indeed, this is exactly the binomial degree distribution, as required.</span>
-<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>**Exercise**: Show that $\mathbb{E}<span class="co">[</span><span class="ot">K_i</span><span class="co">]</span> = p(n-1)$. </span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>Using our previous calculations, we know $\mathbb{E}<span class="co">[</span><span class="ot">K_i</span><span class="co">]</span> = \mathbb{E}<span class="co">[</span><span class="ot">\frac{2m}{n}</span><span class="co">]</span>.$ However, $n$ is fixed for the $G(n,p)$ model, so we have $\mathbb{E}<span class="co">[</span><span class="ot">K_i</span><span class="co">]</span> = \frac{2}{n}\mathbb{E}<span class="co">[</span><span class="ot">m</span><span class="co">]</span>,$ where $\mathbb{E}<span class="co">[</span><span class="ot">m</span><span class="co">]</span>$ is the expected number of edges. This quantity will be equal to the probability that an edge exists between a pair of nodes multiplied by the number of possible pairs, which is ${n \choose 2}p = \frac{n(n-1)}{2}p$. Thus $\mathbb{E}<span class="co">[</span><span class="ot">K_i</span><span class="co">]</span> = (n-1)p$, as required.</span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### Clustering Coefficient</span></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>Both local and global clustering coefficients are defined in terms of a ratio of realized triangles to possible triangles. </span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>Analyzing ratios using probability theory can get tricky, but we can get a pretty reliable picture of things by computing the expectations of the numerator and denominator separately. </span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>Let's take the global clustering coefficient. For this, we need to compute the total number of triangles, and the total number of wedges. </span>
-<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>How many triangles are there? Well, there are $\binom{n}{3}$ ways to choose 3 nodes from all the possibilities, and the probability that all three edges exist to form the triangle is $p^3$. </span>
-<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>So, in expectation, there are $\binom{n}{3}p^3$ triangles in the graph. </span>
-<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>How many wedges are there? Well, each triple of nodes contains three possible wedges, and the probability of any given wedge existing is $p^2$. </span>
-<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>So, the expected number of wedges is $\binom{n}{3}p^2$. Our estimate for the expected clustering coefficient is that it should be *about* $p$, although we have been fast and loose with several mathematical details to arrive at this conclusion. </span>
-<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="fu">## Sparsity</span></span>
-<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>Recall that it is possible to define sparsity more explicitly when we have a theoretical model (where it makes sense to take limits). Indeed, the *sparse* Erdős–Rényi model is very useful. Intuitively, the idea of sparsity is that there are not very many edges in comparison to the number of nodes. </span>
-<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>::: {#def-sparse-ER}</span>
-<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>We say that a $G(n,p)$ graph is **sparse** when $p = c/(n-1)$ for some constant $c$. </span>
-<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>A consequence of sparsity is that $\mathbb{E}<span class="co">[</span><span class="ot">K_i</span><span class="co">]</span> = c$; i.e. the expected degree of a node in sparse $G(n,p)$ is constant. When studying sparse $G(n,p)$, we are almost always interested in the case $n\rightarrow \infty$. </span>
-<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a><span class="fu">### Clustering</span></span>
-<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>What does this imply for our estimation of the global clustering coefficient from before? Well, we expect the global clustering coefficient to be *about* $p$, and if $p = c/(n-1)$, then $p \rightarrow 0$ as $n \to \infty$ for sparse $G(n,p)$. </span>
-<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The need to move beyond the ER model to develop sparse graphs with clustering coefficients was part of the motivation of @watts1998collective, a famous paper that introduced the "small world model."</span><span class="co">]</span>{.aside}</span>
-<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Sparse Erdős–Rényi graphs have vanishing clustering coefficients. </span></span>
-<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>@fig-clustering-decay shows how the global clustering coefficient of a sparse Erdős–Rényi random graph decays as we increase $n$. Although the estimate that the global clustering coefficient should be equal to $p$ was somewhat informal, experimentally it works quite well. </span>
-<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap : "Each point gives the global clustering coefficient of an ER graph with mean degree $c = 5$ and specified number of nodes. The black line gives the estimate $T = p = c/(n-1)$ for the clustering coefficient that we computed earlier. The function `nx.fast_gnp_random_graph()` is a special function from NetworkX for generating ER random graphs quickly; you'll learn about how it works in an upcoming homework assignment."</span></span>
-<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
-<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-clustering-decay</span></span>
-<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.repeat(<span class="dv">2</span><span class="op">**</span>np.arange(<span class="dv">5</span>, <span class="dv">15</span>), <span class="dv">10</span>)</span>
-<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> global_clustering(n, c):</span>
-<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.fast_gnp_random_graph(n, c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nx.transitivity(G)</span>
-<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>T <span class="op">=</span> [global_clustering(n, c) <span class="cf">for</span> n <span class="kw">in</span> N]</span>
-<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>)</span>
-<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>theory <span class="op">=</span> ax.plot(N, c<span class="op">/</span>(N<span class="op">-</span><span class="dv">1</span>), color <span class="op">=</span> <span class="st">"black"</span>, label <span class="op">=</span> <span class="st">"Estimate"</span>)</span>
-<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>exp <span class="op">=</span> ax.scatter(N, T, label <span class="op">=</span> <span class="st">"Experiments"</span>)</span>
-<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>semil <span class="op">=</span> ax.semilogx()</span>
-<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Number of nodes"</span>, </span>
-<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>       ylabel <span class="op">=</span> <span class="st">"Global clustering coefficient"</span>)</span>
-<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cycles and Local Tree-Likeness</span></span>
-<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>Recall the following definition:</span>
-<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>::: {#def-cycle}</span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>A **cycle** is a walk that does not repeat edges and ends at the same node that it begins. </span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a>A triangle is an example of a cycle of length $3$. </span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>::: {#thm-rare-cycles}</span>
-<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a>In the sparse $G(n,p)$ model, for any length $k$, the probability that there exists a cycle of length $k$ attached to node $i$ shrinks to 0 as $n \rightarrow \infty$. </span>
-<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a>You'll prove a generalization of @thm-rare-cycles in an upcoming homework problem. </span>
-<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>Graphs in which cycles are very rare are often called *locally tree-like*. A tree is a graph without cycles; if cycles are very rare, then we can often use techniques that are normally guaranteed to only work on trees without running into (too much) trouble. </span>
-<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a><span class="fu">### Path Lengths</span></span>
-<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>How far apart are two nodes in $G(n,p)$? Again, exactly computing the length of geodesic paths involves some challenging mathematical detail. <span class="co">[</span><span class="ot">See @riordan2010diameter and references therein.</span><span class="co">]</span>{.aside} However, we can get a big-picture view of the situation by asking a slightly different question: </span>
-<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Given two nodes $i$ and $j$, what is the expected number of paths of length $k$ between them?</span></span>
-<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>Let $R(k)$ denote the number of $k$-paths between $i$ and $j$. Let $r(k) = \mathbb{E}<span class="co">[</span><span class="ot">R(k)</span><span class="co">]</span>$. Let's estimate $r(k)$. </span>
-<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a>First, we know that $r(1) = p$. For higher values of $k$, we'll use the following idea: in order for there to be a path of length $k$ from $i$ to $j$, there must be a node $\ell$ such that: </span>
-<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There exists a path from $i$ to $\ell$ of length $k-1$. In expectation, there are $r(k-1)$ of these. </span>
-<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There exists a path from $\ell$ to $j$ of length $1$. This happens with probability $p$. </span>
-<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>There are $n-2$ possibilities for $\ell$ (excluding $i$ and $j$), and so we obtain the approximate relation</span>
-<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>r(k) \approx (n-2)r(k-1)p\;. </span>
-<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a>:::{.callout-warning}</span>
-<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a>Why is this an approximation? Well, some of the paths between $i$ and $\ell$ that are counted in $r(k-1)$ could actually include the edge $(j, \ell)$ *already*. An example is $(i,j), (j,\ell)$. In this case, the presence of edge $(j,\ell)$ is not independent of the presence of the path between $i$ and $\ell$. The derivation above implicitly treats these two events as independent. Again, because *cycles are rare in large, sparse ER*, this effect is small when $k$ is small. </span>
-<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a>Proceeding inductively and approximating $n-2 \approx n-1$ for $n$ large, we have the relation </span>
-<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a>r(k) \approx (n-1)^{k-1}p^{k-1}r(1) = c^{k-1}p</span>
-<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>$$ {#eq-path-expectation}</span>
-<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>in the sparse ER model. </span>
-<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>Using this result, let's ask a new question: </span>
-<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; What path length $k$ do I need to allow to be confident that there's a path between nodes $i$ and $j$? </span></span>
-<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a>Well, suppose we want there to be $q$ paths. Then, we can solve $q = c^{k-1}p$ for $k$, which gives us: </span>
-<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a>q &amp;= c^{k-1}p <span class="sc">\\</span> </span>
-<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>\log q &amp;= (k-1)\log c + \log p <span class="sc">\\</span> </span>
-<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a>\log q &amp;= (k-1)\log c + \log c - \log n <span class="sc">\\</span> </span>
-<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a>\frac{\log q + \log n}{\log c} &amp;= k</span>
-<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a>Here, I've also approximated $\log n-1 \approx \log n$ for $n$ large. </span>
-<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a>So, supposing that I want there to be at least one path in expectation ($q = 1$), I need to allow $k = \frac{\log n}{\log c}$. This is pretty short, actually! For example, the population of the world is about $8\times 10^9$, and Newman estimates that an average individual knows around 1,000 other people; that is, $c = 10^3$ in the world social network. The resulting value of $k$ here is around 3.3. </span>
-<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a>In other words, this calculation suggests that, if the world were an ER network, it would be the case that any two individuals would be pretty likely to have at least one path between them of length no longer than $4$. </span>
-<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a>More formal calculations regarding the diameter of the ER graph confirm that the diameter of the ER graph grows slowly as a function of $n$, even in relatively sparse cases. </span>
-<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### A Caveat</span></span>
-<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a>If you spend some time looking at @eq-path-expectation, you might find yourself wondering:</span>
-<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Hey, what happens if $c \leq 1$?</span>  </span>
-<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>Indeed, something *very* interesting happens here. </span>
-<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a>Let's assume $c &lt; 1$ (i.e. we're ignoring the case $c = 1$), and estimate the expected number of paths between $i$ and $j$ of *any* length. Using @eq-path-expectation, we get </span>
-<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a>\mathbb{E}\left<span class="co">[</span><span class="ot">\sum_{k = 1}^{\infty} R(k)\right</span><span class="co">]</span> = \sum_{k = 1}^\infty c^{k-1}p = \sum_{k = 0}^\infty c^kp = \frac{p}{1-c}\;.</span>
-<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>If we now use Markov's inequality, <span class="co">[</span><span class="ot">Markov's inequality states that $\mathbb{P}(X \geq a) \leq \frac{\mathbb{E}(X)}{a}$.</span><span class="co">]</span>{.aside} we find that the probability that there is a path of *any* length between nodes $i$ and $j$ is no larger than $\frac{p}{1-c}.$ In the sparse regime, we can substitute $p = \frac{c}{n-1}$ to see that  </span>
-<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a>\frac{c}{(1-c)(n-1)}\rightarrow 0 \text{ as } n \to \infty\;. </span>
-<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>So, this suggests that, if $c &lt; 1$, any two nodes are likely to be disconnected! On the other hand, if $c &gt; 1$, we've argued that we can make $k$ large enough to have high probability of a path of length $k$ between those nodes. </span>
-<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>So, what's special about $c = 1$? This question brings us to one of the first and most beautiful results in the theory of random graphs. To get there, let's study in a bit more detail the sizes of the *connected components* of the ER graph. </span>
-<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a><span class="fu">## Component Sizes and the Branching Process Approximation</span></span>
-<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a>We're now going to ask ourselves about the size of a "typical" component in the Erdős–Rényi model. In particular, we're going to be interested in whether there exists a component that fills up "most" of the graph, or whether components tend to be vanishingly small in relation to the overall graph size. </span>
-<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>Our first tool for thinking about this question is the *branching process approximation.* Informally, a branching process is a process of *random generational growth*. We'll get to a formal mathematical definition in a moment, but the easiest way to get insight is to look at a diagram: </span>
-<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a>::: {#fig-branching}</span>
-<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a>&lt;iframe width="560" height="315" src="http://1.bp.blogspot.com/-Y59SK92Nd0c/VIoqelzfc8I/AAAAAAAAAdA/XAQB5yDStUc/s1600/eg1.PNG"&gt;&lt;/iframe&gt;</span>
-<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Image source</span><span class="co">](http://mytechroad.com/markov-chain-branching-process/)</span>.</span>
-<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a>We start with a single entity, $X_0$. Then, $X_0$ has a random number of "offspring": $X_1$ in total. Then, each of those $X_1$ offspring has some offspring of their own; the total number of these offspring is $X_2$. The process continues infinitely, although there is always a chance that at some point no more offspring are produced. In this case, we often say that the process "dies out."  </span>
-<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a>Some of this exposition in this section draws on <span class="co">[</span><span class="ot">these notes</span><span class="co">](https://www.stat.berkeley.edu/users/aldous/Networks/lec2.pdf)</span> by David Aldous. </span>
-<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a>::: {#def-branching-process}</span>
-<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a><span class="fu">##  Branching Process</span></span>
-<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a>Let $p$ be a probability distribution on $\mathbb{Z}$, called the **offspring distribution**.  </span>
-<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a>A **branching process** with distribution $p$ is a sequence of random variables $X_0, X_1,,X_2\ldots$ such that $X_0 = 1$ and, for $t \geq 1$,  </span>
-<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a>X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,</span>
-<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a>where each $Y_i$ is distributed i.i.d. according to $p$. </span>
-<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a>Technically, this is a *Galton-Watson* branching process, named after the two authors who first proposed it [@watson1875probability]. &lt;br&gt; &lt;br&gt; **History note**: Galton, one of the founders of modern statistics, was a eugenicist. The cited paper is explicit about its eugenicist motivation: the guiding question was about whether certain family names associated with well-to-do aristocrats were giving way to less elite surnames. </span>
-<span id="cb6-291"><a href="#cb6-291" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a><span class="fu">### Application to Erdős–Rényi </span></span>
-<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-295"><a href="#cb6-295" aria-hidden="true" tabindex="-1"></a>Branching processes create *trees* -- graphs without cycles. The reason that branching processes are helpful when thinking about Erdős–Rényi models is that *cycles are rare in Erdős–Rényi random graphs*. So, if we can understand the behavior of branching processes, then we can learn something about the Erdős–Rényi random graph as well. </span>
-<span id="cb6-296"><a href="#cb6-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-297"><a href="#cb6-297" aria-hidden="true" tabindex="-1"></a>Here's the particular form of the branching process approximation that we will use: </span>
-<span id="cb6-298"><a href="#cb6-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-299"><a href="#cb6-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-300"><a href="#cb6-300" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb6-301"><a href="#cb6-301" aria-hidden="true" tabindex="-1"></a>:::{#def-branching-approx}</span>
-<span id="cb6-302"><a href="#cb6-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-303"><a href="#cb6-303" aria-hidden="true" tabindex="-1"></a><span class="fu">## Branching Process Approximation for ER Component Sizes</span></span>
-<span id="cb6-304"><a href="#cb6-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a>Sample a single node $j$ at random from a large, sparse ER graph  with mean degree $c$, and let $S$ be the size (number of nodes) of the component in which $j$ lies. Note that $S$ is random: it depends both on $j$ and on the realization of the ER graph. </span>
-<span id="cb6-306"><a href="#cb6-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a>Then, $S$ is distributed approximately as $T$, where $T = \sum_{i = 0}^{\infty}X_t$ is the total number of offspring in a GW branching process with offspring distribution $\text{Poisson}(c)$. </span>
-<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a>The idea behind this approximation is: </span>
-<span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We start at $j$, whose number of neighbors $\sim \text{Poisson}(c)$. </span>
-<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Each of these neighbors has a number of new neighbors $\sim \text{Poisson}(c)$, and so on. </span>
-<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We keep visiting new neighbors until we run out, and add up the number of neighbors we've visited to obtain $S$.  </span>
-<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Since *cycles are rare in ER*, we are unlikely to double-count any nodes (doing so would create a cycle), and so this whole process *also* approximately describes $T$ in a branching process with a $\text{Poisson}(c)$ offpsring distribution. </span>
-<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- :::{.callout-important}</span></span>
-<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a><span class="co">**Exercise**: In the second generation, we get to a new node by following an edge. For that reason, shouldn't the number of *new* edges be $\text{Poisson}(c-1)$ rather than $\text{Poisson}(c-1)$? Why or why not? </span></span>
-<span id="cb6-320"><a href="#cb6-320" aria-hidden="true" tabindex="-1"></a><span class="co">::: --&gt;</span></span>
-<span id="cb6-321"><a href="#cb6-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Subcritical Case</span></span>
-<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-324"><a href="#cb6-324" aria-hidden="true" tabindex="-1"></a>The mean of a $\text{Poisson}(c)$ random variable is again $c$. As you'll show in homework, this implies that $X_t$, the number of offspring in generation $t$, satisfies $\mathbb{E}<span class="co">[</span><span class="ot">X_t</span><span class="co">]</span> = c^{t}$. It follows that, when $c &lt; 1$, $\mathbb{E}<span class="co">[</span><span class="ot">T</span><span class="co">]</span> = \frac{1}{1-c}$. </span>
-<span id="cb6-325"><a href="#cb6-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-326"><a href="#cb6-326" aria-hidden="true" tabindex="-1"></a>Now using Markov's inequality, we obtain the following results: </span>
-<span id="cb6-327"><a href="#cb6-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-328"><a href="#cb6-328" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb6-329"><a href="#cb6-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-330"><a href="#cb6-330" aria-hidden="true" tabindex="-1"></a>In a $\text{Poisson}(c)$ branching process with $c &lt; 1$, </span>
-<span id="cb6-331"><a href="#cb6-331" aria-hidden="true" tabindex="-1"></a>$$\mathbb{P}(X_t &gt; 0) \leq c^t\;.$$ </span>
-<span id="cb6-332"><a href="#cb6-332" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-333"><a href="#cb6-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-334"><a href="#cb6-334" aria-hidden="true" tabindex="-1"></a>So, the probability that the branching process hasn't yet "died out" decays exponentially with timestep $t$. In other words, the branching process becomes very likely to die out very quickly. </span>
-<span id="cb6-335"><a href="#cb6-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-336"><a href="#cb6-336" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
-<span id="cb6-337"><a href="#cb6-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-338"><a href="#cb6-338" aria-hidden="true" tabindex="-1"></a>In a $\text{Poisson}(c)$ branching process with $c &lt; 1$, </span>
-<span id="cb6-339"><a href="#cb6-339" aria-hidden="true" tabindex="-1"></a>$$\mathbb{P}(T \geq a) \leq \frac{1}{a}\frac{1}{1-c}$$</span>
-<span id="cb6-340"><a href="#cb6-340" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-341"><a href="#cb6-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-342"><a href="#cb6-342" aria-hidden="true" tabindex="-1"></a>In particular, for $a$ very large, we are guaranteed that $\mathbb{P}(T &gt; a)$ is very small. </span>
-<span id="cb6-343"><a href="#cb6-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-344"><a href="#cb6-344" aria-hidden="true" tabindex="-1"></a>Summing up, when $c &lt; 1$, the GW branching process dies out quickly and contains a relatively small number of nodes: $\frac{1}{1-c}$ in expectation. <span class="co">[</span><span class="ot">In this setting, the branching process is called *subcritical*.</span><span class="co">]</span>{.aside}</span>
-<span id="cb6-345"><a href="#cb6-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-346"><a href="#cb6-346" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Back to ER</span></span>
-<span id="cb6-347"><a href="#cb6-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-348"><a href="#cb6-348" aria-hidden="true" tabindex="-1"></a>If we now translate back to the Erdős–Rényi random graph, the branching process approximation now suggests the following heuristic: </span>
-<span id="cb6-349"><a href="#cb6-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-350"><a href="#cb6-350" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb6-351"><a href="#cb6-351" aria-hidden="true" tabindex="-1"></a>**Heuristic**: In a sparse ER random graph with mean $c &lt; 1$, the expected size of a component containing a randomly selected node is roughly $\frac{1}{1-c}$. </span>
-<span id="cb6-352"><a href="#cb6-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-353"><a href="#cb6-353" aria-hidden="true" tabindex="-1"></a>In particular, since this quantity is independent of $n$, we find that the *fraction* of the graph occupied by this component is $\frac{1}{n}\frac{1}{1-c}$ and therefore vanishes as $n\rightarrow \infty$. </span>
-<span id="cb6-354"><a href="#cb6-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-355"><a href="#cb6-355" aria-hidden="true" tabindex="-1"></a>We can also turn this into a statement about probabilities: Markov's inequality implies that, if $S$ is the size of a component containing a randomly selected node,</span>
-<span id="cb6-356"><a href="#cb6-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-357"><a href="#cb6-357" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-358"><a href="#cb6-358" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(S/n &gt; a) \rightarrow 0</span>
-<span id="cb6-359"><a href="#cb6-359" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-360"><a href="#cb6-360" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-361"><a href="#cb6-361" aria-hidden="true" tabindex="-1"></a>for any constant $a &gt; 0$. In other words, for large $n$, the largest component is always vanishingly small in relation to the graph as a whole. </span>
-<span id="cb6-362"><a href="#cb6-362" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-363"><a href="#cb6-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-364"><a href="#cb6-364" aria-hidden="true" tabindex="-1"></a>Let's check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction. </span>
-<span id="cb6-365"><a href="#cb6-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-368"><a href="#cb6-368" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-369"><a href="#cb6-369" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb6-370"><a href="#cb6-370" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-371"><a href="#cb6-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-372"><a href="#cb6-372" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> component_size_of_node(n, c):</span>
-<span id="cb6-373"><a href="#cb6-373" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.fast_gnp_random_graph(n, c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb6-374"><a href="#cb6-374" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(nx.node_connected_component(G, <span class="dv">1</span>))</span>
-<span id="cb6-375"><a href="#cb6-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-376"><a href="#cb6-376" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="fl">0.8</span></span>
-<span id="cb6-377"><a href="#cb6-377" aria-hidden="true" tabindex="-1"></a>sizes <span class="op">=</span> [component_size_of_node(<span class="dv">5000</span>, c) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>)]</span>
-<span id="cb6-378"><a href="#cb6-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-379"><a href="#cb6-379" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> <span class="ss">f"""</span></span>
-<span id="cb6-380"><a href="#cb6-380" aria-hidden="true" tabindex="-1"></a><span class="ss">Average over experiments is </span><span class="sc">{</span>np<span class="sc">.</span>mean(sizes)<span class="sc">:.2f}</span><span class="ss">.</span><span class="ch">\n</span></span>
-<span id="cb6-381"><a href="#cb6-381" aria-hidden="true" tabindex="-1"></a><span class="ss">Theoretical expectation is </span><span class="sc">{</span><span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>c)<span class="sc">:.2f}</span><span class="ss">.</span></span>
-<span id="cb6-382"><a href="#cb6-382" aria-hidden="true" tabindex="-1"></a><span class="ss">"""</span></span>
-<span id="cb6-383"><a href="#cb6-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-384"><a href="#cb6-384" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(out)</span>
-<span id="cb6-385"><a href="#cb6-385" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-386"><a href="#cb6-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-387"><a href="#cb6-387" aria-hidden="true" tabindex="-1"></a>Note that the expected (and realized) component size is very small, even though the graph contains 5,000 nodes!</span>
-<span id="cb6-388"><a href="#cb6-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-389"><a href="#cb6-389" aria-hidden="true" tabindex="-1"></a>For this reason, we say that subcritical ER contains only *small* connected components, in the sense that each component contains approximately 0\% of the graph as $n$ grows large. </span>
-<span id="cb6-390"><a href="#cb6-390" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-391"><a href="#cb6-391" aria-hidden="true" tabindex="-1"></a>This explains our result from earlier about path lengths. The probability that any two nodes have a path between them is the same as the probability that they are *on the same connected component*. But if every connected component is small, then the probability that two nodes occupy the same one is vanishes. </span>
-<span id="cb6-392"><a href="#cb6-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-393"><a href="#cb6-393" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Giant Component</span></span>
-<span id="cb6-394"><a href="#cb6-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-395"><a href="#cb6-395" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb6-396"><a href="#cb6-396" aria-hidden="true" tabindex="-1"></a>::: {#def-giant-component}</span>
-<span id="cb6-397"><a href="#cb6-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-398"><a href="#cb6-398" aria-hidden="true" tabindex="-1"></a><span class="fu">## Giant Component</span></span>
-<span id="cb6-399"><a href="#cb6-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-400"><a href="#cb6-400" aria-hidden="true" tabindex="-1"></a>We say that $G(n,p)$ has a **giant component** if </span>
-<span id="cb6-401"><a href="#cb6-401" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-402"><a href="#cb6-402" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(S/n &gt; a) \rightarrow b</span>
-<span id="cb6-403"><a href="#cb6-403" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-404"><a href="#cb6-404" aria-hidden="true" tabindex="-1"></a>for some constant $b &gt; 0$. </span>
-<span id="cb6-405"><a href="#cb6-405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-406"><a href="#cb6-406" aria-hidden="true" tabindex="-1"></a>Intuitively, this means that there is a possibility of a connected component that takes up a nonzero fraction of the graph. </span>
-<span id="cb6-407"><a href="#cb6-407" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-408"><a href="#cb6-408" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-409"><a href="#cb6-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-410"><a href="#cb6-410" aria-hidden="true" tabindex="-1"></a>So far, we've argued using the branching process approximation that there is no giant component in the Erdős–Rényi model with $c &lt; 1$. The theory of branching processes also suggests to us that there *could* be a giant component when $c &gt; 1$. </span>
-<span id="cb6-411"><a href="#cb6-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-412"><a href="#cb6-412" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">The proof of this fact is usually done in terms of *generating functions* and is beyond our scope, but you can [check Wikipedia](https://en.wikipedia.org/wiki/Branching_process#Extinction_problem_for_a_Galton_Watson_process) for an outline.</span><span class="co">]</span>{.aside}</span>
-<span id="cb6-413"><a href="#cb6-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-414"><a href="#cb6-414" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
-<span id="cb6-415"><a href="#cb6-415" aria-hidden="true" tabindex="-1"></a>**Fact**: when $c &gt; 1$, there is a nonzero probability that the $\text{Poisson}(c)$ branching process continues forever; that is, never goes extinct. </span>
-<span id="cb6-416"><a href="#cb6-416" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-417"><a href="#cb6-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-418"><a href="#cb6-418" aria-hidden="true" tabindex="-1"></a>Using our correspondence between components of the ER model and branching processes, this suggests that, if we pick a random node, the component it is in has the potential to be very large. In fact (and this requires some advanced probability to prove formally), when $c &gt; 1$, there *is* a giant component. This is our first example of a phase transition. </span>
-<span id="cb6-419"><a href="#cb6-419" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">It is also possible to prove that, with high probability, there is only one giant component; Newman does this in 11.5.1.</span><span class="co">]</span>{.aside}</span>
-<span id="cb6-420"><a href="#cb6-420" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-421"><a href="#cb6-421" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb6-422"><a href="#cb6-422" aria-hidden="true" tabindex="-1"></a>::: {#def-giant-component}</span>
-<span id="cb6-423"><a href="#cb6-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-424"><a href="#cb6-424" aria-hidden="true" tabindex="-1"></a><span class="fu">## Phase Transition</span></span>
-<span id="cb6-425"><a href="#cb6-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-426"><a href="#cb6-426" aria-hidden="true" tabindex="-1"></a>A **phase transition** is a qualitative change in response to a small variation in a quantitative parameter. </span>
-<span id="cb6-427"><a href="#cb6-427" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-428"><a href="#cb6-428" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb6-429"><a href="#cb6-429" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-430"><a href="#cb6-430" aria-hidden="true" tabindex="-1"></a>Examples of phase transitions include freezing, in which a liquid undergoes a qualitative change into a solid in response to a small variation in temperature. </span>
-<span id="cb6-431"><a href="#cb6-431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-432"><a href="#cb6-432" aria-hidden="true" tabindex="-1"></a>@fig-giant-component-illustration shows  two sparse ER random graphs on either side of the $c = 1$ transition. We observe an apparent change in qualitative behavior between the two cases. </span>
-<span id="cb6-433"><a href="#cb6-433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-436"><a href="#cb6-436" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-437"><a href="#cb6-437" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap : "Two sparse ER graphs with 500 nodes and varying mean degree."</span></span>
-<span id="cb6-438"><a href="#cb6-438" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 100%</span></span>
-<span id="cb6-439"><a href="#cb6-439" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
-<span id="cb6-440"><a href="#cb6-440" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-giant-component-illustration</span></span>
-<span id="cb6-441"><a href="#cb6-441" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
-<span id="cb6-442"><a href="#cb6-442" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb6-443"><a href="#cb6-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-444"><a href="#cb6-444" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb6-445"><a href="#cb6-445" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb6-446"><a href="#cb6-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-447"><a href="#cb6-447" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb6-448"><a href="#cb6-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-449"><a href="#cb6-449" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb6-450"><a href="#cb6-450" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="fl">0.7</span>, <span class="fl">1.3</span>]</span>
-<span id="cb6-451"><a href="#cb6-451" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-452"><a href="#cb6-452" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb6-453"><a href="#cb6-453" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.fast_gnp_random_graph(n, c[i]<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>))</span>
-<span id="cb6-454"><a href="#cb6-454" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, ax <span class="op">=</span> axarr[i], node_size <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb6-455"><a href="#cb6-455" aria-hidden="true" tabindex="-1"></a>    axarr[i].<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"c = </span><span class="sc">{</span>c[i]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-456"><a href="#cb6-456" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-457"><a href="#cb6-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-458"><a href="#cb6-458" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-459"><a href="#cb6-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-460"><a href="#cb6-460" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-461"><a href="#cb6-461" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Size of the Giant Component {#sec-component}</span></span>
-<span id="cb6-462"><a href="#cb6-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-463"><a href="#cb6-463" aria-hidden="true" tabindex="-1"></a>Perhaps surprisingly, while it's difficult to prove that there is a giant component, it's not hard at all to estimate its size. </span>
-<span id="cb6-464"><a href="#cb6-464" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">This argument is reproduced from Newman, pages 349-350</span><span class="co">]</span>{.aside}</span>
-<span id="cb6-465"><a href="#cb6-465" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-466"><a href="#cb6-466" aria-hidden="true" tabindex="-1"></a>Let $S$ be the size of the giant component in an Erdős–Rényi random graph, assuming there is one. Then, $s = S/n$ is the probability that a randomly selected node is in the giant component. Let $u = 1 - s$ be the probability that a given node is *not* in the giant component. </span>
-<span id="cb6-467"><a href="#cb6-467" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-468"><a href="#cb6-468" aria-hidden="true" tabindex="-1"></a>Let's take a random node $i$, and ask it the probability that it's in the giant component. Well, one answer to that question is just "$u$." On the other hand, we can *also* answer that question by looking at $i$'s neighbors. If $i$ is not in the giant component, then it can't be connected to any node that is in the giant component. So, for each other node $j\neq i$, it must be the case that either: </span>
-<span id="cb6-469"><a href="#cb6-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-470"><a href="#cb6-470" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$i$ is not connected to $j$. This happens with probability $1-p$. </span>
-<span id="cb6-471"><a href="#cb6-471" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>$i$ is connected to $j$, but $j$ is not in the giant component either. $i$ is connected to $j$ with probability $p$, and $j$ is not in the giant component with probability $u$. </span>
-<span id="cb6-472"><a href="#cb6-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-473"><a href="#cb6-473" aria-hidden="true" tabindex="-1"></a>There are $n-1$ nodes other than $i$, and so the probability that $i$ is not connected to any other node in the giant component is $(1 - p + pu)^{n-1}$. We therefore have the equation </span>
-<span id="cb6-474"><a href="#cb6-474" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-475"><a href="#cb6-475" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-476"><a href="#cb6-476" aria-hidden="true" tabindex="-1"></a>u = (1 - p + pu)^{n-1}\;.</span>
-<span id="cb6-477"><a href="#cb6-477" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-478"><a href="#cb6-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-479"><a href="#cb6-479" aria-hidden="true" tabindex="-1"></a>Let's take the righthand side and use $p = c/(n-1)$: </span>
-<span id="cb6-480"><a href="#cb6-480" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-481"><a href="#cb6-481" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb6-482"><a href="#cb6-482" aria-hidden="true" tabindex="-1"></a>    u &amp;= (1 - p(1-u))^{n-1} <span class="sc">\\</span> </span>
-<span id="cb6-483"><a href="#cb6-483" aria-hidden="true" tabindex="-1"></a>      &amp;= \left(1 - \frac{c(1-u)}{n-1}\right)^{n-1}\;.</span>
-<span id="cb6-484"><a href="#cb6-484" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb6-485"><a href="#cb6-485" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-486"><a href="#cb6-486" aria-hidden="true" tabindex="-1"></a>This is a good time to go back to precalculus and remember the limit definition of the function $e^x$:</span>
-<span id="cb6-487"><a href="#cb6-487" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-488"><a href="#cb6-488" aria-hidden="true" tabindex="-1"></a>e^x = \lim_{n \rightarrow \infty}\left(1 + \frac{x}{n}\right)^{n}\;. </span>
-<span id="cb6-489"><a href="#cb6-489" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-490"><a href="#cb6-490" aria-hidden="true" tabindex="-1"></a>Since we are allowing $n$ to grow large in our application, we approximate </span>
-<span id="cb6-491"><a href="#cb6-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-492"><a href="#cb6-492" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-493"><a href="#cb6-493" aria-hidden="true" tabindex="-1"></a>u \approx e^{-c(1-u)}\;. </span>
-<span id="cb6-494"><a href="#cb6-494" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-495"><a href="#cb6-495" aria-hidden="true" tabindex="-1"></a>So, now we have a description of the fraction of nodes that *aren't* in the giant component. We can get a description of how many nodes *are* in the giant component by substituting $s = 1-u$, after which we get the equation we're really after: </span>
-<span id="cb6-496"><a href="#cb6-496" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb6-497"><a href="#cb6-497" aria-hidden="true" tabindex="-1"></a>s = 1- e^{-cs}</span>
-<span id="cb6-498"><a href="#cb6-498" aria-hidden="true" tabindex="-1"></a>$${#eq-giant-component-size}</span>
-<span id="cb6-499"><a href="#cb6-499" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-500"><a href="#cb6-500" aria-hidden="true" tabindex="-1"></a>This equation doesn't have a closed-form solution for $s$, but we can still plot it and compare the result to simulations (@fig-giant-component). Not bad! </span>
-<span id="cb6-501"><a href="#cb6-501" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-504"><a href="#cb6-504" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb6-505"><a href="#cb6-505" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap : "Each point gives the fraction of an ER graph with 50,000 nodes occupied by the largest component. The mean degree is on the horizontal axis. The black line gives the theoretical prediction of @eq-giant-component-size."</span></span>
-<span id="cb6-506"><a href="#cb6-506" aria-hidden="true" tabindex="-1"></a><span class="co">#| out.width : 80%</span></span>
-<span id="cb6-507"><a href="#cb6-507" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
-<span id="cb6-508"><a href="#cb6-508" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-giant-component</span></span>
-<span id="cb6-509"><a href="#cb6-509" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-510"><a href="#cb6-510" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-511"><a href="#cb6-511" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb6-512"><a href="#cb6-512" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb6-513"><a href="#cb6-513" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-514"><a href="#cb6-514" aria-hidden="true" tabindex="-1"></a><span class="co"># experiment: compute the size of the largest connected </span></span>
-<span id="cb6-515"><a href="#cb6-515" aria-hidden="true" tabindex="-1"></a><span class="co"># component as a function of graph size for a range of mean degrees. </span></span>
-<span id="cb6-516"><a href="#cb6-516" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-517"><a href="#cb6-517" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> largest_component(n, p):</span>
-<span id="cb6-518"><a href="#cb6-518" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.fast_gnp_random_graph(n, p)</span>
-<span id="cb6-519"><a href="#cb6-519" aria-hidden="true" tabindex="-1"></a>    S <span class="op">=</span> <span class="bu">max</span>(nx.connected_components(G), key<span class="op">=</span><span class="bu">len</span>)</span>
-<span id="cb6-520"><a href="#cb6-520" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(S) <span class="op">/</span> n</span>
-<span id="cb6-521"><a href="#cb6-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-522"><a href="#cb6-522" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">50000</span></span>
-<span id="cb6-523"><a href="#cb6-523" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.repeat(np.linspace(<span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="dv">11</span>), <span class="dv">10</span>)</span>
-<span id="cb6-524"><a href="#cb6-524" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> np.array([largest_component(n, c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)) <span class="cf">for</span> c <span class="kw">in</span> C])</span>
-<span id="cb6-525"><a href="#cb6-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-526"><a href="#cb6-526" aria-hidden="true" tabindex="-1"></a><span class="co"># theory: prediction based on Newman 11.16</span></span>
-<span id="cb6-527"><a href="#cb6-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-528"><a href="#cb6-528" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">.001</span>, <span class="fl">.6</span>, <span class="dv">101</span>)</span>
-<span id="cb6-529"><a href="#cb6-529" aria-hidden="true" tabindex="-1"></a>C_theory <span class="op">=</span> <span class="op">-</span>np.log(<span class="dv">1</span><span class="op">-</span>S)<span class="op">/</span>S</span>
-<span id="cb6-530"><a href="#cb6-530" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-531"><a href="#cb6-531" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the results to compare</span></span>
-<span id="cb6-532"><a href="#cb6-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-533"><a href="#cb6-533" aria-hidden="true" tabindex="-1"></a>plt.plot(C_theory, </span>
-<span id="cb6-534"><a href="#cb6-534" aria-hidden="true" tabindex="-1"></a>         S, </span>
-<span id="cb6-535"><a href="#cb6-535" aria-hidden="true" tabindex="-1"></a>         color <span class="op">=</span> <span class="st">"black"</span>, </span>
-<span id="cb6-536"><a href="#cb6-536" aria-hidden="true" tabindex="-1"></a>         label <span class="op">=</span> <span class="st">"Theoretical prediction"</span>)</span>
-<span id="cb6-537"><a href="#cb6-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-538"><a href="#cb6-538" aria-hidden="true" tabindex="-1"></a>plt.scatter(C, </span>
-<span id="cb6-539"><a href="#cb6-539" aria-hidden="true" tabindex="-1"></a>            U, </span>
-<span id="cb6-540"><a href="#cb6-540" aria-hidden="true" tabindex="-1"></a>            label <span class="op">=</span> <span class="st">"Experiment"</span>)</span>
-<span id="cb6-541"><a href="#cb6-541" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-542"><a href="#cb6-542" aria-hidden="true" tabindex="-1"></a>plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Mean degree"</span>, </span>
-<span id="cb6-543"><a href="#cb6-543" aria-hidden="true" tabindex="-1"></a>              ylabel <span class="op">=</span> <span class="st">"Proportion of graph in largest component"</span>)</span>
-<span id="cb6-544"><a href="#cb6-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-545"><a href="#cb6-545" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb6-546"><a href="#cb6-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-547"><a href="#cb6-547" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb6-548"><a href="#cb6-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-549"><a href="#cb6-549" aria-hidden="true" tabindex="-1"></a><span class="fu">### References</span></span>
-<span id="cb6-550"><a href="#cb6-550" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-551"><a href="#cb6-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-552"><a href="#cb6-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-553"><a href="#cb6-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-554"><a href="#cb6-554" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-555"><a href="#cb6-555" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-556"><a href="#cb6-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-557"><a href="#cb6-557" aria-hidden="true" tabindex="-1"></a></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 
