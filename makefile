@@ -11,6 +11,13 @@ publish:
 	git commit -m "Update"
 	git push
 
+stage: 
+	$(PYTHON) scripts/prep-qmd.py
+	quarto render --profile publish
+	$(PYTHON) scripts/create-ipynb.py
+	$(PYTHON) scripts/remove-hidden.py
+
+
 prep: 
 	$(PYTHON) scripts/prep-qmd.py
 	$(PYTHON) scripts/create-ipynb.py
