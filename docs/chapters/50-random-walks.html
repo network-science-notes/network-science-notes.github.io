@@ -388,7 +388,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></a></li></ol></nav>
 <div class="quarto-title">
-</div>
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></h1>
 </div>
 
 
@@ -684,7 +684,7 @@ window.Quarto = {
 <section id="implementation" class="level3">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <p>Let’s code up a quick example to visualize PageRank. We’ll use the Hamilton Mentions graph:</p>
-<div id="41a0949a" class="cell" data-execution_count="1">
+<div id="132d0068" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -704,7 +704,7 @@ window.Quarto = {
 </details>
 </div>
 <p>There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph.</p>
-<div id="742ed97a" class="cell" data-execution_count="2">
+<div id="71bba8c7" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
@@ -712,7 +712,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Now we can write our PageRank function. We’ll compute the transition matrix <span class="math inline">\(\mathbf{P}\)</span> and find its leading eigenvector.</p>
-<div id="45d2451f" class="cell" data-execution_count="3">
+<div id="206b5096" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
@@ -733,7 +733,7 @@ window.Quarto = {
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="19add1f6" class="cell" data-execution_count="4">
+<div id="0fc83090" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
@@ -748,7 +748,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> and the teleportation rate <span class="math inline">\(\alpha\)</span>:</p>
-<div id="e57a851d" class="cell" data-execution_count="5">
+<div id="ac621629" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
@@ -770,7 +770,7 @@ window.Quarto = {
 <section id="seeded-pagerank" class="level2">
 <h2 class="anchored" data-anchor-id="seeded-pagerank">Seeded PageRank</h2>
 <p>A useful feature of the way we’ve defined PageRank is that we can choose different teleportation vectors <span class="math inline">\(\mathbf{v}\)</span> in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> to highlight those specific characters. This approach is often called “personalized” or “seeded” PageRank.</p>
-<div id="491e8001" class="cell" data-execution_count="6">
+<div id="04ec2478" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>
@@ -787,8 +787,6 @@ window.Quarto = {
 <p>This time, we’ve highlighted the node corresponding to the character King George. Whereas when using the “basic” version of PageRank Hamilton, Burr, Washington, and Jefferson are all very important characters, in the personalized versio, Washington emerges as clearly the most important.</p>
 <p>This kind of idea is often applied in marketing and search. Suppose we know that a user is interested in site <span class="math inline">\(A\)</span>. Then, if that user searches for something online, we can use that information by computing a PageRank ranking and returning the top nodes, <em>using a biased teleportation vector</em>. This would allow us to balance the objectives of returning webpages that are relevant <em>overall</em> and webpages that are especially relevant <em>for that user</em>.</p>
 
-
-<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-brin1998anatomy" class="csl-entry" role="listitem">
@@ -887,57 +885,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1280,351 +1227,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> true</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-summary:</span><span class="co"> "Show code"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># Random Walks</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/50-random-walks.ipynb).* </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>Suppose that we have a very large network, and we'd like to explore it. Perhaps we don't even have access to all the edges. This is a common situation in data collection. A webscraper for gathering data, for example, doesn't have access to the entire network of webpages to be scraped; usually it has access to *one page at a time* and the links it contains. At each stage, the webscraper needs to follow a link in order to get the next piece of information. </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>There are many ways to explore a network, but the most fundamental one is the *simple random walk*. We'll discuss the simple random walk, highlight some of its core properties, and connect it to some ideas that we've already seen. Then, we'll introduce the *teleporting random walk*, which is the foundation of the internet-changing PageRank algorithm originally used by Google. Finally, we'll take another look network navigation and the small-world phenomenon. </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Simple Random Walk {#sec-srw}</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>The simple random walk is easier to describe in English than it is to formulate mathematically. In intuitive terms, we imagine a walker who starts at some node $i$ in the graph. The walker then picks one of the neighbors $j$ of $i$ uniformly at random, and moves to $j$. Then, the walker picks one of the neighbors $k$ of $j$ uniformly at random, and moves to $k$, and so on. </span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>::: {#def-simple-random-walk}</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simple Random Walk (SRW)</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>A **simple random walk** on a graph $G$ with adjacency matrix $\mathbf{A}\in \mathbb{R}^{n\times n}$ is a countable sequence of random variables $X_1,\ldots,X_t,\ldots$ which take values in the node set $N$ of $G$. We have </span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X_{t+1} = i | X_t = j_t, X_{t-1} = j_{t-1},\ldots,X_{1} = j_1) &amp;=  \mathbb{P}(X_{t+1} = i | X_t = j_t) <span class="sc">\\</span> </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>&amp;= \begin{cases}</span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>        \frac{1}{k_j} &amp;\quad j \text{ is connected to } i <span class="sc">\\</span> </span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        0 &amp;\quad \text{otherwise.}</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    \end{cases} <span class="sc">\\</span> </span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    &amp;= \frac{a_{ij}}{k_j}\;. </span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>In @def-simple-random-walk, the first equality is the *[Markov property](https://en.wikipedia.org/wiki/Markov_property)*: the future state of the random walk depends only on where it is right now (i.e. the value of $X_t$), not where it's been previously. The second and third equalities give mathematical structure to the idea of "picking a node connected to $j$ uniformly at random." </span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>::: {#def-transition-matrix}</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Transition Matrix of a SRW</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>The **transition matrix** of a simple random walk on a connected graph $G$ with adjacency matrix $\mathbf{A}$ is $\mathbf{P} = \mathbf{A}\mathbf{D}^{-1}$. Its entries are $p_{ij} = a_{ij}/k_j$, where $k_j$ is the degree of node $j$ and $\mathbf{D}$ is the diagonal matrix whose $jj$th entry is $k_j$. </span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>***Exercise***: Let $p_{ij}$ denote the entries of $\mathbf{P}$. Check that </span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>$\sum_{i \in N} p_{ij} = 1$, and interpret this fact. We say a matrix with this property is **(column) stochastic**.</span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>::: {.hide .solution}</span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a> As defined, $p_{ij} = \frac{a_{ij}}{k_j}$. Thus, $\sum_i p_{ij} = \sum_i \frac{a_{ij}}{k_j} = \frac{1}{k_j}\sum_i a_{ij} = \frac{k_j}{k_j} = 1$.</span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>What does the transition matrix do? Well, we can use the law of total probability to write: </span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X_{t+1} = i) &amp;= \sum_{j \in N}\mathbb{P}(X_{t+1} = i|X_{t} = j)\mathbb{P}(X_t = j) <span class="sc">\\</span> </span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>&amp;= \sum_{j \in N}p_{ij}\mathbb{P}(X_t = j)\;.</span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>Let $\mathbf{q}(t)$ be the vector with entries $q_i(t) = \mathbb{P}(X_{t} = i)$. We have just shown the most important relation in the study of random walks and their generalizations, Markov chains: </span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>:::{.callout-tip}</span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>\mathbf{q}(t+1) = \mathbf{P}\mathbf{q}(t)</span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>$${#eq-transition}</span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>@eq-transition has an immediate consequence: $\mathbf{q}(t) = \mathbf{P}^{t}\mathbf{q}(0)$. So, if we know the *initial distribution* $\mathbf{q}(0)$ describing the location at which the walker begins, we can get all other information we need from the matrix $\mathbf{P}$ and its powers. </span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="fu">### Stationary Distribution: Existence and Uniqueness</span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>Throughout this section, we assume that the graph $G$ is connected. </span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>We say that an SRW has a *stationary distribution* $\pi \in \mathbb{R}^n$ if $\lim_{t\rightarrow \infty} \mathbf{q}(t) = \mathbf{\pi}$, *regardless of the initial distribution* $\mathbf{q}(0)$. </span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>:::{#def-periodic}</span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a>A graph is *aperiodic* if the greatest common divisor of lengths of its cycles is 1. A graph is *periodic* if it is not aperiodic. </span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>A simple example of a periodic graph is a $k$-cycle. </span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>A less simple example is a *bipartite graph*, in which each node can be separated into one of two classes $S_1$ and $S_2$ such that nodes in $S_1$ only connect to nodes in $S_2$ (and not to any other nodes in $S_1$). </span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a>You can check that bipartiteness implies that every cycle has length divisible by 2, so the graph is periodic. </span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>:::{.callout-tip}</span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>:::{#thm-stationary}</span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>Suppose that $G$ is connected and aperiodic. Then, </span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$G$ has a stationary distribution $\pi$. </span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>This stationary distribution is unique. </span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The stationary distribution is the unique eigenvector of the transition matrix $\mathbf{P}$ with eigenvalue $1$. </span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>@thm-stationary is actually a theorem about discrete-time finite-state Markov chains in general, and its full proof is beyond the scope of this course. Here's a sketch:</span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The condition that $G$ is connected implies that the matrix $\mathbf{P}$ is <span class="co">[</span><span class="ot">irreducible</span><span class="co">](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Classification_of_matrices)</span>.</span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>This allows us to apply the <span class="co">[</span><span class="ot">Perron-Frobenius theorem</span><span class="co">](https://en.wikipedia.org/wiki/Perron–Frobenius_theorem)</span> to conclude that $\mathbf{P}$ has a unique eigenvector with strictly positive entries, which we'll call ${\bf \pi}$. Since $\mathbf{P}$ is column stochastic, a direct calculation shows that the corresponding eigenvalue of ${\bf \pi}$ is 1, and we have $\pi = \mathbf{P}\pi$. </span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>One further shows that $\lim_{t \rightarrow \infty}\mathbf{P}^t$ exists and that its rows become equal to the eigenvector $\pi$ (this is related to power iteration). </span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Because each row of limiting matrix describe the long-run behavior of the random walk from a given starting node, one infers that $\pi$ is indeed a stationary state. Because all the rows agree in the limit, one infers that $\pi$ is the only such stationary state. </span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### Stationary Distribution: Structure</span></span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>We know from @thm-stationary that there is a unique stationary distribution for the simple random walk, and that this distribution describes, in the long-term, the amount of time that the walker spends on a node. What actually *is* the stationary distribution? For many Markov chains, including more complicated random walks, it can be difficult to describe the stationary distribution exactly. In this case the answer is surprisingly simple, although it's one of those things that's much easier to check than it is to find in the first place. </span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>:::{#thm-degree}</span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stationary Distribution of an SRW</span></span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>The stationary distribution of an SRW is $\pi = \frac{1}{2m}\mathbf{k}$, where $\mathbf{k}$ is the vector of node degrees. </span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>:::{.proof}</span>
-<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>We can do a direct calculation:</span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>\mathbf{P}\pi = \mathbf{A}\mathbf{D}^{-1}\left(\frac{1}{2m}\mathbf{k}\right) = \frac{1}{2m}\mathbf{A}\mathbf{1} </span>
-<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>= \frac{1}{2m}\mathbf{k}</span>
-<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>= \pi\;. </span>
-<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>For the second equality we have used the quickly-checked identity $\mathbf{D}^{-1}\mathbf{k} = \mathbf{1}$, while for the third we have used the formula $\mathbf{k} = \mathbf{A}\mathbf{1}$. </span>
-<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>So, for simple random walks, $\mathbb{P}(X_t = i)$ when $t$ is large is approximately $k_i/2m$, proportional to the degree of node $i$. The intuition here is that the amount of time I spend in state is directly proportional to the number of ways that I can enter that state. </span>
-<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exploration and Ranking: PageRank</span></span>
-<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>PageRank is the algorithm that originally made Google a dominant player in the domain of web search.<span class="co">[</span><span class="ot">@brin1998anatomy</span><span class="co">]</span>{.aside} The idea of PageRank is again to explore the graph using a random exploration process. The underlying process is closely related to the simple random walk that we described earlier. However, there are two important differences. </span>
-<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>First, PageRank works on *directed* graphs. This matches the original application area; the web can be viewed as a *directed* network of links between pages. The reason directedness is so important is that, if $i \rightarrow j$ ($i$ links to $j$), it doesn't follow that $j\rightarrow i$. Capturing these kinds of asymmetric relationships is very important for reasonable ranking procedures. </span>
-<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Unlike the SRW, PageRank is able to explore graphs that are non-ergodic. </span>
-<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>So, suppose we have a *directed* graph with adjacency matrix $\mathbf{A}$. The important thing to remember is that now $\mathbf{A}$ is not required to be symmetric. We interpret the entries of the adjacency matrix so that $a_{ij} = 1$ if $j \rightarrow i$. Since $\mathbf{A}$ need not be symmetric, $a_{ij} \neq a_{ji}$ in general. </span>
-<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a>The definition of a random walk on a directed graph is very similar to the definition on an undirected graph. It is again a sequence of random variables with the Markov property; only the transition probabilities differ. </span>
-<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>:::{#def-directed-SRW}</span>
-<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simple Random Walk on a Directed Graph</span></span>
-<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>The SRW on a directed graph has transition probabilities </span>
-<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X_{t+1} = i | X_t = j) = \frac{a_{ij}}{k_j^{\mathrm{out}}}\;,</span>
-<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>where $k_j^{\mathrm{out}} = \sum_{i \in N}a_{ij}$ is the number of outgoing links from node $j$. The transition matrix of this walk is </span>
-<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>\mathbf{P} = \mathbf{A}(\mathbf{D}^{\mathrm{out}})^{-1}\;.</span>
-<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>:::{.callout-caution}</span>
-<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>Because $\mathbf{A}$ is not symmetric, we can also define $k_i^{\mathrm{in}} = \sum_{j \in N}a_{ij}$, the number of incoming links to node $j$. Importantly, $k_i^{\mathrm{in}} \neq k_i^{\mathrm{out}}$ in general. </span>
-<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>Many of the same considerations from the undirected setting carry over to the directed setting. </span>
-<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a>:::{.callout-tip}</span>
-<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a>:::{#thm-stationary-directed}</span>
-<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stationary Distributions of Directed Random Walks</span></span>
-<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>Suppose that:</span>
-<span id="cb7-181"><a href="#cb7-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-182"><a href="#cb7-182" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>There exists some integer power $t &gt; 0$ such that every entry of $\mathbf{A}^t$ is positive. </span>
-<span id="cb7-183"><a href="#cb7-183" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The greatest common divisor of the *directed* cycles in $G$ is 1. </span>
-<span id="cb7-184"><a href="#cb7-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-185"><a href="#cb7-185" aria-hidden="true" tabindex="-1"></a>Then, the SRW on $G$ has a stationary distribution $\pi$, which is a solution of the eigenproblem </span>
-<span id="cb7-186"><a href="#cb7-186" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-187"><a href="#cb7-187" aria-hidden="true" tabindex="-1"></a>\pi = \mathbf{P}\pi\;.</span>
-<span id="cb7-188"><a href="#cb7-188" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-189"><a href="#cb7-189" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-190"><a href="#cb7-190" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-191"><a href="#cb7-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-192"><a href="#cb7-192" aria-hidden="true" tabindex="-1"></a>Condition (1) in @thm-stationary-directed is essentially a connectedness condition: it says that there has to be a directed path from every node to every other node in the network. So, as you might reasonably expect, the directed random walk doesn't really overcome the need for the graph to be connected. This can be a problem for network exploration, as it's more common for directed networks to not be connected in this way.<span class="co">[</span><span class="ot">A bit more subtly, directed graphs that are *almost* disconnected are subject to *slow mixing* of the random walk, which implies very inefficient exploration of the network.</span><span class="co">]</span> PageRank overcomes this limitation by allowing the walker to randomly hop to new nodes, independent of the network structure. </span>
-<span id="cb7-193"><a href="#cb7-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-194"><a href="#cb7-194" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb7-195"><a href="#cb7-195" aria-hidden="true" tabindex="-1"></a>:::{#def-pagerank-walk}</span>
-<span id="cb7-196"><a href="#cb7-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-197"><a href="#cb7-197" aria-hidden="true" tabindex="-1"></a><span class="fu">## PageRank Random Walk</span></span>
-<span id="cb7-198"><a href="#cb7-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-199"><a href="#cb7-199" aria-hidden="true" tabindex="-1"></a>The **PageRank random walk** has two parameters: </span>
-<span id="cb7-200"><a href="#cb7-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The *teleportation vector* $\mathbf{v} \in \mathbb{R}^n_+$, which we assume to satisfy $\sum_{i\in N}v_i = 1$. </span>
-<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The *teleportation rate* $\alpha\in <span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>$. </span>
-<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a>This walk has transition probabilities </span>
-<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a>\mathbb{P}(X_{t+1} = i|X_{t}=j) = (1-\alpha)\frac{a_{ij}}{k_j^{\mathrm{out}}} + \alpha v_i\;. </span>
-<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a>$${#eq-pagerank-transition}</span>
-<span id="cb7-208"><a href="#cb7-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-209"><a href="#cb7-209" aria-hidden="true" tabindex="-1"></a>Its transition matrix is </span>
-<span id="cb7-210"><a href="#cb7-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-211"><a href="#cb7-211" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-212"><a href="#cb7-212" aria-hidden="true" tabindex="-1"></a>\mathbf{P} = (1-\alpha) \mathbf{A}(\mathbf{D}^{\mathrm{out}})^{-1} + \alpha \mathbf{V}\;,</span>
-<span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-216"><a href="#cb7-216" aria-hidden="true" tabindex="-1"></a>\mathbf{V} = \left[\begin{matrix}</span>
-<span id="cb7-217"><a href="#cb7-217" aria-hidden="true" tabindex="-1"></a>    | &amp; | &amp; \cdots &amp; | <span class="sc">\\</span> </span>
-<span id="cb7-218"><a href="#cb7-218" aria-hidden="true" tabindex="-1"></a>    \mathbf{v} &amp; \mathbf{v} &amp; \cdots &amp; \mathbf{v} <span class="sc">\\</span> </span>
-<span id="cb7-219"><a href="#cb7-219" aria-hidden="true" tabindex="-1"></a>    | &amp; | &amp; \cdots &amp; |</span>
-<span id="cb7-220"><a href="#cb7-220" aria-hidden="true" tabindex="-1"></a>\end{matrix}\right]\;.</span>
-<span id="cb7-221"><a href="#cb7-221" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb7-222"><a href="#cb7-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-223"><a href="#cb7-223" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-224"><a href="#cb7-224" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-225"><a href="#cb7-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-226"><a href="#cb7-226" aria-hidden="true" tabindex="-1"></a>Here's the intuitive way to think about this walk. At each time step, the walker flips a weighted coin with probability of heads equal to $\alpha$. </span>
-<span id="cb7-227"><a href="#cb7-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-228"><a href="#cb7-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If heads, the walker chooses to sample from the probability distribution encoded by $\mathbf{v}$. That is, the walker chooses from among all the nodes in $N$, and picks node $i$ with probability $v_i$. </span>
-<span id="cb7-229"><a href="#cb7-229" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>If tails, the walker instead follows a link, just like in the directed random walk. </span>
-<span id="cb7-230"><a href="#cb7-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-231"><a href="#cb7-231" aria-hidden="true" tabindex="-1"></a>This is why there are two terms in the transition probability in @eq-pagerank-transition. The first term corresponds to the "tails" scenario in which the walker does a step corresponding to the directed random walk, while the second term corresponds to teleportation. </span>
-<span id="cb7-232"><a href="#cb7-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-233"><a href="#cb7-233" aria-hidden="true" tabindex="-1"></a>The standard choice of the teleportation vector is $\mathbf{v} = \frac{1}{n}\mathbf{1}$, so each node has an equal probability of being chosen for teleportation. However, it's also possible to take other approaches, as we'll see in a moment. </span>
-<span id="cb7-234"><a href="#cb7-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-235"><a href="#cb7-235" aria-hidden="true" tabindex="-1"></a>:::{.callout-note}</span>
-<span id="cb7-236"><a href="#cb7-236" aria-hidden="true" tabindex="-1"></a>:::{#thm-pagerank}</span>
-<span id="cb7-237"><a href="#cb7-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-238"><a href="#cb7-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## Stationary Distribution of PageRank</span></span>
-<span id="cb7-239"><a href="#cb7-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-240"><a href="#cb7-240" aria-hidden="true" tabindex="-1"></a>Suppose that there exists an integer power $t$ such that $\mathbf{P}^t$ has all entries strictly positive. Then, the PageRank random walk has a unique stationary distribution, and this distribution may again be found by solving $\pi = \mathbf{P}\pi$. </span>
-<span id="cb7-241"><a href="#cb7-241" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-242"><a href="#cb7-242" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-243"><a href="#cb7-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-244"><a href="#cb7-244" aria-hidden="true" tabindex="-1"></a>:::{.callout-caution}</span>
-<span id="cb7-245"><a href="#cb7-245" aria-hidden="true" tabindex="-1"></a>**Exercise**: Show that, when $\mathbf{v} = \frac{1}{n}\mathbf{1}$, @thm-pagerank implies that the PageRank walk always has a stationary distribution, regardless of the graph. </span>
-<span id="cb7-246"><a href="#cb7-246" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-247"><a href="#cb7-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-248"><a href="#cb7-248" aria-hidden="true" tabindex="-1"></a>:::{.callout-caution}</span>
-<span id="cb7-249"><a href="#cb7-249" aria-hidden="true" tabindex="-1"></a>**Challenge**: Give a necessary and sufficient condition in terms of $\mathbf{A}$ and $\mathbf{v}$ for PageRank to have a stationary distribution. </span>
-<span id="cb7-250"><a href="#cb7-250" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb7-251"><a href="#cb7-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-252"><a href="#cb7-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-253"><a href="#cb7-253" aria-hidden="true" tabindex="-1"></a><span class="fu">### Implementation</span></span>
-<span id="cb7-254"><a href="#cb7-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-255"><a href="#cb7-255" aria-hidden="true" tabindex="-1"></a>Let's code up a quick example to visualize PageRank. We'll use the Hamilton Mentions graph: </span>
-<span id="cb7-256"><a href="#cb7-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-259"><a href="#cb7-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb7-260"><a href="#cb7-260" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb7-261"><a href="#cb7-261" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-262"><a href="#cb7-262" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb7-263"><a href="#cb7-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-264"><a href="#cb7-264" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv"</span>, </span>
-<span id="cb7-265"><a href="#cb7-265" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"mentioner"</span>, <span class="st">"mentioned"</span>])</span>
-<span id="cb7-266"><a href="#cb7-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-267"><a href="#cb7-267" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"mentioner"</span>] <span class="op">!=</span> df[<span class="st">"mentioned"</span>]]</span>
-<span id="cb7-268"><a href="#cb7-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-269"><a href="#cb7-269" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(df, </span>
-<span id="cb7-270"><a href="#cb7-270" aria-hidden="true" tabindex="-1"></a>                            source <span class="op">=</span> <span class="st">"mentioner"</span>, </span>
-<span id="cb7-271"><a href="#cb7-271" aria-hidden="true" tabindex="-1"></a>                            target <span class="op">=</span> <span class="st">"mentioned"</span>, </span>
-<span id="cb7-272"><a href="#cb7-272" aria-hidden="true" tabindex="-1"></a>                            edge_attr<span class="op">=</span><span class="va">None</span>, </span>
-<span id="cb7-273"><a href="#cb7-273" aria-hidden="true" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span>
-<span id="cb7-274"><a href="#cb7-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-275"><a href="#cb7-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-276"><a href="#cb7-276" aria-hidden="true" tabindex="-1"></a>There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph. </span>
-<span id="cb7-277"><a href="#cb7-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-280"><a href="#cb7-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb7-281"><a href="#cb7-281" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb7-282"><a href="#cb7-282" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> G.subgraph([name <span class="cf">for</span> name, val <span class="kw">in</span> G.out_degree() <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">0</span>])</span>
-<span id="cb7-283"><a href="#cb7-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-284"><a href="#cb7-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-285"><a href="#cb7-285" aria-hidden="true" tabindex="-1"></a>Now we can write our PageRank function. We'll compute the transition matrix $\mathbf{P}$ and find its leading eigenvector. </span>
-<span id="cb7-286"><a href="#cb7-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
-<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> np.isclose(v.<span class="bu">sum</span>(), <span class="fl">1.0</span>)</span>
-<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>    <span class="co"># construct the PR transition matrix</span></span>
-<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a>    A  <span class="op">=</span> nx.to_numpy_array(G).T</span>
-<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a>    K  <span class="op">=</span> np.diag(A.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">0</span>))     <span class="co"># K^out</span></span>
-<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a>    P_ <span class="op">=</span> A<span class="op">@</span>np.linalg.inv(K)           <span class="co"># random walk matrix</span></span>
-<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a>    V  <span class="op">=</span> np.outer(v, np.ones(<span class="bu">len</span>(v))) <span class="co"># teleportation matrix</span></span>
-<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a>    P <span class="op">=</span> (<span class="dv">1</span><span class="op">-</span>alpha)<span class="op">*</span>P_ <span class="op">+</span> alpha<span class="op">*</span>V        <span class="co"># overall transition matrix</span></span>
-<span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a>    <span class="co"># grab the eigenvector with eigenvalue 1, normalize it and return. </span></span>
-<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a>    eigs <span class="op">=</span> np.linalg.eig(P)        </span>
-<span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> eigs[<span class="dv">1</span>][:,np.isclose(eigs[<span class="dv">0</span>], <span class="fl">1.0</span>)]</span>
-<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> np.<span class="bu">abs</span>(pi) <span class="op">/</span> np.<span class="bu">abs</span>(pi).<span class="bu">sum</span>()</span>
-<span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi</span>
-<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
-<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> pagerank(G, v, alpha <span class="op">=</span> alpha)</span>
-<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, layout, </span>
-<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a>            node_size <span class="op">=</span> <span class="dv">5000</span><span class="op">*</span>pi, </span>
-<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a>            with_labels <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a>            edge_color <span class="op">=</span> <span class="st">"lightgray"</span>, </span>
-<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a>            node_color <span class="op">=</span> <span class="st">"lavender"</span>,</span>
-<span id="cb7-319"><a href="#cb7-319" aria-hidden="true" tabindex="-1"></a>            edgecolors  <span class="op">=</span> <span class="st">"darkgray"</span>)</span>
-<span id="cb7-320"><a href="#cb7-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-321"><a href="#cb7-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-322"><a href="#cb7-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-323"><a href="#cb7-323" aria-hidden="true" tabindex="-1"></a>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector $\mathbf{v}$ and the teleportation rate $\alpha$: </span>
-<span id="cb7-324"><a href="#cb7-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-327"><a href="#cb7-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb7-328"><a href="#cb7-328" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
-<span id="cb7-329"><a href="#cb7-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-330"><a href="#cb7-330" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(G.nodes())</span>
-<span id="cb7-331"><a href="#cb7-331" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>n<span class="op">*</span>np.ones(n)</span>
-<span id="cb7-332"><a href="#cb7-332" aria-hidden="true" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span>
-<span id="cb7-333"><a href="#cb7-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-334"><a href="#cb7-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-335"><a href="#cb7-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-336"><a href="#cb7-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## Seeded PageRank</span></span>
-<span id="cb7-337"><a href="#cb7-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-338"><a href="#cb7-338" aria-hidden="true" tabindex="-1"></a>A useful feature of the way we've defined PageRank is that we can choose different teleportation vectors $\mathbf{v}$ in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector $\mathbf{v}$ to highlight those specific characters. This approach is often called "personalized" or "seeded" PageRank. </span>
-<span id="cb7-339"><a href="#cb7-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-342"><a href="#cb7-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb7-343"><a href="#cb7-343" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>
-<span id="cb7-344"><a href="#cb7-344" aria-hidden="true" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span>
-<span id="cb7-345"><a href="#cb7-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb7-346"><a href="#cb7-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-347"><a href="#cb7-347" aria-hidden="true" tabindex="-1"></a>This time, we've highlighted the node corresponding to the character King George. Whereas when using the "basic" version of PageRank Hamilton, Burr, Washington, and Jefferson are all very important characters, in the personalized versio, Washington emerges as clearly the most important. </span>
-<span id="cb7-348"><a href="#cb7-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-349"><a href="#cb7-349" aria-hidden="true" tabindex="-1"></a>This kind of idea is often applied in marketing and search. Suppose we know that a user is interested in site $A$. Then, if that user searches for something online, we can use that information by computing a PageRank ranking and returning the top nodes, *using a biased teleportation vector*. This would allow us to balance the objectives of returning webpages that are relevant *overall* and webpages that are especially relevant *for that user*.</span>
-<span id="cb7-350"><a href="#cb7-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-351"><a href="#cb7-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-352"><a href="#cb7-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-353"><a href="#cb7-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-354"><a href="#cb7-354" aria-hidden="true" tabindex="-1"></a></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 

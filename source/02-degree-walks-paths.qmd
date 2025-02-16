@@ -3,11 +3,6 @@ fig-cap-location: margin
 code-fold: true
 ---
 
-```{python}
-import sys
-print(sys.executable)
-```
-
 
 
 # Degree, Walks, and Paths

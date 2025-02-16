@@ -389,7 +389,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/04-centrality.html">Measuring Networks</a></li><li class="breadcrumb-item"><a href="../chapters/05-viz.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></a></li></ol></nav>
 <div class="quarto-title">
-</div>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></h1>
 </div>
 
 
@@ -408,7 +408,7 @@ window.Quarto = {
 
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/05-viz.ipynb">here</a>.</em></p>
 <p>We’ve drawn networks several times in this course so far. Here’s one of our favorite running examples, the Karate Club graph. Let’s compare two ways to draw this network. On the left, we’ve drawn the graph by assigning every node to a location in the unit square <span class="math inline">\([0,1]^2\)</span> uniformly at random. On the right, we have used the default layout algorithm in NetworkX, which is invoked automatically when we call <code>nx.draw</code>.</p>
-<div id="406efd05" class="cell page-columns page-full" data-execution_count="1">
+<div id="406efd05" class="cell page-columns page-full" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -470,7 +470,7 @@ window.Quarto = {
 <li>Position the nodes in <span class="math inline">\(\mathbb{R}^2\)</span> according to the values of these eigenvectors: the first coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_2\)</span>, and the second coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_3\)</span>.</li>
 </ol>
 <div class="no-row-height column-margin column-container"><span class="margin-aside">Recall that, if <span class="math inline">\(G\)</span> is connected, then the very smallest eigenvalue of the Laplacian is always equal to 0 and corresponds to an eigenvector with constant entries.</span></div><p>This elegant algorithm is important enough to be implemented in NetworkX: it’s <code>nx.spectral_layout</code>. But we can implement a full version (for connected graphs) of it ourselves.</p>
-<div id="296142aa" class="cell" data-execution_count="2">
+<div id="296142aa" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A</span>
@@ -486,7 +486,7 @@ window.Quarto = {
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> {i: v[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())} <span class="co"># convert to dict</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How’d we do?</p>
-<div id="247cb512" class="cell" data-execution_count="3">
+<div id="247cb512" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos , <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -514,7 +514,7 @@ window.Quarto = {
 \tag{5.1}\]</span></span></p>
 <p>This objective function is also sometimes called an “energy” of the problem. Importantly, this objective function is minimized (at 0) when the Euclidean distances are exactly equal to the graph geodesic distances. This is not usually possible, and so we’ll often need to settle for a nonzero value of <span class="math inline">\(f(\mathbf{X}, G)\)</span>.</p>
 <p>Let’s implement a function that computes the energy, given a matrix of distances <span class="math inline">\(\mathbf{D}\)</span> and a matrix of node positions <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<div id="a2403d2f" class="cell" data-execution_count="4">
+<div id="a2403d2f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy(X, D):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n)])</span>
@@ -535,12 +535,12 @@ Exercise
 </div>
 </div>
 <div class="page-columns page-full"><p>With a formula in hand, we can implement: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">There is some redundancy in this function signature: we are passing the current position <span class="math inline">\(\mathbf{x}\)</span> of node <span class="math inline">\(k\)</span>, the positions <span class="math inline">\(\mathbf{X}\)</span> of all nodes, the matrix <span class="math inline">\(\mathbf{D}\)</span> of distances, and the index <span class="math inline">\(k\)</span> of node <span class="math inline">\(k\)</span>. The reason we are doing this is so that the minimization function we will soon employ works correctly.</span></div></div>
-<div id="cf378076" class="cell" data-execution_count="5">
+<div id="cf378076" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial_energy(x, X, D, k):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll implement an algorithm that attempts to minimize the energy by moving the position of each node, one at a time. We cycle through all the nodes, updating each of them, and then we repeat the process for some specified number of iterations. First, let’s visualize how this looks. Then, we’ll implement this algorithm ourselves.</p>
-<div id="5746be84" class="cell" data-execution_count="6">
+<div id="5746be84" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -551,7 +551,7 @@ Exercise
 </div>
 <p>Note that the energy very quickly shrinks after the first iteration. The structure of the visualization is resolved fairly clearly after just a small number of iterations.</p>
 <p>Ok, let’s implement a complete function.</p>
-<div id="e6451296" class="cell" data-execution_count="7">
+<div id="e6451296" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">100</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> nx.floyd_warshall_numpy(G) <span class="co"># matrix of Euclidean distances</span></span>
@@ -571,7 +571,7 @@ Exercise
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try it out:</p>
-<div id="13bbd2e4" class="cell" data-execution_count="8">
+<div id="13bbd2e4" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -596,7 +596,7 @@ Current energy : 304.19871914256396</code></pre>
 </div>
 <p>Our result looks pretty reasonable. Nodes that “should” be close to each other do indeed appear to be drawn close together in the graph.</p>
 <p>The results are not always reliable; if we check the Les Miserables graph, we might argue that a lot of the nodes in the dense center of the graph are a little too squished together:</p>
-<div id="f89e2b58" class="cell" data-execution_count="9">
+<div id="f89e2b58" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(nx.les_miserables_graph())</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -629,7 +629,7 @@ Current energy : 6283.155309438752</code></pre>
 \end{aligned}
 \]</span></p>
 <p>The implementation here is very similar to our unweighted implementation: we just need to divide by <span class="math inline">\(d_{ij}^2\)</span>.</p>
-<div id="d1ed8020" class="cell" data-execution_count="10">
+<div id="d1ed8020" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy_weighted(X, D):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span><span class="op">/</span>D[i, j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">if</span> j <span class="op">!=</span> i])</span>
@@ -637,7 +637,7 @@ Current energy : 6283.155309438752</code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial_energy_weighted(x, X, D, k):</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> D[k,j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()) <span class="cf">if</span> j <span class="op">!=</span> k])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a9752fdc" class="cell" data-execution_count="11">
+<div id="a9752fdc" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy_weighted, partial_energy_fun <span class="op">=</span> partial_energy_weighted)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -679,7 +679,7 @@ Current energy : 391.60209802539316</code></pre>
 <section id="what-you-should-do-instead" class="level3">
 <h3 class="anchored" data-anchor-id="what-you-should-do-instead">What You Should Do Instead</h3>
 <p>The right way to visualize the structure of your network is <em>very</em> context-dependent, and there are many, many possibilities. Here we’ll point out just one: the adjacency matrix. This is a common strategy for visualizing networks that separate into one or more distinct clusters, sometimes also called “communities.” For example, simply inspecting the adjacency matrix of the Les Miserables graph can reveal a lot about its structure:</p>
-<div id="e47b686e" class="cell" data-execution_count="12">
+<div id="e47b686e" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(G)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span>
@@ -700,8 +700,6 @@ Current energy : 391.60209802539316</code></pre>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 
-
-<!-- -->
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-kamada1989algorithm" class="csl-entry" role="listitem">
@@ -803,57 +801,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
-  }
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
@@ -1196,283 +1143,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Homophily, assortativity, and modularity</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">fig-cap-location:</span><span class="co"> margin</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="an">code-fold:</span><span class="co"> false</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="an">cache:</span><span class="co"> true</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="fu"># Visualizing Networks and Why You Shouldn't</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>*Open the live notebook in Google Colab [here](https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/05-viz.ipynb).* </span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>We've drawn networks several times in this course so far. Here's one of our favorite running examples, the Karate Club graph. Let's compare two ways to draw this network. On the left, we've drawn the graph by assigning every node to a location in the unit square $<span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>^2$ uniformly at random. On the right, we have used the default layout algorithm in NetworkX, which is invoked automatically when we call <span class="in">`nx.draw`</span>.</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Two ways to draw the Karate Club graph.</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap-location: margin</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt </span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.karate_club_graph())</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>draw_kwargs <span class="op">=</span> {<span class="st">"node_color"</span>: <span class="st">"steelblue"</span>, <span class="st">"node_size"</span>: <span class="dv">100</span>, <span class="st">"edge_color"</span>: <span class="st">"grey"</span>, <span class="st">"edgecolors"</span> : <span class="st">"white"</span>, <span class="st">"width"</span>: <span class="fl">0.5</span>}</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax[<span class="dv">1</span>], <span class="op">**</span>draw_kwargs)</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"NetworkX default layout"</span>)</span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_layout(G):</span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.rand(G.number_of_nodes(), <span class="dv">2</span>)</span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>random_layout(G)</span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> random_layout(G), ax <span class="op">=</span> ax[<span class="dv">0</span>], <span class="op">**</span>draw_kwargs)</span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Random layout"</span>)</span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>Which of these drawings look better to you? Which do you feel better helps you understand the structure of the graph? </span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![](https://www.data-imaginist.com/assets/img/edge_meme_wide.jpg)</span><span class="ot"> *Image credit: [Thomas Lin Pedersen](https://www.data-imaginist.com/posts/2017-02-16-ggraph-introduction-edges/)*</span><span class="co">]</span>{.column-margin}</span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## Network Drawing as Network Embedding</span></span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>While there are many aspects of network drawing (colors, shapes, etc), we'll focus in these notes on one of the most fundamental ones: where should the nodes be placed? Mathematically, placing the nodes in a graph is equivalent to the following task: </span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; To each node $i \in N$, assign a vector $\mathbf{x}_i \in \mathbb{R}^d$. </span></span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>If we collect all the nodes together, we aim to find a *matrix* $\mathbf{X} \in \mathbb{R}^{n \times d}$, where $n$ is the number of nodes in the graph, such that the $i$th row of $\mathbf{X}$ is the vector $\mathbf{x}_i$ assigned to node $i$. </span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>For drawing on a computer screen or chalkboard, $d = 2$. The general task of placing nodes in Euclidean space is often called *graph embedding* (or even more specifically *node embedding*), and has applications in deep learning for much higher values of $d$.</span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>In this set of notes, we'll motivate and implement two algorithms for performing the embedding task. We'll then discuss some of the significant limitations associated with drawing networks as points connected by line segments, and consider some alternatives. </span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Spectral Embedding</span></span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>In Section 6.14.2, @newman2018networks gives some heuristic reasons to suggest that our friend the Laplacian matrix might be useful for drawing networks. Specifically, if $\mathbf{x} \mathbb{R}$ is a vector giving the locations of nodes on a 1-d interval, the quadratic form $S(\mathbf{x}) = \mathbf{x}^T\mathbf{L}\mathbf{x}$ defined by the Laplacian matrix $\mathbf{L}$ is proportional to the sum of squared lengths on this interval. </span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>So, we might reasonably expect that minimizing $S(\mathbf{x})$ in some way will give us a drawing of the network in which edges are short. </span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>Since we know that the small eigenvalues of a symmetric matrix are related to the problem of minimizing the quadratic form $S(\mathbf{x})$, this suggests that finding the small eigenvalues of the Laplacian could be a useful way to proceed. </span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>As we've seen before, the Laplacian $\mathbf{L}$ has a 0 eigenvalue with an eigenvector of all 1's, which doesn't help us much. </span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>So, let's consider the *next* smallest eigenvalues. </span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>Since we want to draw the network in 2d, we'll take the two smallest eigenvalues of $\mathbf{L}$, and use their corresponding eigenvectors to give us 2d coordinates for each node. </span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>This algorithm is called *Laplacian spectral embedding*. Formally, </span>
-<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Form the Laplacian matrix $\mathbf{L} = \mathbf{D} - \mathbf{A}$. </span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Find the *second* and *third* smallest eigenvalues of the Laplacian.<span class="co">[</span><span class="ot">Recall that, if $G$ is connected, then the very smallest eigenvalue of the Laplacian is always equal to 0 and corresponds to an eigenvector with constant entries.</span><span class="co">]</span>{.aside}. Let $\mathbf{v}_2$ and $\mathbf{v}_3$ be their corresponding eigenvectors.</span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Position the nodes in $\mathbb{R}^2$ according to the values of these eigenvectors: the first coordinate is given by the entries of $\mathbf{v}_2$, and the second coordinate is given by the entries of $\mathbf{v}_3$.</span>
-<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>This elegant algorithm is important enough to be implemented in NetworkX: it's <span class="in">`nx.spectral_layout`</span>. But we can implement a full version (for connected graphs) of it ourselves. </span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A</span>
-<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> <span class="bu">tuple</span>(np.linalg.eig(L)) <span class="co"># compatibility with numpy 2.0.0</span></span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a>_, i, j <span class="op">=</span> np.argsort(E[<span class="dv">0</span>])[:<span class="dv">3</span>]</span>
-<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>v_1 <span class="op">=</span> E[<span class="dv">1</span>][:, i]</span>
-<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>v_2 <span class="op">=</span> E[<span class="dv">1</span>][:, j]</span>
-<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.column_stack([v_1, v_2])</span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> {i: v[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())} <span class="co"># convert to dict</span></span>
-<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a>How'd we do?</span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos , <span class="op">**</span>draw_kwargs)</span>
-<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a>Oh dear, that doesn't look very good at all! This is a good mini-lesson in applied mathematics: sometimes the most elegant solution is outstanding, and sometimes it just doesn't work very well in computational practice. </span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a><span class="fu">## Isometry Approximation: The Kamada-Kawai Algorithm</span></span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>Let's try a better approach: we'll have the distance between nodes in our drawing correspond the distance between nodes in the graph.There are multiple ways to operationalize this idea, but in these notes, we are going to follow the approach of @kamada1989algorithm. Their mathematical version of this motivation is:  </span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Choose $\mathbf{X}$ so that the Euclidean distance $d^e_{ij} = \lVert \mathbf{x}_i - \mathbf{x}_j \rVert$ is approximately the same as the graph geodesic distance $d^g_{ij}$ between nodes $i$ and $j$, for all pairs of nodes $(i,j)$. </span></span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>This approach is an expression of the geometric idea of *isometry*: we are looking to map the nodes from one metric space (the graph) into another metric space (Euclidean space) in a way that approximately preserves distance.</span>
-<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>In order to guide our choice of $\mathbf{X}$, we'll define an optimization objective that measures the deviation of the Euclidean distances from the graph geodesic distances: <span class="co">[</span><span class="ot">The set $\binom{N}{2}$ is the set of all pairs of nodes. The notation $\sum_{(i,j) \in \binom{N}{2}}$ is equivalent to the notatino $\sum_{i \in N} \sum_{\substack{j \in N \\ j \neq i}}$.</span><span class="co">]</span>{.aside}</span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>    f(\mathbf{X}, G) &amp;= \sum_{(i,j) \in \binom{N}{2}} \left( d^e_{ij} - d^g_{ij} \right)^2    <span class="sc">\\</span> </span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a>                     &amp;= \sum_{(i,j) \in \binom{N}{2}} \left( \lVert \mathbf{x}_i - \mathbf{x}_j \rVert - d^g_{ij} \right)^2\;.</span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a>$${#eq-energy}</span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a>This objective function is also sometimes called an "energy" of the problem. Importantly, this objective function is minimized (at 0) when the Euclidean distances are exactly equal to the graph geodesic distances. </span>
-<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>This is not usually possible, and so we'll often need to settle for a nonzero value of $f(\mathbf{X}, G)$.</span>
-<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a>Let's implement a function that computes the energy, given a matrix of distances $\mathbf{D}$ and a matrix of node positions $\mathbf{X}$.</span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy(X, D):</span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n)])</span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a><span class="co">#--- </span></span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a>There are multiple ways to solve the problem of minimizing the energy. In our approach, we are going to use a greedy algorithm in which we minimize the energy with respect to the position of one node at a time. To this end, it's also helpful to define a *partial energy* which measures the contribution of a single node to the total energy. This is the function that we'll actually minimize in our inner loop. </span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise</span></span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a>Give a formula for the partial energy for node $k$: the terms in @eq-energy that depend on node $k$. </span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a>With a formula in hand, we can implement: <span class="co">[</span><span class="ot">There is some redundancy in this function signature: we are passing the current position $\mathbf{x}$ of node $k$, the positions $\mathbf{X}$ of all nodes, the matrix $\mathbf{D}$ of distances, and the index $k$ of node $k$. The reason we are doing this is so that the minimization function we will soon employ works correctly.</span><span class="co">]</span>{.aside}</span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial_energy(x, X, D, k):</span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())])</span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a>Now we'll implement an algorithm that attempts to minimize the energy by moving the position of each node, one at a time. We cycle through all the nodes, updating each of them, and then we repeat the process for some specified number of iterations. First, let's visualize how this looks. Then, we'll implement this algorithm ourselves. </span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">4</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">4</span>))</span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> nx.floyd_warshall_numpy(G) <span class="co"># matrix of Euclidean distances</span></span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> random_layout(G) <span class="co"># initialization</span></span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ax <span class="kw">in</span> <span class="bu">enumerate</span>(ax.flatten()):</span>
-<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"Iteration </span><span class="sc">{</span>i<span class="sc">}</span><span class="ch">\n</span><span class="ss">Energy = </span><span class="sc">{</span>energy(X, D)<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, ax <span class="op">=</span> ax, node_size <span class="op">=</span> <span class="dv">50</span>, edge_color <span class="op">=</span> <span class="st">"gray"</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>, node_color <span class="op">=</span> <span class="st">"steelblue"</span>, width <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()):</span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> minimize(partial_energy, X[k], args <span class="op">=</span> (X, D, k), method <span class="op">=</span> <span class="st">'BFGS'</span>)</span>
-<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a>        X[k] <span class="op">=</span> res.x</span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a>Note that the energy very quickly shrinks after the first iteration. The structure of the visualization is resolved fairly clearly after just a small number of iterations. </span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a>Ok, let's implement a complete function. </span>
-<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-186"><a href="#cb15-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-187"><a href="#cb15-187" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">100</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy):</span>
-<span id="cb15-188"><a href="#cb15-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-189"><a href="#cb15-189" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> nx.floyd_warshall_numpy(G) <span class="co"># matrix of Euclidean distances</span></span>
-<span id="cb15-190"><a href="#cb15-190" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> random_layout(G) <span class="co"># initialization</span></span>
-<span id="cb15-191"><a href="#cb15-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-192"><a href="#cb15-192" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter): <span class="co"># specified number of iterations</span></span>
-<span id="cb15-193"><a href="#cb15-193" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Current energy : </span><span class="sc">{</span>energy_fun(X, D)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-194"><a href="#cb15-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-195"><a href="#cb15-195" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()):</span>
-<span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-197"><a href="#cb15-197" aria-hidden="true" tabindex="-1"></a>            <span class="co"># minimize the partial energy with respect to the position of node k</span></span>
-<span id="cb15-198"><a href="#cb15-198" aria-hidden="true" tabindex="-1"></a>            res <span class="op">=</span> minimize(partial_energy_fun, X[k], args <span class="op">=</span> (X, D, k), method <span class="op">=</span> <span class="st">'BFGS'</span>)</span>
-<span id="cb15-199"><a href="#cb15-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-200"><a href="#cb15-200" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update the position of node k</span></span>
-<span id="cb15-201"><a href="#cb15-201" aria-hidden="true" tabindex="-1"></a>            X[k] <span class="op">=</span> res.x</span>
-<span id="cb15-202"><a href="#cb15-202" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb15-203"><a href="#cb15-203" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span>
-<span id="cb15-204"><a href="#cb15-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-205"><a href="#cb15-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-206"><a href="#cb15-206" aria-hidden="true" tabindex="-1"></a>Let's try it out: </span>
-<span id="cb15-207"><a href="#cb15-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-210"><a href="#cb15-210" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-211"><a href="#cb15-211" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy)</span>
-<span id="cb15-212"><a href="#cb15-212" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span>
-<span id="cb15-213"><a href="#cb15-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-214"><a href="#cb15-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-215"><a href="#cb15-215" aria-hidden="true" tabindex="-1"></a>Our result looks pretty reasonable. Nodes that "should" be close to each other do indeed appear to be drawn close together in the graph. </span>
-<span id="cb15-216"><a href="#cb15-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-217"><a href="#cb15-217" aria-hidden="true" tabindex="-1"></a>The results are not always reliable; if we check the Les Miserables graph, we might argue that a lot of the nodes in the dense center of the graph are a little too squished together: </span>
-<span id="cb15-218"><a href="#cb15-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-221"><a href="#cb15-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-222"><a href="#cb15-222" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(nx.les_miserables_graph())</span>
-<span id="cb15-223"><a href="#cb15-223" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb15-224"><a href="#cb15-224" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span>
-<span id="cb15-225"><a href="#cb15-225" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-226"><a href="#cb15-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-227"><a href="#cb15-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### An Adjustment</span></span>
-<span id="cb15-228"><a href="#cb15-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-229"><a href="#cb15-229" aria-hidden="true" tabindex="-1"></a>We can compensate for this by weighting pairs of nodes differently. In the final form of the Kamada-Kawai algorithm, we modify the objective function by incorporating an inverse-square distance weighting. The modified objective function is </span>
-<span id="cb15-230"><a href="#cb15-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-231"><a href="#cb15-231" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb15-232"><a href="#cb15-232" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb15-233"><a href="#cb15-233" aria-hidden="true" tabindex="-1"></a>    f(\mathbf{X}, G)  &amp;= \sum_{(i,j) \in \binom{N}{2}} \frac{1}{\left(d^g_{ij}\right)^2}\left( \lVert \mathbf{x}_i - \mathbf{x}_j \rVert - d^g_{ij} \right)^2\;.</span>
-<span id="cb15-234"><a href="#cb15-234" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb15-235"><a href="#cb15-235" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb15-236"><a href="#cb15-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-237"><a href="#cb15-237" aria-hidden="true" tabindex="-1"></a>The implementation here is very similar to our unweighted implementation: we just need to divide by $d_{ij}^2$. </span>
-<span id="cb15-238"><a href="#cb15-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-241"><a href="#cb15-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-242"><a href="#cb15-242" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy_weighted(X, D):</span>
-<span id="cb15-243"><a href="#cb15-243" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
-<span id="cb15-244"><a href="#cb15-244" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span><span class="op">/</span>D[i, j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">if</span> j <span class="op">!=</span> i])</span>
-<span id="cb15-245"><a href="#cb15-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-246"><a href="#cb15-246" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial_energy_weighted(x, X, D, k):</span>
-<span id="cb15-247"><a href="#cb15-247" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> D[k,j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()) <span class="cf">if</span> j <span class="op">!=</span> k])</span>
-<span id="cb15-248"><a href="#cb15-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-249"><a href="#cb15-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-250"><a href="#cb15-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-253"><a href="#cb15-253" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-254"><a href="#cb15-254" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy_weighted, partial_energy_fun <span class="op">=</span> partial_energy_weighted)</span>
-<span id="cb15-255"><a href="#cb15-255" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span>
-<span id="cb15-256"><a href="#cb15-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-257"><a href="#cb15-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-258"><a href="#cb15-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-259"><a href="#cb15-259" aria-hidden="true" tabindex="-1"></a>This version resolves the nodes in the dense core of the network somewhat more cleanly. </span>
-<span id="cb15-260"><a href="#cb15-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-261"><a href="#cb15-261" aria-hidden="true" tabindex="-1"></a>::: {.column-margin}</span>
-<span id="cb15-262"><a href="#cb15-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-263"><a href="#cb15-263" aria-hidden="true" tabindex="-1"></a>A few caveats related to this algorithm: </span>
-<span id="cb15-264"><a href="#cb15-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-265"><a href="#cb15-265" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The energy function is nonconvex, and so in general it is possible for the optimization routine to get stuck at a suboptimal local minimum. </span>
-<span id="cb15-266"><a href="#cb15-266" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Any rotation or reflection of the node positions $\mathbf{X}$ yields a new layout with the same energy. </span>
-<span id="cb15-267"><a href="#cb15-267" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>The computation of the complete matrix of pairwise geodesic distances is in general quite expensive on networks of even moderate size. </span>
-<span id="cb15-268"><a href="#cb15-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-269"><a href="#cb15-269" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb15-270"><a href="#cb15-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-271"><a href="#cb15-271" aria-hidden="true" tabindex="-1"></a>There are many other ways to draw networks, several of which are implemented as built-in methods in NetworkX. See the <span class="co">[</span><span class="ot">documentation</span><span class="co">](https://networkx.org/documentation/stable/reference/drawing.html#module-networkx.drawing.layout)</span> for various other possibilities. </span>
-<span id="cb15-272"><a href="#cb15-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-273"><a href="#cb15-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-274"><a href="#cb15-274" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why You Shouldn't Draw Networks</span></span>
-<span id="cb15-275"><a href="#cb15-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-276"><a href="#cb15-276" aria-hidden="true" tabindex="-1"></a>Making attractive visualizations of large networks is a very fun and satisfying thing to do, and some software packages like <span class="co">[</span><span class="ot">Gephi</span><span class="co">](https://gephi.org/)</span> are specifically designed for this task. We encourage you to put network visualizations on your phone wallpaper, t-shirts, posters, websites, etc. <span class="co">[</span><span class="ot">Indeed, we put a particularly appealing network visualization by HZB's students on our [landing page](index.qmd), and PSC  made a graph visualization as the image background of [his website](https://www.philchodrow.prof/).</span><span class="co">]</span>{.aside}</span>
-<span id="cb15-277"><a href="#cb15-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-278"><a href="#cb15-278" aria-hidden="true" tabindex="-1"></a>So, what do we mean when we say that you shouldn't draw networks? In general, it's very difficult to extract reliable structural insights about networks by eye. This means that the one place drawings of networks *usually* don't belong is in scientific papers. It's just too easy for the eye to be drawn to structural features that may or may not actually be present in the data. For this reason, node-edge visualizations of large networks have been called names like "<span class="co">[</span><span class="ot">ridiculograms</span><span class="co">](https://petterhol.me/2018/05/28/ridiculograms-a-ridiculous-dialogue/)</span>" and <span class="co">[</span><span class="ot">hairballs</span><span class="co">](https://skewed.de/tiago/posts/hairball/)</span> by prominent network scientists. </span>
-<span id="cb15-279"><a href="#cb15-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-280"><a href="#cb15-280" aria-hidden="true" tabindex="-1"></a><span class="fu">### What You Should Do Instead</span></span>
-<span id="cb15-281"><a href="#cb15-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-282"><a href="#cb15-282" aria-hidden="true" tabindex="-1"></a>The right way to visualize the structure of your network is *very* context-dependent, and there are many, many possibilities. Here we'll point out just one: the adjacency matrix. This is a common strategy for visualizing networks that separate into one or more distinct clusters, sometimes also called "communities." For example, simply inspecting the adjacency matrix of the Les Miserables graph can reveal a lot about its structure: </span>
-<span id="cb15-283"><a href="#cb15-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-286"><a href="#cb15-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb15-287"><a href="#cb15-287" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
-<span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(G)</span>
-<span id="cb15-289"><a href="#cb15-289" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span>
-<span id="cb15-290"><a href="#cb15-290" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb15-291"><a href="#cb15-291" aria-hidden="true" tabindex="-1"></a>plt.imshow(A, cmap <span class="op">=</span> <span class="st">"Greys"</span>, vmax <span class="op">=</span> <span class="fl">1.2</span>)</span>
-<span id="cb15-292"><a href="#cb15-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-293"><a href="#cb15-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-294"><a href="#cb15-294" aria-hidden="true" tabindex="-1"></a>The adjacency matrix allows to easily see the presence of dense clusters (indeed, several cliques) in the graph, as well as a few nodes who seem to interact with almost all of the other ones. </span>
-<span id="cb15-295"><a href="#cb15-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-296"><a href="#cb15-296" aria-hidden="true" tabindex="-1"></a>In this case, the adjacency matrix was already sorted by node in a way that made the structure clear. In more complicated cases, we may need to use a *community detection algorithm* to find a way to sort the nodes that reveals useful structure. This is a complicated (and thorny) topic which we'll touch on later in this course. </span>
-<span id="cb15-297"><a href="#cb15-297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-298"><a href="#cb15-298" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 
 
