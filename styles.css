@@ -283,3 +283,15 @@ tr {
   border-top: 0px;
   padding-bottom: 0px;
 }
+
+.float-right {
+  float: right; 
+  margin: 5px;
+}
+
+#fig-placeholder > figure > div > img {
+  float: right; 
+}
+/* #fig-placeholder > figure > div {
+  float: right; 
+} */

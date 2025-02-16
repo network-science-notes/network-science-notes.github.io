@@ -3,12 +3,11 @@
 This is a set of notes developed for an undergraduate course in network science. The target audience for these notes are undergraduates in mathematics and computer science who have completed courses in linear algebra, discrete mathematics, and programming. 
 
 
+::: {.figure}
 
-<!-- <figure style="float: right; margin: 5px">
-    <img src="assets/img/second-neighbors.png"  />
-    <figcaption>Second neighbors of a node in a network. </figcaption>
-</figure> -->
+![Wikipedia math network. Each node is a Wikipedia page on a mathematical concept; directed edges are hyperlinks between pages. This data set was created and visualized by students Theo Rode (HMC '26), Maddie Reeve (HMC '26), Christian Johnson (HMC '26), and Bea Araiza (HMC '25) in Heather Zinn Brooks' course MATH 189: Network Science at Harvey Mudd College in fall 2024.](assets/img/wiki-math.png){width=400}
 
+:::
 
 These notes are a collaborative project by Dr. [Heather Zinn Brooks](https://sites.google.com/g.hmc.edu/hzinnbrooks) (Department of Mathematics, Harvey Mudd College) and Dr. [Phil Chodrow](https://www.philchodrow.prof) (Department of Computer Science, Middlebury College).
 
