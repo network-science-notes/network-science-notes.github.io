@@ -3,6 +3,7 @@ code-fold: false
 code-summary: "Show code"
 toc: true
 cache: true
+jupyter: python3
 ---
 
 # Structure of Empirical Networks

@@ -1,7 +1,7 @@
 ---
 code-fold: false
 code-summary: "Show code"
-jupyter: env
+jupyter: python3
 toc: true
 cache: true
 ---

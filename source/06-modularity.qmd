@@ -1,6 +1,7 @@
 ---
 code-fold: true
 code-summary: "Show code"
+jupyter: python3
 ---
 
 # Homophily, assortativity, and modularity

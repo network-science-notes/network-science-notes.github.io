@@ -1,7 +1,7 @@
 ---
 code-fold: true
 code-summary: "Show code"
-jupyter: env
+jupyter: python3
 ---
 
 # Centrality and Importance

@@ -1,6 +1,7 @@
 ---
 fig-cap-location: margin
 code-fold: true
+jupyter: python3
 ---
 
 
@@ -103,8 +104,6 @@ nx.draw(G_LesMis, **plot_kwargs)
 ```
 
 Now let's compute the degree of each node. There are multiple ways to achieve this task: we can work directly using the adjacency matrix, or we can use the built-in NetworkX function `nx.degree()`.
-
-#### Degrees from the Adjacency Matrix
 
 One way to compute the degrees of the nodes in a graph is to use the adjacency matrix, as directly described by @def-degree. With convenient functions from NetworkX and NumPy, this is a two-liner: [For undirected graphs, we could equally do `np.sum(A, axis = 0)` because $\mathbf{A}$ is a symmetric matrix. When we discuss directed graphs soon, it will become necessary to be careful!]{.aside}
 
@@ -254,6 +253,8 @@ for name, degree in dict(in_degree_view).items():
 Repeat this calculation and check that you can also compute *out*-degrees, with a matching result. 
 
 :::
+
+### Regular Graphs
 
 
 The degree sequence can contain a lot of information about the graph structure. One important class of graphs has constant degree:  
@@ -416,7 +417,7 @@ It is not always the case that there exists a walk between two specified nodes, 
 ::: {.callout-note icon=false appearance="minimal"}
 ::: {#def-tree}
 
-A **connected graph** is a graph with the property that, between every pair of nodes $i$ and $j$, there exists a path from $i$ to $j$. 
+A **connected graph** is a graph with the property that, between every pair of nodes $i$ and $j$, there exists a walk from $i$ to $j$. 
 
 :::
 :::
@@ -456,7 +457,7 @@ We proceed by induction on walk length $r$. We discussed the base case above: th
 Now, suppose that ${\bf A}^r$ gives the number of walks of length $r$; we will show that ${\bf A}^{r+1}$ gives the number of walks of length ${r+1}$. By definition, ${\bf A}^{r+1} = {\bf A}^{r}{\bf A}.$ Thinking about matrix multiplication as an inner product, we see that the $ij$ entry can be written
 
 $$
-    A_{ij}^{r+1} = \sum_{l=1}^n A_{il}^rA_{lj} \,,
+    A_{ij}^{r+1} = \sum_{l=1}^n [A^r]_{il}A_{lj} \,,
 $$
 
 that is, entry $ij$ comes from summing the componentwise product of the $i$th row of ${\bf A}^r$ with the $j$th column of ${\bf A}.$

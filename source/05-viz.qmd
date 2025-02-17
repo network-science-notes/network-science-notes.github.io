@@ -2,6 +2,7 @@
 fig-cap-location: margin
 code-fold: false
 cache: true
+jupyter: python3
 ---
 
 # Visualizing Networks and Why You Shouldn't
