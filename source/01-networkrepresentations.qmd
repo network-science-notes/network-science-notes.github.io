@@ -442,7 +442,6 @@ $$
 
 ::: {.hide}
 
-
 ```{python}
 #| eval: false
 
@@ -474,9 +473,7 @@ nx.draw(G,
 
 :::
 
-
-
-
+We'll consider some of the algorithmic considerations associated with visualizing networks in [a later section](05-viz.qmd). 
 
 
 ## References

@@ -129,7 +129,7 @@ Let's implement a function that computes the energy, given a matrix of distances
 def energy(X, D):
     n = X.shape[0]
     return np.sum([(np.linalg.norm(X[i] - X[j]) - D[i, j])**2 for i in range(n) for j in range(n)])
-#--- 
+#---
 ```
 
 There are multiple ways to solve the problem of minimizing the energy. In our approach, we are going to use a greedy algorithm in which we minimize the energy with respect to the position of one node at a time. To this end, it's also helpful to define a *partial energy* which measures the contribution of a single node to the total energy. This is the function that we'll actually minimize in our inner loop. 
