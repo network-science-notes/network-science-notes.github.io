@@ -553,7 +553,7 @@ Figure&nbsp;3.2: A undirected graph.
 </div>
 </div></div></div>
 <div class="page-columns page-full"><p>Now we’ll take a look at the Laplacian matrix. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">It is also possible to extract the Laplacian matrix using the NetworkX built-in <code>nx.laplacian_matrix(G)</code>.</span></div></div>
-<div id="ecc8de82" class="cell" data-execution_count="3">
+<div id="e7bec3cd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> laplacian(G): </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
@@ -678,7 +678,7 @@ Figure&nbsp;3.3: A graph with three connected components.
 </div>
 </div></div></div>
 <p>Now we can check that there are exactly 3 zero eigenvalues.</p>
-<div id="97c24747" class="cell" data-execution_count="5">
+<div id="65c6f63f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> laplacian(G)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L)</span>
@@ -692,7 +692,7 @@ Figure&nbsp;3.3: A graph with three connected components.
 <div id="cell-fig-laplacian-almost-disconnected" class="cell page-columns page-full" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">3</span>), gridspec_kw<span class="op">=</span>{<span class="st">'width_ratios'</span>: [<span class="fl">1.5</span>, <span class="dv">1</span>]})</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.stochastic_block_model([<span class="dv">10</span>, <span class="dv">10</span>], [[<span class="fl">0.5</span>, <span class="fl">0.02</span>], [<span class="fl">0.02</span>, <span class="fl">0.5</span>]], seed <span class="op">=</span> <span class="dv">1234</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -702,7 +702,7 @@ Figure&nbsp;3.3: A graph with three connected components.
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L)</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># eigvecs[:,1]</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax[<span class="dv">0</span>], node_color <span class="op">=</span> eigvecs[:,<span class="dv">1</span>], node_size <span class="op">=</span> <span class="dv">20</span>, cmap <span class="op">=</span> <span class="st">"BrBG"</span>, edge_color <span class="op">=</span> <span class="st">'gray'</span>, width <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> ax[<span class="dv">0</span>], node_color <span class="op">=</span> eigvecs[:,<span class="dv">1</span>], node_size <span class="op">=</span> <span class="dv">100</span>, cmap <span class="op">=</span> <span class="st">"BrBG"</span>, edge_color <span class="op">=</span> <span class="st">'gray'</span>, width <span class="op">=</span> <span class="fl">0.5</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>)</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].scatter(np.arange(<span class="bu">len</span>(eigvals)), np.sort(eigvals), facecolor <span class="op">=</span> <span class="st">'white'</span>, edgecolor <span class="op">=</span> <span class="st">'black'</span>)</span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
@@ -712,7 +712,7 @@ Figure&nbsp;3.3: A graph with three connected components.
 <div id="fig-laplacian-almost-disconnected" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-laplacian-almost-disconnected-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="03-components-laplacian_files/figure-html/fig-laplacian-almost-disconnected-output-1.png" width="466" height="276" class="figure-img">
+<img src="03-components-laplacian_files/figure-html/fig-laplacian-almost-disconnected-output-1.png" width="540" height="276" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-laplacian-almost-disconnected-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components; deleting two edges would separate the network. (Right): the eigenvalues of the Laplacian of the graph in ascending order. The second-smallest eigenvalue is very close to 0, which reflects the near-disconnectedness of the graph. Nodes in the graph are colored according to the corresponding eigenvector
@@ -756,7 +756,7 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 \]</span></p>
 <p>So, our smoothness measure is the quadratic form <span class="math inline">\(\mathbf{x}^T\mathbf{Lx}\)</span>. The role of the Laplacian in measuring the smoothness of functions defined on graphs is another perspective on its use in both algorithms and modeling of dynamical systems.</p>
 <p>To operationalize this, let’s implement a smoothness score:</p>
-<div id="d965d763" class="cell" data-execution_count="7">
+<div id="82d8e6fc" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> smoothness(G, x): </span>
@@ -765,7 +765,7 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 </details>
 </div>
 <p>Now we can compare the smoothness of a random vector with the smoothness of a vector that varies in a more continuous fashion across the graph. <span class="alert">I’ve obtained the smooth vector as the eigenvector corresponding to the second-smallest eigenvalue (as in the example above), but this isn’t important in this context; it’s just one convenient way to get a smooth vector.</span></p>
-<div id="e684fb7b" class="cell" data-execution_count="8">
+<div id="a956f14d" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.random_geometric_graph(<span class="dv">50</span>, <span class="fl">0.25</span>, seed <span class="op">=</span> <span class="dv">1234</span>)</span>
@@ -809,7 +809,7 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 \end{aligned}
 \]</span></p>
 <p>where <span class="math inline">\(\alpha\)</span> is some constant that describes the rate of heat transfer. Let’s see how this looks:</p>
-<div id="2465839a" class="cell page-columns page-full" data-execution_count="9">
+<div id="f6d8aa1b" class="cell page-columns page-full" data-execution_count="9">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>

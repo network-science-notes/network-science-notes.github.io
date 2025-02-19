@@ -289,7 +289,7 @@ In a graph with just one connected component, @thm-laplacian-0-multiplicity impl
 #| fig-cap : " (Left) A graph which is almost disconnected into two components; deleting two edges would separate the network. (Right): the eigenvalues of the Laplacian of the graph in ascending order. The second-smallest eigenvalue is very close to 0, which reflects the near-disconnectedness of the graph. Nodes in the graph are colored according to the corresponding eigenvector"
 #| label: fig-laplacian-almost-disconnected
 #| 
-fig, ax = plt.subplots(1, 2, figsize = (6, 3))
+fig, ax = plt.subplots(1, 2, figsize = (7, 3), gridspec_kw={'width_ratios': [1.5, 1]})
 
 G = nx.stochastic_block_model([10, 10], [[0.5, 0.02], [0.02, 0.5]], seed = 1234)
 
@@ -299,7 +299,7 @@ L = laplacian(G)
 eigvals, eigvecs = np.linalg.eig(L)
 # eigvecs[:,1]
 
-nx.draw(G, pos, ax = ax[0], node_color = eigvecs[:,1], node_size = 20, cmap = "BrBG", edge_color = 'gray', width = 0.5)
+nx.draw(G, pos, ax = ax[0], node_color = eigvecs[:,1], node_size = 100, cmap = "BrBG", edge_color = 'gray', width = 0.5, edgecolors = "white")
 
 ax[1].scatter(np.arange(len(eigvals)), np.sort(eigvals), facecolor = 'white', edgecolor = 'black')
 
