@@ -1,6 +1,7 @@
 ---
 code-fold: true
 code-summary: "Show code"
+jupyter: python3
 ---
 
 # Components and the Graph Laplacian
@@ -163,10 +164,16 @@ nx.draw(G, with_labels = True, font_color = 'white', font_weight = 'bold', **plo
 Now we'll take a look at the Laplacian matrix. [It is also possible to extract the Laplacian matrix using the NetworkX built-in `nx.laplacian_matrix(G)`.]{.aside}
 
 ```{python}
+#| code-fold: false
+
 #---
-A = nx.to_numpy_array(G)
-D = np.diag(np.sum(A, axis = 1))
-L = D - A
+def laplacian(G): 
+    A = nx.to_numpy_array(G)
+    D = np.diag(np.sum(A, axis = 1))
+    L = D - A
+    return L
+
+L = laplacian(G)
 print(L)
 #---
 ```
@@ -185,18 +192,30 @@ We now investigate the mathematical properties of the graph Laplacian. We'll lea
 ## Elementary Properties of the Graph Laplacian
 
 - ${\bf L}$ is real and symmetric.
-- ${\bf L}{\bf 1} = {\bf 0}.$ That is, every row sums to 0.
 - The eigenvalues of $\mathbf{L}$ are all real. 
+- ${\bf L}{\bf 1} = {\bf 0}.$ That is, every row sums to 0.
 
 :::
 :::
 
-Another important property of the Laplacian is that it is *positive semi-definite*, which means that all of its eigenvalues are not only real but nonnegative: 
+Another important property of the Laplacian is that it is *positive semi-definite*.  
 
 ::: {.callout-tip icon=false collapse=true}
 ::: {#thm-laplacian-psd}
 
-## Positive Semi-Definiteness of the Graph Laplacian
+## Positive-semidefiniteness of the Laplacian
+
+For any $\mathbf{x} \in \mathbb{R}^n$, it holds that $\mathbf{x}^T\mathbf{Lx} \geq 0$.
+
+:::
+:::
+
+Because the Laplacian is symmetric, this is equivalent to: 
+
+::: {.callout-tip icon=false collapse=true}
+::: {#thm-laplacian-psd-eigs}
+
+## The Laplacian has nonnegative eigenvalues
 
 If $\lambda$ is an eigenvalue of the Laplacian $\mathbf{L}$, then $\lambda \geq 0$.
 
@@ -204,7 +223,7 @@ If $\lambda$ is an eigenvalue of the Laplacian $\mathbf{L}$, then $\lambda \geq 
 :::
 
 
-In fact, the preceding properties already give us one important piece of information about the spectral structure of the Laplacian: 
+Can we get more specific about the spectral structure of the eigenvalues? In fact, we already have one important piece of information: 
 
 ::: {.callout-tip icon=false collapse=true}
 ::: {#thm-laplacian-0-eigenvalue}
@@ -229,17 +248,6 @@ Furthermore, the *multiplicity* of the zero eigenvalue gives us information abou
 :::
 :::
 
-To prove this statement, we need to show that the algebraic multiplicity of the zero eigenvalue is both a lower and an upper bound on the number of connected components.
-
-::: {.callout-important}
-
-## Exercise
-
-Prove that the algebraic multiplicity is an *upper bound* on the number of connected components. To do so, first argue that you can write the matrix $\mathbf{L}$ in a block-diagonal form. Then, find an eigenpair with zero eigenvalue for each of the blocks. 
-
-:::
-
-We'll prove that the algebraic multiplicity is also a *lower* bound on the number of connected components as a homework assignment. 
 
 Here's an example of applying this theorem: we'll construct a graph with 3 connected components and show that the Laplacian has 3 zero eigenvalues.
 
@@ -264,22 +272,21 @@ nx.draw(G,pos, ax = ax, **plot_kwargs)
 Now we can check that there are exactly 3 zero eigenvalues. 
 
 ```{python}
+#| code-fold: false
+
 #---
-A = nx.to_numpy_array(G)
-D = np.diag(np.sum(A, axis = 1))
-L = D - A
+L = laplacian(G)
 
 eigvals, eigvecs = np.linalg.eig(L)
 num_0_eigs = np.isclose(eigvals, 0, atol = 1e-10).sum() # number of zero eigenvalues
-#---
-
 print("Number of zero eigenvalues: ", num_0_eigs)
+#---
 ```
 
 In a graph with just one connected component, @thm-laplacian-0-multiplicity implies that there is exactly one zero eigenvalue of $\mathbf{L}$. It turns out that if the graph is "almost disconnected" into two components, then the second-smallest eigenvalue of the Laplacian will be "almost 0". This is part of the motivation behind Laplacian spectral clustering, an algorithm which [we'll see later on](chapters/19-spectral-clustering.qmd). [This kind of structure is often called *community structure* and we will study it much more later in the course.]{.aside} Here's an example of such a graph, which we've plotted alongside the eigenvalues of the Laplacian: 
 
 ```{python}
-#| fig-cap : " (Left) A graph which is almost disconnected into two components; deleting two edges would separate the network. (Right): the eigenvalues of the Laplacian of the graph in ascending order. The second-smallest eigenvalue is very close to 0, which reflects the near-disconnectedness of the graph."
+#| fig-cap : " (Left) A graph which is almost disconnected into two components; deleting two edges would separate the network. (Right): the eigenvalues of the Laplacian of the graph in ascending order. The second-smallest eigenvalue is very close to 0, which reflects the near-disconnectedness of the graph. Nodes in the graph are colored according to the corresponding eigenvector"
 #| label: fig-laplacian-almost-disconnected
 #| 
 fig, ax = plt.subplots(1, 2, figsize = (6, 3))
@@ -288,13 +295,11 @@ G = nx.stochastic_block_model([10, 10], [[0.5, 0.02], [0.02, 0.5]], seed = 1234)
 
 pos = nx.spring_layout(G, seed = 1234)
 
-nx.draw(G, pos, ax = ax[0], **plot_kwargs)
-
-A = nx.to_numpy_array(G)
-D = np.diag(np.sum(A, axis = 1))
-L = D - A
-
+L = laplacian(G)
 eigvals, eigvecs = np.linalg.eig(L)
+# eigvecs[:,1]
+
+nx.draw(G, pos, ax = ax[0], node_color = eigvecs[:,1], node_size = 20, cmap = "BrBG", edge_color = 'gray', width = 0.5)
 
 ax[1].scatter(np.arange(len(eigvals)), np.sort(eigvals), facecolor = 'white', edgecolor = 'black')
 
@@ -345,6 +350,45 @@ $$
 
 
 So, our smoothness measure is the quadratic form $\mathbf{x}^T\mathbf{Lx}$. The role of the Laplacian in measuring the smoothness of functions defined on graphs is another perspective on its use in both algorithms and modeling of dynamical systems. 
+
+To operationalize this, let's implement a smoothness score: 
+
+```{python}
+#---
+def smoothness(G, x): 
+    L = laplacian(G)
+    return x@L@x
+#---
+```
+
+Now we can compare the smoothness of a random vector with the smoothness of a vector that varies in a more continuous fashion across the graph. [I've obtained the smooth vector as the eigenvector corresponding to the second-smallest eigenvalue (as in the example above), but this isn't important in this context; it's just one convenient way to get a smooth vector.]{.alert}
+
+```{python}
+G = nx.random_geometric_graph(50, 0.25, seed = 1234)
+pos = nx.kamada_kawai_layout(G)
+
+n = G.number_of_nodes()
+fig, ax = plt.subplots(1, 2, figsize = (6, 3))
+
+# nonsmooth version, normalized
+x_random = np.random.rand(n)
+x_random = x_random / np.linalg.norm(x_random)
+
+nx.draw(G, pos, node_color = x_random, ax = ax[0], node_size = 30, edge_color = "grey", edgecolors = "white", width = 0.5, cmap = "BrBG")
+ax[0].set_title(f"Smoothness: {smoothness(G, x_random):.2f}")
+
+# smooth version, normalized
+L = laplacian(G)
+x_smooth = np.linalg.eig(L)[1][:,1]
+x_smooth = x_smooth / np.linalg.norm(x_smooth)
+
+nx.draw(G, pos, node_color = x_smooth, ax = ax[1], node_size = 30, edge_color = "grey", edgecolors = "white", width = 0.5, cmap = "BrBG")
+
+title = ax[1].set_title(f"Smoothness: {smoothness(G, x_smooth):.2f}")
+```
+
+Indeed, the vector which varies more smoothly across the graph (with fewer large large "jumps" along edges) has a much smaller smoothness score.
+
 
 
 ### The Graph Laplacian as a Diffusion Operator
