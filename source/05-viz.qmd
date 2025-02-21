@@ -111,7 +111,7 @@ Let's try a better approach: we'll have the distance between nodes in our drawin
 
 This approach is an expression of the geometric idea of *isometry*: we are looking to map the nodes from one metric space (the graph) into another metric space (Euclidean space) in a way that approximately preserves distance.
 
-In order to guide our choice of $\mathbf{X}$, we'll define an optimization objective that measures the deviation of the Euclidean distances from the graph geodesic distances: [The set $\binom{N}{2}$ is the set of all pairs of nodes. The notation $\sum_{(i,j) \in \binom{N}{2}}$ is equivalent to the notatino $\sum_{i \in N} \sum_{\substack{j \in N \\ j \neq i}}$.]{.aside}
+In order to guide our choice of $\mathbf{X}$, we'll define an optimization objective that measures the deviation of the Euclidean distances from the graph geodesic distances: [The set $\binom{N}{2}$ is the set of all pairs of nodes. The notation $\sum_{(i,j) \in \binom{N}{2}}$ is equivalent to the notation $\sum_{i \in N} \sum_{\substack{j \in N \\ j \neq i}}$.]{.aside}
 
 $$
 \begin{aligned}

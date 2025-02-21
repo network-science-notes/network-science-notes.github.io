@@ -3,6 +3,9 @@ code-fold: true
 code-summary: "Show code"
 ---
 
+
+<!-- PC NOTE: MAYBE DO SOME COMPUTATIONAL VALIDATION OF THE APPROXIMATION k_ik_j/2m? -->
+
 # Configuration models
 
 **Configuration models** are models of random graphs with a given degree sequence.

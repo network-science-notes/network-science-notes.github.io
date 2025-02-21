@@ -406,4 +406,5 @@ There are many other ways to perform community detection in networks. Sticking t
 There are additional choices and complications introduced when considering directed graphs or graphs in which edges can include more than two nodes. 
 
 
+
 ## References

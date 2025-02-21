@@ -243,7 +243,7 @@ Furthermore, the *multiplicity* of the zero eigenvalue gives us information abou
 
 ## Multiplicity of the 0 Eigenvalue Counts Connected Components
 
-- Graph $G$ has $c$ components if and only if its graph Laplacian has exactly $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
+Graph $G$ has $c$ components if and only if its graph Laplacian has exactly $c$ zero eigenvalues (that is, the eigenvalue $\lambda = 0$ has algebraic multiplicity $c$.)
 
 :::
 :::
