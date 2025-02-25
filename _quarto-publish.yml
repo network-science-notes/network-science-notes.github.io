@@ -8,15 +8,13 @@ book:
         - chapters/03-components-laplacian.qmd
         - chapters/04-centrality.qmd
         - chapters/05-viz.qmd
-    - part: "Real-World Networks"
-      chapters: 
         - chapters/07-real-world.qmd
-        - chapters/08-power-laws.qmd
     - part: "Models of Networks"
       chapters:
           - chapters/09-random-graphs.qmd
           - chapters/10-configuration-model.qmd
           - chapters/11-generating-functions.qmd
+          - chapters/120-preferential-attachment.qmd
     - part: "Network Algorithms"
       chapters:
         - chapters/06-modularity.qmd

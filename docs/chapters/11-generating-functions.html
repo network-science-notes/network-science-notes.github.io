@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>10&nbsp; Probability Generating Functions – Network Science: Models, Mathematics, and Computation</title>
+<title>9&nbsp; Probability Generating Functions – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapters/06-modularity.html" rel="next">
+<link href="../chapters/120-preferential-attachment.html" rel="next">
 <link href="../chapters/10-configuration-model.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -111,7 +111,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/11-generating-functions.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/11-generating-functions.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -173,12 +173,18 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Real-World Networks</span></a>
+ <span class="menu-text">Models of Networks</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -186,14 +192,26 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapters/08-power-laws.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Power Law Degree Distributions</span></span></a>
+  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
   </div>
 </li>
       </ul>
@@ -201,41 +219,12 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
+ <span class="menu-text">Network Algorithms</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
@@ -264,13 +253,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
@@ -320,9 +309,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/11-generating-functions.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/11-generating-functions.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></h1>
 </div>
 
 
@@ -350,7 +339,7 @@ window.Quarto = {
 </div>
 <div class="callout-body-container">
 <div id="def-pgf" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 10.1</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree, with degree distribution <span class="math inline">\(p_k\)</span>. The <strong>probability generating function</strong> <span class="math inline">\(g(z)\)</span> is given by</p>
+<p><span class="theorem-title"><strong>Definition 9.1</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree, with degree distribution <span class="math inline">\(p_k\)</span>. The <strong>probability generating function</strong> <span class="math inline">\(g(z)\)</span> is given by</p>
 <p><span class="math display">\[
     g(z) = p_0 + p_1z + p_2z^2 + \dots = \sum_{k=0}^\infty p_kz^k \,.
 \]</span></p>
@@ -430,7 +419,7 @@ window.Quarto = {
 </div>
 <div class="callout-body-container">
 <div id="thm-pgf" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 10.1</strong></span> Let <span class="math inline">\(g(z)\)</span> be the probability generating function associated with random variable <span class="math inline">\(K\)</span>. Then the associated probability distribution <span class="math inline">\(p_k\)</span> satisfies <span class="math display">\[
+<p><span class="theorem-title"><strong>Theorem 9.1</strong></span> Let <span class="math inline">\(g(z)\)</span> be the probability generating function associated with random variable <span class="math inline">\(K\)</span>. Then the associated probability distribution <span class="math inline">\(p_k\)</span> satisfies <span class="math display">\[
 p_k = \frac{1}{k!}\frac{d^k}{dz^k}g(z) \bigg \vert_{z=0}
 \]</span> for all <span class="math inline">\(k = 0, 1, 2, \dots \,.\)</span></p>
 </div>
@@ -470,7 +459,7 @@ p_k = \frac{1}{k!}\frac{d^k}{dz^k}g(z) \bigg \vert_{z=0}
 </div>
 <div class="callout-body-container">
 <div id="def-moments" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 10.2</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree with probability generating function <span class="math inline">\(g(z)\)</span>. The <strong><span class="math inline">\(m\)</span>th moment</strong> of the distribution of <span class="math inline">\(K\)</span> is given by <span class="math display">\[
+<p><span class="theorem-title"><strong>Definition 9.2</strong></span> Let <span class="math inline">\(K\)</span> be the random variable denoting node degree with probability generating function <span class="math inline">\(g(z)\)</span>. The <strong><span class="math inline">\(m\)</span>th moment</strong> of the distribution of <span class="math inline">\(K\)</span> is given by <span class="math display">\[
     \langle k^m \rangle = \left( z \frac{d}{dz} \right)^m g(z) \bigg \vert_{z=1} \,.
 \]</span></p>
 </div>
@@ -488,7 +477,7 @@ p_k = \frac{1}{k!}\frac{d^k}{dz^k}g(z) \bigg \vert_{z=0}
 </div>
 <div class="callout-body-container">
 <div id="thm-multiplicative" class="theorem">
-<p><span class="theorem-title"><strong>Theorem 10.2</strong></span> Let <span class="math inline">\(K_1, \dots, K_m\)</span> be independent and identically distributed (i.i.d.) random variables drawn from probability distributions <span class="math inline">\(p_k^{(1)}, p_k^{(2)}, \dots, p_k^{(m)}\)</span> with corresponding probability generating functions <span class="math inline">\(g_1(z), \dots g_m(z)\)</span>. Then <span class="math inline">\(X = \sum_{i=1}^m K_i\)</span> has the generating function <span class="math inline">\(g_X(z) = \prod_{i=1}^m g_i(z)\)</span>.</p>
+<p><span class="theorem-title"><strong>Theorem 9.2</strong></span> Let <span class="math inline">\(K_1, \dots, K_m\)</span> be independent and identically distributed (i.i.d.) random variables drawn from probability distributions <span class="math inline">\(p_k^{(1)}, p_k^{(2)}, \dots, p_k^{(m)}\)</span> with corresponding probability generating functions <span class="math inline">\(g_1(z), \dots g_m(z)\)</span>. Then <span class="math inline">\(X = \sum_{i=1}^m K_i\)</span> has the generating function <span class="math inline">\(g_X(z) = \prod_{i=1}^m g_i(z)\)</span>.</p>
 </div>
 </div>
 </div>
@@ -1010,12 +999,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapters/10-configuration-model.html" class="pagination-link" aria-label="Configuration models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Configuration models</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Configuration models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/06-modularity.html" class="pagination-link" aria-label="Homophily, Assortativity, and Modularity">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/120-preferential-attachment.html" class="pagination-link" aria-label="Preferential Attachment and Power Laws">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
