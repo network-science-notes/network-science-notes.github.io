@@ -423,7 +423,7 @@ Exercise
 </div>
 </div>
 <p>Let’s visualize degree centrality in the Zachary karate club network. In the hidden code cell below, we import some libraries, acquire the data, and define a useful plotting function that will make it easy to visualize different centrality measures on this network.</p>
-<div id="ac7ae2dc" class="cell" data-execution_count="1">
+<div id="662caff4" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -871,7 +871,7 @@ Figure&nbsp;4.6: Visualiation of closeness centrality. Node size and color are p
 </div>
 <p>Direction of travel is accounted for in this definition, and so this can be used without modification in directed networks.</p>
 <p>Computation of betweenness centrality requires that we enumerate all shortest paths between all pairs of nodes in the graph. This is often computationally prohibitive, although for a small network like this one it’s not too bad.</p>
-<div id="3666063e" class="cell" data-execution_count="8">
+<div id="da5682c9" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>paths <span class="op">=</span> <span class="bu">list</span>(nx.all_pairs_all_shortest_paths(G))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># example of how to access the paths between a specific pair of nodes</span></span>

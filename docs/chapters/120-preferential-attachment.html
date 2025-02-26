@@ -386,7 +386,7 @@ window.Quarto = {
 <p>In a <a href="../chapters/07-real-world.html">previous chapter</a>, we discussed several properties observed in empirical networks. One of the properties we observed was an (approximate) <em>power law degree distribution</em>. It has been famously claimed <span class="citation" data-cites="barabasiEmergenceScalingRandom1999">(<a href="#ref-barabasiEmergenceScalingRandom1999" role="doc-biblioref">Barabási and Albert 1999</a>)</span> that many empirical networks have power-law degrees, a claim which has also been famously disputed<span class="citation" data-cites="broidoScalefreeNetworksAre2019">(<a href="#ref-broidoScalefreeNetworksAre2019" role="doc-biblioref">Broido and Clauset 2019</a>)</span>.</p>
 <div class="page-columns page-full"><p>We’re not going to take a stance on the question of whether many empirical networks obey power laws in this chapter. Instead, we’ll focus on a modeling question: if we supposed that power laws are present in many real-world systems, how could we explain that? One way to address this question is via mathematical modeling: can we come up with a plausible mathematical model of networks that would reliably generate power-law degree distributions? There have been a number of such models proposed; in these notes we’ll discuss a variation on one of the most famous; the Yule-Simon-Price-Barabási-Albert model of <em>preferential attachment</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This model was made famous by <span class="citation" data-cites="barabasiEmergenceScalingRandom1999">Barabási and Albert (<a href="#ref-barabasiEmergenceScalingRandom1999" role="doc-biblioref">1999</a>)</span>, but their model is very similar to the regrettably much less famous models of <span class="citation" data-cites="yuleMathematicalTheoryEvolution1925">Yule (<a href="#ref-yuleMathematicalTheoryEvolution1925" role="doc-biblioref">1925</a>)</span>, <span class="citation" data-cites="simonClassSkewDistribution1955">Simon (<a href="#ref-simonClassSkewDistribution1955" role="doc-biblioref">1955</a>)</span>, and <span class="citation" data-cites="price1976general">Price (<a href="#ref-price1976general" role="doc-biblioref">1976</a>)</span></span></div></div>
 <div class="page-columns page-full"><p>To motivate our discussion, let’s take another look at a network which displays an approximate power law degree distribution. We’ll again use the <code>twitch</code> data set collected from the streaming platform Twitch by <span class="citation" data-cites="musae">Rozemberczki, Allen, and Sarkar (<a href="#ref-musae" role="doc-biblioref">2021</a>)</span>. Nodes are users on Twitch. An edge exists between them if they are mutual friends on the platform. The authors collected data sets for users speaking several different languages; we’ll use the network of English-speaking users. Let’s now download the data (as a Pandas data frame) and convert it into a graph using Networkx. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The hidden code block contains package imports and plotting style configuration.</span></div></div>
-<div id="c5e510fd" class="cell" data-execution_count="1">
+<div id="c5e510fd" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -398,7 +398,7 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="a7d66795" class="cell" data-execution_count="2">
+<div id="a7d66795" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ENGB_edges.csv"</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"from"</span>, <span class="st">"to"</span>, create_using<span class="op">=</span>nx.Graph)</span>
@@ -412,7 +412,7 @@ window.Quarto = {
 </div>
 </div>
 <p>We’ll use the same helper functions for visualizing the degree distribution as a log-binned histogram as we used previously, implemented in the hidden code cell below.</p>
-<div id="e4f04d89" class="cell" data-execution_count="3">
+<div id="e4f04d89" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> degree_sequence(G):</span>
@@ -443,7 +443,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Let’s use this function to inspect the degree distribution of the data:</p>
-<div id="b041b52d" class="cell" data-execution_count="4">
+<div id="b041b52d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -455,7 +455,7 @@ window.Quarto = {
 </div>
 <p>There are a few things to notice about this degree distribution. First, most nodes have relatively small degrees, fewer than the mean of 9.9. However, there are a small number of nodes that have degrees which are <em>much</em> larger: almost two orders of magnitude larger! You can think of these nodes as “super stars” or “hubs” of the network; they may correspond to especially popular or influential accounts.</p>
 <p>Recall that, from our discussion of the Erdős–Rényi model <span class="math inline">\(G(n,p)\)</span>, the degree distribution of a <span class="math inline">\(G(n,p)\)</span> model with mean degree <span class="math inline">\(\bar{k}\)</span> is approximately Poisson with mean <span class="math inline">\(\bar{k}\)</span>. Let’s compare this Poisson distribution to the data.</p>
-<div id="8242551f" class="cell" data-execution_count="5">
+<div id="8242551f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mean_degree  <span class="op">=</span> deg_seq.mean()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">30</span>, <span class="dv">1</span>)</span>
@@ -496,7 +496,7 @@ window.Quarto = {
 </div>
 <p>As we saw previously, power law distributions are linear when plotted on log-log axes. The expectation of a power-law distributed random variable is finite when <span class="math inline">\(\gamma &gt; 2\)</span> and the variance is finite when <span class="math inline">\(\gamma &gt; 3\)</span>.</p>
 <p>Let’s try plotting such a distribution against the data. Since the power law distribution is defined for all <span class="math inline">\(k &gt; k_*\)</span>, we’ll need to choose a cutoff <span class="math inline">\(k_*\)</span> and an exponent <span class="math inline">\(\gamma\)</span>. For now, we’ll do this by eye. If we inspect the plot of the data above, it looks like linear behavior takes over somewhere around <span class="math inline">\(k_* = 10^\frac{3}{2} \approx 30\)</span>.</p>
-<div id="8750d3ec" class="cell" data-execution_count="6">
+<div id="8750d3ec" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">30</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
@@ -533,7 +533,7 @@ window.Quarto = {
 </ol>
 <p>We repeat this process as many times as desired. Intuitively, the preferential attachment model expresses the idea that “the rich get richer”: nodes that already have many connections are more likely to receive new connections.</p>
 <div class="page-columns page-full"><p>Here’s a quick implementation. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Note: this implementation of preferential attachment is useful for illustrating the mathematics and operations with Networkx. It is, however, not efficient.</span></div></div>
-<div id="28b10c05" class="cell" data-execution_count="7">
+<div id="28b10c05" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initial condition</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph() </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="dv">0</span>, <span class="dv">1</span>) </span>
@@ -559,7 +559,7 @@ window.Quarto = {
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    G.add_edge(u, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s go ahead and plot the result. We’ll add a visualization of the exponent <span class="math inline">\(\gamma\)</span> as well. How do we know the right value of <span class="math inline">\(\gamma\)</span>? It turns out that there is a theoretical estimate based on <span class="math inline">\(\alpha\)</span> which we’ll derive in the next section.</p>
-<div id="83893e39" class="cell" data-execution_count="8">
+<div id="83893e39" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">10</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>

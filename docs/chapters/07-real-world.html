@@ -401,7 +401,7 @@ window.Quarto = {
 <li><code>org_1</code> and <code>org_2</code>: Two anonymized Facebook social networks of employees in two different mediums-sized organizations. This data was collected and published by <span class="citation" data-cites="fire2012organization">Fire and Puzis (<a href="#ref-fire2012organization" role="doc-biblioref">2012</a>)</span>. Nodes are employees and edges are friendships. This data set was accessed from the <a href="https://data4goodlab.github.io/MichaelFire/#section3">website of Michael Fire</a> and discovered via the <a href="https://icon.colorado.edu/">Colorado Index of Complex Networks</a> (ICON).</li>
 </ul>
 <p>Our first task is to download these data sets and read them in as NetworkX graph objects, which we do in the hidden cell below.</p>
-<div id="0142177c" class="cell" data-execution_count="1">
+<div id="187855ac" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -443,7 +443,7 @@ window.Quarto = {
 </blockquote>
 <div class="page-columns page-full"><p>There are many reasonable answers to this question, and we’ll explore several of them when we come to the study of random graphs. For now, we are going to compare each of our real networks to a <em>synthetic random graph with a similar degree sequence</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Technically, we are using a model that reproduces the degree sequence <em>approximately and in expectation</em>. This model is often called the Chung-Lu model and is due to <span class="citation" data-cites="chung2002connected">Chung and Lu (<a href="#ref-chung2002connected" role="doc-biblioref">2002</a>)</span>.</span></div></div>
 <p>The following code constructs a random synthetic counterpart graph for each of our empirical graphs. It then adds all of these to a dictionary so that we can easily access both the real and synthetic graphs later.</p>
-<div id="8e647ad3" class="cell" data-execution_count="2">
+<div id="d852e730" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
@@ -462,7 +462,7 @@ window.Quarto = {
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll prepare our dictionary of data sets.</p>
-<div id="400c32ec" class="cell" data-execution_count="3">
+<div id="03f3a27c" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dataset_dict <span class="op">=</span> {}</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> graph, name <span class="kw">in</span> {G_twitch: <span class="st">"twitch"</span>, </span>
@@ -475,7 +475,7 @@ window.Quarto = {
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    add_to_dataset_dict(dataset_dict, graph, name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To help us compute and compare measurements on these graphs, we’ll define the following function which will manage these computations and organize the result as a table. This function takes as an argument a function <code>fun</code> which accepts a graph as an input and returns a scalar value.</p>
-<div id="e61dda1a" class="cell" data-execution_count="4">
+<div id="518629f3" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_metric(fun <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">0</span>, compare <span class="op">=</span> <span class="va">True</span>):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Data Set"</span> <span class="op">+</span> <span class="st">" "</span> <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> <span class="st">"Real"</span>, end <span class="op">=</span> <span class="st">""</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> compare: </span>
@@ -498,7 +498,7 @@ window.Quarto = {
 <section id="node-and-edge-counts" class="level2">
 <h2 class="anchored" data-anchor-id="node-and-edge-counts">Node and Edge Counts</h2>
 <p>Let’s start with something simple: how many nodes and edges are in each graph?</p>
-<div id="91356720" class="cell" data-execution_count="5">
+<div id="4c6db4e6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of nodes"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: x.number_of_nodes())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -513,7 +513,7 @@ org_1          1429.00         1429.00
 org_2          3862.00         3862.00</code></pre>
 </div>
 </div>
-<div id="4b6630eb" class="cell" data-execution_count="6">
+<div id="64fd07f9" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of edges"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: x.number_of_edges())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -521,12 +521,12 @@ org_2          3862.00         3862.00</code></pre>
 Number of edges
 Data Set          Real          Random
 ----------------------------------------
-twitch        35324.00        35105.00
-chameleon     31421.00        30782.00
-karate           78.00           69.00
-les_mis         254.00          251.00
-org_1         19357.00        19300.00
-org_2         87324.00        86806.00</code></pre>
+twitch        35324.00        34997.00
+chameleon     31421.00        31215.00
+karate           78.00           63.00
+les_mis         254.00          259.00
+org_1         19357.00        19091.00
+org_2         87324.00        87242.00</code></pre>
 </div>
 </div>
 <p>Although the number of nodes agree exactly in the real and random networks, there are some small discrepancies in the edge counts. This is due to the fact that our procedure for constructing random graphs (a) only preserves the degrees <em>in expectation</em> rather than exactly and (b) can create some self-loops, which get discarded.</p>
@@ -534,7 +534,7 @@ org_2         87324.00        86806.00</code></pre>
 <section id="clustering-coefficient" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="clustering-coefficient">Clustering Coefficient</h2>
 <p>Now that we have our experimental setup in place, let’s move on to something more complex. Take a moment and think of two of your friends, whom we’ll call <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Are <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> themselves friends with each other? If they are, then we say that you, <span class="math inline">\(A\)</span>, and <span class="math inline">\(B\)</span> together form a <em>triangle</em> or <em>triad</em> in the social network.</p>
-<div id="6a62bbd3" class="cell page-columns page-full" data-fig-height="2" data-fig-width="2" data-execution_count="7">
+<div id="0651335a" class="cell page-columns page-full" data-fig-height="2" data-fig-width="2" data-execution_count="7">
 
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -569,7 +569,7 @@ Figure&nbsp;6.1: A triplet in a social network centered on you
 \]</span></p>
 <p>Here, <span class="math inline">\(\mathbf{A}\)</span> is the adjacency matrix of <span class="math inline">\(G\)</span> and <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>.</p>
 <p>Let’s write a function to compute the transitivity of a graph.</p>
-<div id="8fc43e8b" class="cell" data-execution_count="9">
+<div id="c9aa24ca" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_transitivity(G):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.adjacency_matrix(G).toarray()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -583,7 +583,7 @@ Figure&nbsp;6.1: A triplet in a social network centered on you
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> num_triangles <span class="op">/</span> num_triplets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s compare our function to the built-in function supplied by NetworkX.</p>
-<div id="ca0c949c" class="cell" data-execution_count="10">
+<div id="46210581" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_transitivity(G_karate))</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nx.transitivity(G_karate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -592,15 +592,15 @@ Figure&nbsp;6.1: A triplet in a social network centered on you
 </div>
 </div>
 <p>Looks good! We’ll move forward with the NetworkX version, as it is substantially faster on larger graphs.</p>
-<div id="278fa5fc" class="cell" data-execution_count="11">
+<div id="be9f2d73" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.transitivity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
 ----------------------------------------
 twitch            0.04            0.03
 chameleon         0.31            0.12
-karate            0.26            0.31
-les_mis           0.50            0.23
+karate            0.26            0.27
+les_mis           0.50            0.29
 org_1             0.26            0.08
 org_2             0.23            0.02</code></pre>
 </div>
@@ -611,16 +611,16 @@ org_2             0.23            0.02</code></pre>
 <section id="connected-components" class="level2">
 <h2 class="anchored" data-anchor-id="connected-components">Connected Components</h2>
 <p>What about the number of connected components in the network?</p>
-<div id="a34c6b73" class="cell" data-execution_count="12">
+<div id="9cdfe919" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>compute_metric(<span class="kw">lambda</span> x: <span class="bu">len</span>(<span class="bu">list</span>(nx.connected_components(x))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
 ----------------------------------------
-twitch            1.00          631.00
-chameleon         1.00           62.00
+twitch            1.00          573.00
+chameleon         1.00           58.00
 karate            1.00            5.00
-les_mis           1.00            8.00
-org_1             1.00            5.00
+les_mis           1.00           10.00
+org_1             1.00            8.00
 org_2             1.00            1.00</code></pre>
 </div>
 </div>
@@ -637,17 +637,17 @@ org_2             1.00            1.00</code></pre>
 \]</span></p>
 <div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">If you are familiar with probability and statistics, this formula is equivalent to <span class="math inline">\(C = \frac{\mathrm{cov}(K_1,K_2)}{\sqrt{\mathrm{var}(K_1)\mathrm{var}(K_2)}}\)</span>, where <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span> are the degrees of the nodes at the ends of an edge selected uniformly at random from <span class="math inline">\(G\)</span>. This is also the Pearson correlation coefficient between <span class="math inline">\(K_1\)</span> and <span class="math inline">\(K_2\)</span>.</span></div></div>
 <p>An <em>assortative</em> network (with high assortativity) is one in which nodes of high degree tend to connect to each other frequently. A <em>disassortative</em> network (with negative assortativity) is one in which nodes of high degree tend to connect to nodes of low degree. Let’s take a look at the assortativity values in our networks:</p>
-<div id="ed29caa6" class="cell" data-execution_count="13">
+<div id="116954f9" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.degree_assortativity_coefficient)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real          Random
 ----------------------------------------
-twitch           -0.12           -0.04
+twitch           -0.12           -0.03
 chameleon        -0.20           -0.06
-karate           -0.48           -0.06
+karate           -0.48           -0.27
 les_mis          -0.17           -0.11
-org_1             0.11           -0.02
-org_2             0.09           -0.01</code></pre>
+org_1             0.11           -0.01
+org_2             0.09           -0.00</code></pre>
 </div>
 </div>
 <p>The two organizational social networks are slightly assortative: employees have a tendency to associate with those who are similarly connected to them. On the other hand, the remaining networks are disassortative, even in comparison to their random counterparts.</p>
@@ -657,7 +657,7 @@ org_2             0.09           -0.01</code></pre>
 <h2 class="anchored" data-anchor-id="shortest-path-lengths">Shortest Path Lengths</h2>
 <p>In a famous study, Stanley <span class="citation" data-cites="milgram1967small">Milgram (<a href="#ref-milgram1967small" role="doc-biblioref">1967</a>)</span> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> asked participants to ensure that a letter reached a target person, whom they did not know, in a US city. However, the participants were only allowed to send the letter to someone they knew on a first-name basis. That person could then send the letter to another person they knew on a first-name basis, and so on, until the letter was delivered (or lost). Perhaps surprisingly, many participants were able to reach the target person in only a few steps, on average. This experiment is the origin of the famous phrase <em>six degrees of separation</em>: in many social networks, most individuals are separated by relatively few links, even when the network is very large.</p>
 <div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Yes, <a href="https://en.wikipedia.org/wiki/Milgram_experiment"><em>that</em> Milgram</a> <span class="citation" data-cites="milgram1963behavioral">(<a href="#ref-milgram1963behavioral" role="doc-biblioref">Milgram 1963</a>)</span>.</p></div></div><p>To test this in our networks, we’ll compute the length of the shortest path between a pair of nodes, averaged across all possible pairs. This quantity isn’t defined for the random counterpart networks that have multiple disconnected components (why?), and so we’ll stick to calculating it on the real-world networks.</p>
-<div id="53dee526" class="cell" data-execution_count="14">
+<div id="355a6473" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>compute_metric(nx.average_shortest_path_length, compare <span class="op">=</span> <span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Data Set          Real
@@ -698,7 +698,7 @@ Figure&nbsp;6.2: degree distribution of the karate club network, plotted on line
 </div>
 <div class="page-columns page-full"><p>We see that in the karate club network, there are a small number of nodes with very high degree. This kind of pattern is common in social networks. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">We often say that the degree distribution is “heavy-tailed” when we mean to express the idea that there are a small number of very high-degree nodes.</span></div></div>
 <p>Heavy-tailed distributions are difficult to visualize on linear scales, so we often instead plot them on log-log scales. The helper functions in the hidden code cell below implement what is called “logarithmic binning” and plot the resulting log-binned histograms on logarithmic axes:</p>
-<div id="edf18b1f" class="cell" data-execution_count="16">
+<div id="8133bc20" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_binned_histogram(degree_sequence, interval <span class="op">=</span> <span class="dv">5</span>, num_bins <span class="op">=</span> <span class="dv">20</span>):</span>

@@ -1,33 +1,27 @@
 ---
 code-fold: true
 code-summary: "Show code"
+cache: false
 ---
 
 # Random Graphs: Erdős–Rényi
 
-A random graph is a probability distribution over graphs. In this set of lecture notes, we'll begin our exploration of several random graphs. 
-
 ## Why Random Graphs?
 
-Why should we even study random graphs? There are a few reasons!
+[Recently](07-real-world.qmd), we measured several properties of real-world networks. Some of our measurements included the number of connected components, the proportion of possible triangles realized, and the mean length of paths between nodes. When interpreting these measurements, we face two important questions: 
 
-### Random Graphs as Insightful Models
+> 1. Is a given observation of an empirical network interesting or surprising in some way?
+> 2. What properties of the graph would be sufficient to explain that observation? 
 
-Random graphs allow us to build our intuition and skills in the study of networks. In many simple random graphs, quantities of interest (clustering coefficients, diameters, etc) can be calculated with pencil and paper. This allows us to build mathematical insight into the structure of many real-world models, without the need for detailed simulations. 
+For example, suppose that we measure the transitivity (proportion of realized triangles) in a graph and find a value of $0.4$. Is that interesting or surprising? If so, how would we explain it? For example, would the degree sequence alone be sufficient to explain this observation, or would we need to consider more detailed graph properties in order to explain it?
 
-### Random Graphs as Mathematical Puzzles
+The way that we usually approach these questions is with *mathematical models of graphs*. We determine whether measurements are surprising by comparing to mathematical models. We can also design models that hold certain features fixed (like the degree sequence) in order to see whether those features are sufficient on their own to explain the value of other measurements (like transitivity). Because real data is usually messy and noisy, it's helpful for us to allow our mathematical models to be messy and noisy too! Our models are therefore random models of graphs, or just ***random graphs*** for short. 
 
-Many properties of even simple random graphs are still under investigation by research mathematicians. While some properties can be calculated simply, others require extremely sophisticated machinery in order to understand. There are many mathematicians who spend their careers studying random graphs, and their cousins, random matrices. 
+In addition to the role of random graphs in contextualizing and explaining network measurements, they are also very interesting mathematical objectis in their own right! 
+Indeed, there is an entire field of mathematics about the theory of random graphs. 
+Random graph models are also helpful for algorithms for network data analysis, including in both the design and analysis of these algorithms. 
 
-### Random Graphs as Null Hypotheses
 
-Suppose that you compute the global clustering coefficient of a graph and find it to be $0.31$. How do we interpret that? Is that high? Low? In this case, we should ask: *compared to what?* Random graphs allow us one way to make a comparison: that clustering coefficient is "high" if it's larger than the clustering coefficient in a suitably chosen, comparable random graph. How to choose a comparable random graph is an important question, and the answer is not always clear! 
-
-In this way, random graphs often serve as the *null hypothesis*, in exactly the same way you might have heard of the null hypothesis for other kinds of statistical tests. 
-
-### Random Graphs and Statistical Inference
-
-Many statistical algorithms for tasks like graph clustering, ranking, and prediction come from random graph models. The idea, generally speaking, is to imagine that we observe a graph, and then try to make the best educated guess possible about the model that generated that graph. This is classical statistical inference. 
 
 ## The $G(n,p)$ Model (Erdős–Rényi)
 
@@ -43,7 +37,54 @@ An *Erdős–Rényi random graph* with $n$ nodes and connection probability $p$,
 :::
 :::
 
-We can imagine visiting each possible pair of edges $(i,j)$ and flipping a coin with probability of heads $p$. If heads, we add $(i,j) \in E$; otherwise, we don't. 
+We can imagine visiting each possible pair of edges $(i,j)$ and flipping a coin with probability of heads $p$. If heads, we add $(i,j) \in E$; otherwise, we don't. Indeed, one (relatively inefficient) implementation of the $G(n,p)$ model works exactly like this. [The hidden code block prepares for our implementation of $G(n,p)$ by importing several libaries and setting plotting styles.]{.aside}
+
+```{python}
+#| code-fold: true
+import networkx as nx
+import numpy as np
+from itertools import combinations
+from matplotlib import pyplot as plt
+plt.style.use('seaborn-v0_8-whitegrid')
+np.random.seed(1234)
+```
+
+```{python}
+#| code-fold: false
+#---
+def gnp(n, p):
+    G = nx.Graph()
+    for i, j in combinations(range(n), 2): # all pairs of nodes
+        if np.random.rand() < p:
+            G.add_edge(i, j)
+    return G
+#---
+```
+
+Having implemented this function, we can now generate a graph. 
+
+```{python}
+#| code-fold: false
+G = gnp(100, 0.03)
+```
+
+```{python}
+#| label: fig-ER-example
+#| fig-cap: "A $G(n,p)$ random graph with $n = 100$ and $p = 0.03$."
+#| code-fold: true
+nx.draw(G, 
+        node_size = 100, 
+        edge_color = "gray", 
+        width = 0.5, 
+        edgecolors = "white", 
+        node_color = "steelblue")
+```
+
+This approach to generating $G(n,p)$ graphs by looping through all pairs of edges is not the most efficient possible; see @ramani2019coin for faster algorithms. 
+
+### Basic Properties
+
+Let's now explore some of the fundamental mathematical properties of $G(n,p)$ graphs. 
 
 ::: {.callout-caution}
 **Exercise**: Let $i$ be a fixed node in a $G(n,p)$ graph, and let $K_i$ be its (random) degree. Show that $K_i$ has binomial distribution with success probability $p$ and $n-1$ trials. 
@@ -52,45 +93,72 @@ We can imagine visiting each possible pair of edges $(i,j)$ and flipping a coin 
 ::: {.hide .solution}
 A given node $u$ is connected to each of the other $n-1$ nodes (independently) with probability $p$. The probability of being connected to a particular set of $k$ nodes is 
 
+$$
 \begin{align}
     \mathbb{P}[\text{connected to $k$ given nodes}] &= \mathbb{P}[\text{$k$ successes}]\mathbb{P}[\text{$n-1-k$ failures}] \\
     &= p^k (1-p)^{n-1-k} \,.
 \end{align}
+$$
 
 Building on this, the probability of being connected to $k$ other nodes in any way is
 
+$$
 \begin{align}
     \mathbb{P}[\text{connected to $k$ nodes}] &= \left( \text{number of ways to choose $k$ nodes }\right) \mathbb{P}[\text{$k$ successes}]\mathbb{P}[\text{$n-1-k$ failures}] \\ \\
     &= {n-1 \choose k} p^k (1-p)^{n-1-k} \,.
 \end{align}
+$$
 
 Indeed, this is exactly the binomial degree distribution, as required.
 :::
 
 ::: {.callout-caution}
-**Exercise**: Show that $\mathbb{E}[K_i] = p(n-1)$. 
+**Exercise**: Show that, for any node $i$,  $\mathbb{E}[K_i] = p(n-1)$. 
 :::
 
 ::: {.hide .solution}
 Using our previous calculations, we know $\mathbb{E}[K_i] = \mathbb{E}[\frac{2m}{n}].$ However, $n$ is fixed for the $G(n,p)$ model, so we have $\mathbb{E}[K_i] = \frac{2}{n}\mathbb{E}[m],$ where $\mathbb{E}[m]$ is the expected number of edges. This quantity will be equal to the probability that an edge exists between a pair of nodes multiplied by the number of possible pairs, which is ${n \choose 2}p = \frac{n(n-1)}{2}p$. Thus $\mathbb{E}[K_i] = (n-1)p$, as required.
 :::
 
-### Clustering Coefficient
+### Clustering Coefficient of $G(n,p)$
 
-Both local and global clustering coefficients are defined in terms of a ratio of realized triangles to possible triangles. 
+Let's work an example of estimating a property of the $G(n,p)$ model.
+We're going to estimate the transitivity, also called the *global clustering coefficient* of the $G(n,p)$ model.
+Recall that the transitivity is defined as 
+
+$$
+\begin{aligned}
+    T = \frac{\text{number of triangles}}{\text{number of wedges}}\;.
+\end{aligned}
+$$
+
+Here, a wedge on node $i$ is a *possible triangle*: two edges $(i,j)$ and $(i,k)$. The addition of the edge $(j,k)$ would complete the triangle.
+
+Let's estimate the value of $T$ for the $G(n,p)$ model.
 Analyzing ratios using probability theory can get tricky, but we can get a pretty reliable picture of things by computing the expectations of the numerator and denominator separately. 
 
-Let's take the global clustering coefficient. For this, we need to compute the total number of triangles, and the total number of wedges. 
+How many triangles are there? We can choose a "base" node $i$ in $n$ ways and then choose a pair of additional nodes $j$ and $k$ in $\binom{n-1}{2}$ ways. The probability that all three edges exist is $p^3$. So, in expectation, there are $n\binom{n-1}{2}p^3$ triangles in the graph.
 
-How many triangles are there? Well, there are $\binom{n}{3}$ ways to choose 3 nodes from all the possibilities, and the probability that all three edges exist to form the triangle is $p^3$. 
-So, in expectation, there are $\binom{n}{3}p^3$ triangles in the graph. 
+On the other hand, how many wedges are there? We can again choose the base node $i$ and the two additional nodes in a total of $n\binom{n-1}{2}$ ways. A wedge (potential triangle) exists if the edges $(i,j)$ and $(i,k)$ are present, which occurs with probability $p^2$. 
 
-How many wedges are there? Well, each triple of nodes contains three possible wedges, and the probability of any given wedge existing is $p^2$. 
-So, the expected number of wedges is $\binom{n}{3}p^2$. Our estimate for the expected clustering coefficient is that it should be *about* $p$, although we have been fast and loose with several mathematical details to arrive at this conclusion. 
+The ratio between these two expectations is $p$. Indeed, it's possible to prove using *concentration inequalities* that, in this case, the expected transitivity is indeed very close to this ratio of expectations. 
 
-## Sparsity
+Let's compute the transitivity of a $G(n,p)$ graph with NetworkX. We'll use a larger graph size for this experiment: 
 
-Recall that it is possible to define sparsity more explicitly when we have a theoretical model (where it makes sense to take limits). Indeed, the *sparse* Erdős–Rényi model is very useful. Intuitively, the idea of sparsity is that there are not very many edges in comparison to the number of nodes. 
+```{python}
+#| code-fold: false
+#---
+G = nx.fast_gnp_random_graph(1000, 0.03)
+nx.transitivity(G)
+#---
+```
+
+The observed value of the clustering coefficient is  close to the prediction of our approximate calculation. 
+
+
+## Sparse $G(n,p)$
+
+Recall that it is possible to define sparsity more explicitly when we have a theoretical model (where it makes sense to take limits). Indeed, the *sparse* Erdős–Rényi model is very useful. Intuitively, the idea of sparsity is that there are not very many edges in comparison to the number of nodes. [It is also possible to consider other functional forms for $p$ which are also often called "sparse" and lead to interesting behavior; for example $p = \frac{c \log n}{n}$]{.aside}
 
 ::: {.callout-note}
 ::: {#def-sparse-ER}
@@ -98,28 +166,26 @@ We say that a $G(n,p)$ graph is **sparse** when $p = c/(n-1)$ for some constant 
 :::
 :::
 
-A consequence of sparsity is that $\mathbb{E}[K_i] = c$; i.e. the expected degree of a node in sparse $G(n,p)$ is constant. When studying sparse $G(n,p)$, we are almost always interested in the case $n\rightarrow \infty$. 
+A consequence of sparsity is that $\mathbb{E}[K_i] = c$; i.e. the expected degree of a node in sparse $G(n,p)$ is constant. When studying sparse $G(n,p)$, we are almost always interested in reasoning in the limit $n\rightarrow \infty$. 
 
+### Degrees
+
+It is possible to show that, when $p = c/(n-1)$, the degree of a node in sparse $G(n,p)$ converges (in distribution) to a Poisson random variable with mean $c$. For this reason, the $G(n,p)$ is also sometimes called the *Poisson random graph*. [A Poisson random variable $K$ with mean $\lambda$ has probability mass function $p_K(k) = \frac{\lambda^k e^{-k}}{k!}.]{.aside}
+ 
 
 ### Clustering
 
-What does this imply for our estimation of the global clustering coefficient from before? Well, we expect the global clustering coefficient to be *about* $p$, and if $p = c/(n-1)$, then $p \rightarrow 0$ as $n \to \infty$ for sparse $G(n,p)$. 
+What does this imply for our estimation of the global clustering coefficient from before? Well, we expect the global clustering coefficient to be *about* $p$, and if $p = c/(n-1)$, then $p \rightarrow 0$ as $n \to \infty$ for sparse $G(n,p)$. We've given a heuristic argument showing that $T \approx p$, and so our analysis predicts: 
 
 [The need to move beyond the ER model to develop sparse graphs with clustering coefficients was part of the motivation of @watts1998collective, a famous paper that introduced the "small world model."]{.aside}
 
 > Sparse Erdős–Rényi graphs have vanishing clustering coefficients. 
 
-@fig-clustering-decay shows how the global clustering coefficient of a sparse Erdős–Rényi random graph decays as we increase $n$. Although the estimate that the global clustering coefficient should be equal to $p$ was somewhat informal, experimentally it works quite well. 
+@fig-clustering-decay shows how the global clustering coefficient of a sparse Erdős–Rényi random graph decays as we increase $n$. 
 
 ```{python}
-#| fig.cap : "Each point gives the global clustering coefficient of an ER graph with mean degree $c = 5$ and specified number of nodes. The black line gives the estimate $T = p = c/(n-1)$ for the clustering coefficient that we computed earlier. The function `nx.fast_gnp_random_graph()` is a special function from NetworkX for generating ER random graphs quickly; you'll learn about how it works in an upcoming homework assignment."
-#| out.width : 80%
-#| cap-location: margin
+#| fig-cap : "Each point gives the global clustering coefficient of an ER graph with mean degree $c = 5$ and specified number of nodes. We've repeated the calculation for each size of graph 10 times. The black line gives the estimate $T = p = c/(n-1)$ for the clustering coefficient that we computed earlier."
 #| label: fig-clustering-decay
-
-import networkx as nx
-from matplotlib import pyplot as plt
-import numpy as np
 
 c = 5
 N = np.repeat(2**np.arange(5, 15), 10)
@@ -134,14 +200,14 @@ fig, ax = plt.subplots(1)
 
 theory = ax.plot(N, c/(N-1), color = "black", label = "Estimate")
 
-exp = ax.scatter(N, T, label = "Experiments")
-semil = ax.semilogx()
+exp = ax.scatter(N, T, label = "Experiments", color = "steelblue", s = 10)
+semil = ax.loglog()
 labels = ax.set(xlabel = "Number of nodes", 
        ylabel = "Global clustering coefficient")
 plt.show()
 ```
 
-
+Although the estimate that the global clustering coefficient should be equal to $p$ was somewhat informal, experimentally it works quite well. 
 
 ### Cycles and Local Tree-Likeness
 
@@ -153,7 +219,7 @@ A **cycle** is a walk that does not repeat edges and ends at the same node that 
 :::
 :::
 
-A triangle is an example of a cycle of length $3$. 
+A triangle is an example of a cycle of length $3$. Our argument about the graph transitivity shows that triangles are *rare* in sparse $G(n,p)$ graphs: if I look at any given wedge, the probability that the wedge is completed to form a triangle shrinks to zero with rate $n^{-1}$. In fact, it is true more generally that cycles of any length are rare in sparse $G(n,p)$ graphs.
 
 ::: {.callout-tip}
 ::: {#thm-rare-cycles}
@@ -161,10 +227,8 @@ In the sparse $G(n,p)$ model, for any length $k$, the probability that there exi
 :::
 :::
 
-You'll prove a generalization of @thm-rare-cycles in an upcoming homework problem. 
 
-Graphs in which cycles are very rare are often called *locally tree-like*. A tree is a graph without cycles; if cycles are very rare, then we can often use techniques that are normally guaranteed to only work on trees without running into (too much) trouble. 
-
+Graphs in which cycles are rare are often called *locally tree-like*. A tree is a graph without cycles; if cycles are very rare, then we can often use techniques algorithms that are normally guaranteed to only work on trees without running into (too much) trouble. 
 
 ### Path Lengths
 
@@ -200,7 +264,7 @@ in the sparse ER model.
 
 Using this result, let's ask a new question: 
 
-> What path length $k$ do I need to allow to be confident that there's a path between nodes $i$ and $j$? 
+> What path length $k$ do I need to allow to be confident that there's a path of length $k$ between nodes $i$ and $j$? 
 
 Well, suppose we want there to be $q$ paths. Then, we can solve $q = c^{k-1}p$ for $k$, which gives us: 
 
@@ -213,13 +277,27 @@ q &= c^{k-1}p \\
 \end{aligned}
 $$
 
-Here, I've also approximated $\log n-1 \approx \log n$ for $n$ large. 
 
-So, supposing that I want there to be at least one path in expectation ($q = 1$), I need to allow $k = \frac{\log n}{\log c}$. This is pretty short, actually! For example, the population of the world is about $8\times 10^9$, and Newman estimates that an average individual knows around 1,000 other people; that is, $c = 10^3$ in the world social network. The resulting value of $k$ here is around 3.3. 
 
-In other words, this calculation suggests that, if the world were an ER network, it would be the case that any two individuals would be pretty likely to have at least one path between them of length no longer than $4$. 
+```{python}
+#| echo: false
+import math
+num_paths_desired_1 = 1
+num_paths_desired_2 = 1000000
 
-More formal calculations regarding the diameter of the ER graph confirm that the diameter of the ER graph grows slowly as a function of $n$, even in relatively sparse cases. 
+def path_length(n, c, num_paths_desired):
+    return float(np.round((np.log(num_paths_desired) + np.log(n))/np.log(c), 1))
+
+k_1 = path_length(int(8e9), 1000, num_paths_desired_1)
+k_2 = path_length(int(8e9), 1000, num_paths_desired_2)
+```
+
+Here, we've also approximated $\log (n-1) \approx \log n$ for $n$ large. This result tells us that *distances between nodes grow very slowly in $G(n,p)$*, roughly at the rate $\log n$. This is *very* slow growth. For example, supposing that I want there to be at least one path in expectation ($q = 1$), I need to allow $k = \frac{\log n}{\log c}$. The population of the world is about $8\times 10^9$, and Newman estimates that an average individual knows around 1,000 other people; that is, $c = 10^3$ in the world social network. The resulting value of $k$ here is around `{python} k_1`. If on the other hand we wanted to be quite confident that a path exists, we might instead wish to require `{python} num_paths_desired_2` paths, leading to a required path length of roughly `{python} k_2`. 
+
+In other words, this calculation suggests that, if the world were an ER network, it would be very likely for any two given individuals to be connected by paths of length no longer than `{python} math.ceil(k_2)`. [Results in this spirit have been born out by experiments in the social sciences, such as the "small world" experiment of @milgram1967small.]{.aside}
+
+More formal calculations regarding the diameter (length of longest shortest path) of the ER graph confirm that the diameter of the ER graph grows slowly as a function of $n$. 
+
 
 ### A Caveat
 
@@ -249,6 +327,7 @@ So, what's special about $c = 1$? This question brings us to one of the first an
 We're now going to ask ourselves about the size of a "typical" component in the Erdős–Rényi model. In particular, we're going to be interested in whether there exists a component that fills up "most" of the graph, or whether components tend to be vanishingly small in relation to the overall graph size. 
 
 Our first tool for thinking about this question is the *branching process approximation.* Informally, a branching process is a process of *random generational growth*. We'll get to a formal mathematical definition in a moment, but the easiest way to get insight is to look at a diagram: 
+
 
 ::: {#fig-branching}
 
@@ -317,22 +396,26 @@ The idea behind this approximation is:
 
 ### The Subcritical Case
 
-The mean of a $\text{Poisson}(c)$ random variable is again $c$. As you'll show in homework, this implies that $X_t$, the number of offspring in generation $t$, satisfies $\mathbb{E}[X_t] = c^{t}$. It follows that, when $c < 1$, $\mathbb{E}[T] = \frac{1}{1-c}$. 
+The mean of a $\text{Poisson}(c)$ random variable is again $c$. This implies that $X_t$, the number of offspring in generation $t$, satisfies $\mathbb{E}[X_t] = c^{t}$. It follows that, when $c < 1$, $\mathbb{E}[T] = \frac{1}{1-c}$. 
 
 Now using Markov's inequality, we obtain the following results: 
 
 ::: {.callout-tip}
 
 In a $\text{Poisson}(c)$ branching process with $c < 1$, 
-$$\mathbb{P}(X_t > 0) \leq c^t\;.$$ 
+$$
+\begin{aligned}
+    \mathbb{P}(X_t > 0) = \mathbb{P}(X_t \geq 0) \leq \frac{\mathbb{E}[X_t]}{1} = c^t\;.
+\end{aligned}
+$$
 :::
 
-So, the probability that the branching process hasn't yet "died out" decays exponentially with timestep $t$. In other words, the branching process becomes very likely to die out very quickly. 
+So, the probability that the branching process hasn't yet "died out" decays exponentially with timestep $t$. In other words, the branching process becomes very likely to die out very quickly. What about the total number of nodes produced in the branching process? Again using Markov's inequality, we find that 
 
 ::: {.callout-tip}
 
 In a $\text{Poisson}(c)$ branching process with $c < 1$, 
-$$\mathbb{P}(T \geq a) \leq \frac{1}{a}\frac{1}{1-c}$$
+$$\mathbb{P}(T \geq a) \leq \frac{\mathbb{E}[T]}{a} = \frac{1}{a}\frac{1}{1-c}$$
 :::
 
 In particular, for $a$ very large, we are guaranteed that $\mathbb{P}(T > a)$ is very small. 
@@ -397,7 +480,7 @@ $$
 $$
 for some constant $b > 0$. 
 
-Intuitively, this means that there is a possibility of a connected component that takes up a nonzero fraction of the graph. 
+Intuitively, this means that there is a possibility of a connected component that takes up a nonzero fraction $b$ of the graph. 
 :::
 :::
 
@@ -426,17 +509,14 @@ Examples of phase transitions include freezing, in which a liquid undergoes a qu
 @fig-giant-component-illustration shows  two sparse ER random graphs on either side of the $c = 1$ transition. We observe an apparent change in qualitative behavior between the two cases. 
 
 ```{python}
-#| fig.cap : "Two sparse ER graphs with 500 nodes and varying mean degree."
-#| out.width : 100%
+#| fig-cap : "Two sparse ER graphs with 500 nodes and varying mean degree."
 #| cap-location: margin
 #| label: fig-giant-component-illustration
-#| fig-width: 8
-#| fig-height: 4
 
 import networkx as nx
 from matplotlib import pyplot as plt
 
-fig, axarr = plt.subplots(1, 2)
+fig, axarr = plt.subplots(1, 2, figsize = (6, 3))
 
 n = 500
 c = [0.7, 1.3]
@@ -450,7 +530,7 @@ for i in range(2):
 
 
 
-#### Size of the Giant Component {#sec-component}
+### Size of the Giant Component {#sec-component}
 
 Perhaps surprisingly, while it's difficult to prove that there is a giant component, it's not hard at all to estimate its size. 
 [This argument is reproduced from Newman, pages 349-350]{.aside}
@@ -492,8 +572,7 @@ $${#eq-giant-component-size}
 This equation doesn't have a closed-form solution for $s$, but we can still plot it and compare the result to simulations (@fig-giant-component). Not bad! 
 
 ```{python}
-#| fig.cap : "Each point gives the fraction of an ER graph with 50,000 nodes occupied by the largest component. The mean degree is on the horizontal axis. The black line gives the theoretical prediction of @eq-giant-component-size."
-#| out.width : 80%
+#| fig-cap : "Each point gives the fraction of an ER graph with 50,000 nodes occupied by the largest component. The mean degree is on the horizontal axis. The black line gives the theoretical prediction of @eq-giant-component-size."
 #| cap-location: margin
 #| label: fig-giant-component
 
@@ -523,20 +602,35 @@ C_theory = -np.log(1-S)/S
 plt.plot(C_theory, 
          S, 
          color = "black", 
-         label = "Theoretical prediction")
+         label = "Theoretical prediction", 
+         zorder = -1, 
+         linestyle = "--")
 
 plt.scatter(C, 
             U, 
-            label = "Experiment")
+            label = "Experiment", 
+            facecolor = "steelblue", 
+            color = "white", 
+            alpha = 0.8, 
+            s = 150)
 
 plt.gca().set(xlabel = "Mean degree", 
               ylabel = "Proportion of graph in largest component")
 
 plt.legend()
-
 ```
 
-### References
+## Limitations of $G(n,p)$
+
+The Erdős–Rényi model $G(n,p)$ is a hugely important object in random graph theory, and many mathematicians have devoted their careers to studying it. Many of its properties are tractable using tools from probability theory, and it even reproduces some interesting realistic behaviors, such as short path lengths and the existence of a giant component. 
+However, $G(n,p)$ also has severe limitations as a modeling framework. Since every degree has an approximate Poisson distribution with the same degree, the overall degree distribution is itself Poisson. 
+Many graphs have distinctly non-Poisson degree distributions, and $G(n,p)$ cannot produce that feature. 
+The scarcity of cycles, especially triangles, in $G(n,p)$ is also unlike many empirical networks. 
+$G(n,p)$ also can't reproduce networks with any kind of modular or community structure. 
+
+$G(n,p)$ is an extremely rich object of mathematical study and an important first model in the study of random graphs. That said, we'll now move on to models that are more able to reproduce some of the features we observe in empirical networks. 
+
+## References
 
 
 
