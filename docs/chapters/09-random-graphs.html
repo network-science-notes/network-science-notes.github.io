@@ -253,7 +253,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -420,13 +420,13 @@ window.Quarto = {
 </div>
 <div class="callout-body-container">
 <div id="def-ER" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 7.1 (Erdős–Rényi Random Graph)</strong></span> An <em>Erdős–Rényi random graph</em> with <span class="math inline">\(n\)</span> nodes and connection probability <span class="math inline">\(p\)</span>, written <span class="math inline">\(G(n,p)\)</span>, is a random graph constructed by placing an edge with probability <span class="math inline">\(p\)</span> between each pair of distinct nodes.</p>
+<p><span class="theorem-title"><strong>Definition 7.1 (Erdős–Rényi Random Graph)</strong></span> An <em>Erdős–Rényi random graph</em> with <span class="math inline">\(n\)</span> nodes and connection probability <span class="math inline">\(p\)</span>, written <span class="math inline">\(G(n,p)\)</span>, is a random graph constructed by placing an edge with probability <span class="math inline">\(p\)</span> independently between each pair of distinct nodes.</p>
 </div>
 </div>
 </div>
 </div>
-<div class="page-columns page-full"><p>We can imagine visiting each possible pair of edges <span class="math inline">\((i,j)\)</span> and flipping a coin with probability of heads <span class="math inline">\(p\)</span>. If heads, we add <span class="math inline">\((i,j) \in E\)</span>; otherwise, we don’t. Indeed, one (relatively inefficient) implementation of the <span class="math inline">\(G(n,p)\)</span> model works exactly like this. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The hidden code block prepares for our implementation of <span class="math inline">\(G(n,p)\)</span> by importing several libaries and setting plotting styles.</span></div></div>
-<div id="19d95ce8" class="cell" data-execution_count="1">
+<div class="page-columns page-full"><p>We can imagine visiting each possible pair of edges <span class="math inline">\((i,j)\)</span> and flipping an independent coin with probability of heads <span class="math inline">\(p\)</span>. If heads, we add <span class="math inline">\((i,j) \in E\)</span>; otherwise, we don’t. Indeed, one (relatively inefficient) implementation of the <span class="math inline">\(G(n,p)\)</span> model works exactly like this. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The hidden code block prepares for our implementation of <span class="math inline">\(G(n,p)\)</span> by importing several libaries and setting plotting styles.</span></div></div>
+<div id="52264050" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -434,10 +434,11 @@ window.Quarto = {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> combinations</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">1234</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="73f7e5f9" class="cell" data-execution_count="2">
+<div id="da563712" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gnp(n, p):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.Graph()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, j <span class="kw">in</span> combinations(<span class="bu">range</span>(n), <span class="dv">2</span>): <span class="co"># all pairs of nodes</span></span>
@@ -446,7 +447,7 @@ window.Quarto = {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Having implemented this function, we can now generate a graph.</p>
-<div id="04135b48" class="cell" data-execution_count="3">
+<div id="ed1d037f" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> gnp(<span class="dv">100</span>, <span class="fl">0.03</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cell-fig-ER-example" class="cell page-columns page-full" data-execution_count="4">
@@ -513,11 +514,11 @@ Figure&nbsp;7.1: A <span class="math inline">\(G(n,p)\)</span> random graph with
 <p>On the other hand, how many wedges are there? We can again choose the base node <span class="math inline">\(i\)</span> and the two additional nodes in a total of <span class="math inline">\(n\binom{n-1}{2}\)</span> ways. A wedge (potential triangle) exists if the edges <span class="math inline">\((i,j)\)</span> and <span class="math inline">\((i,k)\)</span> are present, which occurs with probability <span class="math inline">\(p^2\)</span>.</p>
 <p>The ratio between these two expectations is <span class="math inline">\(p\)</span>. Indeed, it’s possible to prove using <em>concentration inequalities</em> that, in this case, the expected transitivity is indeed very close to this ratio of expectations.</p>
 <p>Let’s compute the transitivity of a <span class="math inline">\(G(n,p)\)</span> graph with NetworkX. We’ll use a larger graph size for this experiment:</p>
-<div id="5a8df44d" class="cell" data-execution_count="5">
+<div id="8780af8a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.fast_gnp_random_graph(<span class="dv">1000</span>, <span class="fl">0.03</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>nx.transitivity(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>0.03086925496207416</code></pre>
+<pre><code>0.030322558990366864</code></pre>
 </div>
 </div>
 <p>The observed value of the clustering coefficient is close to the prediction of our approximate calculation.</p>
@@ -541,7 +542,7 @@ Figure&nbsp;7.1: A <span class="math inline">\(G(n,p)\)</span> random graph with
 <p>A consequence of sparsity is that <span class="math inline">\(\mathbb{E}[K_i] = c\)</span>; i.e.&nbsp;the expected degree of a node in sparse <span class="math inline">\(G(n,p)\)</span> is constant. When studying sparse <span class="math inline">\(G(n,p)\)</span>, we are almost always interested in reasoning in the limit <span class="math inline">\(n\rightarrow \infty\)</span>.</p>
 <section id="degrees" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="degrees">Degrees</h3>
-<div class="page-columns page-full"><p>It is possible to show that, when <span class="math inline">\(p = c/(n-1)\)</span>, the degree of a node in sparse <span class="math inline">\(G(n,p)\)</span> converges (in distribution) to a Poisson random variable with mean <span class="math inline">\(c\)</span>. For this reason, the <span class="math inline">\(G(n,p)\)</span> is also sometimes called the <em>Poisson random graph</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">A Poisson random variable <span class="math inline">\(K\)</span> with mean <span class="math inline">\(\lambda\)</span> has probability mass function $p_K(k) = .</span></div></div>
+<div class="page-columns page-full"><p>It is possible to show that, when <span class="math inline">\(p = c/(n-1)\)</span>, the degree of a node in sparse <span class="math inline">\(G(n,p)\)</span> converges (in distribution) to a Poisson random variable with mean <span class="math inline">\(c\)</span>. For this reason, the <span class="math inline">\(G(n,p)\)</span> is also sometimes called the <em>Poisson random graph</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">A Poisson random variable <span class="math inline">\(K\)</span> with mean <span class="math inline">\(\lambda\)</span> has probability mass function <span class="math inline">\(p_K(k) = \frac{\lambda^k e^{-k}}{k!}\)</span>.</span></div></div>
 </section>
 <section id="clustering" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="clustering">Clustering</h3>
@@ -803,7 +804,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div id="bb04fe5f" class="cell" data-execution_count="8">
+<div id="2c0aeddd" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -825,7 +826,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 5.36.
+Average over experiments is 4.75.
 
 Theoretical expectation is 5.00.
 </code></pre>
@@ -1000,7 +1001,7 @@ Figure&nbsp;7.5: Each point gives the fraction of an ER graph with 50,000 nodes 
 </section>
 <section id="limitations-of-gnp" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-of-gnp">Limitations of <span class="math inline">\(G(n,p)\)</span></h2>
-<p>The Erdős–Rényi model <span class="math inline">\(G(n,p)\)</span> is a hugely important object in random graph theory, and many mathematicians have devoted their careers to studying it. Many of its properties are tractable using tools from probability theory, and it even reproduces some interesting realistic behaviors, such as short path lengths and the existence of a giant component. However, <span class="math inline">\(G(n,p)\)</span> also has severe limitations as a modeling framework. Since every degree has an approximate Poisson distribution with the same degree, the overall degree distribution is itself Poisson. Many graphs have distinctly non-Poisson degree distributions, and <span class="math inline">\(G(n,p)\)</span> cannot produce that feature. The scarcity of cycles, especially triangles, in <span class="math inline">\(G(n,p)\)</span> is also unlike many empirical networks. <span class="math inline">\(G(n,p)\)</span> also can’t reproduce networks with any kind of modular or community structure.</p>
+<p>The Erdős–Rényi model <span class="math inline">\(G(n,p)\)</span> is an important object in random graph theory, and many mathematicians have devoted their careers to studying it. Many of its properties are tractable using tools from probability theory, and it even reproduces some interesting realistic behaviors, such as short path lengths and the existence of a giant component. However, <span class="math inline">\(G(n,p)\)</span> also has severe limitations as a modeling framework. Since every degree has an approximate Poisson distribution with the same degree, the overall degree distribution is itself Poisson. Many graphs have distinctly non-Poisson degree distributions, and <span class="math inline">\(G(n,p)\)</span> cannot produce that feature. The scarcity of cycles, especially triangles, in <span class="math inline">\(G(n,p)\)</span> is also unlike many empirical networks. <span class="math inline">\(G(n,p)\)</span> also can’t reproduce networks with any kind of modular or community structure.</p>
 <p><span class="math inline">\(G(n,p)\)</span> is an extremely rich object of mathematical study and an important first model in the study of random graphs. That said, we’ll now move on to models that are more able to reproduce some of the features we observe in empirical networks.</p>
 </section>
 <section id="references" class="level2">
@@ -1457,8 +1458,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapters/10-configuration-model.html" class="pagination-link" aria-label="Configuration models">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Configuration models</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapters/10-configuration-model.html" class="pagination-link" aria-label="Degree-Preserving Random Graphs">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -236,7 +236,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Configuration models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -384,7 +384,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="first-example-simple-random-walk">First Example: Simple Random Walk</h2>
 <p>For our first agent-based model, we are going to code up an agent-based implementation of the simple random walk. There are lots of reasonable ways to do this, and Mesa is actually a bit of overkill for this particular problem. Still, we’ll learn some important techniques and concepts along the way.</p>
 <p>Let’s start by importing several tools that we’ll use.</p>
-<div id="85c4bffd" class="cell" data-execution_count="1">
+<div id="11823551" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa <span class="im">import</span> Model, Agent                 <span class="co"># core mesa classes</span></span>
@@ -397,7 +397,7 @@ window.Quarto = {
 </details>
 </div>
 <p>Since this is a networks class, we’ll use a network-based grid. We imported the capability to do that above as the <code>mesa.space.NetworkGrid</code> class. Of course, we need a network to use. For this example, we’ll use the Les Miserable Graph, which is built in to NetworkX:</p>
-<div id="1ff37255" class="cell" data-execution_count="2">
+<div id="7e40deb9" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
@@ -418,7 +418,7 @@ window.Quarto = {
 <li>What happens in a single time-step of the model, via the <code>step()</code> method.</li>
 </ul>
 <p>The model class actually has a lot more functionality than this. Fortunately, we don’t usually need to define this functionality, because the model class we create inherits the needed functionality from <code>mesa.Model</code> (which we imported above). Here’s our <code>SRWModel</code> class. The syntax can look a little complicated whenever we work with a new package, but what’s going on is fundamentally pretty simple. We’ve added annotations next to the most important lines of code; other lines are also necessary for correct functioning but are more boilerplate than informative.</p>
-<div id="5f82f0c1" class="cell" data-execution_count="3">
+<div id="4ec73442" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RWModel(Model):</span>
 <span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># model setup</span></span>
@@ -473,7 +473,7 @@ window.Quarto = {
 <section id="the-agent-class" class="level3">
 <h3 class="anchored" data-anchor-id="the-agent-class">The Agent Class</h3>
 <p>Now we’re ready to define what the agent is supposed to do! In the SRW, the agent looks at all nodes adjacent to theirs, chooses one of them uniformly at random, and moves to it. We need to implement this behavior in the <code>step()</code> method. While there are some more mesa functions involved that you may not have seen before, the approach is very simple.</p>
-<div id="7a3997d7" class="cell" data-execution_count="4">
+<div id="f4d8bb38" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SRWAgent(Agent):</span>
@@ -499,7 +499,7 @@ window.Quarto = {
 <section id="experiment" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="experiment">Experiment</h3>
 <p>Phew, that’s it! Once we’ve defined our model class, we can then run it for a bunch of timesteps:</p>
-<div id="54b3995d" class="cell" data-execution_count="5">
+<div id="e2f31bb6" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RWModel(G, SRWAgent)</span>
@@ -509,7 +509,7 @@ window.Quarto = {
 </details>
 </div>
 <p>We can get data on the behavior of the simulation using the <code>collector</code> attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead.</p>
-<div id="4adc6abd" class="cell" data-execution_count="6">
+<div id="7a137ece" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>walk_report <span class="op">=</span> model.collector.get_agent_vars_dataframe()</span>
@@ -536,27 +536,27 @@ window.Quarto = {
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>27</td>
+<td>17</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">2</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>58</td>
+<td>21</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">3</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>57</td>
+<td>19</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">4</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>48</td>
+<td>20</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">5</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>57</td>
+<td>18</td>
 </tr>
 </tbody>
 </table>
@@ -566,7 +566,7 @@ window.Quarto = {
 </div>
 <div class="page-columns page-full"><p>Now let’s ask: is the simulation we just did lined up with what we know about the theory of the simple random walk?  Recall that the <em>stationary distribution</em> <span class="math inline">\(\pi\)</span> of the SRW is supposed to describe the long-term behavior of the walk, with <span class="math inline">\(\pi_i\)</span> giving the limiting probability that the walker is on node <span class="math inline">\(i\)</span>. Recall further that the stationary distribution for the SRW is actually known in closed form: it’s <span class="math inline">\(\pi_i = k_i / 2m\)</span>, where <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>. So, we would expect this to be a good estimate of the fraction of time that the walker spent on node <span class="math inline">\(i\)</span>. Let’s check this!</p><div class="no-row-height column-margin column-container"><span class="margin-aside">We derived this theory in <a href="50-random-walks.html#sec-srw" class="quarto-xref"><span>Section 15.1</span></a>.</span></div></div>
 <p>First, we can compute the fraction of time that the agent spent on each node:</p>
-<div id="59f63158" class="cell" data-execution_count="7">
+<div id="bc139c27" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> walk_report.groupby(<span class="st">"node"</span>).size()</span>
@@ -575,16 +575,16 @@ window.Quarto = {
 </details>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>node
-0    0.00154
-1    0.01684
-2    0.00541
-3    0.00584
-4    0.00169
+0    0.00197
+1    0.01975
+2    0.00580
+3    0.00587
+4    0.00198
 dtype: float64</code></pre>
 </div>
 </div>
 <p>Now we can compute the degree sequence and stationary distribution of the underlying graph:</p>
-<div id="7a95474c" class="cell" data-execution_count="8">
+<div id="bce5b5fb" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>degs <span class="op">=</span> [G.degree(i) <span class="cf">for</span> i <span class="kw">in</span> freqs.index]</span>
@@ -592,7 +592,7 @@ dtype: float64</code></pre>
 </details>
 </div>
 <p>Finally, we can plot and see whether the prediction lines up with the observation:</p>
-<div id="984a6d6e" class="cell" data-execution_count="9">
+<div id="ba2d38a0" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="fl">.12</span>], </span>
@@ -621,7 +621,7 @@ dtype: float64</code></pre>
 <section id="variation-pagerank" class="level3">
 <h3 class="anchored" data-anchor-id="variation-pagerank">Variation: PageRank</h3>
 <p>The reason that we parameterized the <code>RWModel</code> class with the argument <code>agent_class</code> is that we can now implement PageRank just by modifying the agent behavior. Let’s now make a new kind of agent that does the PageRank step:</p>
-<div id="5bdc26b1" class="cell" data-execution_count="10">
+<div id="20fe0232" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PageRankAgent(Agent):</span>
@@ -643,7 +643,7 @@ dtype: float64</code></pre>
 </details>
 </div>
 <p>That’s all we need to do in order to implement PageRank in this graph. Let’s go ahead and run PageRank.</p>
-<div id="2845f326" class="cell" data-execution_count="11">
+<div id="fc679793" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pagerank_model <span class="op">=</span> RWModel(G, PageRankAgent, alpha <span class="op">=</span> <span class="fl">0.15</span>)</span>
@@ -653,7 +653,7 @@ dtype: float64</code></pre>
 </details>
 </div>
 <p>That’s it! Now we could check the match with the stationary distribution like we did last time. Instead, let’s simply draw the graph.</p>
-<div id="869e5acc" class="cell" data-execution_count="12">
+<div id="d9ca9270" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>walk_report <span class="op">=</span> pagerank_model.collector.get_agent_vars_dataframe()</span>
@@ -678,7 +678,7 @@ dtype: float64</code></pre>
 <section id="multi-agent-models" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="multi-agent-models">Multi-Agent Models</h2>
 <div class="page-columns page-full"><p>Now let’s consider our first multi-agent model, the <em>voter model</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">In fact, there are many different models that are all called “the” voter model. The one we’ll discuss here is the simplest and most common.</span></div></div>
-<div id="fc2aec3a" class="cell" data-execution_count="13">
+<div id="a181544d" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mesa.time <span class="im">import</span> RandomActivation           </span>
@@ -710,7 +710,7 @@ dtype: float64</code></pre>
 <span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.collector.collect(<span class="va">self</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="c8d8c413" class="cell" data-execution_count="14">
+<div id="97dcb50c" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CompartmentalAgent(Agent):</span>
@@ -730,7 +730,7 @@ dtype: float64</code></pre>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> adopt_from.state</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="40063376" class="cell" data-execution_count="15">
+<div id="943d2aa9" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> run <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>

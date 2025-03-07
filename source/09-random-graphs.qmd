@@ -32,12 +32,12 @@ The model of @erdHos1960evolution is the simplest and most fundamental model of 
 
 ## Erdős–Rényi Random Graph
 
-An *Erdős–Rényi random graph* with $n$ nodes and connection probability $p$, written $G(n,p)$, is a random graph constructed by placing an edge with probability $p$ between each pair of distinct nodes. 
+An *Erdős–Rényi random graph* with $n$ nodes and connection probability $p$, written $G(n,p)$, is a random graph constructed by placing an edge with probability $p$ independently between each pair of distinct nodes. 
 
 :::
 :::
 
-We can imagine visiting each possible pair of edges $(i,j)$ and flipping a coin with probability of heads $p$. If heads, we add $(i,j) \in E$; otherwise, we don't. Indeed, one (relatively inefficient) implementation of the $G(n,p)$ model works exactly like this. [The hidden code block prepares for our implementation of $G(n,p)$ by importing several libaries and setting plotting styles.]{.aside}
+We can imagine visiting each possible pair of edges $(i,j)$ and flipping an independent coin with probability of heads $p$. If heads, we add $(i,j) \in E$; otherwise, we don't. Indeed, one (relatively inefficient) implementation of the $G(n,p)$ model works exactly like this. [The hidden code block prepares for our implementation of $G(n,p)$ by importing several libaries and setting plotting styles.]{.aside}
 
 ```{python}
 #| code-fold: true
@@ -46,6 +46,7 @@ import numpy as np
 from itertools import combinations
 from matplotlib import pyplot as plt
 plt.style.use('seaborn-v0_8-whitegrid')
+
 np.random.seed(1234)
 ```
 
@@ -170,7 +171,7 @@ A consequence of sparsity is that $\mathbb{E}[K_i] = c$; i.e. the expected degre
 
 ### Degrees
 
-It is possible to show that, when $p = c/(n-1)$, the degree of a node in sparse $G(n,p)$ converges (in distribution) to a Poisson random variable with mean $c$. For this reason, the $G(n,p)$ is also sometimes called the *Poisson random graph*. [A Poisson random variable $K$ with mean $\lambda$ has probability mass function $p_K(k) = \frac{\lambda^k e^{-k}}{k!}.]{.aside}
+It is possible to show that, when $p = c/(n-1)$, the degree of a node in sparse $G(n,p)$ converges (in distribution) to a Poisson random variable with mean $c$. For this reason, the $G(n,p)$ is also sometimes called the *Poisson random graph*. [A Poisson random variable $K$ with mean $\lambda$ has probability mass function $p_K(k) = \frac{\lambda^k e^{-k}}{k!}$.]{.aside}
  
 
 ### Clustering
@@ -622,7 +623,7 @@ plt.legend()
 
 ## Limitations of $G(n,p)$
 
-The Erdős–Rényi model $G(n,p)$ is a hugely important object in random graph theory, and many mathematicians have devoted their careers to studying it. Many of its properties are tractable using tools from probability theory, and it even reproduces some interesting realistic behaviors, such as short path lengths and the existence of a giant component. 
+The Erdős–Rényi model $G(n,p)$ is an important object in random graph theory, and many mathematicians have devoted their careers to studying it. Many of its properties are tractable using tools from probability theory, and it even reproduces some interesting realistic behaviors, such as short path lengths and the existence of a giant component. 
 However, $G(n,p)$ also has severe limitations as a modeling framework. Since every degree has an approximate Poisson distribution with the same degree, the overall degree distribution is itself Poisson. 
 Many graphs have distinctly non-Poisson degree distributions, and $G(n,p)$ cannot produce that feature. 
 The scarcity of cycles, especially triangles, in $G(n,p)$ is also unlike many empirical networks. 
