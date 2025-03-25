@@ -531,7 +531,7 @@ Figure&nbsp;3.2: A undirected graph.
 </div>
 </div></div></div>
 <div class="page-columns page-full"><p>Now we’ll take a look at the Laplacian matrix. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">It is also possible to extract the Laplacian matrix using the NetworkX built-in <code>nx.laplacian_matrix(G)</code>.</span></div></div>
-<div id="ee11c191" class="cell" data-execution_count="3">
+<div id="e9d1e0e8" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> laplacian(G): </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
@@ -653,7 +653,7 @@ Figure&nbsp;3.3: A graph with three connected components.
 </div>
 </div></div></div>
 <p>Now we can check that there are exactly 3 zero eigenvalues.</p>
-<div id="57f7eeff" class="cell" data-execution_count="5">
+<div id="aa369ed0" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> laplacian(G)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L)</span>
@@ -698,7 +698,7 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 </div>
 <p>The eigenvalue on the very far left is the zero eigenvalue guaranteed for any graph, while the very small eigenvalue right next to it reflects the structure of the graph as “almost disconnected” into two components.</p>
 </section>
-<section id="the-graph-laplacian-as-a-smoothness-measure" class="level3">
+<section id="the-graph-laplacian-as-a-smoothness-measure" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="the-graph-laplacian-as-a-smoothness-measure">The Graph Laplacian as a Smoothness Measure</h3>
 <p>Suppose that we have a vector <span class="math inline">\(\mathbf{x} \in \mathbb{R}^n\)</span>, where we interpret entry <span class="math inline">\(x_i\)</span> as describing some quantity at node <span class="math inline">\(i\)</span>. The Laplacian matrix can be used to measure the “smoothness” of this vector on the graph, by which we mean the extent to which neighboring nodes have similar values of <span class="math inline">\(x\)</span>. One way to quantify this is using the measure</p>
 <p><span class="math display">\[
@@ -731,7 +731,7 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 \]</span></p>
 <p>So, our smoothness measure is the quadratic form <span class="math inline">\(\mathbf{x}^T\mathbf{Lx}\)</span>. The role of the Laplacian in measuring the smoothness of functions defined on graphs is another perspective on its use in both algorithms and modeling of dynamical systems.</p>
 <p>To operationalize this, let’s implement a smoothness score:</p>
-<div id="243887d6" class="cell" data-execution_count="7">
+<div id="d717f003" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> smoothness(G, x): </span>
@@ -740,7 +740,7 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 </details>
 </div>
 <p>Now we can compare the smoothness of a random vector with the smoothness of a vector that varies in a more continuous fashion across the graph. <span class="alert">I’ve obtained the smooth vector as the eigenvector corresponding to the second-smallest eigenvalue (as in the example above), but this isn’t important in this context; it’s just one convenient way to get a smooth vector.</span></p>
-<div id="1c1b5376" class="cell" data-execution_count="8">
+<div id="cell-fig-smooth-graph-signals" class="cell page-columns page-full" data-execution_count="8">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.random_geometric_graph(<span class="dv">50</span>, <span class="fl">0.25</span>, seed <span class="op">=</span> <span class="dv">1234</span>)</span>
@@ -765,10 +765,15 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> ax[<span class="dv">1</span>].set_title(<span class="ss">f"Smoothness: </span><span class="sc">{</span>smoothness(G, x_smooth)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="03-components-laplacian_files/figure-html/cell-9-output-1.png" class="figure-img" width="466" height="260"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-smooth-graph-signals" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-smooth-graph-signals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-components-laplacian_files/figure-html/fig-smooth-graph-signals-output-1.png" width="466" height="260" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-smooth-graph-signals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.5: Two functions defined on the nodes of a graph and their corresponding smoothness scores as measured by the Laplacian.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -784,7 +789,7 @@ Figure&nbsp;3.4: (Left) A graph which is almost disconnected into two components
 \end{aligned}
 \]</span></p>
 <p>where <span class="math inline">\(\alpha\)</span> is some constant that describes the rate of heat transfer. Let’s see how this looks:</p>
-<div id="b983d800" class="cell page-columns page-full" data-execution_count="9">
+<div id="ac57de78" class="cell page-columns page-full" data-execution_count="9">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>

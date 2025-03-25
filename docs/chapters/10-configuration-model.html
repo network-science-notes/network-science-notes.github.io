@@ -423,7 +423,7 @@ Exercise
 <h3 class="anchored" data-anchor-id="sampling-from-configuration-models">Sampling From Configuration Models</h3>
 <p>It’s surprisingly complicated to draw a sample from a configuration model random graph. We can draw <em>approximate</em> samples from the configuration model using the <em>stub-matching</em> algorithm.</p>
 <p>In stub-matching, we create a list of “stubs,” or half-edges. Each node <span class="math inline">\(i\)</span> with degree <span class="math inline">\(k_i\)</span> appears in this list <span class="math inline">\(k_i\)</span> times. We form edges by picking two stubs at a time out of the list and forming an edge between them. Let’s implement this stub-matching algorithm. Before we do, we’ll load in our favorite example graph and extract its degree sequence.</p>
-<div id="ae28436b" class="cell" data-execution_count="1">
+<div id="cell-fig-karate-club-degree-sequence" class="cell page-columns page-full" data-execution_count="1">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -439,16 +439,21 @@ Exercise
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.scatter(np.arange(<span class="dv">0</span>, <span class="bu">len</span>(deg_seq)), np.sort(deg_seq),  s <span class="op">=</span> <span class="dv">10</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>labs <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Node (sorted by degree)"</span>, ylabel <span class="op">=</span> <span class="st">"Degree"</span>, title <span class="op">=</span> <span class="st">"Karate Club Degree Sequence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="10-configuration-model_files/figure-html/cell-2-output-1.png" class="figure-img" width="365" height="294"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-karate-club-degree-sequence" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-karate-club-degree-sequence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-configuration-model_files/figure-html/fig-karate-club-degree-sequence-output-1.png" width="365" height="294" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-degree-sequence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.1: Sorted degree sequence of the karate club graph.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Now we’ll implement an algorithm to perform stub-matching. First, we create the list of stubs. Each node appears a number of times equal to its degree.</p>
-<div id="4ea8bfa1" class="cell" data-execution_count="2">
+<div id="f2ad17e5" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stubs <span class="op">=</span> np.repeat(np.arange(<span class="bu">len</span>(deg_seq)), deg_seq)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stubs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -462,17 +467,17 @@ Exercise
 </div>
 </div>
 <p>Now we need to take random pairs from this list of stubs. We could do this with a loop, but another way is to shuffle the list and then reshape it into a list of pairs:</p>
-<div id="01b0717d" class="cell" data-execution_count="3">
+<div id="503f995a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mixed_stubs <span class="op">=</span> np.random.permutation(stubs)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>edge_list <span class="op">=</span> mixed_stubs.reshape(<span class="bu">len</span>(mixed_stubs)<span class="op">//</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can create a graph from our newly-constructed edge-list. Importantly, this graph might contain both self-loops and multi-edges, and so we need to use the <code>nx.MultiGraph</code> constructor.</p>
-<div id="b8dca7e5" class="cell" data-execution_count="4">
+<div id="dcccc887" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.MultiGraph()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> G.add_edges_from(edge_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s how our random graph compares to our original:</p>
-<div id="d6e618e5" class="cell" data-execution_count="5">
+<div id="cell-fig-karate-stub-matching" class="cell page-columns page-full" data-execution_count="5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
@@ -485,21 +490,26 @@ Exercise
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Configuration Model Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="10-configuration-model_files/figure-html/cell-6-output-1.png" class="figure-img" width="466" height="260"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-karate-stub-matching" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-karate-stub-matching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-configuration-model_files/figure-html/fig-karate-stub-matching-output-1.png" width="466" height="260" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-stub-matching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.2: Original karate club graph alongside a random graph formed via stub-matching. The random graph has the same degree sequence, but also self-loops and multi-edges.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The stub-matching algorithm can produce multiedges and self-loops, which can cause the graph to not be simple. However, <span class="citation" data-cites="bollobas1980probabilistic">Bollobás (<a href="#ref-bollobas1980probabilistic" role="doc-biblioref">1980</a>)</span> proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. In practical terms, we often discard the self-loops and multi-edges when constructing the graph; this results in the degree sequence no longer being <em>exactly</em> preserved, but the effect is u sually small.</p>
 <p><span class="citation" data-cites="fosdick2018configuring">Fosdick et al. (<a href="#ref-fosdick2018configuring" role="doc-biblioref">2018</a>)</span> discuss the subtleties that arise due to whether we allow or disallow multiedges and self-loops and whether we choose to label stubs distinctly (as opposed to only labeling vertices). These choices result in different spaces of graphs from which we are sampling. If we want to sample a simple graph from a configuration model with exactly the specified degree sequence, stub-matching is no longer sufficient. Instead, we need to rely on edge-rewiring algorithms, which randomly swap edges between nodes of the graph to randomize the graph while ensuring that the degrees of nodes remain constant. NetworkX implements a version of such an algorithm. The user needs to specify how many rewiring steps should be performed.</p>
-<div id="1b00e9c5" class="cell" data-execution_count="6">
+<div id="1ba0b7f0" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.random_reference(G_Karate, connectivity <span class="op">=</span> <span class="va">False</span>, niter <span class="op">=</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s how this looks:</p>
-<div id="4058369f" class="cell" data-execution_count="7">
+<div id="cell-fig-karate-club-rewiring" class="cell page-columns page-full" data-execution_count="7">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
@@ -510,10 +520,15 @@ Exercise
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Configuration Model </span><span class="ch">\n</span><span class="st">Graph (Rewiring)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="10-configuration-model_files/figure-html/cell-8-output-1.png" class="figure-img" width="466" height="277"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-karate-club-rewiring" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-karate-club-rewiring-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-configuration-model_files/figure-html/fig-karate-club-rewiring-output-1.png" width="466" height="277" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-rewiring-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.3: Karate club graph alongside a random graph formed by many successive rewirings. The random graph has the same degree sequence as the karate club graph and is simple, but is not guaranteed to be a uniform sample from the set of all such graphs.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -525,9 +540,9 @@ Exercise
 <h2 class="anchored" data-anchor-id="expected-degree-sequences-the-chunglu-model">Expected Degree Sequences: The Chung–Lu Model</h2>
 <p>Some of the challenges with stub-matching arise from the requirement that we generate a graph with a specified degree sequence <span class="math inline">\({\bf k}.\)</span> <span class="citation" data-cites="chung2002connected">Chung and Lu (<a href="#ref-chung2002connected" role="doc-biblioref">2002</a>)</span> relax this constraint and generate networks whose degree sequences are <em>approximately</em> <span class="math inline">\({\bf k}\)</span> <em>in expectation</em>, which avoids some of these issues.</p>
 <p>Suppose that we want to generate a graph with <span class="math inline">\(n\)</span> nodes where the degree of node <span class="math inline">\(i\)</span> is approximately equal to <span class="math inline">\(k_i\)</span>. We’ll again think with stubs: if node <span class="math inline">\(i\)</span> has degree <span class="math inline">\(k_i\)</span>, then it has <span class="math inline">\(k_i\)</span> stubs. There are a total of <span class="math inline">\(2m\)</span> stubs, of which <span class="math inline">\(k_i\)</span> are already attached to <span class="math inline">\(i\)</span>, so the number of stubs <span class="math inline">\(i\)</span> could attach to is <span class="math inline">\(2m-k_i\)</span>. Of these, <span class="math inline">\(k_j\)</span> are attached to node <span class="math inline">\(j\)</span>. So, the probability that a given stub of <span class="math inline">\(i\)</span> connects to node <span class="math inline">\(j\)</span> is approximately <span class="math inline">\(k_j/(2m-k_i)\)</span>, and there are <span class="math inline">\(k_i\)</span> such stubs: <span class="math display">\[
-    \mathbb{P}(\text{node $i$ stub connects to node $j$}) = \frac{k_j}{2m-k_i} \approx \frac{k_ik_j}{2m}
+    \mathbb{P}(\text{node $i$ stub connects to node $j$}) = \frac{k_j}{2m-1} \approx \frac{k_j}{2m}
 \]</span></p>
-<p>assuming that <span class="math inline">\(k_i\)</span> and <span class="math inline">\(k_j\)</span> are small compared to <span class="math inline">\(2m\)</span>. Summing over all <span class="math inline">\(k_i\)</span> stubs, we have</p>
+<p>for large <span class="math inline">\(m\)</span>. Summing over all <span class="math inline">\(k_i\)</span> stubs, we have</p>
 <p><span class="math display">\[
 \begin{aligned}
     \mathbb{E}[\text{number of edges between $i$ and $j$}] &amp;\approx \frac{k_ik_j}{2m} \,.
@@ -535,54 +550,72 @@ Exercise
 \]</span></p>
 <p>So, we can place down a Poisson-distributed number of edges between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> with mean <span class="math inline">\(k_ik_j/2m\)</span>. When <span class="math inline">\(k_ik_j \ll 2m\)</span>, this is very similar to placing down a single edge with probability <span class="math inline">\(k_ik_j/2m\)</span>; the probability of placing down two or more edges becomes very small.</p>
 <div class="page-columns page-full"><p>We might notice that this feels a little similar to the <span class="math inline">\(G(n,p)\)</span> model, and in fact, this is by construction. The degree of node <span class="math inline">\(i\)</span> will be Poisson distributed with mean <span class="math inline">\(k_i\)</span> under the assumptions given above.  This means that, instead of stub-matching, we can use an algorithm like for a <span class="math inline">\(G(n,p)\)</span> network by placing an edge between two nodes with probability <span class="math inline">\(P_{ij} = \frac{k_ik_j}{2m}\)</span>.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">Another assumption required here is that the maximum degree is not too large in comparison to <span class="math inline">\(n\)</span>.</span></div></div>
-<p>Here’s a simple implementation of the Chung-Lu model.</p>
-<div id="fab39792" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> itertools <span class="im">import</span> combinations</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(deg_seq)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>G.add_nodes_from(<span class="bu">range</span>(n))</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="bu">sum</span>(deg_seq)<span class="op">//</span><span class="dv">2</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, j <span class="kw">in</span> combinations(<span class="bu">range</span>(n), <span class="dv">2</span>):</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> deg_seq[i]<span class="op">*</span>deg_seq[j]<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>m):</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        G.add_edge(i, j)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
 </div>
-<div id="90ddfcb7" class="cell" data-execution_count="9">
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Implement a function <code>chung_lu(deg_seq)</code> that generates a graph with expected degree sequence approximately equal to the input <code>deg_seq</code> in expectation using the algorithm described above. Your algorithm should return a <code>networkx</code> graph object. You can choose to either place a Poisson-distributed number of edges between each pair of nodes with the appropriate mean or simply place a single edge with the appropriate probability.</p>
+<p><em>Hint</em>: You can use <code>itertools.combinations(range(n), 2)</code> to loop through all pairs of nodes in a graph.</p>
+</div>
+</div>
+
+</div>
+</div>
+<p>NetworkX supplies a built-in Chung-Lu implementation:</p>
+<div id="be65c312" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.expected_degree_graph(deg_seq, selfloops<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Visually, this looks fairly similar to the configuration model and quite different from the original graph:</p>
+<div id="cell-fig-karate-club-chung-lu" class="cell page-columns page-full" data-execution_count="10">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Chung-Lu Model </span><span class="ch">\n</span><span class="st">Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Chung-Lu Model </span><span class="ch">\n</span><span class="st">Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="10-configuration-model_files/figure-html/cell-10-output-1.png" class="figure-img" width="466" height="277"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-karate-club-chung-lu" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-karate-club-chung-lu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-configuration-model_files/figure-html/fig-karate-club-chung-lu-output-1.png" width="466" height="277" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-chung-lu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.4: Karate club graph alongside a Chung-Lu random graph.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>We can compare the degree sequence of the random graph we constructed to that of the original graph:</p>
-<div id="018bdd08" class="cell" data-execution_count="10">
+<div id="cell-fig-karate-club-chung-lu-degree-comparison" class="cell page-columns page-full" data-execution_count="11">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>chung_lu_deg_seq <span class="op">=</span> [k <span class="cf">for</span> n, k <span class="kw">in</span> G.degree()]</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">3</span>))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>ax.scatter(deg_seq, chung_lu_deg_seq,  s <span class="op">=</span> <span class="dv">10</span>, label <span class="op">=</span> <span class="st">"Karate Club"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Original Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Degree in Chung-Lu Random Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>chung_lu_deg_seq <span class="op">=</span> [k <span class="cf">for</span> n, k <span class="kw">in</span> G.degree()]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">4</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.scatter(deg_seq, chung_lu_deg_seq,  s <span class="op">=</span> <span class="dv">10</span>, label <span class="op">=</span> <span class="st">"Karate Club"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Original Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Degree in Chung-Lu Random Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="10-configuration-model_files/figure-html/cell-11-output-1.png" class="figure-img" width="365" height="276"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-karate-club-chung-lu-degree-comparison" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-karate-club-chung-lu-degree-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-configuration-model_files/figure-html/fig-karate-club-chung-lu-degree-comparison-output-1.png" width="365" height="349" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-chung-lu-degree-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.5: Comparison of the degree sequences of the karate club graph and a Chung-Lu random version. The line of equality, corresponding to nodes which have the same degree in both graphs, is shown.
+</figcaption>
 </figure>
 </div>
 </div>
@@ -669,16 +702,19 @@ Exercise
 \end{align}
 \]</span></p>
 <p>Let <span class="math inline">\(n\)</span> be the total number of nodes and <span class="math inline">\(n_k\)</span> be the number of nodes of degree <span class="math inline">\(k\)</span>.</p>
-<p>Now we’ll simplify our expression with a reindexing trick. As written, we’ve indexed over node degrees <span class="math inline">\(k\)</span>, but we could choose to index over node labels <span class="math inline">\(i\)</span> instead. Remembering that <span class="math inline">\(p_k = \frac{1}{n}n_k\)</span>, this gives: <span class="math display">\[
+<p>Now we’ll simplify our expression with a reindexing trick. As written, we’ve indexed over node degrees <span class="math inline">\(k\)</span>, but we could choose to index over node labels <span class="math inline">\(i\)</span> instead. Remembering that <span class="math inline">\(p_k = \frac{1}{n}n_k\)</span>, this gives: <span id="eq-friendship-paradox-1"><span class="math display">\[
 \begin{align}
-    \frac{1}{c}\sum_k k^2 \frac{1}{n}n_k = \frac{1}{cn}\sum_i k_i^2 =  \frac{\langle k^2 \rangle}{\langle k \rangle}\,,
+    \frac{1}{\langle k \rangle}\sum_k k^2 \frac{1}{n}n_k = \frac{1}{\langle k \rangle n}\sum_i k_i^2 =  \frac{\langle k^2 \rangle}{\langle k \rangle}\,,
 \end{align}
-\]</span></p>
-<div class="page-columns page-full"><p>where <span class="math inline">\(\langle k^2 \rangle = \frac{1}{n} \sum_i k_i^2\)</span>.  To get the first equality, we notice that the set <span class="math inline">\(\{n_1, (2)^2n_2, (3)^2n_3, \dots, (k_{max})^2 n_{k_{max}}\}\)</span> has the same sum as <span class="math inline">\(\{k_1^2, k_2^2, ..., k_n^2\}\)</span>.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">The quantity <span class="math inline">\(\langle k^2 \rangle\)</span> is often called the <em>second moment</em> of the degree distribution. The first moment <span class="math inline">\(\langle k \rangle = \frac{1}{n}\sum_{i = 1}^n\)</span> is the mean degree.</span></div></div>
+\tag{8.1}\]</span></span></p>
+<div class="page-columns page-full"><p>where <span class="math inline">\(\langle k^2 \rangle = \frac{1}{n} \sum_i k_i^2\)</span>.  To get the first equality, we notice that the set <span class="math inline">\(\{n_1, (2)^2n_2, (3)^2n_3, \dots, (k_{max})^2 n_{k_{max}}\}\)</span> has the same sum as <span class="math inline">\(\{k_1^2, k_2^2, ..., k_n^2\}\)</span>.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">The quantity <span class="math inline">\(\langle k^2 \rangle\)</span> is often called the <em>second moment</em> of the degree distribution. The first moment <span class="math inline">\(\langle k \rangle = \frac{1}{n}\sum_{i = 1}^n k_i\)</span> is the mean degree.</span></div></div>
 <p>Let’s compare this value to the expected degree of a randomly chosen node:</p>
-<p><span class="math display">\[
-    \frac{\langle k^2 \rangle}{\langle k \rangle} - c = \frac{1}{\langle k \rangle}\left(\langle k^2 \rangle - \langle k \rangle^2\right) = \frac{\sigma_k^2}{\langle k \rangle}\,,
-\]</span> where <span class="math inline">\(\sigma_k^2 = \langle k^2 \rangle - \langle k \rangle^2\)</span> is the empirical variance of the degree distribution. As we know, the variance of a random variable is 0 if and only the random variable is constant. In the context of degrees, this corresponds to a <span class="math inline">\(k\)</span>-regular graph. So, unless the graph is <span class="math inline">\(k\)</span>-regular, <span class="math inline">\(\sigma_k^2 &gt; 0.\)</span> Thus,</p>
+<p><span id="eq-friendship-paradox-2"><span class="math display">\[
+\begin{aligned}
+    \frac{\langle k^2 \rangle}{\langle k \rangle} - \langle k  \rangle = \frac{1}{\langle k \rangle}\left(\langle k^2 \rangle - \langle k \rangle^2\right) = \frac{\sigma_k^2}{\langle k \rangle}\,,
+\end{aligned}
+\tag{8.2}\]</span></span></p>
+<p>where <span class="math inline">\(\sigma_k^2 = \langle k^2 \rangle - \langle k \rangle^2\)</span> is the empirical variance of the degree distribution. As we know, the variance of a random variable is 0 if and only the random variable is constant. In the context of degrees, this corresponds to a <span class="math inline">\(k\)</span>-regular graph. So, unless the graph is <span class="math inline">\(k\)</span>-regular, <span class="math inline">\(\sigma_k^2 &gt; 0.\)</span> Thus,</p>
 <p><span class="math display">\[
 \begin{align}
     \frac{\sigma_k^2}{\langle k \rangle} &amp;&gt; 0, \\
@@ -689,27 +725,74 @@ Exercise
 <p>That is, the expected degree of a node’s neighbor (lefthand side) is greater than the expected node degree <span class="math inline">\(c\)</span> … in other words, (in expectation), your friends have more friends than you do!</p>
 <p>The intuition behind this idea is that a node with degree <span class="math inline">\(k\)</span> appears as a neighbor to <span class="math inline">\(k\)</span> other nodes, so high degree nodes are over-represented in the calculations.</p>
 <p>The friendship paradox has some practical applications in network analysis and interventions. For example, to interrupt the spread of an illness with a limited number of vaccines, it’s useful to target high-degree nodes in social networks, as they are more likely to be infected and to infect others. But how to identify the high-degree nodes? The friendship paradox suggests a simple way: pick some people at random and ask them to recommend one of their friends. This is sometimes called <em>acquaintance immunization</em> and can be a relative effective strategy for vaccine distribution. See <span class="citation" data-cites="rosenblatt2020immunization">Rosenblatt et al. (<a href="#ref-rosenblatt2020immunization" role="doc-biblioref">2020</a>)</span> for some discussion of this and related strategies.</p>
-<p>Let’s close with a computational illustration of the Friendship paradox on the Karate Club graph.</p>
-<div id="f1cfe6fc" class="cell" data-execution_count="11">
+<p>Let’s visualize the degree of each node in comparison to the average degree of its neighbors to get a feel for this result:</p>
+<div id="cell-fig-karate-club-friendship-paradox" class="cell page-columns page-full" data-execution_count="12">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mean_degree <span class="op">=</span> np.mean(deg_seq)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>neighbor_degrees <span class="op">=</span> [np.mean([deg_seq[j] <span class="cf">for</span> j <span class="kw">in</span> G_Karate.neighbors(i)]) <span class="cf">for</span> i <span class="kw">in</span> G_Karate.nodes()]</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">5</span>, <span class="dv">4</span>))</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.scatter(deg_seq, neighbor_degrees, s <span class="op">=</span> <span class="dv">10</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Node Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Neighbor Degree"</span>, title <span class="op">=</span> <span class="ss">f"Friendship Paradox in the Karate Club Graph</span><span class="ch">\n</span><span class="ss">Mean Degree = </span><span class="sc">{</span>mean_degree<span class="sc">:.2f}</span><span class="ch">\n</span><span class="ss"> Mean Neighbor Degree = </span><span class="sc">{</span>np<span class="sc">.</span>mean(neighbor_degrees)<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mean_degree <span class="op">=</span> np.mean(deg_seq)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>neighbor_degrees <span class="op">=</span> <span class="bu">list</span>(nx.average_neighbor_degree(G_Karate).values())</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ax.scatter(deg_seq, neighbor_degrees, s <span class="op">=</span> <span class="dv">10</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Node Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Mean degree of neighbors"</span>, title <span class="op">=</span> <span class="st">"Friendship Paradox in the Karate Club Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="10-configuration-model_files/figure-html/cell-12-output-1.png" class="figure-img" width="445" height="402"></p>
+<div class="cell-output cell-output-display page-columns page-full">
+<div id="fig-karate-club-friendship-paradox" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-karate-club-friendship-paradox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-configuration-model_files/figure-html/fig-karate-club-friendship-paradox-output-1.png" width="445" height="368" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-friendship-paradox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.6: Computational illustration of the friendship paradox in the karate club graph. The average degree of the neighbors of a node tends to be higher than the degree of the node itself, with a few exceptions.
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>For most nodes (but not all), the mean degree of their neighbors is higher than their own degree. On average, the mean degree of a node in this graph is just half of the mean degree of that node’s neighbors.</p>
+<p>We can verify <a href="#eq-friendship-paradox-1" class="quarto-xref">Equation&nbsp;<span>8.1</span></a> by computing the appropriate quantities in two ways.</p>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write a function which computes the average neighbor degree in the graph. Your function should loop through all nodes in the graph, collect the degrees of their neighbors, and combine those degrees in a large list (or similar data structure). You should then return the mean of that list.</p>
+</div>
+</div>
+
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>np.float64(7.769230769230769)</code></pre>
+</div>
+</div>
+</div>
+<p>Let’s compare our computational result to the result expected by theory.</p>
+<div class="callout callout-style-simple callout-warning no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Implement the mathematical calculation of the average neighbor degree using <a href="#eq-friendship-paradox-1" class="quarto-xref">Equation&nbsp;<span>8.1</span></a> and show that it agrees with your function in the previous exercise.</p>
+</div>
+</div>
+
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>np.float64(7.76923076923077)</code></pre>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="references" class="level2">

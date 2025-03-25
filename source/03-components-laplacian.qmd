@@ -288,7 +288,7 @@ In a graph with just one connected component, @thm-laplacian-0-multiplicity impl
 ```{python}
 #| fig-cap : " (Left) A graph which is almost disconnected into two components; deleting two edges would separate the network. (Right): the eigenvalues of the Laplacian of the graph in ascending order. The second-smallest eigenvalue is very close to 0, which reflects the near-disconnectedness of the graph. Nodes in the graph are colored according to the corresponding eigenvector"
 #| label: fig-laplacian-almost-disconnected
-#| 
+
 fig, ax = plt.subplots(1, 2, figsize = (7, 3), gridspec_kw={'width_ratios': [1.5, 1]})
 
 G = nx.stochastic_block_model([10, 10], [[0.5, 0.02], [0.02, 0.5]], seed = 1234)
@@ -364,6 +364,9 @@ def smoothness(G, x):
 Now we can compare the smoothness of a random vector with the smoothness of a vector that varies in a more continuous fashion across the graph. [I've obtained the smooth vector as the eigenvector corresponding to the second-smallest eigenvalue (as in the example above), but this isn't important in this context; it's just one convenient way to get a smooth vector.]{.alert}
 
 ```{python}
+#| fig-cap : "Two functions defined on the nodes of a graph and their corresponding smoothness scores as measured by the Laplacian."
+#| label: fig-smooth-graph-signals
+
 G = nx.random_geometric_graph(50, 0.25, seed = 1234)
 pos = nx.kamada_kawai_layout(G)
 

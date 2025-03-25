@@ -48,6 +48,8 @@ It's surprisingly complicated to draw a sample from a configuration model random
 In stub-matching, we create a list of "stubs," or half-edges. Each node $i$ with degree $k_i$ appears in this list $k_i$ times. We form edges by picking two stubs at a time out of the list and forming an edge between them. Let's implement this stub-matching algorithm. Before we do, we'll load in our favorite example graph and extract its degree sequence. 
 
 ```{python}
+#| fig-cap : "Sorted degree sequence of the karate club graph."
+#| label: fig-karate-club-degree-sequence
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
@@ -96,6 +98,8 @@ edges = G.add_edges_from(edge_list)
 Here's how our random graph compares to our original: 
 
 ```{python}
+#| fig-cap : "Original karate club graph alongside a random graph formed via stub-matching. The random graph has the same degree sequence, but also self-loops and multi-edges."
+#| label: fig-karate-stub-matching
 
 fig, axarr = plt.subplots(1, 2, figsize = (6, 3))
 axarr[0].set(title = "Karate Club Graph")
@@ -124,6 +128,8 @@ G = nx.random_reference(G_Karate, connectivity = False, niter = 1000)
 
 Here's how this looks: 
 ```{python}
+#| fig-cap : "Karate club graph alongside a random graph formed by many successive rewirings. The random graph has the same degree sequence as the karate club graph and is simple, but is not guaranteed to be a uniform sample from the set of all such graphs."
+#| label: fig-karate-club-rewiring
 fig, axarr = plt.subplots(1, 2, figsize = (6, 3))
 axarr[0].set(title = "Karate Club Graph")
 
@@ -141,10 +147,10 @@ Some of the challenges with stub-matching arise from the requirement that we gen
 
 Suppose that we want to generate a graph with $n$ nodes where the degree of node $i$ is approximately equal to $k_i$. We'll again think with stubs: if node $i$ has degree $k_i$, then it has $k_i$ stubs. There are a total of $2m$ stubs, of which $k_i$ are already attached to $i$, so the number of stubs $i$ could attach to is $2m-k_i$. Of these, $k_j$ are attached to node $j$. So, the probability that a given stub of $i$ connects to node $j$ is approximately $k_j/(2m-k_i)$, and there are $k_i$ such stubs: 
 $$
-    \mathbb{P}(\text{node $i$ stub connects to node $j$}) = \frac{k_j}{2m-k_i} \approx \frac{k_ik_j}{2m}
+    \mathbb{P}(\text{node $i$ stub connects to node $j$}) = \frac{k_j}{2m-1} \approx \frac{k_j}{2m}
 $$
 
-assuming that $k_i$ and $k_j$ are small compared to $2m$. Summing over all $k_i$ stubs, we have 
+for large $m$. Summing over all $k_i$ stubs, we have 
 
 $$
 \begin{aligned}
@@ -156,28 +162,57 @@ So, we can place down a Poisson-distributed number of edges between $i$ and $j$ 
 
 We might notice that this feels a little similar to the $G(n,p)$ model, and in fact, this is by construction. The degree of node $i$ will be Poisson distributed with mean $k_i$ under the assumptions given above. [Another assumption required here is that the maximum degree is not too large in comparison to $n$.]{.aside} This means that, instead of stub-matching, we can use an algorithm like for a $G(n,p)$ network by placing an edge between two nodes with probability $P_{ij} = \frac{k_ik_j}{2m}$.
 
+::: {.callout-important icon=false appearance="minimal"}
+
+## Exercise
+
+Implement a function `chung_lu(deg_seq)` that generates a graph with expected degree sequence approximately equal to the input `deg_seq` in expectation using the algorithm described above. Your algorithm should return a `networkx` graph object. You can choose to either place a Poisson-distributed number of edges between each pair of nodes with the appropriate mean or simply place a single edge with the appropriate probability. 
+
+*Hint*: You can use `itertools.combinations(range(n), 2)` to loop through all pairs of nodes in a graph. 
+
+
+:::
+
+
+::: {.solution .hide}
+
 Here's a simple implementation of the Chung-Lu model. 
 
 ```{python}
-
 #| code-fold: false
 #---
 from itertools import combinations
 
-n = len(deg_seq)
+def chung_lu(deg_seq):
 
-G = nx.Graph()
-G.add_nodes_from(range(n))
+    n = len(deg_seq)
 
-m = sum(deg_seq)//2
-for i, j in combinations(range(n), 2):
-    if np.random.rand() < deg_seq[i]*deg_seq[j]/(2*m):
-        G.add_edge(i, j)
+    G = nx.Graph()
+    G.add_nodes_from(range(n))
+
+    m = sum(deg_seq)//2
+    for i, j in combinations(range(n), 2):
+        if np.random.rand() < deg_seq[i]*deg_seq[j]/(2*m):
+            G.add_edge(i, j)
+
+    return G
 #---
 ```
 
+:::
+
+NetworkX supplies a built-in Chung-Lu implementation: 
 
 ```{python}
+#| code-fold: false
+G = nx.expected_degree_graph(deg_seq, selfloops=False)
+```
+
+Visually, this looks fairly similar to the configuration model and quite different from the original graph: 
+
+```{python}
+#| fig-cap : "Karate club graph alongside a Chung-Lu random graph."
+#| label: fig-karate-club-chung-lu
 fig, axarr = plt.subplots(1, 2, figsize = (6, 3))
 axarr[0].set(title = "Karate Club Graph")
 
@@ -190,9 +225,12 @@ axarr[1].set(title = "Chung-Lu Model \nGraph")
 We can compare the degree sequence of the random graph we constructed to that of the original graph: 
 
 ```{python}
+#| fig-cap : "Comparison of the degree sequences of the karate club graph and a Chung-Lu random version. The line of equality, corresponding to nodes which have the same degree in both graphs, is shown."
+#| label: fig-karate-club-chung-lu-degree-comparison
+
 chung_lu_deg_seq = [k for n, k in G.degree()]
 
-fig, ax = plt.subplots(1, 1, figsize = (4, 3))
+fig, ax = plt.subplots(1, 1, figsize = (4, 4))
 plt.plot([0, 17], [0, 17], color = "grey", linestyle = "--", linewidth = 0.75)
 ax.scatter(deg_seq, chung_lu_deg_seq,  s = 10, label = "Karate Club", alpha = 0.5)
 t = ax.set(xlabel = "Original Degree", ylabel = "Degree in Chung-Lu Random Graph")
@@ -204,7 +242,7 @@ We observe that the degrees in the Chung-Lu model are correlated with but not ex
 
 ## Exercise
 
-Show that the expected degree $\mathbb{E}[K_i]$ of node $i$ in the Chung-Lu model is equal to $k_i - \frac{k_i^2}{2m}$.
+Show that the expected degree $\mathbb{E}[K_i]$ of node $i$ in the Chung-Lu model is equal to $k_i - \frac{k_i^2}{2m}$. 
 
 :::
 
@@ -293,17 +331,20 @@ Let $n$ be the total number of nodes and $n_k$ be the number of nodes of degree 
 Now we'll simplify our expression with a reindexing trick. As written, we've indexed over node degrees $k$, but we could choose to index over node labels $i$ instead. Remembering that $p_k = \frac{1}{n}n_k$,  this gives: 
 $$
 \begin{align}
-    \frac{1}{c}\sum_k k^2 \frac{1}{n}n_k = \frac{1}{cn}\sum_i k_i^2 =  \frac{\langle k^2 \rangle}{\langle k \rangle}\,,
+    \frac{1}{\langle k \rangle}\sum_k k^2 \frac{1}{n}n_k = \frac{1}{\langle k \rangle n}\sum_i k_i^2 =  \frac{\langle k^2 \rangle}{\langle k \rangle}\,,
 \end{align}
-$$
+$${#eq-friendship-paradox-1}
 
-where $\langle k^2 \rangle = \frac{1}{n} \sum_i k_i^2$. [The quantity $\langle k^2 \rangle$ is often called the *second moment* of the degree distribution. The first moment $\langle k \rangle = \frac{1}{n}\sum_{i = 1}^n$ is the mean degree.]{.aside} To get the first equality, we notice that the set $\{n_1, (2)^2n_2, (3)^2n_3, \dots, (k_{max})^2 n_{k_{max}}\}$ has the same sum as $\{k_1^2, k_2^2, ..., k_n^2\}$.
+where $\langle k^2 \rangle = \frac{1}{n} \sum_i k_i^2$. [The quantity $\langle k^2 \rangle$ is often called the *second moment* of the degree distribution. The first moment $\langle k \rangle = \frac{1}{n}\sum_{i = 1}^n k_i$ is the mean degree.]{.aside} To get the first equality, we notice that the set $\{n_1, (2)^2n_2, (3)^2n_3, \dots, (k_{max})^2 n_{k_{max}}\}$ has the same sum as $\{k_1^2, k_2^2, ..., k_n^2\}$.
 
 Let's compare this value to the expected degree of a randomly chosen node:
 
 $$
-    \frac{\langle k^2 \rangle}{\langle k \rangle} - c = \frac{1}{\langle k \rangle}\left(\langle k^2 \rangle - \langle k \rangle^2\right) = \frac{\sigma_k^2}{\langle k \rangle}\,,
-$$
+\begin{aligned}
+    \frac{\langle k^2 \rangle}{\langle k \rangle} - \langle k  \rangle = \frac{1}{\langle k \rangle}\left(\langle k^2 \rangle - \langle k \rangle^2\right) = \frac{\sigma_k^2}{\langle k \rangle}\,,
+\end{aligned}
+$${#eq-friendship-paradox-2}
+
 where $\sigma_k^2 = \langle k^2 \rangle - \langle k \rangle^2$ is the empirical variance of the degree distribution. As we know, the variance of a random variable is 0 if and only the random variable is constant. In the context of degrees, this corresponds to a $k$-regular graph. So, unless the graph is $k$-regular, $\sigma_k^2 > 0.$ Thus,
 
 $$
@@ -320,19 +361,76 @@ The intuition behind this idea is that a node with degree $k$ appears as a neigh
 
 The friendship paradox has some practical applications in network analysis and interventions. For example, to interrupt the spread of an illness with a limited number of vaccines, it's useful to target high-degree nodes in social networks, as they are more likely to be infected and to infect others. But how to identify the high-degree nodes? The friendship paradox suggests a simple way: pick some people at random and ask them to recommend one of their friends. This is sometimes called *acquaintance immunization* and can be a relative effective strategy for vaccine distribution. See @rosenblatt2020immunization for some discussion of this and related strategies. 
 
-Let's close with a computational illustration of the Friendship paradox on the Karate Club graph.
+Let's visualize the degree of each node in comparison to the average degree of its neighbors to get a feel for this result: 
 
 ```{python}
+#| fig-cap : "Computational illustration of the friendship paradox in the karate club graph. The average degree of the neighbors of a node tends to be higher than the degree of the node itself, with a few exceptions."
+#| label: fig-karate-club-friendship-paradox
 mean_degree = np.mean(deg_seq)
-neighbor_degrees = [np.mean([deg_seq[j] for j in G_Karate.neighbors(i)]) for i in G_Karate.nodes()]
+
+
+neighbor_degrees = list(nx.average_neighbor_degree(G_Karate).values())
 
 fig, ax = plt.subplots(1, 1, figsize = (5, 4))
 ax.scatter(deg_seq, neighbor_degrees, s = 10, alpha = 0.5)
 ax.plot([0, 17], [0, 17], color = "grey", linestyle = "--", linewidth = 0.75)
-t = ax.set(xlabel = "Node Degree", ylabel = "Neighbor Degree", title = f"Friendship Paradox in the Karate Club Graph\nMean Degree = {mean_degree:.2f}\n Mean Neighbor Degree = {np.mean(neighbor_degrees):.2f}")
+t = ax.set(xlabel = "Node Degree", ylabel = "Mean degree of neighbors", title = "Friendship Paradox in the Karate Club Graph")
 ```
 
 For most nodes (but not all), the mean degree of their neighbors is higher than their own degree. On average, the mean degree of a node in this graph is just half of the mean degree of that node's neighbors. 
+
+We can verify @eq-friendship-paradox-1 by computing the appropriate quantities in two ways. 
+
+
+::: {.callout-warning}
+
+## Exercise
+
+Write a function which computes the average neighbor degree in the graph. Your function should loop through all nodes in the graph, collect the degrees of their neighbors, and combine those degrees in a large list (or similar data structure). You should then return the mean of that list. 
+
+:::
+
+::: {.solution .hide}
+
+One approach is 
+
+```{python}
+#| code-fold: false
+def average_neighbor_degree(G):
+    neighbor_degrees = [G.degree(n) for node in G.nodes() for n in G.neighbors(node)]
+    return np.mean(neighbor_degrees)
+
+average_neighbor_degree(G_Karate)
+```
+
+:::
+
+
+Let's compare our computational result to the result expected by theory. 
+
+::: {.callout-warning}
+
+## Exercise
+
+Implement the mathematical calculation of the average neighbor degree using @eq-friendship-paradox-1 and show that it agrees with your function in the previous exercise.
+
+:::
+
+::: {.solution .hide}
+
+```{python}
+#| code-fold: false
+def average_neighbor_degree_math(G):
+    deg_seq = np.array([k for n, k in G.degree()])
+    mean_degree = np.mean(deg_seq)
+    second_moment = (deg_seq**2).mean()
+    return (second_moment)/mean_degree
+
+average_neighbor_degree_math(G_Karate)
+```
+:::
+
+
 
 
 ## References

@@ -33,7 +33,7 @@ format:
 
 execute: 
   cache: false
-  jupyter: env
+  jupyter: ml-env
 
 profile:
   group: 
