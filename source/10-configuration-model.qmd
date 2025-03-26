@@ -396,11 +396,15 @@ One approach is
 
 ```{python}
 #| code-fold: false
+#| eval: false
+
+#---
 def average_neighbor_degree(G):
     neighbor_degrees = [G.degree(n) for node in G.nodes() for n in G.neighbors(node)]
     return np.mean(neighbor_degrees)
 
 average_neighbor_degree(G_Karate)
+#---
 ```
 
 :::
@@ -420,14 +424,18 @@ Implement the mathematical calculation of the average neighbor degree using @eq-
 
 ```{python}
 #| code-fold: false
+#| eval: false
+#---
 def average_neighbor_degree_math(G):
     deg_seq = np.array([k for n, k in G.degree()])
     mean_degree = np.mean(deg_seq)
     second_moment = (deg_seq**2).mean()
-    return (second_moment)/mean_degree
+    return second_moment/mean_degree
 
 average_neighbor_degree_math(G_Karate)
+#---
 ```
+
 :::
 
 

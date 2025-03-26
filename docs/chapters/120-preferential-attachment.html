@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.10">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>10&nbsp; Preferential Attachment and Power Laws – Network Science: Models, Mathematics, and Computation</title>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>10  Preferential Attachment and Power Laws – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,26 +72,24 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }</style>
-
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../chapters/06-modularity.html" rel="next">
-<link href="../chapters/11-generating-functions.html" rel="prev">
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/06-modularity.html" rel="next"/>
+<link href="../chapters/11-generating-functions.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,10 +117,8 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -152,329 +145,312 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
-<link rel="stylesheet" href="../styles.css">
+<link href="../styles.css" rel="stylesheet"/>
 </head>
-
 <body class="nav-sidebar floating slimcontent">
-
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/120-preferential-attachment.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/120-preferential-attachment.html"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
-  </div>
+</ul>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
-  </li>
-    </ul>
-    </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#recap-power-laws" id="toc-recap-power-laws" class="nav-link active" data-scroll-target="#recap-power-laws">Recap: Power Laws</a></li>
-  <li><a href="#the-preferential-attachment-model-a-generative-model-for-power-law-degrees" id="toc-the-preferential-attachment-model-a-generative-model-for-power-law-degrees" class="nav-link" data-scroll-target="#the-preferential-attachment-model-a-generative-model-for-power-law-degrees">The Preferential Attachment Model: A Generative Model for Power Law Degrees</a></li>
-  <li><a href="#analyzing-preferential-attachment" id="toc-analyzing-preferential-attachment" class="nav-link" data-scroll-target="#analyzing-preferential-attachment">Analyzing Preferential Attachment</a></li>
-  <li><a href="#sec-power-law-estimation" id="toc-sec-power-law-estimation" class="nav-link" data-scroll-target="#sec-power-law-estimation">Estimating Power Laws From Data</a>
-  <ul class="collapse">
-  <li><a href="#preferential-attachment-in-growing-graphs" id="toc-preferential-attachment-in-growing-graphs" class="nav-link" data-scroll-target="#preferential-attachment-in-growing-graphs">Preferential Attachment in Growing Graphs</a></li>
-  </ul></li>
-  <li><a href="#are-power-laws-good-descriptors-of-real-world-networks" id="toc-are-power-laws-good-descriptors-of-real-world-networks" class="nav-link" data-scroll-target="#are-power-laws-good-descriptors-of-real-world-networks">Are Power Laws Good Descriptors of Real-World Networks?</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#recap-power-laws" href="#recap-power-laws" id="toc-recap-power-laws">Recap: Power Laws</a></li>
+<li><a class="nav-link" data-scroll-target="#the-preferential-attachment-model-a-generative-model-for-power-law-degrees" href="#the-preferential-attachment-model-a-generative-model-for-power-law-degrees" id="toc-the-preferential-attachment-model-a-generative-model-for-power-law-degrees">The Preferential Attachment Model: A Generative Model for Power Law Degrees</a></li>
+<li><a class="nav-link" data-scroll-target="#analyzing-preferential-attachment" href="#analyzing-preferential-attachment" id="toc-analyzing-preferential-attachment">Analyzing Preferential Attachment</a></li>
+<li><a class="nav-link" data-scroll-target="#sec-power-law-estimation" href="#sec-power-law-estimation" id="toc-sec-power-law-estimation">Estimating Power Laws From Data</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#preferential-attachment-in-growing-graphs" href="#preferential-attachment-in-growing-graphs" id="toc-preferential-attachment-in-growing-graphs">Preferential Attachment in Growing Graphs</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#are-power-laws-good-descriptors-of-real-world-networks" href="#are-power-laws-good-descriptors-of-real-world-networks" id="toc-are-power-laws-good-descriptors-of-real-world-networks">Are Power Laws Good Descriptors of Real-World Networks?</a></li>
+<li><a class="nav-link" data-scroll-target="#references" href="#references" id="toc-references">References</a></li>
+</ul>
 </nav>
-    </div>
+</div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/120-preferential-attachment.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/120-preferential-attachment.html"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
+</div>
 </header>
-
-
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/120-preferential-attachment.ipynb">here</a>.</em></p>
 <p>In a <a href="../chapters/07-real-world.html">previous chapter</a>, we discussed several properties observed in empirical networks. One of the properties we observed was an (approximate) <em>power law degree distribution</em>. It has been famously claimed <span class="citation" data-cites="barabasiEmergenceScalingRandom1999">(<a href="#ref-barabasiEmergenceScalingRandom1999" role="doc-biblioref">Barabási and Albert 1999</a>)</span> that many empirical networks have power-law degrees, a claim which has also been famously disputed<span class="citation" data-cites="broidoScalefreeNetworksAre2019">(<a href="#ref-broidoScalefreeNetworksAre2019" role="doc-biblioref">Broido and Clauset 2019</a>)</span>.</p>
 <div class="page-columns page-full"><p>We’re not going to take a stance on the question of whether many empirical networks obey power laws in this chapter. Instead, we’ll focus on a modeling question: if we supposed that power laws are present in many real-world systems, how could we explain that? One way to address this question is via mathematical modeling: can we come up with a plausible mathematical model of networks that would reliably generate power-law degree distributions? There have been a number of such models proposed; in these notes we’ll discuss a variation on one of the most famous; the Yule-Simon-Price-Barabási-Albert model of <em>preferential attachment</em>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This model was made famous by <span class="citation" data-cites="barabasiEmergenceScalingRandom1999">Barabási and Albert (<a href="#ref-barabasiEmergenceScalingRandom1999" role="doc-biblioref">1999</a>)</span>, but their model is very similar to the regrettably much less famous models of <span class="citation" data-cites="yuleMathematicalTheoryEvolution1925">Yule (<a href="#ref-yuleMathematicalTheoryEvolution1925" role="doc-biblioref">1925</a>)</span>, <span class="citation" data-cites="simonClassSkewDistribution1955">Simon (<a href="#ref-simonClassSkewDistribution1955" role="doc-biblioref">1955</a>)</span>, and <span class="citation" data-cites="price1976general">Price (<a href="#ref-price1976general" role="doc-biblioref">1976</a>)</span></span></div></div>
 <div class="page-columns page-full"><p>To motivate our discussion, let’s take another look at a network which displays an approximate power law degree distribution. We’ll again use the <code>twitch</code> data set collected from the streaming platform Twitch by <span class="citation" data-cites="musae">Rozemberczki, Allen, and Sarkar (<a href="#ref-musae" role="doc-biblioref">2021</a>)</span>. Nodes are users on Twitch. An edge exists between them if they are mutual friends on the platform. The authors collected data sets for users speaking several different languages; we’ll use the network of English-speaking users. Let’s now download the data (as a Pandas data frame) and convert it into a graph using Networkx. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The hidden code block contains package imports and plotting style configuration.</span></div></div>
-<div id="c5e510fd" class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="2" id="c5e510fd">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> factorial</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> factorial</span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a><span class="im">import</span> random</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="a7d66795" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ENGB_edges.csv"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"from"</span>, <span class="st">"to"</span>, create_using<span class="op">=</span>nx.Graph)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>num_nodes <span class="op">=</span> G.number_of_nodes()</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>num_edges <span class="op">=</span> G.number_of_edges()</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"This graph has </span><span class="sc">{</span>num_nodes<span class="sc">}</span><span class="ss"> nodes and </span><span class="sc">{</span>num_edges<span class="sc">}</span><span class="ss"> edges. The mean degree is </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>num_edges<span class="op">/</span>num_nodes<span class="sc">:.1f}</span><span class="ss">."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="3" id="a7d66795">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/benedekrozemberczki/MUSAE/master/input/edges/ENGB_edges.csv"</span></span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>edges <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(edges, <span class="st">"from"</span>, <span class="st">"to"</span>, create_using<span class="op">=</span>nx.Graph)</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a>num_nodes <span class="op">=</span> G.number_of_nodes()</span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>num_edges <span class="op">=</span> G.number_of_edges()</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"This graph has </span><span class="sc">{</span>num_nodes<span class="sc">}</span><span class="ss"> nodes and </span><span class="sc">{</span>num_edges<span class="sc">}</span><span class="ss"> edges. The mean degree is </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>num_edges<span class="op">/</span>num_nodes<span class="sc">:.1f}</span><span class="ss">."</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>This graph has 7126 nodes and 35324 edges. The mean degree is 9.9.</code></pre>
 </div>
 </div>
 <p>We’ll use the same helper functions for visualizing the degree distribution as a log-binned histogram as we used previously, implemented in the hidden code cell below.</p>
-<div id="e4f04d89" class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="4" id="e4f04d89">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> degree_sequence(G):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    degree_sequence <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> degree_sequence</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log_binned_histogram(degree_sequence, interval <span class="op">=</span> <span class="dv">5</span>, num_bins <span class="op">=</span> <span class="dv">20</span>):</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(degree_sequence, bins <span class="op">=</span> <span class="bu">min</span>(<span class="bu">int</span>(<span class="bu">len</span>(degree_sequence)<span class="op">/</span>interval), num_bins))</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    bins <span class="op">=</span> np.logspace(np.log10(bins[<span class="dv">0</span>]),np.log10(bins[<span class="op">-</span><span class="dv">1</span>]),<span class="bu">len</span>(bins))</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(degree_sequence, bins <span class="op">=</span> bins)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    binwidths <span class="op">=</span> bins[<span class="dv">1</span>:] <span class="op">-</span> bins[:<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    hist <span class="op">=</span> hist <span class="op">/</span> binwidths</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> hist<span class="op">/</span>hist.<span class="bu">sum</span>()</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bins[:<span class="op">-</span><span class="dv">1</span>], p</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_degree_distribution(G, <span class="op">**</span>kwargs):</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    deg_seq <span class="op">=</span> degree_sequence(G)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    x, p <span class="op">=</span> log_binned_histogram(deg_seq, <span class="op">**</span>kwargs)</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    plt.scatter(x, p,  facecolors<span class="op">=</span><span class="st">'none'</span>, edgecolors <span class="op">=</span>  <span class="st">'cornflowerblue'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">"Data"</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Degree"</span>, xlim <span class="op">=</span> (<span class="fl">0.5</span>, x.<span class="bu">max</span>()<span class="op">*</span><span class="dv">2</span>))</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(ylabel <span class="op">=</span> <span class="st">"Density"</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    plt.gca().loglog()</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> plt.gca()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="kw">def</span> degree_sequence(G):</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>    degree_sequence <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a>    <span class="cf">return</span> degree_sequence</span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a><span class="kw">def</span> log_binned_histogram(degree_sequence, interval <span class="op">=</span> <span class="dv">5</span>, num_bins <span class="op">=</span> <span class="dv">20</span>):</span>
+<span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(degree_sequence, bins <span class="op">=</span> <span class="bu">min</span>(<span class="bu">int</span>(<span class="bu">len</span>(degree_sequence)<span class="op">/</span>interval), num_bins))</span>
+<span id="cb4-8"><a aria-hidden="true" href="#cb4-8" tabindex="-1"></a>    bins <span class="op">=</span> np.logspace(np.log10(bins[<span class="dv">0</span>]),np.log10(bins[<span class="op">-</span><span class="dv">1</span>]),<span class="bu">len</span>(bins))</span>
+<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(degree_sequence, bins <span class="op">=</span> bins)</span>
+<span id="cb4-10"><a aria-hidden="true" href="#cb4-10" tabindex="-1"></a>    binwidths <span class="op">=</span> bins[<span class="dv">1</span>:] <span class="op">-</span> bins[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-11"><a aria-hidden="true" href="#cb4-11" tabindex="-1"></a>    hist <span class="op">=</span> hist <span class="op">/</span> binwidths</span>
+<span id="cb4-12"><a aria-hidden="true" href="#cb4-12" tabindex="-1"></a>    p <span class="op">=</span> hist<span class="op">/</span>hist.<span class="bu">sum</span>()</span>
+<span id="cb4-13"><a aria-hidden="true" href="#cb4-13" tabindex="-1"></a></span>
+<span id="cb4-14"><a aria-hidden="true" href="#cb4-14" tabindex="-1"></a>    <span class="cf">return</span> bins[:<span class="op">-</span><span class="dv">1</span>], p</span>
+<span id="cb4-15"><a aria-hidden="true" href="#cb4-15" tabindex="-1"></a></span>
+<span id="cb4-16"><a aria-hidden="true" href="#cb4-16" tabindex="-1"></a><span class="kw">def</span> plot_degree_distribution(G, <span class="op">**</span>kwargs):</span>
+<span id="cb4-17"><a aria-hidden="true" href="#cb4-17" tabindex="-1"></a></span>
+<span id="cb4-18"><a aria-hidden="true" href="#cb4-18" tabindex="-1"></a>    deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb4-19"><a aria-hidden="true" href="#cb4-19" tabindex="-1"></a>    x, p <span class="op">=</span> log_binned_histogram(deg_seq, <span class="op">**</span>kwargs)</span>
+<span id="cb4-20"><a aria-hidden="true" href="#cb4-20" tabindex="-1"></a>    plt.scatter(x, p,  facecolors<span class="op">=</span><span class="st">'none'</span>, edgecolors <span class="op">=</span>  <span class="st">'cornflowerblue'</span>, linewidth <span class="op">=</span> <span class="dv">2</span>, label <span class="op">=</span> <span class="st">"Data"</span>)</span>
+<span id="cb4-21"><a aria-hidden="true" href="#cb4-21" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Degree"</span>, xlim <span class="op">=</span> (<span class="fl">0.5</span>, x.<span class="bu">max</span>()<span class="op">*</span><span class="dv">2</span>))</span>
+<span id="cb4-22"><a aria-hidden="true" href="#cb4-22" tabindex="-1"></a>    plt.gca().<span class="bu">set</span>(ylabel <span class="op">=</span> <span class="st">"Density"</span>)</span>
+<span id="cb4-23"><a aria-hidden="true" href="#cb4-23" tabindex="-1"></a>    plt.gca().loglog()</span>
+<span id="cb4-24"><a aria-hidden="true" href="#cb4-24" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb4-25"><a aria-hidden="true" href="#cb4-25" tabindex="-1"></a>    <span class="cf">return</span> plt.gca()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Let’s use this function to inspect the degree distribution of the data:</p>
-<div id="b041b52d" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="5" id="b041b52d">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="120-preferential-attachment_files/figure-html/cell-5-output-1.png" class="figure-img" width="589" height="429"></p>
+<p><img class="figure-img" height="429" src="120-preferential-attachment_files/figure-html/cell-5-output-1.png" width="589"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>There are a few things to notice about this degree distribution. First, most nodes have relatively small degrees, fewer than the mean of 9.9. However, there are a small number of nodes that have degrees which are <em>much</em> larger: almost two orders of magnitude larger! You can think of these nodes as “super stars” or “hubs” of the network; they may correspond to especially popular or influential accounts.</p>
 <p>Recall that, from our discussion of the Erdős–Rényi model <span class="math inline">\(G(n,p)\)</span>, the degree distribution of a <span class="math inline">\(G(n,p)\)</span> model with mean degree <span class="math inline">\(\bar{k}\)</span> is approximately Poisson with mean <span class="math inline">\(\bar{k}\)</span>. Let’s compare this Poisson distribution to the data.</p>
-<div id="8242551f" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mean_degree  <span class="op">=</span> deg_seq.mean()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">30</span>, <span class="dv">1</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>poisson <span class="op">=</span> np.exp(<span class="op">-</span>mean_degree)<span class="op">*</span>(mean_degree<span class="op">**</span>d_)<span class="op">/</span>factorial(d_)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ax.plot(d_, poisson,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">"Poisson fit"</span>, color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="6" id="8242551f">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>mean_degree  <span class="op">=</span> deg_seq.mean()</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">30</span>, <span class="dv">1</span>)</span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a>poisson <span class="op">=</span> np.exp(<span class="op">-</span>mean_degree)<span class="op">*</span>(mean_degree<span class="op">**</span>d_)<span class="op">/</span>factorial(d_)</span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a aria-hidden="true" href="#cb6-6" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
+<span id="cb6-7"><a aria-hidden="true" href="#cb6-7" tabindex="-1"></a>ax.plot(d_, poisson,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="st">"Poisson fit"</span>, color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
+<span id="cb6-8"><a aria-hidden="true" href="#cb6-8" tabindex="-1"></a>ax.legend()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="120-preferential-attachment_files/figure-html/cell-6-output-1.png" class="figure-img" width="589" height="429"></p>
+<p><img class="figure-img" height="429" src="120-preferential-attachment_files/figure-html/cell-6-output-1.png" width="589"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Comparing the Poisson fit predicted by the Erdős–Rényi model to the actual data, we see that the the Poisson places much higher probability mass on degrees that are <em>close to the mean</em> of 9.9. The Poisson would predict that almost no nodes would have degree higher than <span class="math inline">\(10^2\)</span>, while in the data there are several.</p>
 <p>We often say that the Poisson has a “light right tail” – the probability mass allocated by the Poisson dramatically drops off as we move to the right of the mean. In contrast, the data itself appears to have a “heavy tail”: there is substantial probability mass even far to the right from the mean.</p>
-<section id="recap-power-laws" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="recap-power-laws">
 <h2 class="anchored" data-anchor-id="recap-power-laws">Recap: Power Laws</h2>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -482,7 +458,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-power-law" class="theorem definition">
+<div class="theorem definition" id="def-power-law">
 <p><span class="theorem-title"><strong>Definition 10.1 (Power Law Distribution)</strong></span> A random variable <span class="math inline">\(K\)</span> has a <em>discrete power law distribution</em> with cutoff <span class="math inline">\(k_*\)</span> and exponent <span class="math inline">\(\gamma &gt; 1\)</span> if its probability mass function is has the form</p>
 <p><span id="eq-power-law"><span class="math display">\[
 \begin{aligned}
@@ -496,28 +472,28 @@ window.Quarto = {
 </div>
 <p>As we saw previously, power law distributions are linear when plotted on log-log axes. The expectation of a power-law distributed random variable is finite when <span class="math inline">\(\gamma &gt; 2\)</span> and the variance is finite when <span class="math inline">\(\gamma &gt; 3\)</span>.</p>
 <p>Let’s try plotting such a distribution against the data. Since the power law distribution is defined for all <span class="math inline">\(k &gt; k_*\)</span>, we’ll need to choose a cutoff <span class="math inline">\(k_*\)</span> and an exponent <span class="math inline">\(\gamma\)</span>. For now, we’ll do this by eye. If we inspect the plot of the data above, it looks like linear behavior takes over somewhere around <span class="math inline">\(k_* = 10^\frac{3}{2} \approx 30\)</span>.</p>
-<div id="8750d3ec" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>gamma   <span class="op">=</span> <span class="fl">2.7</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>power_law <span class="op">=</span> <span class="dv">18</span><span class="op">*</span>d_<span class="op">**</span>(<span class="op">-</span>gamma)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>ax.plot(d_, power_law,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="vs">fr"Power law: $\gamma = </span><span class="sc">{</span>gamma<span class="sc">}</span><span class="vs">$"</span> , color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="7" id="8750d3ec">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb7-3"><a aria-hidden="true" href="#cb7-3" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
+<span id="cb7-4"><a aria-hidden="true" href="#cb7-4" tabindex="-1"></a>gamma   <span class="op">=</span> <span class="fl">2.7</span></span>
+<span id="cb7-5"><a aria-hidden="true" href="#cb7-5" tabindex="-1"></a>power_law <span class="op">=</span> <span class="dv">18</span><span class="op">*</span>d_<span class="op">**</span>(<span class="op">-</span>gamma)</span>
+<span id="cb7-6"><a aria-hidden="true" href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a aria-hidden="true" href="#cb7-7" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">10</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
+<span id="cb7-8"><a aria-hidden="true" href="#cb7-8" tabindex="-1"></a>ax.plot(d_, power_law,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="vs">fr"Power law: $\gamma = </span><span class="sc">{</span>gamma<span class="sc">}</span><span class="vs">$"</span> , color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
+<span id="cb7-9"><a aria-hidden="true" href="#cb7-9" tabindex="-1"></a>ax.legend()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="120-preferential-attachment_files/figure-html/cell-7-output-1.png" class="figure-img" width="589" height="429"></p>
+<p><img class="figure-img" height="429" src="120-preferential-attachment_files/figure-html/cell-7-output-1.png" width="589"/></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="page-columns page-full"><p>The power law appears to be a much better fit than the Poisson to the tail of the distribution, making apparently reasonable predictions about the numbers of nodes with very high degrees. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Where do the parameters for the power law come from? Here we performed a fit “by eye”, but we discuss some systematic approaches in <a href="#sec-power-law-estimation" class="quarto-xref"><span>Section 10.4</span></a></span></div></div>
+<div class="page-columns page-full"><p>The power law appears to be a much better fit than the Poisson to the tail of the distribution, making apparently reasonable predictions about the numbers of nodes with very high degrees. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Where do the parameters for the power law come from? Here we performed a fit “by eye”, but we discuss some systematic approaches in <a class="quarto-xref" href="#sec-power-law-estimation"><span>Section 10.4</span></a></span></div></div>
 <p>The claim that a given network “follows a power law” is a bit murky: like other models, power laws are idealizations that no real data set matches exactly. The idea of a power law is also fundamentally asymptotic in nature: the power law that we fit to the data also predicts that we should see nodes of degree <span class="math inline">\(10^3\)</span>, <span class="math inline">\(10^4\)</span>, or <span class="math inline">\(10^5\)</span> if we were to allow the network to keep growing. Since the network can’t keep growing (it’s data, we have a finite amount of it), we have to view the power law’s predictions about very high-degree nodes as extrapolations toward an idealized, infinite-size data set to which we obviously do not have access.</p>
 </section>
-<section id="the-preferential-attachment-model-a-generative-model-for-power-law-degrees" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="the-preferential-attachment-model-a-generative-model-for-power-law-degrees">
 <h2 class="anchored" data-anchor-id="the-preferential-attachment-model-a-generative-model-for-power-law-degrees">The Preferential Attachment Model: A Generative Model for Power Law Degrees</h2>
 <div class="page-columns page-full"><p>Why would power-law degree distributions be common in empirical networks? A common way to answer questions like this is to propose a <em>generative model</em>. A <em>generative model</em> is a random network model that is intended to produce some kind of realistic structure.  If the mechanism proposed by the generative model is plausible as a real, common mechanism, then we might expect that the large-scale structure generated by that model would be commonly observed.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">Generative models contrast with <em>null models</em> like the <span class="math inline">\(G(n,p)\)</span> model, which are usually used to <em>contrast</em> with real networks. Generative models are models of what the data is like; null models are models of what the data is <em>not</em> like.</span></div></div>
 <p><span class="citation" data-cites="barabasiEmergenceScalingRandom1999">Barabási and Albert (<a href="#ref-barabasiEmergenceScalingRandom1999" role="doc-biblioref">1999</a>)</span> are responsible for popularizing the claim that many empirical networks are scale-free. Alongside this claim, they offered a generative model called <em>preferential attachment</em>. The preferential attachment model offers a simple mechanism of network growth which leads to power-law degree distributions. Their model is closely related to the regrettably much less famous models of <span class="citation" data-cites="yuleMathematicalTheoryEvolution1925">Yule (<a href="#ref-yuleMathematicalTheoryEvolution1925" role="doc-biblioref">1925</a>)</span>, <span class="citation" data-cites="simonClassSkewDistribution1955">Simon (<a href="#ref-simonClassSkewDistribution1955" role="doc-biblioref">1955</a>)</span>, and <span class="citation" data-cites="price1976general">Price (<a href="#ref-price1976general" role="doc-biblioref">1976</a>)</span>.</p>
@@ -533,53 +509,53 @@ window.Quarto = {
 </ol>
 <p>We repeat this process as many times as desired. Intuitively, the preferential attachment model expresses the idea that “the rich get richer”: nodes that already have many connections are more likely to receive new connections.</p>
 <div class="page-columns page-full"><p>Here’s a quick implementation. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Note: this implementation of preferential attachment is useful for illustrating the mathematics and operations with Networkx. It is, however, not efficient.</span></div></div>
-<div id="28b10c05" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># initial condition</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph() </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>G.add_edge(<span class="dv">0</span>, <span class="dv">1</span>) </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>alpha <span class="op">=</span> <span class="dv">4</span><span class="op">/</span><span class="dv">5</span> <span class="co"># proportion of degree-based selection steps</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># main loop</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>):</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># determine u using one of two mechanisms</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> alpha: </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        deg_seq <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        degree_weights <span class="op">=</span> deg_seq <span class="op">/</span> deg_seq.<span class="bu">sum</span>()</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        u <span class="op">=</span> np.random.choice(np.arange(<span class="bu">len</span>(degrees)), p <span class="op">=</span> degree_weights)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        u <span class="op">=</span> np.random.choice(np.arange(<span class="bu">len</span>(degrees)))</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># integer index of new node v</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> <span class="bu">len</span>(degrees)</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add new edge to graph    </span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    G.add_edge(u, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="8" id="28b10c05">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="co"># initial condition</span></span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a>G <span class="op">=</span> nx.Graph() </span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a>G.add_edge(<span class="dv">0</span>, <span class="dv">1</span>) </span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a>alpha <span class="op">=</span> <span class="dv">4</span><span class="op">/</span><span class="dv">5</span> <span class="co"># proportion of degree-based selection steps</span></span>
+<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a></span>
+<span id="cb8-7"><a aria-hidden="true" href="#cb8-7" tabindex="-1"></a><span class="co"># main loop</span></span>
+<span id="cb8-8"><a aria-hidden="true" href="#cb8-8" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>):</span>
+<span id="cb8-9"><a aria-hidden="true" href="#cb8-9" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
+<span id="cb8-10"><a aria-hidden="true" href="#cb8-10" tabindex="-1"></a></span>
+<span id="cb8-11"><a aria-hidden="true" href="#cb8-11" tabindex="-1"></a>    <span class="co"># determine u using one of two mechanisms</span></span>
+<span id="cb8-12"><a aria-hidden="true" href="#cb8-12" tabindex="-1"></a>    <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> alpha: </span>
+<span id="cb8-13"><a aria-hidden="true" href="#cb8-13" tabindex="-1"></a>        deg_seq <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
+<span id="cb8-14"><a aria-hidden="true" href="#cb8-14" tabindex="-1"></a>        degree_weights <span class="op">=</span> deg_seq <span class="op">/</span> deg_seq.<span class="bu">sum</span>()</span>
+<span id="cb8-15"><a aria-hidden="true" href="#cb8-15" tabindex="-1"></a>        u <span class="op">=</span> np.random.choice(np.arange(<span class="bu">len</span>(degrees)), p <span class="op">=</span> degree_weights)</span>
+<span id="cb8-16"><a aria-hidden="true" href="#cb8-16" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb8-17"><a aria-hidden="true" href="#cb8-17" tabindex="-1"></a>        u <span class="op">=</span> np.random.choice(np.arange(<span class="bu">len</span>(degrees)))</span>
+<span id="cb8-18"><a aria-hidden="true" href="#cb8-18" tabindex="-1"></a></span>
+<span id="cb8-19"><a aria-hidden="true" href="#cb8-19" tabindex="-1"></a>    <span class="co"># integer index of new node v</span></span>
+<span id="cb8-20"><a aria-hidden="true" href="#cb8-20" tabindex="-1"></a>    v <span class="op">=</span> <span class="bu">len</span>(degrees)</span>
+<span id="cb8-21"><a aria-hidden="true" href="#cb8-21" tabindex="-1"></a></span>
+<span id="cb8-22"><a aria-hidden="true" href="#cb8-22" tabindex="-1"></a>    <span class="co"># add new edge to graph    </span></span>
+<span id="cb8-23"><a aria-hidden="true" href="#cb8-23" tabindex="-1"></a>    G.add_edge(u, v)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s go ahead and plot the result. We’ll add a visualization of the exponent <span class="math inline">\(\gamma\)</span> as well. How do we know the right value of <span class="math inline">\(\gamma\)</span>? It turns out that there is a theoretical estimate based on <span class="math inline">\(\alpha\)</span> which we’ll derive in the next section.</p>
-<div id="83893e39" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>gamma   <span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> alpha) <span class="op">/</span> alpha</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>power_law <span class="op">=</span> <span class="dv">10</span><span class="op">*</span>d_<span class="op">**</span>(<span class="op">-</span>gamma)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">2</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>ax.plot(d_, power_law,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="vs">fr"Power law: $\gamma = </span><span class="sc">{</span>gamma<span class="sc">:.2f}</span><span class="vs">$"</span> , color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>ax.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="9" id="83893e39">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb9-2"><a aria-hidden="true" href="#cb9-2" tabindex="-1"></a>cutoff  <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb9-3"><a aria-hidden="true" href="#cb9-3" tabindex="-1"></a>d_      <span class="op">=</span> np.arange(cutoff, deg_seq.<span class="bu">max</span>(), <span class="dv">1</span>)</span>
+<span id="cb9-4"><a aria-hidden="true" href="#cb9-4" tabindex="-1"></a>gamma   <span class="op">=</span> (<span class="dv">2</span> <span class="op">+</span> alpha) <span class="op">/</span> alpha</span>
+<span id="cb9-5"><a aria-hidden="true" href="#cb9-5" tabindex="-1"></a>power_law <span class="op">=</span> <span class="dv">10</span><span class="op">*</span>d_<span class="op">**</span>(<span class="op">-</span>gamma)</span>
+<span id="cb9-6"><a aria-hidden="true" href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a aria-hidden="true" href="#cb9-7" tabindex="-1"></a>ax <span class="op">=</span> plot_degree_distribution(G, interval <span class="op">=</span> <span class="dv">2</span>, num_bins <span class="op">=</span> <span class="dv">30</span>)</span>
+<span id="cb9-8"><a aria-hidden="true" href="#cb9-8" tabindex="-1"></a>ax.plot(d_, power_law,  linewidth <span class="op">=</span> <span class="dv">1</span>, label <span class="op">=</span> <span class="vs">fr"Power law: $\gamma = </span><span class="sc">{</span>gamma<span class="sc">:.2f}</span><span class="vs">$"</span> , color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>)</span>
+<span id="cb9-9"><a aria-hidden="true" href="#cb9-9" tabindex="-1"></a>ax.legend()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="120-preferential-attachment_files/figure-html/cell-9-output-1.png" class="figure-img" width="588" height="429"></p>
+<p><img class="figure-img" height="429" src="120-preferential-attachment_files/figure-html/cell-9-output-1.png" width="588"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>This fit is somewhat noisy, reflecting the fact that we simulated a relatively small number of preferential attachment steps.</p>
 </section>
-<section id="analyzing-preferential-attachment" class="level2">
+<section class="level2" id="analyzing-preferential-attachment">
 <h2 class="anchored" data-anchor-id="analyzing-preferential-attachment">Analyzing Preferential Attachment</h2>
 <p>Let’s now see if we can understand mathematically why the preferential attachment model leads to networks with power-law degree distributions. There are many ways to demonstrate this fact, including both “casual” and highly rigorous techniques. Here, we’ll use a “casual” argument from <span class="citation" data-cites="mitzenmacherBriefHistoryGenerative2004">Mitzenmacher (<a href="#ref-mitzenmacherBriefHistoryGenerative2004" role="doc-biblioref">2004</a>)</span>.</p>
 <p>Let <span class="math inline">\(p_k^{(t)}\)</span> be the <em>proportion</em> of nodes of degree <span class="math inline">\(k\geq 2\)</span> after algorithmic timestep <span class="math inline">\(t\)</span>. Suppose that at this timestep there are <span class="math inline">\(n\)</span> nodes and <span class="math inline">\(m\)</span> edges. Then, the total <em>number</em> of nodes of degree <span class="math inline">\(d\)</span> is <span class="math inline">\(n_k^{(t)} = np_k^{(t)}\)</span>. Suppose that we do one step of the preferential attachment model. Let’s ask: what will be the new expected value of <span class="math inline">\(n_k^{(t+1)}\)</span>?</p>
@@ -709,7 +685,7 @@ Exercise
 \]</span></p>
 <p>which is a power law with <span class="math inline">\(\gamma = \frac{2+\alpha}{\alpha}\)</span>. This means that the smallest value of <span class="math inline">\(\gamma\)</span> we can achieve is <span class="math inline">\(\gamma = 3\)</span>. Many estimates of the value of <span class="math inline">\(\gamma\)</span> in empirical networks are close to 3, although some are smaller (and therefore not able to be produced by this version of the preferential attachment model).</p>
 </section>
-<section id="sec-power-law-estimation" class="level2">
+<section class="level2" id="sec-power-law-estimation">
 <h2 class="anchored" data-anchor-id="sec-power-law-estimation">Estimating Power Laws From Data</h2>
 <p>After the publication of <span class="citation" data-cites="barabasiEmergenceScalingRandom1999">Barabási and Albert (<a href="#ref-barabasiEmergenceScalingRandom1999" role="doc-biblioref">1999</a>)</span>, there was a proliferation of papers purporting to find power-law degree distributions in empirical networks. For a time, the standard method for estimating the exponent <span class="math inline">\(\gamma\)</span> was to use the key visual signature of power laws – power laws are linear on log-log axes. This suggests performing linear regression in log-log space; the slope of the regression line is the estimate of <span class="math inline">\(\gamma\)</span>. This approach, however, is badly flawed: errors can be large, and uncertainty quantification is not reliably available. <span class="citation" data-cites="clausetPowerLawDistributionsEmpirical2009">Clauset, Shalizi, and Newman (<a href="#ref-clausetPowerLawDistributionsEmpirical2009" role="doc-biblioref">2009</a>)</span> discuss this problem in greater detail, and propose an alternative scheme based on maximum likelihood estimation and goodness-of-fit tests. Although the exact maximum-likelihood estimate of <span class="math inline">\(\gamma\)</span> is the output of a maximization problem and is not available in closed form, the authors supply a relatively accurate approximation:</p>
 <p><span class="math display">\[
@@ -719,57 +695,54 @@ Exercise
 \]</span></p>
 <p>As they show, this estimate and related methods are much more reliable estimators of <span class="math inline">\(\gamma\)</span> than the linear regression method.</p>
 <p>An important cautionary note: the estimate <span class="math inline">\(\hat{\gamma}\)</span> can be formed regardless of whether or not the power law is a good descriptor of the data. Supplementary methods such as goodness-of-fit tests are necessary to determine whether a power law is appropriate at all. <span class="citation" data-cites="clausetPowerLawDistributionsEmpirical2009">Clauset, Shalizi, and Newman (<a href="#ref-clausetPowerLawDistributionsEmpirical2009" role="doc-biblioref">2009</a>)</span> give some guidance on such methods as well.</p>
-<section id="preferential-attachment-in-growing-graphs" class="level3">
+<section class="level3" id="preferential-attachment-in-growing-graphs">
 <h3 class="anchored" data-anchor-id="preferential-attachment-in-growing-graphs">Preferential Attachment in Growing Graphs</h3>
 <p>What if we are able to observe more than the degree distribution of a network? What if we could also observe the growth of the network, and actually know which edges were added at which times? Under such circumstances, it is possible to estimate more directly the extent to which a graph might grow via the preferential attachment mechanism, possibly alongside additional mechanisms. <span class="citation" data-cites="overgoorChoosingGrowGraph2019">Overgoor, Benson, and Ugander (<a href="#ref-overgoorChoosingGrowGraph2019" role="doc-biblioref">2019</a>)</span> supply details on how to estimate the parameters of a general class of models, including preferential attachment, from observed network growth.</p>
 </section>
 </section>
-<section id="are-power-laws-good-descriptors-of-real-world-networks" class="level2">
+<section class="level2" id="are-power-laws-good-descriptors-of-real-world-networks">
 <h2 class="anchored" data-anchor-id="are-power-laws-good-descriptors-of-real-world-networks">Are Power Laws Good Descriptors of Real-World Networks?</h2>
 <p>Are power laws <em>really</em> that common in empirical data? <span class="citation" data-cites="broidoScalefreeNetworksAre2019">Broido and Clauset (<a href="#ref-broidoScalefreeNetworksAre2019" role="doc-biblioref">2019</a>)</span> controversially claimed that <em>scale free networks are rare</em>. In a bit more detail, the authors compare power-law distributions to several competing distributions as models of real-world network degree sequences. The authors find that that the competing models—especially <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">lognormal distributions</a>, which also have heavy tails—are often better fits to observed data than power laws. This paper stirred considerable controversy, which is briefly documented by <span class="citation" data-cites="holmeRareEverywherePerspectives2019">Holme (<a href="#ref-holmeRareEverywherePerspectives2019" role="doc-biblioref">2019</a>)</span>.</p>
 </section>
-<section id="references" class="level2">
+<section class="level2" id="references">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-barabasiEmergenceScalingRandom1999" class="csl-entry" role="listitem">
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-barabasiEmergenceScalingRandom1999" role="listitem">
 Barabási, Albert-László, and Réka Albert. 1999. <span>“Emergence of <span>Scaling</span> in <span>Random Networks</span>.”</span> <em>Science</em> 286 (5439): 509–12. <a href="https://doi.org/10.1126/science.286.5439.509">https://doi.org/10.1126/science.286.5439.509</a>.
 </div>
-<div id="ref-bollobasDegreeSequenceScale2001" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-bollobasDegreeSequenceScale2001" role="listitem">
 Bollobás, Bela, Oliver Riordan, Joel Spencer, and Gábor Tusnády. 2001. <span>“The Degree Sequence of a Scale-Free Random Graph Process.”</span> <em>Random Structures &amp; Algorithms</em> 18 (3): 279–90. <a href="https://doi.org/10.1002/rsa.1009">https://doi.org/10.1002/rsa.1009</a>.
 </div>
-<div id="ref-broidoScalefreeNetworksAre2019" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-broidoScalefreeNetworksAre2019" role="listitem">
 Broido, Anna D., and Aaron Clauset. 2019. <span>“Scale-Free Networks Are Rare.”</span> <em>Nature Communications</em> 10 (1): 1017. <a href="https://doi.org/10.1038/s41467-019-08746-5">https://doi.org/10.1038/s41467-019-08746-5</a>.
 </div>
-<div id="ref-clausetPowerLawDistributionsEmpirical2009" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-clausetPowerLawDistributionsEmpirical2009" role="listitem">
 Clauset, Aaron, Cosma Rohilla Shalizi, and Mark E. J. Newman. 2009. <span>“Power-<span>Law Distributions</span> in <span>Empirical Data</span>.”</span> <em>SIAM Review</em> 51 (4): 661–703. <a href="https://doi.org/10.1137/070710111">https://doi.org/10.1137/070710111</a>.
 </div>
-<div id="ref-holmeRareEverywherePerspectives2019" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-holmeRareEverywherePerspectives2019" role="listitem">
 Holme, Petter. 2019. <span>“Rare and Everywhere: <span>Perspectives</span> on Scale-Free Networks.”</span> <em>Nature Communications</em> 10 (1): 1016. <a href="https://doi.org/10.1038/s41467-019-09038-8">https://doi.org/10.1038/s41467-019-09038-8</a>.
 </div>
-<div id="ref-mitzenmacherBriefHistoryGenerative2004" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-mitzenmacherBriefHistoryGenerative2004" role="listitem">
 Mitzenmacher, Michael. 2004. <span>“A <span>Brief History</span> of <span>Generative Models</span> for <span>Power Law</span> and <span>Lognormal Distributions</span>.”</span> <em>Internet Mathematics</em> 1 (2): 226–51. <a href="https://doi.org/10.1080/15427951.2004.10129088">https://doi.org/10.1080/15427951.2004.10129088</a>.
 </div>
-<div id="ref-overgoorChoosingGrowGraph2019" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-overgoorChoosingGrowGraph2019" role="listitem">
 Overgoor, Jan, Austin Benson, and Johan Ugander. 2019. <span>“Choosing to <span>Grow</span> a <span>Graph</span>: <span>Modeling Network Formation</span> as <span>Discrete Choice</span>.”</span> In <em>The <span>World Wide Web Conference</span></em>, 1409–20. San Francisco CA USA: ACM. <a href="https://doi.org/10.1145/3308558.3313662">https://doi.org/10.1145/3308558.3313662</a>.
 </div>
-<div id="ref-price1976general" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-price1976general" role="listitem">
 Price, Derek de Solla. 1976. <span>“A General Theory of Bibliometric and Other Cumulative Advantage Processes.”</span> <em>Journal of the American Society for Information Science</em> 27 (5): 292–306.
 </div>
-<div id="ref-musae" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-musae" role="listitem">
 Rozemberczki, Benedek, Carl Allen, and Rik Sarkar. 2021. <span>“<span>Multi-Scale Attributed Node Embedding</span>.”</span> <em>Journal of Complex Networks</em> 9 (2).
 </div>
-<div id="ref-simonClassSkewDistribution1955" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-simonClassSkewDistribution1955" role="listitem">
 Simon, Herbert A. 1955. <span>“On a <span>Class</span> of <span>Skew Distribution Functions</span>.”</span> <em>Biometrika</em> 42 (3-4): 425–40. <a href="https://doi.org/10.1093/biomet/42.3-4.425">https://doi.org/10.1093/biomet/42.3-4.425</a>.
 </div>
-<div id="ref-yuleMathematicalTheoryEvolution1925" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-yuleMathematicalTheoryEvolution1925" role="listitem">
 Yule. 1925. <span>“A Mathematical Theory of Evolution, Based on the Conclusions of <span>Dr</span>. <span>J</span>. <span>C</span>. <span>Willis</span>, <span>F</span>. <span>R</span>. <span>S</span>.”</span> <em>Philosophical Transactions of the Royal Society of London. Series B, Containing Papers of a Biological Character</em> 213 (402-410): 21–87. <a href="https://doi.org/10.1098/rstb.1925.0002">https://doi.org/10.1098/rstb.1925.0002</a>.
 </div>
 </div>
 </section>
-
-<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1191,20 +1164,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 <nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../chapters/11-generating-functions.html" class="pagination-link" aria-label="Probability Generating Functions">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../chapters/06-modularity.html" class="pagination-link" aria-label="Homophily, Assortativity, and Modularity">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
+<div class="nav-page nav-page-previous">
+<a aria-label="Probability Generating Functions" class="pagination-link" href="../chapters/11-generating-functions.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+<a aria-label="Homophily, Assortativity, and Modularity" class="pagination-link" href="../chapters/06-modularity.html">
+<span class="nav-page-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span> <i class="bi bi-arrow-right-short"></i>
+</a>
+</div>
 </nav>
 </div> <!-- /content -->
-
-
-
-
 </body></html>

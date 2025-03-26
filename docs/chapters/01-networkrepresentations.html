@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.10">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>1&nbsp; Networks and Their Representations – Network Science: Models, Mathematics, and Computation</title>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>1  Networks and Their Representations – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,26 +72,24 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }</style>
-
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../chapters/02-degree-walks-paths.html" rel="next">
-<link href="../index.html" rel="prev">
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/02-degree-walks-paths.html" rel="next"/>
+<link href="../index.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,10 +117,8 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -152,245 +145,228 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
-<link rel="stylesheet" href="../styles.css">
+<link href="../styles.css" rel="stylesheet"/>
 </head>
-
 <body class="nav-sidebar floating slimcontent">
-
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
-  </div>
+</ul>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
-  </li>
-    </ul>
-    </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#networks-as-graphs" id="toc-networks-as-graphs" class="nav-link active" data-scroll-target="#networks-as-graphs">Networks as Graphs</a></li>
-  <li><a href="#introductory-graph-terminology" id="toc-introductory-graph-terminology" class="nav-link" data-scroll-target="#introductory-graph-terminology">Introductory Graph Terminology</a>
-  <ul class="collapse">
-  <li><a href="#simple-graphs" id="toc-simple-graphs" class="nav-link" data-scroll-target="#simple-graphs">Simple graphs</a></li>
-  <li><a href="#planar-graphs" id="toc-planar-graphs" class="nav-link" data-scroll-target="#planar-graphs">Planar graphs</a></li>
-  <li><a href="#directed-graphs" id="toc-directed-graphs" class="nav-link" data-scroll-target="#directed-graphs">Directed graphs</a></li>
-  </ul></li>
-  <li><a href="#matrix-representations-of-graphs" id="toc-matrix-representations-of-graphs" class="nav-link" data-scroll-target="#matrix-representations-of-graphs">Matrix Representations of Graphs</a>
-  <ul class="collapse">
-  <li><a href="#adjacency-matrix" id="toc-adjacency-matrix" class="nav-link" data-scroll-target="#adjacency-matrix">Adjacency matrix</a></li>
-  <li><a href="#many-more-matrices" id="toc-many-more-matrices" class="nav-link" data-scroll-target="#many-more-matrices">Many more matrices …</a></li>
-  </ul></li>
-  <li><a href="#graphs-in-networkx" id="toc-graphs-in-networkx" class="nav-link" data-scroll-target="#graphs-in-networkx">Graphs in NetworkX</a>
-  <ul class="collapse">
-  <li><a href="#creating-networks" id="toc-creating-networks" class="nav-link" data-scroll-target="#creating-networks">Creating networks</a></li>
-  <li><a href="#visualizing-networks" id="toc-visualizing-networks" class="nav-link" data-scroll-target="#visualizing-networks">Visualizing Networks</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#networks-as-graphs" href="#networks-as-graphs" id="toc-networks-as-graphs">Networks as Graphs</a></li>
+<li><a class="nav-link" data-scroll-target="#introductory-graph-terminology" href="#introductory-graph-terminology" id="toc-introductory-graph-terminology">Introductory Graph Terminology</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#simple-graphs" href="#simple-graphs" id="toc-simple-graphs">Simple graphs</a></li>
+<li><a class="nav-link" data-scroll-target="#planar-graphs" href="#planar-graphs" id="toc-planar-graphs">Planar graphs</a></li>
+<li><a class="nav-link" data-scroll-target="#directed-graphs" href="#directed-graphs" id="toc-directed-graphs">Directed graphs</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#matrix-representations-of-graphs" href="#matrix-representations-of-graphs" id="toc-matrix-representations-of-graphs">Matrix Representations of Graphs</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#adjacency-matrix" href="#adjacency-matrix" id="toc-adjacency-matrix">Adjacency matrix</a></li>
+<li><a class="nav-link" data-scroll-target="#many-more-matrices" href="#many-more-matrices" id="toc-many-more-matrices">Many more matrices …</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#graphs-in-networkx" href="#graphs-in-networkx" id="toc-graphs-in-networkx">Graphs in NetworkX</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#creating-networks" href="#creating-networks" id="toc-creating-networks">Creating networks</a></li>
+<li><a class="nav-link" data-scroll-target="#visualizing-networks" href="#visualizing-networks" id="toc-visualizing-networks">Visualizing Networks</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#references" href="#references" id="toc-references">References</a></li>
+</ul>
 </nav>
-    </div>
+</div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
+</div>
 </header>
-
-
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/01-networkrepresentations.ipynb">here</a>.</em></p>
 <p>Networks represent entities, which we refer to as <em>nodes</em>, and <em>relationships</em>, which we refer to as <em>edges</em>. We’re being intentionally vague about what nodes and edges are because this is an extremely flexible modeling framework! Here are a few examples:</p>
 <ul>
@@ -402,11 +378,11 @@ window.Quarto = {
 <p>Here is an example of a particularly fun network: this network describes all the social relationships between penguins and their handlers at the Kyoto Aquarium. This network is quite complex, with many different types of nodes (female penguins, male penguins, and handlers) as well as many different types of edges (mate, antagonist, parent/child, etc). We recommend clicking through the provided link and carefully studying this network.</p>
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="https://www.kyoto-aquarium.com/sokanzu/en/2024/img/kyoto_sokanzu_2024_en.jpg" class="img-fluid figure-img"></p>
+<p><img class="img-fluid figure-img" src="https://www.kyoto-aquarium.com/sokanzu/en/2024/img/kyoto_sokanzu_2024_en.jpg"/></p>
 <figcaption class="margin-caption">Image source: <a href="https://www.kyoto-aquarium.com/sokanzu/en/2024/img/kyoto_sokanzu_2024_en.jpg">Kyoto Aquarium</a></figcaption>
 </figure>
 </div>
-<section id="networks-as-graphs" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="networks-as-graphs">
 <h3 class="anchored" data-anchor-id="networks-as-graphs">Networks as Graphs</h3>
 <p>We’re going to start with the simplest possible modeling framework for connected systems: graphs.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -415,72 +391,71 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-graph" class="theorem definition">
+<div class="theorem definition" id="def-graph">
 <p><span class="theorem-title"><strong>Definition 1.1 (Graphs)</strong></span> A <strong>graph</strong> is an ordered pair <span class="math inline">\(G = (V, E)\)</span>, where <span class="math inline">\(V\)</span> is the set of vertices or nodes and <span class="math inline">\(E \subseteq V \times V\)</span> a set of edges between nodes. We typically use <span class="math inline">\(n = |V|\)</span> to describe the number of vertices and <span class="math inline">\(m = |E|\)</span> to describe the number of edges.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="page-columns page-full"><p>Here’s an example of a famous graph: the Zachary Karate Club. Each node represents a member of a university karate club, and each edge represents a friendly social relationship between them. This graph is supplied by <code>networkx</code>, the Python software package that we’ll use throughout these notes for network analysis. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The code in this collapsed cell imports packages and sets up various plotting options</span></div></div>
-<div id="ddf2cad5" class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="1" id="d33bcbbf">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">100</span>, <span class="st">"edgecolors"</span> : <span class="st">'white'</span>, <span class="st">"node_color"</span> : <span class="st">"steelblue"</span>, <span class="st">"width"</span> : <span class="fl">0.5</span>, <span class="st">"edge_color"</span> : <span class="st">"darkgrey"</span>}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>small_fig_size <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>big_fig_size <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">100</span>, <span class="st">"edgecolors"</span> : <span class="st">'white'</span>, <span class="st">"node_color"</span> : <span class="st">"steelblue"</span>, <span class="st">"width"</span> : <span class="fl">0.5</span>, <span class="st">"edge_color"</span> : <span class="st">"darkgrey"</span>}</span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a>small_fig_size <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a>big_fig_size <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cell-fig-network-example" class="cell page-columns page-full" data-out.width="80%" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> big_fig_size)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.karate_club_graph()</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'This graph has'</span>, G.number_of_nodes(), <span class="st">'nodes and'</span>, G.number_of_edges(), <span class="st">'edges.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell page-columns page-full" data-execution_count="2" data-out.width="80%" id="cell-fig-network-example">
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> big_fig_size)</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>G <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'This graph has'</span>, G.number_of_nodes(), <span class="st">'nodes and'</span>, G.number_of_edges(), <span class="st">'edges.'</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre data-cap-location="margin"><code>This graph has 34 nodes and 78 edges.</code></pre>
 </div>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-network-example" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin" id="fig-network-example">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-network-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-network-example-output-2.png" width="466" height="315" class="figure-img">
+<img class="figure-img" height="315" src="01-networkrepresentations_files/figure-html/fig-network-example-output-2.png" width="466"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-network-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.1: This is a famous graph called the Zachary Karate Club Network from <span class="citation" data-cites="zachary1977information">Zachary (<a href="#ref-zachary1977information" role="doc-biblioref">1977</a>)</span>.
+Figure 1.1: This is a famous graph called the Zachary Karate Club Network from <span class="citation" data-cites="zachary1977information">Zachary (<a href="#ref-zachary1977information" role="doc-biblioref">1977</a>)</span>.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="introductory-graph-terminology" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="introductory-graph-terminology">
 <h2 class="anchored" data-anchor-id="introductory-graph-terminology">Introductory Graph Terminology</h2>
 <p>Now that we’ve introduced graphs, let’s go ahead and introduce some ways to describe their structure.</p>
-<section id="simple-graphs" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="simple-graphs">
 <h3 class="anchored" data-anchor-id="simple-graphs">Simple graphs</h3>
 <p>Simple graphs will be our primary focus throughout much of these notes. A simple graph is a graph that has no nodes which connect directly to themselves and no repeated edges. More formally:</p>
-<div id="cell-fig-self-edge" class="cell page-columns page-full" data-out.width="80%" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.MultiDiGraph()</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>G.add_edges_from([(<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">2</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">3</span>), (<span class="dv">3</span>, <span class="dv">4</span>), (<span class="dv">4</span>, <span class="dv">2</span>)])</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, connectionstyle<span class="op">=</span><span class="st">'arc3, rad = 0.1'</span>, arrows <span class="op">=</span> <span class="va">True</span>, arrowsize <span class="op">=</span> <span class="fl">0.1</span>, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<div class="cell page-columns page-full" data-execution_count="3" data-out.width="80%" id="cell-fig-self-edge">
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>G <span class="op">=</span> nx.MultiDiGraph()</span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a>G.add_edges_from([(<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">2</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">3</span>), (<span class="dv">3</span>, <span class="dv">4</span>), (<span class="dv">4</span>, <span class="dv">2</span>)])</span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, connectionstyle<span class="op">=</span><span class="st">'arc3, rad = 0.1'</span>, arrows <span class="op">=</span> <span class="va">True</span>, arrowsize <span class="op">=</span> <span class="fl">0.1</span>, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-self-edge" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-self-edge">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-self-edge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-self-edge-output-1.png" width="242" height="167" class="figure-img">
+<img class="figure-img" height="167" src="01-networkrepresentations_files/figure-html/fig-self-edge-output-1.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-self-edge-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.2: A graph with self-loops and multiedges.
+Figure 1.2: A graph with self-loops and multiedges.
 </figcaption>
 </figure>
 </div>
@@ -491,29 +466,28 @@ Figure&nbsp;1.2: A graph with self-loops and multiedges.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-edgetypes" class="theorem definition">
+<div class="theorem definition" id="def-edgetypes">
 <p><span class="theorem-title"><strong>Definition 1.2</strong></span> Edges that connect nodes to themselves are called <strong>self-edges</strong> or <strong>self-loops</strong>.</p>
 <p>If there is more than one edge between the same two nodes, this is called a <strong>multiedge.</strong> A graph with multiedges is called a <strong>multigraph</strong>.</p>
 </div>
 </div>
 </div>
 </div>
-<div id="cell-fig-simple-graph" class="cell page-columns page-full" data-out.width="80%" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>edgelist <span class="op">=</span> [(<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">2</span>, <span class="dv">5</span>), (<span class="dv">3</span>, <span class="dv">5</span>), (<span class="dv">4</span>, <span class="dv">5</span>), (<span class="dv">5</span>, <span class="dv">6</span>), (<span class="dv">6</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">6</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">2</span>, <span class="dv">4</span>), (<span class="dv">1</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="dv">6</span>)]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edgelist)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<div class="cell page-columns page-full" data-execution_count="4" data-out.width="80%" id="cell-fig-simple-graph">
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>edgelist <span class="op">=</span> [(<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">2</span>, <span class="dv">5</span>), (<span class="dv">3</span>, <span class="dv">5</span>), (<span class="dv">4</span>, <span class="dv">5</span>), (<span class="dv">5</span>, <span class="dv">6</span>), (<span class="dv">6</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">6</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">2</span>, <span class="dv">4</span>), (<span class="dv">1</span>, <span class="dv">3</span>), (<span class="dv">4</span>, <span class="dv">6</span>)]</span>
+<span id="cb5-5"><a aria-hidden="true" href="#cb5-5" tabindex="-1"></a>G.add_edges_from(edgelist)</span>
+<span id="cb5-6"><a aria-hidden="true" href="#cb5-6" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-simple-graph" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-simple-graph">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-simple-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-simple-graph-output-1.png" width="242" height="167" class="figure-img">
+<img class="figure-img" height="167" src="01-networkrepresentations_files/figure-html/fig-simple-graph-output-1.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-simple-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.3: A simple graph with 6 nodes and 5 edges.
+Figure 1.3: A simple graph with 6 nodes and 5 edges.
 </figcaption>
 </figure>
 </div>
@@ -524,34 +498,33 @@ Figure&nbsp;1.3: A simple graph with 6 nodes and 5 edges.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-simplegraph" class="theorem definition">
+<div class="theorem definition" id="def-simplegraph">
 <p><span class="theorem-title"><strong>Definition 1.3</strong></span> A network that has neither self-edges nor multiedges is called a <strong>simple graph</strong> or <strong>simple network</strong>.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="planar-graphs" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="planar-graphs">
 <h3 class="anchored" data-anchor-id="planar-graphs">Planar graphs</h3>
-<div id="cell-fig-planar-graph" class="cell page-columns page-full" data-out.width="80%" data-execution_count="5">
+<div class="cell page-columns page-full" data-execution_count="5" data-out.width="80%" id="cell-fig-planar-graph">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb6" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>edgelist <span class="op">=</span> [(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">3</span>, <span class="dv">4</span>), (<span class="dv">4</span>, <span class="dv">5</span>), (<span class="dv">5</span>, <span class="dv">6</span>), (<span class="dv">6</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">6</span>)]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>G.add_edges_from(edgelist)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>nx.draw_planar(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>G <span class="op">=</span> nx.Graph()</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>edgelist <span class="op">=</span> [(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">3</span>, <span class="dv">4</span>), (<span class="dv">4</span>, <span class="dv">5</span>), (<span class="dv">5</span>, <span class="dv">6</span>), (<span class="dv">6</span>, <span class="dv">1</span>), (<span class="dv">1</span>, <span class="dv">4</span>), (<span class="dv">3</span>, <span class="dv">6</span>)]</span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a>G.add_edges_from(edgelist)</span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a aria-hidden="true" href="#cb6-6" tabindex="-1"></a>nx.draw_planar(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
-
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-planar-graph" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-planar-graph">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-planar-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-planar-graph-output-1.png" width="242" height="167" class="figure-img">
+<img class="figure-img" height="167" src="01-networkrepresentations_files/figure-html/fig-planar-graph-output-1.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-planar-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.4: A simple, planar graph with 6 nodes.
+Figure 1.4: A simple, planar graph with 6 nodes.
 </figcaption>
 </figure>
 </div>
@@ -562,7 +535,7 @@ Figure&nbsp;1.4: A simple, planar graph with 6 nodes.
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-planar" class="theorem definition">
+<div class="theorem definition" id="def-planar">
 <p><span class="theorem-title"><strong>Definition 1.4</strong></span> A <strong>planar graph</strong> is a graph that can be embedded in the plane without having any edges cross.</p>
 </div>
 </div>
@@ -570,33 +543,32 @@ Figure&nbsp;1.4: A simple, planar graph with 6 nodes.
 </div>
 <p>Planar graphs are commonly studied objects in graph theory and there are many cool theorems about them (see, for example, the four-color theorem or Kuratowski’s theorem). This means that a network that can be represented with a planar graph can leverage this theory.</p>
 </section>
-<section id="directed-graphs" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="directed-graphs">
 <h3 class="anchored" data-anchor-id="directed-graphs">Directed graphs</h3>
 <p>In this course, we will spend much of our time focused on the analysis of undirected graphs, where an edge between nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> is an unordered pair <span class="math inline">\(\{i,j\}\)</span>. However, there is an extension that can be important in many modeling contexts where there may be an edge from <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span>, but no edge from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>. This is called a <strong>directed graph</strong>. Informally, each edge in a directed graph has a direction, pointing from one node to another. Directed edges are usually represented by lines with arrows.</p>
-<div id="cell-fig-directed" class="cell page-columns page-full" data-out.width="80%" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>DG <span class="op">=</span> nx.DiGraph()</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>DG.add_edges_from([(<span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">0</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">3</span>, <span class="dv">0</span>), (<span class="dv">0</span>, <span class="dv">3</span>)])</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>nx.draw(DG, </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        with_labels <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        arrowsize <span class="op">=</span> <span class="dv">8</span>, </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        font_color <span class="op">=</span> <span class="st">'white'</span>, </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        font_weight <span class="op">=</span> <span class="st">'bold'</span>,  </span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> ax, </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        edgecolors <span class="op">=</span> <span class="st">"white"</span>, </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        width <span class="op">=</span> <span class="fl">0.5</span>, </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<div class="cell page-columns page-full" data-execution_count="6" data-out.width="80%" id="cell-fig-directed">
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a aria-hidden="true" href="#cb7-3" tabindex="-1"></a>DG <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb7-4"><a aria-hidden="true" href="#cb7-4" tabindex="-1"></a>DG.add_edges_from([(<span class="dv">0</span>, <span class="dv">1</span>), (<span class="dv">0</span>, <span class="dv">2</span>), (<span class="dv">2</span>, <span class="dv">3</span>), (<span class="dv">3</span>, <span class="dv">0</span>), (<span class="dv">0</span>, <span class="dv">3</span>)])</span>
+<span id="cb7-5"><a aria-hidden="true" href="#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a aria-hidden="true" href="#cb7-6" tabindex="-1"></a>nx.draw(DG, </span>
+<span id="cb7-7"><a aria-hidden="true" href="#cb7-7" tabindex="-1"></a>        with_labels <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb7-8"><a aria-hidden="true" href="#cb7-8" tabindex="-1"></a>        arrowsize <span class="op">=</span> <span class="dv">8</span>, </span>
+<span id="cb7-9"><a aria-hidden="true" href="#cb7-9" tabindex="-1"></a>        font_color <span class="op">=</span> <span class="st">'white'</span>, </span>
+<span id="cb7-10"><a aria-hidden="true" href="#cb7-10" tabindex="-1"></a>        font_weight <span class="op">=</span> <span class="st">'bold'</span>,  </span>
+<span id="cb7-11"><a aria-hidden="true" href="#cb7-11" tabindex="-1"></a>        ax <span class="op">=</span> ax, </span>
+<span id="cb7-12"><a aria-hidden="true" href="#cb7-12" tabindex="-1"></a>        edgecolors <span class="op">=</span> <span class="st">"white"</span>, </span>
+<span id="cb7-13"><a aria-hidden="true" href="#cb7-13" tabindex="-1"></a>        width <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span id="cb7-14"><a aria-hidden="true" href="#cb7-14" tabindex="-1"></a>        edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-directed" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-directed">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-directed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-directed-output-1.png" width="242" height="167" class="figure-img">
+<img class="figure-img" height="167" src="01-networkrepresentations_files/figure-html/fig-directed-output-1.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-directed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for mathematical encoding later on in the notes.
+Figure 1.5: A directed graph. We’ve chosen some arbitrary node labels for mathematical encoding later on in the notes.
 </figcaption>
 </figure>
 </div>
@@ -607,7 +579,7 @@ Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-directedgraph" class="theorem definition">
+<div class="theorem definition" id="def-directedgraph">
 <p><span class="theorem-title"><strong>Definition 1.5</strong></span> A <strong>directed graph</strong> (also called a <strong>directed network</strong> or <strong>digraph</strong>) is a graph in which each edge is an ordered pair <span class="math inline">\((j, i)\)</span>, which indicates an edge from node <span class="math inline">\(j\)</span> to node <span class="math inline">\(i\)</span>. Such edges are called <strong>directed edges</strong> (or <strong>arcs</strong>).</p>
 </div>
 </div>
@@ -615,11 +587,11 @@ Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for
 </div>
 </section>
 </section>
-<section id="matrix-representations-of-graphs" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="matrix-representations-of-graphs">
 <h2 class="anchored" data-anchor-id="matrix-representations-of-graphs">Matrix Representations of Graphs</h2>
 <p>One reason that graphs are particularly useful mathematical representations of networks is that they can be encoded with matrices. This is a huge advantage, because we’ll be able to leverage a lot of theory we know from linear algebra.</p>
 <div class="page-columns page-full"><p>For our definitions below, we’ll suppose we have a graph <span class="math inline">\(G\)</span> with <span class="math inline">\(n\)</span> vertices.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">We take the convention that the directed edge <span class="math inline">\((j, i)\)</span> is an edge from <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span>. Notice that <span class="math inline">\((j, i)\)</span> is represented in the <span class="math inline">\(i\)</span>th row and the <span class="math inline">\(j\)</span>th column of the adjacency matrix. As with so many things in math, this notation is a choice made for mathematical convenience. This choice also allows us to align with both the <span class="citation" data-cites="newman2018networks">Newman (<a href="#ref-newman2018networks" role="doc-biblioref">2018</a>)</span> textbook and NetworkX syntax. Be aware that different authors and sources might make a different choice!</span></div></div>
-<section id="adjacency-matrix" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="adjacency-matrix">
 <h3 class="anchored" data-anchor-id="adjacency-matrix">Adjacency matrix</h3>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -627,7 +599,7 @@ Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-adjacency" class="theorem definition">
+<div class="theorem definition" id="def-adjacency">
 <p><span class="theorem-title"><strong>Definition 1.6</strong></span> The <strong>adjacency matrix <span class="math inline">\(\mathbf{A}\)</span></strong> of a graph <span class="math inline">\(G = (V, E)\)</span> is an <span class="math inline">\(n \times n\)</span> matrix where <span class="math inline">\(n = \vert V \vert\)</span>. Its entries are <span class="math display">\[\begin{align*}
     A_{ij} = \begin{cases}
     1 &amp; (j, i) \in E \,, \\
@@ -646,7 +618,7 @@ Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for
 <li>Similarly, if the adjacency matrix is not symmetric, the network cannot be undirected.</li>
 </ul>
 <blockquote class="blockquote">
-<p><strong>Example.</strong> The adjacency matrix for the graph in <a href="#fig-directed" class="quarto-xref">Figure&nbsp;<span>1.5</span></a> is <span class="math display">\[
+<p><strong>Example.</strong> The adjacency matrix for the graph in <a class="quarto-xref" href="#fig-directed">Figure <span>1.5</span></a> is <span class="math display">\[
 \begin{pmatrix}
 0 &amp; 0 &amp; 0 &amp; 1 \\
 1 &amp; 0 &amp; 0 &amp; 0 \\
@@ -659,7 +631,7 @@ Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for
 <p>If we have a graph with multiedges, then we can set the corresponding matrix element <span class="math inline">\(A_{ij}\)</span> equal to the multiplicity of the edge. For example, a double edge between nodes 2 and 3 in an undirected graph is represented <span class="math inline">\(A_{23} = A_{32} = 2.\)</span></p>
 <p>But why stop there? Instead of requiring an integer number of edges between two nodes, we could extend this idea to form <strong>weighted networks</strong> with real-valued edge weights. Sometimes it is useful to represent edges as having a strength, weight, or value. In this situation, we set the value of <span class="math inline">\(A_{ij}\)</span> equal to the weight of the corresponding edge <span class="math inline">\((j, i)\)</span>. For example, weights in an airport network could be used represent a distance between two airports, or weights in a social media network could represent the number of messages sent between two individuals.</p>
 </section>
-<section id="many-more-matrices" class="level3">
+<section class="level3" id="many-more-matrices">
 <h3 class="anchored" data-anchor-id="many-more-matrices">Many more matrices …</h3>
 <p>There are LOTS of matrices that can be associated to networks. There’s no “right” one — some are more useful than others for certain jobs. Throughout this course, we’ll see examples of matrices that are well-suited to certain specific tasks, like ranking or clustering. If you’re interested in searching around a bit, some other fun matrices are:</p>
 <ul>
@@ -673,17 +645,17 @@ Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for
 <p>And the list goes on!</p>
 </section>
 </section>
-<section id="graphs-in-networkx" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="graphs-in-networkx">
 <h2 class="anchored" data-anchor-id="graphs-in-networkx">Graphs in NetworkX</h2>
 <p>If you’ve been following along with the computational examples above, you’ve already seen a few examples of manipulating graphs in Python using the <a href="https://networkx.org/">NetworkX</a> package. In this section, we’ll highlight a few especially important NetworkX operations.</p>
-<section id="creating-networks" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="creating-networks">
 <h3 class="anchored" data-anchor-id="creating-networks">Creating networks</h3>
-<section id="growing-a-network-by-hand" class="level4">
+<section class="level4" id="growing-a-network-by-hand">
 <h4 class="anchored" data-anchor-id="growing-a-network-by-hand">Growing a Network By Hand</h4>
 <p>One way to create a network in NetworkX is to construct it by hand. To start, we need to initialize an empty network.</p>
 <p>We can create an empty undirected graph <span class="math inline">\(G\)</span> using <code>G = nx.Graph()</code>. You could instead create an empty directed graph using <code>nx.DiGraph()</code> or an empty multigraph using <code>nx.MultiGraph()</code>.</p>
 </section>
-<section id="adding-nodes-or-edges-manually" class="level4">
+<section class="level4" id="adding-nodes-or-edges-manually">
 <h4 class="anchored" data-anchor-id="adding-nodes-or-edges-manually">Adding nodes or edges manually</h4>
 <p>You can add one node at a time. For example,</p>
 <blockquote class="blockquote">
@@ -702,42 +674,41 @@ Figure&nbsp;1.5: A directed graph. We’ve chosen some arbitrary node labels for
 <p><code>G.add_edges_from(edgelist)</code></p>
 </blockquote>
 <p>There are corresponding methods to remove nodes and edges: <code>G.remove_node()</code>, <code>G.remove_edge()</code>, <code>G.remove_nodes_from()</code>, <code>G.remove_edges_from()</code>.</p>
-<p>We’ve seen examples of this approach in the constructions of <a href="#fig-self-edge" class="quarto-xref">Figure&nbsp;<span>1.2</span></a>, <a href="#fig-simple-graph" class="quarto-xref">Figure&nbsp;<span>1.3</span></a>, and <a href="#fig-directed" class="quarto-xref">Figure&nbsp;<span>1.5</span></a> above.</p>
+<p>We’ve seen examples of this approach in the constructions of <a class="quarto-xref" href="#fig-self-edge">Figure <span>1.2</span></a>, <a class="quarto-xref" href="#fig-simple-graph">Figure <span>1.3</span></a>, and <a class="quarto-xref" href="#fig-directed">Figure <span>1.5</span></a> above.</p>
 </section>
-<section id="creating-a-graph-dictionary" class="level4 page-columns page-full">
+<section class="level4 page-columns page-full" id="creating-a-graph-dictionary">
 <h4 class="anchored" data-anchor-id="creating-a-graph-dictionary">Creating a graph dictionary</h4>
 <p>You can also build your graph using a dictionary that maps nodes to neighbors. The code below creates a graph with 3 nodes, where nodes 1 and 3 are both connected to node 2, but not to each other.</p>
-<div id="cell-fig-graph-dict-example" class="cell page-columns page-full" data-out.width="80%" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb8" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>graph_dict <span class="op">=</span> {<span class="dv">1</span>: [<span class="dv">2</span>], <span class="dv">2</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="dv">3</span>:[<span class="dv">2</span>], <span class="dv">4</span>: [<span class="dv">2</span>, <span class="dv">3</span>]}</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph(graph_dict) </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span>ax, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<div class="cell page-columns page-full" data-execution_count="7" data-out.width="80%" id="cell-fig-graph-dict-example">
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a>graph_dict <span class="op">=</span> {<span class="dv">1</span>: [<span class="dv">2</span>], <span class="dv">2</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="dv">3</span>:[<span class="dv">2</span>], <span class="dv">4</span>: [<span class="dv">2</span>, <span class="dv">3</span>]}</span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a>G <span class="op">=</span> nx.Graph(graph_dict) </span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span>ax, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-graph-dict-example" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-graph-dict-example">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-graph-dict-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-graph-dict-example-output-1.png" width="242" height="167" class="figure-img">
+<img class="figure-img" height="167" src="01-networkrepresentations_files/figure-html/fig-graph-dict-example-output-1.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-graph-dict-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.6: A network built using a dictionary that maps nodes to neighbors.
+Figure 1.6: A network built using a dictionary that maps nodes to neighbors.
 </figcaption>
 </figure>
 </div>
 </div></div></div>
 <p>It’s also possible to “go backwards” and obtain the dictionary representation from the graph object using</p>
-<div id="20fdc269" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>nx.to_dict_of_lists(G)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="8" id="5f1a1af3">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>nx.to_dict_of_lists(G)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>{1: [2], 2: [1, 3, 4], 3: [2, 4], 4: [2, 3]}</code></pre>
 </div>
 </div>
 </section>
-<section id="using-an-adjacency-matrix" class="level4 page-columns page-full">
+<section class="level4 page-columns page-full" id="using-an-adjacency-matrix">
 <h4 class="anchored" data-anchor-id="using-an-adjacency-matrix">Using an adjacency matrix</h4>
 <p>In amny cases, we might actually have a complete network represented as an adjacency matrix. We’ll typically use the Numpy package for representing arrays of numbers like matrices.</p>
-<p>You can directly create a graph using a numpy array that encodes your adjacency matrix representation for your graph. The example network in <a href="#fig-graph-dict-example" class="quarto-xref">Figure&nbsp;<span>1.6</span></a> has the adjacency matrix</p>
+<p>You can directly create a graph using a numpy array that encodes your adjacency matrix representation for your graph. The example network in <a class="quarto-xref" href="#fig-graph-dict-example">Figure <span>1.6</span></a> has the adjacency matrix</p>
 <p><span class="math display">\[
 \begin{pmatrix}
     0 &amp; 1 &amp; 0 &amp; 0 \\
@@ -747,68 +718,66 @@ Figure&nbsp;1.6: A network built using a dictionary that maps nodes to neighbors
 \end{pmatrix}
 \]</span></p>
 <p>We can construct this matrix in Python using the <code>numpy</code> package, and then create a graph with it:</p>
-<div id="cell-fig-adjacency-matrix-example" class="cell page-columns page-full" data-out.width="80%" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>], </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], </span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_numpy_array(A)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<div class="cell page-columns page-full" data-execution_count="9" data-out.width="80%" id="cell-fig-adjacency-matrix-example">
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> small_fig_size)</span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a aria-hidden="true" href="#cb11-4" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>], </span>
+<span id="cb11-5"><a aria-hidden="true" href="#cb11-5" tabindex="-1"></a>              [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>], </span>
+<span id="cb11-6"><a aria-hidden="true" href="#cb11-6" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>], </span>
+<span id="cb11-7"><a aria-hidden="true" href="#cb11-7" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
+<span id="cb11-8"><a aria-hidden="true" href="#cb11-8" tabindex="-1"></a></span>
+<span id="cb11-9"><a aria-hidden="true" href="#cb11-9" tabindex="-1"></a>G <span class="op">=</span> nx.from_numpy_array(A)</span>
+<span id="cb11-10"><a aria-hidden="true" href="#cb11-10" tabindex="-1"></a></span>
+<span id="cb11-11"><a aria-hidden="true" href="#cb11-11" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-adjacency-matrix-example" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-adjacency-matrix-example">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-adjacency-matrix-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-adjacency-matrix-example-output-1.png" width="242" height="167" class="figure-img">
+<img class="figure-img" height="167" src="01-networkrepresentations_files/figure-html/fig-adjacency-matrix-example-output-1.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-adjacency-matrix-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.7: A network built using an adjacency matrix.
+Figure 1.7: A network built using an adjacency matrix.
 </figcaption>
 </figure>
 </div>
 </div></div></div>
 <p>For a directed graph, you need to make two additional changes to the code above. You need specify that you want a directed graph with the <code>create_using</code> argument to the graph constructor. Additionally, you need to be very careful about the adjacency matrix convention for in and out edges. The default convention for <code>from_numpy_array</code> points edges in the <em>opposite</em> direction to what we defined above (it assumes <span class="math inline">\(A_{ij} = 1\)</span> if <span class="math inline">\((i,j) \in E\)</span>), so if you want to match that convention, you’ll need to take the transpose with <code>np.transpose</code>.</p>
-<p>Here’s an example of constructing the directed graph shown in <a href="#fig-directed" class="quarto-xref">Figure&nbsp;<span>1.5</span></a> from an adjacency matrix.</p>
-<div id="cell-fig-adjacency-matrix-directed-example" class="cell page-columns page-full" data-out.width="80%" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb12" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">2</span>, <span class="dv">3</span>))</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_numpy_array(np.transpose(A), create_using <span class="op">=</span> nx.DiGraph)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>nx.draw(G, </span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>        with_labels <span class="op">=</span> <span class="va">True</span>, </span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>        arrowsize <span class="op">=</span> <span class="dv">8</span>, </span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>        font_color <span class="op">=</span> <span class="st">'white'</span>, </span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        font_weight <span class="op">=</span> <span class="st">'bold'</span>,  </span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> ax, </span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        edgecolors <span class="op">=</span> <span class="st">"white"</span>, </span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        width <span class="op">=</span> <span class="fl">0.5</span>, </span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<p>Here’s an example of constructing the directed graph shown in <a class="quarto-xref" href="#fig-directed">Figure <span>1.5</span></a> from an adjacency matrix.</p>
+<div class="cell page-columns page-full" data-execution_count="10" data-out.width="80%" id="cell-fig-adjacency-matrix-directed-example">
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a aria-hidden="true" href="#cb12-4" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>], </span>
+<span id="cb12-5"><a aria-hidden="true" href="#cb12-5" tabindex="-1"></a>              [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], </span>
+<span id="cb12-6"><a aria-hidden="true" href="#cb12-6" tabindex="-1"></a>              [<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>], </span>
+<span id="cb12-7"><a aria-hidden="true" href="#cb12-7" tabindex="-1"></a>              [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>]])</span>
+<span id="cb12-8"><a aria-hidden="true" href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a aria-hidden="true" href="#cb12-9" tabindex="-1"></a>G <span class="op">=</span> nx.from_numpy_array(np.transpose(A), create_using <span class="op">=</span> nx.DiGraph)</span>
+<span id="cb12-10"><a aria-hidden="true" href="#cb12-10" tabindex="-1"></a>nx.draw(G, </span>
+<span id="cb12-11"><a aria-hidden="true" href="#cb12-11" tabindex="-1"></a>        with_labels <span class="op">=</span> <span class="va">True</span>, </span>
+<span id="cb12-12"><a aria-hidden="true" href="#cb12-12" tabindex="-1"></a>        arrowsize <span class="op">=</span> <span class="dv">8</span>, </span>
+<span id="cb12-13"><a aria-hidden="true" href="#cb12-13" tabindex="-1"></a>        font_color <span class="op">=</span> <span class="st">'white'</span>, </span>
+<span id="cb12-14"><a aria-hidden="true" href="#cb12-14" tabindex="-1"></a>        font_weight <span class="op">=</span> <span class="st">'bold'</span>,  </span>
+<span id="cb12-15"><a aria-hidden="true" href="#cb12-15" tabindex="-1"></a>        ax <span class="op">=</span> ax, </span>
+<span id="cb12-16"><a aria-hidden="true" href="#cb12-16" tabindex="-1"></a>        edgecolors <span class="op">=</span> <span class="st">"white"</span>, </span>
+<span id="cb12-17"><a aria-hidden="true" href="#cb12-17" tabindex="-1"></a>        width <span class="op">=</span> <span class="fl">0.5</span>, </span>
+<span id="cb12-18"><a aria-hidden="true" href="#cb12-18" tabindex="-1"></a>        edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-adjacency-matrix-directed-example" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-adjacency-matrix-directed-example">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-adjacency-matrix-directed-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="01-networkrepresentations_files/figure-html/fig-adjacency-matrix-directed-example-output-1.png" width="168" height="241" class="figure-img">
+<img class="figure-img" height="241" src="01-networkrepresentations_files/figure-html/fig-adjacency-matrix-directed-example-output-1.png" width="168"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-adjacency-matrix-directed-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.8: The same directed graph as in <a href="#fig-directed" class="quarto-xref">Figure&nbsp;<span>1.5</span></a>, constructed from an adjacency matrix.
+Figure 1.8: The same directed graph as in <a class="quarto-xref" href="#fig-directed">Figure <span>1.5</span></a>, constructed from an adjacency matrix.
 </figcaption>
 </figure>
 </div>
 </div></div></div>
 </section>
 </section>
-<section id="visualizing-networks" class="level3">
+<section class="level3" id="visualizing-networks">
 <h3 class="anchored" data-anchor-id="visualizing-networks">Visualizing Networks</h3>
 <p>Throughout these notes, we’ve used the <code>nx.draw</code> function to visualize networks. This function is built on the widely-used <code>matplotlib</code> plotting library. There are <a href="https://networkx.org/documentation/stable/reference/generated/networkx.drawing.nx_pylab.draw_networkx.html#networkx.drawing.nx_pylab.draw_networkx">many arguments and options</a> you can pass to <code>nx.draw</code> to customize the appearance of your network.</p>
 <div class="callout callout-style-simple callout-note no-icon callout-titled">
@@ -822,7 +791,7 @@ Exercises!
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Using NetworkX to reproduce <a href="#fig-self-edge" class="quarto-xref">Figure&nbsp;<span>1.2</span></a> and <a href="#fig-simple-graph" class="quarto-xref">Figure&nbsp;<span>1.3</span></a> from (a) a dictionary representation and (b) an adjacency matrix.</li>
+<li>Using NetworkX to reproduce <a class="quarto-xref" href="#fig-self-edge">Figure <span>1.2</span></a> and <a class="quarto-xref" href="#fig-simple-graph">Figure <span>1.3</span></a> from (a) a dictionary representation and (b) an adjacency matrix.</li>
 <li>Draw the network represented by the adjacency matrix. <span class="math display">\[
 \begin{pmatrix}
   0 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
@@ -837,27 +806,21 @@ Exercises!
 </div>
 </div>
 
-</details>
-</div>
-</div>
 <p>We’ll consider some of the algorithmic considerations associated with visualizing networks in <a href="../chapters/05-viz.html">a later section</a>.</p>
 </section>
 </section>
-<section id="references" class="level2">
+<section class="level2" id="references">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-newman2018networks" class="csl-entry" role="listitem">
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-newman2018networks" role="listitem">
 Newman, Mark E. J. 2018. <em>Networks</em>. Oxford University Press.
 </div>
-<div id="ref-zachary1977information" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-zachary1977information" role="listitem">
 Zachary, Wayne W. 1977. <span>“An Information Flow Model for Conflict and Fission in Small Groups.”</span> <em>Journal of Anthropological Research</em> 33 (4): 452–73.
 </div>
 </div>
 </section>
-
-<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1279,20 +1242,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 <nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Welcome">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../chapters/02-degree-walks-paths.html" class="pagination-link" aria-label="Degree, Walks, and Paths">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
+<div class="nav-page nav-page-previous">
+<a aria-label="Welcome" class="pagination-link" href="../index.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+<a aria-label="Degree, Walks, and Paths" class="pagination-link" href="../chapters/02-degree-walks-paths.html">
+<span class="nav-page-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span> <i class="bi bi-arrow-right-short"></i>
+</a>
+</div>
 </nav>
 </div> <!-- /content -->
-
-
-
-
 </body></html>

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.10">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>15&nbsp; Random Walks – Network Science: Models, Mathematics, and Computation</title>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>15  Random Walks – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,26 +72,24 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }</style>
-
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../chapters/51-agent-based-modeling.html" rel="next">
-<link href="../chapters/41-link-prediction.html" rel="prev">
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/51-agent-based-modeling.html" rel="next"/>
+<link href="../chapters/41-link-prediction.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,10 +117,8 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -152,241 +145,224 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
-<link rel="stylesheet" href="../styles.css">
+<link href="../styles.css" rel="stylesheet"/>
 </head>
-
 <body class="nav-sidebar floating slimcontent">
-
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
-  </div>
+</ul>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
-  </li>
-    </ul>
-    </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#sec-srw" id="toc-sec-srw" class="nav-link active" data-scroll-target="#sec-srw">The Simple Random Walk</a>
-  <ul class="collapse">
-  <li><a href="#stationary-distribution-existence-and-uniqueness" id="toc-stationary-distribution-existence-and-uniqueness" class="nav-link" data-scroll-target="#stationary-distribution-existence-and-uniqueness">Stationary Distribution: Existence and Uniqueness</a></li>
-  <li><a href="#stationary-distribution-structure" id="toc-stationary-distribution-structure" class="nav-link" data-scroll-target="#stationary-distribution-structure">Stationary Distribution: Structure</a></li>
-  </ul></li>
-  <li><a href="#exploration-and-ranking-pagerank" id="toc-exploration-and-ranking-pagerank" class="nav-link" data-scroll-target="#exploration-and-ranking-pagerank">Exploration and Ranking: PageRank</a>
-  <ul class="collapse">
-  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
-  </ul></li>
-  <li><a href="#seeded-pagerank" id="toc-seeded-pagerank" class="nav-link" data-scroll-target="#seeded-pagerank">Seeded PageRank</a></li>
-  </ul>
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#sec-srw" href="#sec-srw" id="toc-sec-srw">The Simple Random Walk</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#stationary-distribution-existence-and-uniqueness" href="#stationary-distribution-existence-and-uniqueness" id="toc-stationary-distribution-existence-and-uniqueness">Stationary Distribution: Existence and Uniqueness</a></li>
+<li><a class="nav-link" data-scroll-target="#stationary-distribution-structure" href="#stationary-distribution-structure" id="toc-stationary-distribution-structure">Stationary Distribution: Structure</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#exploration-and-ranking-pagerank" href="#exploration-and-ranking-pagerank" id="toc-exploration-and-ranking-pagerank">Exploration and Ranking: PageRank</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#implementation" href="#implementation" id="toc-implementation">Implementation</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#seeded-pagerank" href="#seeded-pagerank" id="toc-seeded-pagerank">Seeded PageRank</a></li>
+</ul>
 </nav>
-    </div>
+</div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></h1>
+<h1 class="title"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
+</div>
 </header>
-
-
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/50-random-walks.ipynb">here</a>.</em></p>
 <p>Suppose that we have a very large network, and we’d like to explore it. Perhaps we don’t even have access to all the edges. This is a common situation in data collection. A webscraper for gathering data, for example, doesn’t have access to the entire network of webpages to be scraped; usually it has access to <em>one page at a time</em> and the links it contains. At each stage, the webscraper needs to follow a link in order to get the next piece of information.</p>
 <p>There are many ways to explore a network, but the most fundamental one is the <em>simple random walk</em>. We’ll discuss the simple random walk, highlight some of its core properties, and connect it to some ideas that we’ve already seen. Then, we’ll introduce the <em>teleporting random walk</em>, which is the foundation of the internet-changing PageRank algorithm originally used by Google. Finally, we’ll take another look network navigation and the small-world phenomenon.</p>
-<section id="sec-srw" class="level2">
+<section class="level2" id="sec-srw">
 <h2 class="anchored" data-anchor-id="sec-srw">The Simple Random Walk</h2>
 <p>The simple random walk is easier to describe in English than it is to formulate mathematically. In intuitive terms, we imagine a walker who starts at some node <span class="math inline">\(i\)</span> in the graph. The walker then picks one of the neighbors <span class="math inline">\(j\)</span> of <span class="math inline">\(i\)</span> uniformly at random, and moves to <span class="math inline">\(j\)</span>. Then, the walker picks one of the neighbors <span class="math inline">\(k\)</span> of <span class="math inline">\(j\)</span> uniformly at random, and moves to <span class="math inline">\(k\)</span>, and so on.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -395,7 +371,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-simple-random-walk" class="theorem definition">
+<div class="theorem definition" id="def-simple-random-walk">
 <p><span class="theorem-title"><strong>Definition 15.1 (Simple Random Walk (SRW))</strong></span> A <strong>simple random walk</strong> on a graph <span class="math inline">\(G\)</span> with adjacency matrix <span class="math inline">\(\mathbf{A}\in \mathbb{R}^{n\times n}\)</span> is a countable sequence of random variables <span class="math inline">\(X_1,\ldots,X_t,\ldots\)</span> which take values in the node set <span class="math inline">\(N\)</span> of <span class="math inline">\(G\)</span>. We have <span class="math display">\[
 \begin{aligned}
 \mathbb{P}(X_{t+1} = i | X_t = j_t, X_{t-1} = j_{t-1},\ldots,X_{1} = j_1) &amp;=  \mathbb{P}(X_{t+1} = i | X_t = j_t) \\
@@ -410,14 +386,14 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>In <a href="#def-simple-random-walk" class="quarto-xref">Definition&nbsp;<span>15.1</span></a>, the first equality is the <em><a href="https://en.wikipedia.org/wiki/Markov_property">Markov property</a></em>: the future state of the random walk depends only on where it is right now (i.e.&nbsp;the value of <span class="math inline">\(X_t\)</span>), not where it’s been previously. The second and third equalities give mathematical structure to the idea of “picking a node connected to <span class="math inline">\(j\)</span> uniformly at random.”</p>
+<p>In <a class="quarto-xref" href="#def-simple-random-walk">Definition <span>15.1</span></a>, the first equality is the <em><a href="https://en.wikipedia.org/wiki/Markov_property">Markov property</a></em>: the future state of the random walk depends only on where it is right now (i.e. the value of <span class="math inline">\(X_t\)</span>), not where it’s been previously. The second and third equalities give mathematical structure to the idea of “picking a node connected to <span class="math inline">\(j\)</span> uniformly at random.”</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-transition-matrix" class="theorem definition">
+<div class="theorem definition" id="def-transition-matrix">
 <p><span class="theorem-title"><strong>Definition 15.2 (Transition Matrix of a SRW)</strong></span> The <strong>transition matrix</strong> of a simple random walk on a connected graph <span class="math inline">\(G\)</span> with adjacency matrix <span class="math inline">\(\mathbf{A}\)</span> is <span class="math inline">\(\mathbf{P} = \mathbf{A}\mathbf{D}^{-1}\)</span>. Its entries are <span class="math inline">\(p_{ij} = a_{ij}/k_j\)</span>, where <span class="math inline">\(k_j\)</span> is the degree of node <span class="math inline">\(j\)</span> and <span class="math inline">\(\mathbf{D}\)</span> is the diagonal matrix whose <span class="math inline">\(jj\)</span>th entry is <span class="math inline">\(k_j\)</span>.</p>
 </div>
 </div>
@@ -453,8 +429,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p><a href="#eq-transition" class="quarto-xref">Equation&nbsp;<span>15.1</span></a> has an immediate consequence: <span class="math inline">\(\mathbf{q}(t) = \mathbf{P}^{t}\mathbf{q}(0)\)</span>. So, if we know the <em>initial distribution</em> <span class="math inline">\(\mathbf{q}(0)\)</span> describing the location at which the walker begins, we can get all other information we need from the matrix <span class="math inline">\(\mathbf{P}\)</span> and its powers.</p>
-<section id="stationary-distribution-existence-and-uniqueness" class="level3">
+<p><a class="quarto-xref" href="#eq-transition">Equation <span>15.1</span></a> has an immediate consequence: <span class="math inline">\(\mathbf{q}(t) = \mathbf{P}^{t}\mathbf{q}(0)\)</span>. So, if we know the <em>initial distribution</em> <span class="math inline">\(\mathbf{q}(0)\)</span> describing the location at which the walker begins, we can get all other information we need from the matrix <span class="math inline">\(\mathbf{P}\)</span> and its powers.</p>
+<section class="level3" id="stationary-distribution-existence-and-uniqueness">
 <h3 class="anchored" data-anchor-id="stationary-distribution-existence-and-uniqueness">Stationary Distribution: Existence and Uniqueness</h3>
 <p>Throughout this section, we assume that the graph <span class="math inline">\(G\)</span> is connected.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -473,7 +449,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-periodic" class="theorem definition">
+<div class="theorem definition" id="def-periodic">
 <p><span class="theorem-title"><strong>Definition 15.3</strong></span> A graph is <em>aperiodic</em> if the greatest common divisor of lengths of its cycles is 1. A graph is <em>periodic</em> if it is not aperiodic.</p>
 </div>
 </div>
@@ -486,7 +462,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-stationary" class="theorem">
+<div class="theorem" id="thm-stationary">
 <p><span class="theorem-title"><strong>Theorem 15.1</strong></span> Suppose that <span class="math inline">\(G\)</span> is connected and aperiodic. Then,</p>
 <ul>
 <li><span class="math inline">\(G\)</span> has a stationary distribution <span class="math inline">\(\pi\)</span>.</li>
@@ -497,7 +473,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p><a href="#thm-stationary" class="quarto-xref">Theorem&nbsp;<span>15.1</span></a> is actually a theorem about discrete-time finite-state Markov chains in general, and its full proof is beyond the scope of this course. Here’s a sketch:</p>
+<p><a class="quarto-xref" href="#thm-stationary">Theorem <span>15.1</span></a> is actually a theorem about discrete-time finite-state Markov chains in general, and its full proof is beyond the scope of this course. Here’s a sketch:</p>
 <ol type="1">
 <li>The condition that <span class="math inline">\(G\)</span> is connected implies that the matrix <span class="math inline">\(\mathbf{P}\)</span> is <a href="https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem#Classification_of_matrices">irreducible</a>.</li>
 <li>This allows us to apply the <a href="https://en.wikipedia.org/wiki/Perron–Frobenius_theorem">Perron-Frobenius theorem</a> to conclude that <span class="math inline">\(\mathbf{P}\)</span> has a unique eigenvector with strictly positive entries, which we’ll call <span class="math inline">\({\bf \pi}\)</span>. Since <span class="math inline">\(\mathbf{P}\)</span> is column stochastic, a direct calculation shows that the corresponding eigenvalue of <span class="math inline">\({\bf \pi}\)</span> is 1, and we have <span class="math inline">\(\pi = \mathbf{P}\pi\)</span>.</li>
@@ -505,16 +481,16 @@ window.Quarto = {
 <li>Because each row of limiting matrix describe the long-run behavior of the random walk from a given starting node, one infers that <span class="math inline">\(\pi\)</span> is indeed a stationary state. Because all the rows agree in the limit, one infers that <span class="math inline">\(\pi\)</span> is the only such stationary state.</li>
 </ol>
 </section>
-<section id="stationary-distribution-structure" class="level3">
+<section class="level3" id="stationary-distribution-structure">
 <h3 class="anchored" data-anchor-id="stationary-distribution-structure">Stationary Distribution: Structure</h3>
-<p>We know from <a href="#thm-stationary" class="quarto-xref">Theorem&nbsp;<span>15.1</span></a> that there is a unique stationary distribution for the simple random walk, and that this distribution describes, in the long-term, the amount of time that the walker spends on a node. What actually <em>is</em> the stationary distribution? For many Markov chains, including more complicated random walks, it can be difficult to describe the stationary distribution exactly. In this case the answer is surprisingly simple, although it’s one of those things that’s much easier to check than it is to find in the first place.</p>
+<p>We know from <a class="quarto-xref" href="#thm-stationary">Theorem <span>15.1</span></a> that there is a unique stationary distribution for the simple random walk, and that this distribution describes, in the long-term, the amount of time that the walker spends on a node. What actually <em>is</em> the stationary distribution? For many Markov chains, including more complicated random walks, it can be difficult to describe the stationary distribution exactly. In this case the answer is surprisingly simple, although it’s one of those things that’s much easier to check than it is to find in the first place.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-degree" class="theorem">
+<div class="theorem" id="thm-degree">
 <p><span class="theorem-title"><strong>Theorem 15.2 (Stationary Distribution of an SRW)</strong></span> The stationary distribution of an SRW is <span class="math inline">\(\pi = \frac{1}{2m}\mathbf{k}\)</span>, where <span class="math inline">\(\mathbf{k}\)</span> is the vector of node degrees.</p>
 </div>
 </div>
@@ -534,7 +510,7 @@ window.Quarto = {
 <p>So, for simple random walks, <span class="math inline">\(\mathbb{P}(X_t = i)\)</span> when <span class="math inline">\(t\)</span> is large is approximately <span class="math inline">\(k_i/2m\)</span>, proportional to the degree of node <span class="math inline">\(i\)</span>. The intuition here is that the amount of time I spend in state is directly proportional to the number of ways that I can enter that state.</p>
 </section>
 </section>
-<section id="exploration-and-ranking-pagerank" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="exploration-and-ranking-pagerank">
 <h2 class="anchored" data-anchor-id="exploration-and-ranking-pagerank">Exploration and Ranking: PageRank</h2>
 <div class="page-columns page-full"><p>PageRank is the algorithm that originally made Google a dominant player in the domain of web search. The idea of PageRank is again to explore the graph using a random exploration process. The underlying process is closely related to the simple random walk that we described earlier. However, there are two important differences.</p><div class="no-row-height column-margin column-container"><span class="margin-aside"><span class="citation" data-cites="brin1998anatomy">Brin and Page (<a href="#ref-brin1998anatomy" role="doc-biblioref">1998</a>)</span></span></div></div>
 <ol type="1">
@@ -549,7 +525,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-directed-SRW" class="theorem definition">
+<div class="theorem definition" id="def-directed-SRW">
 <p><span class="theorem-title"><strong>Definition 15.4 (Simple Random Walk on a Directed Graph)</strong></span> The SRW on a directed graph has transition probabilities <span class="math display">\[
 \mathbb{P}(X_{t+1} = i | X_t = j) = \frac{a_{ij}}{k_j^{\mathrm{out}}}\;,
 \]</span> where <span class="math inline">\(k_j^{\mathrm{out}} = \sum_{i \in N}a_{ij}\)</span> is the number of outgoing links from node <span class="math inline">\(j\)</span>. The transition matrix of this walk is <span class="math display">\[
@@ -576,7 +552,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-stationary-directed" class="theorem">
+<div class="theorem" id="thm-stationary-directed">
 <p><span class="theorem-title"><strong>Theorem 15.3 (Stationary Distributions of Directed Random Walks)</strong></span> Suppose that:</p>
 <ol type="1">
 <li>There exists some integer power <span class="math inline">\(t &gt; 0\)</span> such that every entry of <span class="math inline">\(\mathbf{A}^t\)</span> is positive.</li>
@@ -589,14 +565,14 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Condition (1) in <a href="#thm-stationary-directed" class="quarto-xref">Theorem&nbsp;<span>15.3</span></a> is essentially a connectedness condition: it says that there has to be a directed path from every node to every other node in the network. So, as you might reasonably expect, the directed random walk doesn’t really overcome the need for the graph to be connected. This can be a problem for network exploration, as it’s more common for directed networks to not be connected in this way.[A bit more subtly, directed graphs that are <em>almost</em> disconnected are subject to <em>slow mixing</em> of the random walk, which implies very inefficient exploration of the network.] PageRank overcomes this limitation by allowing the walker to randomly hop to new nodes, independent of the network structure.</p>
+<p>Condition (1) in <a class="quarto-xref" href="#thm-stationary-directed">Theorem <span>15.3</span></a> is essentially a connectedness condition: it says that there has to be a directed path from every node to every other node in the network. So, as you might reasonably expect, the directed random walk doesn’t really overcome the need for the graph to be connected. This can be a problem for network exploration, as it’s more common for directed networks to not be connected in this way.[A bit more subtly, directed graphs that are <em>almost</em> disconnected are subject to <em>slow mixing</em> of the random walk, which implies very inefficient exploration of the network.] PageRank overcomes this limitation by allowing the walker to randomly hop to new nodes, independent of the network structure.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-pagerank-walk" class="theorem definition">
+<div class="theorem definition" id="def-pagerank-walk">
 <p><span class="theorem-title"><strong>Definition 15.5 (PageRank Random Walk)</strong></span> The <strong>PageRank random walk</strong> has two parameters:</p>
 <ul>
 <li>The <em>teleportation vector</em> <span class="math inline">\(\mathbf{v} \in \mathbb{R}^n_+\)</span>, which we assume to satisfy <span class="math inline">\(\sum_{i\in N}v_i = 1\)</span>.</li>
@@ -625,7 +601,7 @@ window.Quarto = {
 <li>If heads, the walker chooses to sample from the probability distribution encoded by <span class="math inline">\(\mathbf{v}\)</span>. That is, the walker chooses from among all the nodes in <span class="math inline">\(N\)</span>, and picks node <span class="math inline">\(i\)</span> with probability <span class="math inline">\(v_i\)</span>.</li>
 <li>If tails, the walker instead follows a link, just like in the directed random walk.</li>
 </ul>
-<p>This is why there are two terms in the transition probability in <a href="#eq-pagerank-transition" class="quarto-xref">Equation&nbsp;<span>15.2</span></a>. The first term corresponds to the “tails” scenario in which the walker does a step corresponding to the directed random walk, while the second term corresponds to teleportation.</p>
+<p>This is why there are two terms in the transition probability in <a class="quarto-xref" href="#eq-pagerank-transition">Equation <span>15.2</span></a>. The first term corresponds to the “tails” scenario in which the walker does a step corresponding to the directed random walk, while the second term corresponds to teleportation.</p>
 <p>The standard choice of the teleportation vector is <span class="math inline">\(\mathbf{v} = \frac{1}{n}\mathbf{1}\)</span>, so each node has an equal probability of being chosen for teleportation. However, it’s also possible to take other approaches, as we’ll see in a moment.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -633,7 +609,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-pagerank" class="theorem">
+<div class="theorem" id="thm-pagerank">
 <p><span class="theorem-title"><strong>Theorem 15.4 (Stationary Distribution of PageRank)</strong></span> Suppose that there exists an integer power <span class="math inline">\(t\)</span> such that <span class="math inline">\(\mathbf{P}^t\)</span> has all entries strictly positive. Then, the PageRank random walk has a unique stationary distribution, and this distribution may again be found by solving <span class="math inline">\(\pi = \mathbf{P}\pi\)</span>.</p>
 </div>
 </div>
@@ -645,7 +621,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Exercise</strong>: Show that, when <span class="math inline">\(\mathbf{v} = \frac{1}{n}\mathbf{1}\)</span>, <a href="#thm-pagerank" class="quarto-xref">Theorem&nbsp;<span>15.4</span></a> implies that the PageRank walk always has a stationary distribution, regardless of the graph.</p>
+<p><strong>Exercise</strong>: Show that, when <span class="math inline">\(\mathbf{v} = \frac{1}{n}\mathbf{1}\)</span>, <a class="quarto-xref" href="#thm-pagerank">Theorem <span>15.4</span></a> implies that the PageRank walk always has a stationary distribution, regardless of the graph.</p>
 </div>
 </div>
 </div>
@@ -659,121 +635,118 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="implementation" class="level3">
+<section class="level3" id="implementation">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <p>Let’s code up a quick example to visualize PageRank. We’ll use the Hamilton Mentions graph:</p>
-<div id="f34b8009" class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="1" id="a6ed4fb0">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv"</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"mentioner"</span>, <span class="st">"mentioned"</span>])</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"mentioner"</span>] <span class="op">!=</span> df[<span class="st">"mentioned"</span>]]</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(df, </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                            source <span class="op">=</span> <span class="st">"mentioner"</span>, </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                            target <span class="op">=</span> <span class="st">"mentioned"</span>, </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                            edge_attr<span class="op">=</span><span class="va">None</span>, </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv"</span>, </span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"mentioner"</span>, <span class="st">"mentioned"</span>])</span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"mentioner"</span>] <span class="op">!=</span> df[<span class="st">"mentioned"</span>]]</span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>G <span class="op">=</span> nx.from_pandas_edgelist(df, </span>
+<span id="cb1-11"><a aria-hidden="true" href="#cb1-11" tabindex="-1"></a>                            source <span class="op">=</span> <span class="st">"mentioner"</span>, </span>
+<span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a>                            target <span class="op">=</span> <span class="st">"mentioned"</span>, </span>
+<span id="cb1-13"><a aria-hidden="true" href="#cb1-13" tabindex="-1"></a>                            edge_attr<span class="op">=</span><span class="va">None</span>, </span>
+<span id="cb1-14"><a aria-hidden="true" href="#cb1-14" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph.</p>
-<div id="575579b2" class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="2" id="6e4269e8">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> G.subgraph([name <span class="cf">for</span> name, val <span class="kw">in</span> G.out_degree() <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>    G <span class="op">=</span> G.subgraph([name <span class="cf">for</span> name, val <span class="kw">in</span> G.out_degree() <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">0</span>])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Now we can write our PageRank function. We’ll compute the transition matrix <span class="math inline">\(\mathbf{P}\)</span> and find its leading eigenvector.</p>
-<div id="a7bf98b8" class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="3" id="a6e4ef57">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> np.isclose(v.<span class="bu">sum</span>(), <span class="fl">1.0</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># construct the PR transition matrix</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    A  <span class="op">=</span> nx.to_numpy_array(G).T</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    K  <span class="op">=</span> np.diag(A.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">0</span>))     <span class="co"># K^out</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    P_ <span class="op">=</span> A<span class="op">@</span>np.linalg.inv(K)           <span class="co"># random walk matrix</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    V  <span class="op">=</span> np.outer(v, np.ones(<span class="bu">len</span>(v))) <span class="co"># teleportation matrix</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    P <span class="op">=</span> (<span class="dv">1</span><span class="op">-</span>alpha)<span class="op">*</span>P_ <span class="op">+</span> alpha<span class="op">*</span>V        <span class="co"># overall transition matrix</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># grab the eigenvector with eigenvalue 1, normalize it and return. </span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    eigs <span class="op">=</span> np.linalg.eig(P)        </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> eigs[<span class="dv">1</span>][:,np.isclose(eigs[<span class="dv">0</span>], <span class="fl">1.0</span>)]</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> np.<span class="bu">abs</span>(pi) <span class="op">/</span> np.<span class="bu">abs</span>(pi).<span class="bu">sum</span>()</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>    <span class="cf">assert</span> np.isclose(v.<span class="bu">sum</span>(), <span class="fl">1.0</span>)</span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a>    <span class="co"># construct the PR transition matrix</span></span>
+<span id="cb3-6"><a aria-hidden="true" href="#cb3-6" tabindex="-1"></a>    A  <span class="op">=</span> nx.to_numpy_array(G).T</span>
+<span id="cb3-7"><a aria-hidden="true" href="#cb3-7" tabindex="-1"></a>    K  <span class="op">=</span> np.diag(A.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">0</span>))     <span class="co"># K^out</span></span>
+<span id="cb3-8"><a aria-hidden="true" href="#cb3-8" tabindex="-1"></a>    P_ <span class="op">=</span> A<span class="op">@</span>np.linalg.inv(K)           <span class="co"># random walk matrix</span></span>
+<span id="cb3-9"><a aria-hidden="true" href="#cb3-9" tabindex="-1"></a>    V  <span class="op">=</span> np.outer(v, np.ones(<span class="bu">len</span>(v))) <span class="co"># teleportation matrix</span></span>
+<span id="cb3-10"><a aria-hidden="true" href="#cb3-10" tabindex="-1"></a>    P <span class="op">=</span> (<span class="dv">1</span><span class="op">-</span>alpha)<span class="op">*</span>P_ <span class="op">+</span> alpha<span class="op">*</span>V        <span class="co"># overall transition matrix</span></span>
+<span id="cb3-11"><a aria-hidden="true" href="#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a aria-hidden="true" href="#cb3-12" tabindex="-1"></a>    <span class="co"># grab the eigenvector with eigenvalue 1, normalize it and return. </span></span>
+<span id="cb3-13"><a aria-hidden="true" href="#cb3-13" tabindex="-1"></a>    eigs <span class="op">=</span> np.linalg.eig(P)        </span>
+<span id="cb3-14"><a aria-hidden="true" href="#cb3-14" tabindex="-1"></a>    pi <span class="op">=</span> eigs[<span class="dv">1</span>][:,np.isclose(eigs[<span class="dv">0</span>], <span class="fl">1.0</span>)]</span>
+<span id="cb3-15"><a aria-hidden="true" href="#cb3-15" tabindex="-1"></a>    pi <span class="op">=</span> np.<span class="bu">abs</span>(pi) <span class="op">/</span> np.<span class="bu">abs</span>(pi).<span class="bu">sum</span>()</span>
+<span id="cb3-16"><a aria-hidden="true" href="#cb3-16" tabindex="-1"></a>    <span class="cf">return</span> pi</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="1d714204" class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="4" id="3bfc28c7">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    pi <span class="op">=</span> pagerank(G, v, alpha <span class="op">=</span> alpha)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, layout, </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            node_size <span class="op">=</span> <span class="dv">5000</span><span class="op">*</span>pi, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            with_labels <span class="op">=</span> <span class="va">True</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            edge_color <span class="op">=</span> <span class="st">"lightgray"</span>, </span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            node_color <span class="op">=</span> <span class="st">"lavender"</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            edgecolors  <span class="op">=</span> <span class="st">"darkgray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>    pi <span class="op">=</span> pagerank(G, v, alpha <span class="op">=</span> alpha)</span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a>    nx.draw(G, layout, </span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a>            node_size <span class="op">=</span> <span class="dv">5000</span><span class="op">*</span>pi, </span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a>            with_labels <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a>            edge_color <span class="op">=</span> <span class="st">"lightgray"</span>, </span>
+<span id="cb4-8"><a aria-hidden="true" href="#cb4-8" tabindex="-1"></a>            node_color <span class="op">=</span> <span class="st">"lavender"</span>,</span>
+<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a>            edgecolors  <span class="op">=</span> <span class="st">"darkgray"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> and the teleportation rate <span class="math inline">\(\alpha\)</span>:</p>
-<div id="fdae7580" class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="5" id="a5313250">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(G.nodes())</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>n<span class="op">*</span>np.ones(n)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(G.nodes())</span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>n<span class="op">*</span>np.ones(n)</span>
+<span id="cb5-5"><a aria-hidden="true" href="#cb5-5" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="50-random-walks_files/figure-html/cell-6-output-1.png" class="figure-img" width="691" height="499"></p>
+<p><img class="figure-img" height="499" src="50-random-walks_files/figure-html/cell-6-output-1.png" width="691"/></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="seeded-pagerank" class="level2">
+<section class="level2" id="seeded-pagerank">
 <h2 class="anchored" data-anchor-id="seeded-pagerank">Seeded PageRank</h2>
 <p>A useful feature of the way we’ve defined PageRank is that we can choose different teleportation vectors <span class="math inline">\(\mathbf{v}\)</span> in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> to highlight those specific characters. This approach is often called “personalized” or “seeded” PageRank.</p>
-<div id="9ce8626a" class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="6" id="2328cf91">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="50-random-walks_files/figure-html/cell-7-output-1.png" class="figure-img" width="691" height="499"></p>
+<p><img class="figure-img" height="499" src="50-random-walks_files/figure-html/cell-7-output-1.png" width="691"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>This time, we’ve highlighted the node corresponding to the character King George. Whereas when using the “basic” version of PageRank Hamilton, Burr, Washington, and Jefferson are all very important characters, in the personalized versio, Washington emerges as clearly the most important.</p>
 <p>This kind of idea is often applied in marketing and search. Suppose we know that a user is interested in site <span class="math inline">\(A\)</span>. Then, if that user searches for something online, we can use that information by computing a PageRank ranking and returning the top nodes, <em>using a biased teleportation vector</em>. This would allow us to balance the objectives of returning webpages that are relevant <em>overall</em> and webpages that are especially relevant <em>for that user</em>.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-brin1998anatomy" class="csl-entry" role="listitem">
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-brin1998anatomy" role="listitem">
 Brin, Sergey, and Lawrence Page. 1998. <span>“The Anatomy of a Large-Scale Hypertextual Web Search Engine.”</span> <em>Computer Networks and ISDN Systems</em> 30 (1-7): 107–17.
 </div>
 </div>
 </section>
-
-<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1195,20 +1168,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 <nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../chapters/41-link-prediction.html" class="pagination-link" aria-label="Link Prediction and Feedback Loops">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../chapters/51-agent-based-modeling.html" class="pagination-link" aria-label="Agent-Based Modeling on Networks">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
+<div class="nav-page nav-page-previous">
+<a aria-label="Link Prediction and Feedback Loops" class="pagination-link" href="../chapters/41-link-prediction.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+<a aria-label="Agent-Based Modeling on Networks" class="pagination-link" href="../chapters/51-agent-based-modeling.html">
+<span class="nav-page-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span> <i class="bi bi-arrow-right-short"></i>
+</a>
+</div>
 </nav>
 </div> <!-- /content -->
-
-
-
-
 </body></html>

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.10">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>17&nbsp; Epidemic Models on Networks – Network Science: Models, Mathematics, and Computation</title>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>17  Epidemic Models on Networks – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,25 +38,23 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }</style>
-
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../chapters/51-agent-based-modeling.html" rel="prev">
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/51-agent-based-modeling.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -87,10 +82,8 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -117,243 +110,226 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
-<link rel="stylesheet" href="../styles.css">
+<link href="../styles.css" rel="stylesheet"/>
 </head>
-
 <body class="nav-sidebar floating">
-
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
-  </div>
+</ul>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
-  </li>
-    </ul>
-    </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#outbreak-sizes" id="toc-outbreak-sizes" class="nav-link active" data-scroll-target="#outbreak-sizes">Outbreak sizes</a>
-  <ul class="collapse">
-  <li><a href="#the-si-model" id="toc-the-si-model" class="nav-link" data-scroll-target="#the-si-model">The SI model</a></li>
-  <li><a href="#the-sir-model" id="toc-the-sir-model" class="nav-link" data-scroll-target="#the-sir-model">The SIR model</a></li>
-  <li><a href="#sir-on-configuration-model-networks" id="toc-sir-on-configuration-model-networks" class="nav-link" data-scroll-target="#sir-on-configuration-model-networks">SIR on configuration model networks</a></li>
-  </ul></li>
-  <li><a href="#time-dependent-properties-of-epidemics-on-networks" id="toc-time-dependent-properties-of-epidemics-on-networks" class="nav-link" data-scroll-target="#time-dependent-properties-of-epidemics-on-networks">Time-dependent properties of epidemics on networks</a>
-  <ul class="collapse">
-  <li><a href="#si-model" id="toc-si-model" class="nav-link" data-scroll-target="#si-model">SI model</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#outbreak-sizes" href="#outbreak-sizes" id="toc-outbreak-sizes">Outbreak sizes</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#the-si-model" href="#the-si-model" id="toc-the-si-model">The SI model</a></li>
+<li><a class="nav-link" data-scroll-target="#the-sir-model" href="#the-sir-model" id="toc-the-sir-model">The SIR model</a></li>
+<li><a class="nav-link" data-scroll-target="#sir-on-configuration-model-networks" href="#sir-on-configuration-model-networks" id="toc-sir-on-configuration-model-networks">SIR on configuration model networks</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#time-dependent-properties-of-epidemics-on-networks" href="#time-dependent-properties-of-epidemics-on-networks" id="toc-time-dependent-properties-of-epidemics-on-networks">Time-dependent properties of epidemics on networks</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#si-model" href="#si-model" id="toc-si-model">SI model</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#references" href="#references" id="toc-references">References</a></li>
+</ul>
 </nav>
-    </div>
+</div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></h1>
+<h1 class="title"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
+</div>
 </header>
-
-
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/52-epidemiology.ipynb">here</a>.</em></p>
 <p>Mathematical models play an important role in understanding the spread of diseases in a population, and are an integral part of informing policies for disease mitigation. The structure of people’s contact networks can have a big effect on the way a disease spreads.</p>
-<section id="outbreak-sizes" class="level2">
+<section class="level2" id="outbreak-sizes">
 <h2 class="anchored" data-anchor-id="outbreak-sizes">Outbreak sizes</h2>
-<section id="the-si-model" class="level3">
+<section class="level3" id="the-si-model">
 <h3 class="anchored" data-anchor-id="the-si-model">The SI model</h3>
 <p>First, we’ll model a scenario where individuals can have one of two disease states: <em>susceptible</em> (has not yet contracted the disease) and <em>infectious</em> (is a carrier of the disease). Suppose we have a network with <span class="math inline">\(N\)</span> agents. We’ll denote the number of susceptible individuals at time <span class="math inline">\(t\)</span> as <span class="math inline">\(S(t)\)</span> and the number of infectious agents at time <span class="math inline">\(t\)</span> as <span class="math inline">\(I(t)\)</span>. We will make several important simplifying assumptions in our model:</p>
 <ul>
@@ -361,17 +337,17 @@ window.Quarto = {
 <li>Because the total population is conserved, and every agent is in one of the two disease states, we have <span class="math inline">\(N = S(t) + I(t).\)</span></li>
 <li>Infections can only be transmitted from an infectious individual to a susceptible individual. The probability per unit time that the infection will be transmitted via an edge connecting one susceptible and one infected individual is <span class="math inline">\(\beta &gt;0\)</span>. We call this quantity the <strong>transmission rate</strong> or the <strong>infection rate</strong>.</li>
 </ul>
-<p><img src="../assets/img/transmission-rate.png" alt="transmission rate" width="200"></p>
+<p><img alt="transmission rate" src="../assets/img/transmission-rate.png" width="200"/></p>
 <p>The model as described above is called an <strong>SI model</strong>. An important question with any model of disease spread is what happens to the size of the outbreak as <span class="math inline">\(t \to \infty.\)</span> Let’s explore this question now.</p>
 <p>Start with one infectious node <span class="math inline">\(i\)</span>. During a time interval of length <span class="math inline">\(\Delta t &lt;&lt;1\)</span>, the probability of transmitting the disease to a susceptible neighbor (supposing there is one) is <span class="math inline">\(\beta \Delta t.\)</span> The probability of <em>not</em> transmitting the disease in time interval <span class="math inline">\(\Delta t\)</span> is <span class="math inline">\(1-\beta \Delta t.\)</span> Given a total time <span class="math inline">\(\tau\)</span>, we have</p>
 <p><span class="math display">\[
     \mathbb{P}(\text{disease not transmitted after total time } \tau) = \lim_{\Delta t \to 0} \left(1 -\beta \Delta t\right)^{\tau/\Delta t} = e^{-\beta \tau} \,.
 \]</span></p>
 <p>That is, as <span class="math inline">\(\tau \to \infty\)</span>, the probability of the susceptible node remaining uninfected approaches 0. We expect that a susceptible node with an infected neighbor will eventually become infected. Continuing this argument, any node that is path-connected to an infected node will eventually become infected. From this we can conclude that the size of the outbreak will be the size of the component that contains the initially infected node.</p>
-<p>Fortunately, we have already studied the calculation of component sizes (see <a href="09-random-graphs.html#sec-component" class="quarto-xref"><span>Section 7.4.4</span></a>). Consider a network where the fraction of nodes in the giant component is <span class="math inline">\(S\)</span>. Then, with probability <span class="math inline">\(S\)</span>, the expected size of the outbreak will be <span class="math inline">\(NS.\)</span> With probability <span class="math inline">\(1-S\)</span>, the number of infectious individuals will remain small, with the size of the outbreak determined by the size of the connected component containing the initially infectious node.</p>
+<p>Fortunately, we have already studied the calculation of component sizes (see <a class="quarto-xref" href="09-random-graphs.html#sec-component"><span>Section 7.4.4</span></a>). Consider a network where the fraction of nodes in the giant component is <span class="math inline">\(S\)</span>. Then, with probability <span class="math inline">\(S\)</span>, the expected size of the outbreak will be <span class="math inline">\(NS.\)</span> With probability <span class="math inline">\(1-S\)</span>, the number of infectious individuals will remain small, with the size of the outbreak determined by the size of the connected component containing the initially infectious node.</p>
 <p>Through this quick analysis, we see that even in the simplest epidemic model, network structure introduces stochasticity into the dynamics.</p>
 </section>
-<section id="the-sir-model" class="level3">
+<section class="level3" id="the-sir-model">
 <h3 class="anchored" data-anchor-id="the-sir-model">The SIR model</h3>
 <p>To make the model slightly more realistic, we could assume that agents could eventually recover from the disease, while keeping the other parameters and assumptions as above. We will assume that recovered individuals are no longer infectious (they cannot spread the disease to other agents) and they are also no longer susceptible (they have developed immunity to future infections). Let <span class="math inline">\(R(t)\)</span> denote the class of recovered individuals at time <span class="math inline">\(t\)</span>. Now, <span class="math inline">\(N = S(t) + I(t) + R(t).\)</span> This model is called an <strong>SIR model</strong>.</p>
 <p>As in the SI model, the <em>transmission probability</em> between an infectious nodes <span class="math inline">\(i\)</span> and susceptible node <span class="math inline">\(j\)</span> is <span class="math display">\[
@@ -380,10 +356,10 @@ window.Quarto = {
 <p>where <span class="math inline">\(\tau_i\)</span> is the amount of time that an individual <span class="math inline">\(i\)</span> is infectious. In this case, <span class="math inline">\(\tau_i\)</span> is a disease-dependent parameter that can be interpreted as a recovery rate. While this value is often chosen to be a fixed constant, we could also draw <span class="math inline">\(\tau_i\)</span> from a distribution or allow it to depend on other node properties.</p>
 <p>Notice that we have a key difference in our dynamics due to the introduction of the recovered class. Unlike in the SI model, it is possible for an infectious node to recover before it infects its susceptible neighbors, thus limiting the spread of disease.</p>
 <p>Intuitively we can see the qualitative effects of our parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\tau\)</span>. If either (or both) of these parameters are small, then the transmission probability <span class="math inline">\(\phi\)</span> will also be small. In this regime, we expect the outbreak to reach a limited number of agents and exist only in isolated clusters.</p>
-<p><img src="../assets/img/percolation-example.png" class="img-fluid"></p>
+<p><img class="img-fluid" src="../assets/img/percolation-example.png"/></p>
 <p>As <span class="math inline">\(\phi\)</span> increases, we will eventually reach a <em>percolation transition</em> where a large “cluster” forms, and thus an epidemic (i.e., a large outbreak) is possible. Again, if <span class="math inline">\(S\)</span> is the fraction of nodes in the cluster, the size of the outbreak will be <span class="math inline">\(NS\)</span> will probability <span class="math inline">\(S\)</span>. Note that a large value of <span class="math inline">\(\phi\)</span> doesn’t guarantee an epidemic — this is a stochastic process and it is possible for the disease to die out by chance.</p>
 </section>
-<section id="sir-on-configuration-model-networks" class="level3">
+<section class="level3" id="sir-on-configuration-model-networks">
 <h3 class="anchored" data-anchor-id="sir-on-configuration-model-networks">SIR on configuration model networks</h3>
 <p>Now that we have some intuition behind the effect of parameters in the SIR model, let’s calculate the size distribution of the epidemic as well as the epidemic threshold. The mathematical ideas we use in this section come from the study of bond percolation (see <span class="citation" data-cites="sahimi2023applications">Sahimi (<a href="#ref-sahimi2023applications" role="doc-biblioref">2023</a>)</span>).</p>
 <p>Suppose we have a configuration model with degree distribution <span class="math inline">\(p_k\)</span>. We will initially choose one node uniformly at random to be infectious. The transmission probability (as derived in the previous section) will be denoted <span class="math inline">\(\phi\)</span>; we can also think of this as an edge “occupation” probability. We will assume that transmission along each edge is independent.</p>
@@ -398,7 +374,7 @@ window.Quarto = {
 \mathbb{P}((i,j) \text{ occupied and } j \text{ not connected by any of } k \text{ edges}) = \phi u^k \,,
 \]</span></p></li>
 </ol>
-<p><img src="../assets/img/second-neighbors.png" alt="second neighbors" width="200"></p>
+<p><img alt="second neighbors" src="../assets/img/second-neighbors.png" width="200"/></p>
 <p>Combining (1) and (2) gives our desired quantity: <span class="math display">\[
     \mathbb{P}(i \text{ not connected to giant cluster via degree} (k+1) \text{ neighbor}) = 1 - \phi + \phi u^k \,.
 \]</span></p>
@@ -412,7 +388,7 @@ window.Quarto = {
     &amp;= 1 - \phi + \phi g_1(u) \,,
 \end{aligned}
 \tag{17.1}\]</span></span></p>
-<p>where <span class="math inline">\(g_1(u)\)</span> is the generating function associated with the excess degree distribution for our network. In general, <a href="#eq-u-prob" class="quarto-xref">Equation&nbsp;<span>17.1</span></a> may be difficult to solve, or may not have a closed form solution. However, we can use a graphical method to get insight into the epidemic threshold.</p>
+<p>where <span class="math inline">\(g_1(u)\)</span> is the generating function associated with the excess degree distribution for our network. In general, <a class="quarto-xref" href="#eq-u-prob">Equation <span>17.1</span></a> may be difficult to solve, or may not have a closed form solution. However, we can use a graphical method to get insight into the epidemic threshold.</p>
 <p>We know that <span class="math inline">\(g_1(u)\)</span> is a polynomial with nonnegative coefficients because it is a probability generating function. Therefore, for <span class="math inline">\(u \in [0,1]\)</span>, we know</p>
 <ul>
 <li><span class="math inline">\(g_1(u) \geq 0\)</span>,</li>
@@ -420,8 +396,8 @@ window.Quarto = {
 <li><span class="math inline">\(g_1(1) = 1\)</span>.</li>
 </ul>
 <p>We look for intersections of <span class="math inline">\(u\)</span> and <span class="math inline">\(1- \phi + \phi g_1(u) = y\)</span>. To calculate <span class="math inline">\(y\)</span>, we take <span class="math inline">\(g_1(u)\)</span> and shift up by <span class="math inline">\(1- \phi\)</span> and multiply by <span class="math inline">\(\phi\)</span>.</p>
-<p>If <span class="math inline">\(\phi\)</span> is sufficiently large, we will see the following qualitative behavior: <img src="../assets/img/large-phi.png" class="img-fluid"></p>
-<p>As <span class="math inline">\(\phi\)</span> decreases, then eventually at <span class="math inline">\(\phi = \phi_c\)</span> the second intersection disappears: <img src="../assets/img/critical-phi.png" class="img-fluid"> <img src="../assets/img/small-phi.png" class="img-fluid"></p>
+<p>If <span class="math inline">\(\phi\)</span> is sufficiently large, we will see the following qualitative behavior: <img class="img-fluid" src="../assets/img/large-phi.png"/></p>
+<p>As <span class="math inline">\(\phi\)</span> decreases, then eventually at <span class="math inline">\(\phi = \phi_c\)</span> the second intersection disappears: <img class="img-fluid" src="../assets/img/critical-phi.png"/> <img class="img-fluid" src="../assets/img/small-phi.png"/></p>
 <p>Inspired by our sketches, we can calculate the value of <span class="math inline">\(\phi_c\)</span> by noticing this transition occurs when the curve is tangent to the identity line at <span class="math inline">\(u=1\)</span>, that is,</p>
 <p><span class="math display">\[
     \begin{aligned}
@@ -430,7 +406,7 @@ window.Quarto = {
     \rightarrow \phi_c = \frac{1}{g_1'(1)} \,.
     \end{aligned}
 \]</span></p>
-<p>We have previously calculated the quantity <span class="math inline">\(g_1'(1)\)</span> in terms of the degree distribution in <a href="11-generating-functions.html#sec-secondneighbors" class="quarto-xref"><span>Section 9.4.2</span></a>: this is the expected excess degree, which is given by <span class="math inline">\(\frac{\langle k^2\rangle - \langle k \rangle}{\langle k \rangle}\)</span>. Thus, <span class="math display">\[
+<p>We have previously calculated the quantity <span class="math inline">\(g_1'(1)\)</span> in terms of the degree distribution in <a class="quarto-xref" href="11-generating-functions.html#sec-secondneighbors"><span>Section 9.4.2</span></a>: this is the expected excess degree, which is given by <span class="math inline">\(\frac{\langle k^2\rangle - \langle k \rangle}{\langle k \rangle}\)</span>. Thus, <span class="math display">\[
     \phi_c = \frac{\langle k \rangle}{\langle k^2\rangle - \langle k \rangle} \,.
 \]</span></p>
 <p>We can even write this in terms of model parameters <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\tau\)</span>. Since <span class="math inline">\(\phi_c = 1-e^{-\beta \tau}\)</span>, we have <span class="math display">\[
@@ -450,10 +426,10 @@ window.Quarto = {
 <p>As before, the expected size of the outbreak is <span class="math inline">\(NS\)</span>, which occurs with probability <span class="math inline">\(S\)</span>. Note that, unlike in the SI model, <span class="math inline">\(S\)</span> depends on <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\tau\)</span>. If these values exceed the threshold, then an epidemic is possible, if the infection is introduced in the giant cluster.</p>
 </section>
 </section>
-<section id="time-dependent-properties-of-epidemics-on-networks" class="level2">
+<section class="level2" id="time-dependent-properties-of-epidemics-on-networks">
 <h2 class="anchored" data-anchor-id="time-dependent-properties-of-epidemics-on-networks">Time-dependent properties of epidemics on networks</h2>
 <p>If we want to understand the dynamic evolution and understand the progression of the disease spread in time (not just the limiting behavior) in an analytic way, we need to develope additional techniques. One strategy is to leverage tools from differential equations to study the evolution of the probabilities of a particular node have a particular state at time <span class="math inline">\(t\)</span>. We’ll give a taste of the methods here for the SI model. <span class="citation" data-cites="porter2016dynamical">Porter and Gleeson (<a href="#ref-porter2016dynamical" role="doc-biblioref">2016</a>)</span> provide a resource for further techniques for dynamical systems on networks.</p>
-<section id="si-model" class="level3">
+<section class="level3" id="si-model">
 <h3 class="anchored" data-anchor-id="si-model">SI model</h3>
 <p>Imagine running many simulations of an SI model with the same parameters on the same network with the same initial conditions.</p>
 <p>For node <span class="math inline">\(i\)</span>, define <span class="math inline">\(S_i(t) =\)</span> expected probability that node <span class="math inline">\(i\)</span> is susceptible at time <span class="math inline">\(t\)</span>, and $X_i(t) = $ expected probability that node <span class="math inline">\(i\)</span> is infected at time <span class="math inline">\(t\)</span>. As before, we’ll assume infections occur with probability <span class="math inline">\(\beta dt\)</span> if node <span class="math inline">\(i\)</span> is susceptible and connected to an infectious node <span class="math inline">\(j\)</span>.</p>
@@ -477,13 +453,13 @@ window.Quarto = {
 <p><span id="eq-eigsLC"><span class="math display">\[
     {\bf x} = \sum_{r=1}^n c_r(t) {\bf v}_r \,,
 \tag{17.3}\]</span></span></p>
-<p>where <span class="math inline">\(c_r(t)\)</span> are the time-dependent coefficients of this linear combination. Substituting <a href="#eq-eigsLC" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> into <a href="#eq-linearSI" class="quarto-xref">Equation&nbsp;<span>17.2</span></a> gives <span class="math display">\[
+<p>where <span class="math inline">\(c_r(t)\)</span> are the time-dependent coefficients of this linear combination. Substituting <a class="quarto-xref" href="#eq-eigsLC">Equation <span>17.3</span></a> into <a class="quarto-xref" href="#eq-linearSI">Equation <span>17.2</span></a> gives <span class="math display">\[
     \frac{d}{dt} {\bf x} = \sum_{r=1}^n \frac{dc_r}{dt} {\bf v}_r = \beta \sum_{r=1}^n c_r(t) \lambda_r {\bf v}_r \,.
 \]</span></p>
 <p>Therefore, for each term, we have a first-order linear differential equation describing the coefficients <span class="math display">\[
     \frac{dc_r}{dt} = \beta \lambda_r c_r \ \Rightarrow \ c_r(t) = c_r(0)e^{\beta \lambda_r t} \,.
 \]</span></p>
-<p>Finally, substitute this expression for the time-dependent coefficients into <a href="#eq-eigsLC" class="quarto-xref">Equation&nbsp;<span>17.3</span></a> to get the solution for <span class="math inline">\({\bf x}\)</span>: <span class="math display">\[
+<p>Finally, substitute this expression for the time-dependent coefficients into <a class="quarto-xref" href="#eq-eigsLC">Equation <span>17.3</span></a> to get the solution for <span class="math inline">\({\bf x}\)</span>: <span class="math display">\[
     {\bf x} = \sum_{r=1}^n c_r(0)e^{\beta \lambda_r t}{\bf v}_r\,.
 \]</span></p>
 <p>Our solution will be dominated by the fasted growing term (i.e., the largest magnitude eigenvalue, which we will call <span class="math inline">\(\lambda_1\)</span>). <span class="math display">\[
@@ -494,21 +470,18 @@ window.Quarto = {
 <p>We have made several approximations in this analysis. In particular, in order to study the linearized problem, we have neglected correlations between neighbors. However, <span class="math inline">\(S_i\)</span> and <span class="math inline">\(X_j\)</span> are not necessarily independent! This can be accounted for using pair approximation (or moment closure) methods; see <span class="citation" data-cites="porter2016dynamical">Porter and Gleeson (<a href="#ref-porter2016dynamical" role="doc-biblioref">2016</a>)</span>.</p>
 </section>
 </section>
-<section id="references" class="level2">
+<section class="level2" id="references">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-porter2016dynamical" class="csl-entry" role="listitem">
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-porter2016dynamical" role="listitem">
 Porter, Mason A, and James P Gleeson. 2016. <span>“Dynamical Systems on Networks.”</span> <em>Frontiers in Applied Dynamical Systems: Reviews and Tutorials</em> 4: 29.
 </div>
-<div id="ref-sahimi2023applications" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-sahimi2023applications" role="listitem">
 Sahimi, Muhammad. 2023. <em>Applications of Percolation Theory</em>. Springer.
 </div>
 </div>
 </section>
-
-<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -930,17 +903,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 <nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../chapters/51-agent-based-modeling.html" class="pagination-link" aria-label="Agent-Based Modeling on Networks">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-  </div>
+<div class="nav-page nav-page-previous">
+<a aria-label="Agent-Based Modeling on Networks" class="pagination-link" href="../chapters/51-agent-based-modeling.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+</div>
 </nav>
 </div> <!-- /content -->
-
-
-
-
 </body></html>

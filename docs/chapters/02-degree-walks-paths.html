@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.10">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>2&nbsp; Degree, Walks, and Paths – Network Science: Models, Mathematics, and Computation</title>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>2  Degree, Walks, and Paths – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,26 +72,24 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }</style>
-
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../chapters/03-components-laplacian.html" rel="next">
-<link href="../chapters/01-networkrepresentations.html" rel="prev">
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/03-components-laplacian.html" rel="next"/>
+<link href="../chapters/01-networkrepresentations.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,10 +117,8 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -152,249 +145,232 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
-<link rel="stylesheet" href="../styles.css">
+<link href="../styles.css" rel="stylesheet"/>
 </head>
-
 <body class="nav-sidebar floating slimcontent">
-
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
-  </div>
+</ul>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
-  </li>
-    </ul>
-    </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#degree-of-a-node" id="toc-degree-of-a-node" class="nav-link active" data-scroll-target="#degree-of-a-node">Degree of a Node</a>
-  <ul class="collapse">
-  <li><a href="#computing-with-degrees" id="toc-computing-with-degrees" class="nav-link" data-scroll-target="#computing-with-degrees">Computing with Degrees</a></li>
-  <li><a href="#degree-in-directed-graphs" id="toc-degree-in-directed-graphs" class="nav-link" data-scroll-target="#degree-in-directed-graphs">Degree in directed graphs</a></li>
-  <li><a href="#regular-graphs" id="toc-regular-graphs" class="nav-link" data-scroll-target="#regular-graphs">Regular Graphs</a></li>
-  </ul></li>
-  <li><a href="#density-and-sparsity" id="toc-density-and-sparsity" class="nav-link" data-scroll-target="#density-and-sparsity">Density and Sparsity</a></li>
-  <li><a href="#walks-and-paths" id="toc-walks-and-paths" class="nav-link" data-scroll-target="#walks-and-paths">Walks and Paths</a>
-  <ul class="collapse">
-  <li><a href="#connected-graphs" id="toc-connected-graphs" class="nav-link" data-scroll-target="#connected-graphs">Connected Graphs</a></li>
-  <li><a href="#counting-walks" id="toc-counting-walks" class="nav-link" data-scroll-target="#counting-walks">Counting Walks</a></li>
-  <li><a href="#paths" id="toc-paths" class="nav-link" data-scroll-target="#paths">Paths</a></li>
-  </ul></li>
-  <li><a href="#cyclic-and-acyclic-graphs" id="toc-cyclic-and-acyclic-graphs" class="nav-link" data-scroll-target="#cyclic-and-acyclic-graphs">Cyclic and Acyclic graphs</a>
-  <ul class="collapse">
-  <li><a href="#trees" id="toc-trees" class="nav-link" data-scroll-target="#trees">Trees</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#degree-of-a-node" href="#degree-of-a-node" id="toc-degree-of-a-node">Degree of a Node</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#computing-with-degrees" href="#computing-with-degrees" id="toc-computing-with-degrees">Computing with Degrees</a></li>
+<li><a class="nav-link" data-scroll-target="#degree-in-directed-graphs" href="#degree-in-directed-graphs" id="toc-degree-in-directed-graphs">Degree in directed graphs</a></li>
+<li><a class="nav-link" data-scroll-target="#regular-graphs" href="#regular-graphs" id="toc-regular-graphs">Regular Graphs</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#density-and-sparsity" href="#density-and-sparsity" id="toc-density-and-sparsity">Density and Sparsity</a></li>
+<li><a class="nav-link" data-scroll-target="#walks-and-paths" href="#walks-and-paths" id="toc-walks-and-paths">Walks and Paths</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#connected-graphs" href="#connected-graphs" id="toc-connected-graphs">Connected Graphs</a></li>
+<li><a class="nav-link" data-scroll-target="#counting-walks" href="#counting-walks" id="toc-counting-walks">Counting Walks</a></li>
+<li><a class="nav-link" data-scroll-target="#paths" href="#paths" id="toc-paths">Paths</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#cyclic-and-acyclic-graphs" href="#cyclic-and-acyclic-graphs" id="toc-cyclic-and-acyclic-graphs">Cyclic and Acyclic graphs</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#trees" href="#trees" id="toc-trees">Trees</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#references" href="#references" id="toc-references">References</a></li>
+</ul>
 </nav>
-    </div>
+</div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/02-degree-walks-paths.html"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
+</div>
 </header>
-
-
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/02-degree-walks-paths.ipynb">here</a>.</em></p>
 <p>In our previous lecture we introduced the fundamentals of different representations of networks: mathematically through graphs and their matrix representations, and computationally through the Python package NetworkX. We’re now ready to start defining and measuring some more complex properties of networks.</p>
 <p>The fundamental <em>point</em> of networks is that they are connected – we can “move along the edges” in order to understand the network structure. Our unifying theme in this set of lecture notes is how the idea of “taking steps in the network” unifies some important ideas: node degrees, walks between nodes, and paths between nodes.</p>
-<section id="degree-of-a-node" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="degree-of-a-node">
 <h2 class="anchored" data-anchor-id="degree-of-a-node">Degree of a Node</h2>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -402,7 +378,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-degree" class="theorem definition">
+<div class="theorem definition" id="def-degree">
 <p><span class="theorem-title"><strong>Definition 2.1</strong></span> The <em>degree</em> of a node in an undirected network is the number of edges connected to it:  <span class="math display">\[
     k_i = \sum_{j=1}^n A_{ij} \,.
 \]</span></p>
@@ -440,71 +416,71 @@ Exercise
 </div>
 </div>
 
-<section id="computing-with-degrees" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="computing-with-degrees">
 <h3 class="anchored" data-anchor-id="computing-with-degrees">Computing with Degrees</h3>
 <div class="page-columns page-full"><p>Let’s grab some sample data. We’ll use the <em>Les Miserables</em> network, which is a network of coappearances of characters in the book <em>Les Miserables</em> by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter. This data set is supplied as a built-in example in NetworkX, and for this reason we’ll use it several times throughout these notes. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This hidden code cell imports several packages and defines an <code>unweight</code> function which we’ll use to convert the network from its native weighted format to an unweighted format.</span></div></div>
-<div id="94299e7f" class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="1" id="8f0ce2e5">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1" data-lst-cap="hidden code ahoy!"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">100</span>, <span class="st">"edgecolors"</span> : <span class="st">'white'</span>, <span class="st">"node_color"</span> : <span class="st">"steelblue"</span>, <span class="st">"width"</span> : <span class="fl">0.5</span>, <span class="st">"edge_color"</span> : <span class="st">"darkgrey"</span>}</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-lst-cap="hidden code ahoy!" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">100</span>, <span class="st">"edgecolors"</span> : <span class="st">'white'</span>, <span class="st">"node_color"</span> : <span class="st">"steelblue"</span>, <span class="st">"width"</span> : <span class="fl">0.5</span>, <span class="st">"edge_color"</span> : <span class="st">"darkgrey"</span>}</span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
+<span id="cb1-11"><a aria-hidden="true" href="#cb1-11" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a>    <span class="cf">return</span> G</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Here’s how this network looks:</p>
-<div id="cell-fig-lesmis" class="cell page-columns page-full" data-out.width="80%" data-execution_count="2">
+<div class="cell page-columns page-full" data-execution_count="2" data-out.width="80%" id="cell-fig-lesmis">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">4</span>))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>G_LesMis <span class="op">=</span> unweight(nx.les_miserables_graph())</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nx.draw(G_LesMis, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="dv">4</span>))</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>G_LesMis <span class="op">=</span> unweight(nx.les_miserables_graph())</span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>nx.draw(G_LesMis, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-lesmis" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin" id="fig-lesmis">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-lesmis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="02-degree-walks-paths_files/figure-html/fig-lesmis-output-1.png" width="540" height="315" class="figure-img">
+<img class="figure-img" height="315" src="02-degree-walks-paths_files/figure-html/fig-lesmis-output-1.png" width="540"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-lesmis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.1: A network of coappearances of characters in the book Les Miserables by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter.
+Figure 2.1: A network of coappearances of characters in the book Les Miserables by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Now let’s compute the degree of each node. There are multiple ways to achieve this task: we can work directly using the adjacency matrix, or we can use the built-in NetworkX function <code>nx.degree()</code>.</p>
-<div class="page-columns page-full"><p>One way to compute the degrees of the nodes in a graph is to use the adjacency matrix, as directly described by <a href="#def-degree" class="quarto-xref">Definition&nbsp;<span>2.1</span></a>. With convenient functions from NetworkX and NumPy, this is a two-liner: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">For undirected graphs, we could equally do <code>np.sum(A, axis = 0)</code> because <span class="math inline">\(\mathbf{A}\)</span> is a symmetric matrix. When we discuss directed graphs soon, it will become necessary to be careful!</span></div></div>
-<div id="3b39c58f" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># computing degrees directly from the adjacency matrix</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_LesMis)   <span class="co"># extract the adjacency matrix</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>degree_vector <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>) <span class="co"># sum the adjacency matrix over rows</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The degree vector has shape </span><span class="sc">{</span>degree_vector<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="page-columns page-full"><p>One way to compute the degrees of the nodes in a graph is to use the adjacency matrix, as directly described by <a class="quarto-xref" href="#def-degree">Definition <span>2.1</span></a>. With convenient functions from NetworkX and NumPy, this is a two-liner: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">For undirected graphs, we could equally do <code>np.sum(A, axis = 0)</code> because <span class="math inline">\(\mathbf{A}\)</span> is a symmetric matrix. When we discuss directed graphs soon, it will become necessary to be careful!</span></div></div>
+<div class="cell" data-execution_count="3" id="6e7ef26a">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="co"># computing degrees directly from the adjacency matrix</span></span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_LesMis)   <span class="co"># extract the adjacency matrix</span></span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a>degree_vector <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>) <span class="co"># sum the adjacency matrix over rows</span></span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"The degree vector has shape </span><span class="sc">{</span>degree_vector<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The degree vector has shape (77,)</code></pre>
 </div>
 </div>
 <p>Networkx also has a helpful built-in function to calculate the complete set of degrees:</p>
-<div id="dbe1d636" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>degree_view <span class="op">=</span> G_LesMis.degree()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="4" id="11515596">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>degree_view <span class="op">=</span> G_LesMis.degree()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result is a <code>DegreeView</code> object which behaves much like a Python dictionary (and which can be easily converted to a dictionary using the <code>dict</code> constructor).</p>
 <p>Let’s take a moment to compare the first few nodes to make sure that our two methods agree:</p>
-<div id="8a6c68bd" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(degree_view).items():</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> has degree: </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss"> (networkx) and </span><span class="sc">{</span>degree_vector[i]<span class="sc">}</span><span class="ss"> (adjacency matrix)"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="5" id="c080fe01">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(degree_view).items():</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> has degree: </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss"> (networkx) and </span><span class="sc">{</span>degree_vector[i]<span class="sc">}</span><span class="ss"> (adjacency matrix)"</span>)</span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Napoleon has degree: 1 (networkx) and 1 (adjacency matrix)
 Myriel has degree: 10 (networkx) and 10 (adjacency matrix)
@@ -514,7 +490,7 @@ CountessDeLo has degree: 1 (networkx) and 1 (adjacency matrix)</code></pre>
 </div>
 </div>
 </section>
-<section id="degree-in-directed-graphs" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="degree-in-directed-graphs">
 <h3 class="anchored" data-anchor-id="degree-in-directed-graphs">Degree in directed graphs</h3>
 <p>We have to be a little more subtle in how we define degree in a directed network because there is a distinction between in-edges and out-edges in these networks.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -523,7 +499,7 @@ CountessDeLo has degree: 1 (networkx) and 1 (adjacency matrix)</code></pre>
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-directeddegree" class="theorem definition">
+<div class="theorem definition" id="def-directeddegree">
 <p><span class="theorem-title"><strong>Definition 2.2</strong></span> In a directed network, the <strong>in-degree</strong> is the number of ingoing edges to a node and the <strong>out-degree</strong> is the number of outgoing edges. These are defined by the formulas <span class="math display">\[
     k_i^{\text{in}} = \sum_{j=1}^n A_{ij}
 \]</span> and the out-degree is <span class="math display">\[
@@ -553,58 +529,58 @@ Exercise
 </div>
 
 <p>Let’s see these definitions in action on a directed graph. This time, we’ll use the <em>mention graph</em> from the musical <em>Hamilton</em>. Each node in this graph is a character. There is a directed edge from character <span class="math inline">\(i\)</span> to character <span class="math inline">\(j\)</span> if character <span class="math inline">\(i\)</span> mentions character <span class="math inline">\(j\)</span> in a song.</p>
-<div id="cell-fig-hamilton" class="cell page-columns page-full" data-out.width="80%" data-execution_count="6">
+<div class="cell page-columns page-full" data-execution_count="6" data-out.width="80%" id="cell-fig-hamilton">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># import data for our directed network</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv"</span>, </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"mentioner"</span>, <span class="st">"mentioned"</span>])</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"mentioner"</span>] <span class="op">!=</span> df[<span class="st">"mentioned"</span>]]</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>G_Hamilton <span class="op">=</span> nx.from_pandas_edgelist(df, </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                            source <span class="op">=</span> <span class="st">"mentioner"</span>, </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                            target <span class="op">=</span> <span class="st">"mentioned"</span>, </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                            edge_attr<span class="op">=</span><span class="va">None</span>, </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.arf_layout(G_Hamilton)</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">7</span>))</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Hamilton, pos <span class="op">=</span> layout,  with_labels <span class="op">=</span> <span class="va">True</span>, edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>, width <span class="op">=</span> <span class="fl">0.5</span>, node_color <span class="op">=</span> <span class="st">"lavender"</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>)</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create and print a numpy array of node in-degrees and out-degrees directly from the adjacency matrix</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a><span class="co"># import data for our directed network</span></span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"https://philchodrow.github.io/PIC16A/homework/HW3-hamilton-data.csv"</span>, </span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a>names <span class="op">=</span> [<span class="st">"mentioner"</span>, <span class="st">"mentioned"</span>])</span>
+<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a></span>
+<span id="cb8-7"><a aria-hidden="true" href="#cb8-7" tabindex="-1"></a>df <span class="op">=</span> df[df[<span class="st">"mentioner"</span>] <span class="op">!=</span> df[<span class="st">"mentioned"</span>]]</span>
+<span id="cb8-8"><a aria-hidden="true" href="#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a aria-hidden="true" href="#cb8-9" tabindex="-1"></a>G_Hamilton <span class="op">=</span> nx.from_pandas_edgelist(df, </span>
+<span id="cb8-10"><a aria-hidden="true" href="#cb8-10" tabindex="-1"></a>                            source <span class="op">=</span> <span class="st">"mentioner"</span>, </span>
+<span id="cb8-11"><a aria-hidden="true" href="#cb8-11" tabindex="-1"></a>                            target <span class="op">=</span> <span class="st">"mentioned"</span>, </span>
+<span id="cb8-12"><a aria-hidden="true" href="#cb8-12" tabindex="-1"></a>                            edge_attr<span class="op">=</span><span class="va">None</span>, </span>
+<span id="cb8-13"><a aria-hidden="true" href="#cb8-13" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span>
+<span id="cb8-14"><a aria-hidden="true" href="#cb8-14" tabindex="-1"></a></span>
+<span id="cb8-15"><a aria-hidden="true" href="#cb8-15" tabindex="-1"></a>layout <span class="op">=</span> nx.arf_layout(G_Hamilton)</span>
+<span id="cb8-16"><a aria-hidden="true" href="#cb8-16" tabindex="-1"></a></span>
+<span id="cb8-17"><a aria-hidden="true" href="#cb8-17" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb8-18"><a aria-hidden="true" href="#cb8-18" tabindex="-1"></a>nx.draw(G_Hamilton, pos <span class="op">=</span> layout,  with_labels <span class="op">=</span> <span class="va">True</span>, edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>, width <span class="op">=</span> <span class="fl">0.5</span>, node_color <span class="op">=</span> <span class="st">"lavender"</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>)</span>
+<span id="cb8-19"><a aria-hidden="true" href="#cb8-19" tabindex="-1"></a></span>
+<span id="cb8-20"><a aria-hidden="true" href="#cb8-20" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
+<span id="cb8-21"><a aria-hidden="true" href="#cb8-21" tabindex="-1"></a></span>
+<span id="cb8-22"><a aria-hidden="true" href="#cb8-22" tabindex="-1"></a><span class="co"># Create and print a numpy array of node in-degrees and out-degrees directly from the adjacency matrix</span></span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-hamilton" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="margin" id="fig-hamilton">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-hamilton-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="02-degree-walks-paths_files/figure-html/fig-hamilton-output-1.png" width="763" height="537" class="figure-img">
+<img class="figure-img" height="537" src="02-degree-walks-paths_files/figure-html/fig-hamilton-output-1.png" width="763"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-hamilton-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.2: A network of mentions in the musical Hamilton. Nodes represent characters; there is an edge from character <span class="math inline">\(i\)</span> to character <span class="math inline">\(j\)</span> if <span class="math inline">\(i\)</span> mentions <span class="math inline">\(j\)</span>. This data set was collected and publicly shared by <a href="https://newtfire.org/hamilton/">The Hamilton Project</a>.
+Figure 2.2: A network of mentions in the musical Hamilton. Nodes represent characters; there is an edge from character <span class="math inline">\(i\)</span> to character <span class="math inline">\(j\)</span> if <span class="math inline">\(i\)</span> mentions <span class="math inline">\(j\)</span>. This data set was collected and publicly shared by <a href="https://newtfire.org/hamilton/">The Hamilton Project</a>.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Let’s calculate the in-degrees of the nodes in the Hamilton network using the adjacency matrix and compare to the networkx built-ins.</p>
-<div id="7db6cff7" class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="7" id="1d961df3">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_Hamilton)       <span class="co"># grab the adjacency matrix</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>in_degree_vector <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">0</span>)    <span class="co"># manual in-degrees from A</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>in_degree_view   <span class="op">=</span> G_Hamilton.in_degree() <span class="co"># networkx builtin</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(in_degree_view).items():</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> has degree: </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss"> (networkx) and </span><span class="sc">{</span>in_degree_vector[i]<span class="sc">}</span><span class="ss"> (adjacency matrix)"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_Hamilton)       <span class="co"># grab the adjacency matrix</span></span>
+<span id="cb9-2"><a aria-hidden="true" href="#cb9-2" tabindex="-1"></a>in_degree_vector <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">0</span>)    <span class="co"># manual in-degrees from A</span></span>
+<span id="cb9-3"><a aria-hidden="true" href="#cb9-3" tabindex="-1"></a>in_degree_view   <span class="op">=</span> G_Hamilton.in_degree() <span class="co"># networkx builtin</span></span>
+<span id="cb9-4"><a aria-hidden="true" href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a aria-hidden="true" href="#cb9-5" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-6"><a aria-hidden="true" href="#cb9-6" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(in_degree_view).items():</span>
+<span id="cb9-7"><a aria-hidden="true" href="#cb9-7" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb9-8"><a aria-hidden="true" href="#cb9-8" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> has degree: </span><span class="sc">{</span>degree<span class="sc">}</span><span class="ss"> (networkx) and </span><span class="sc">{</span>in_degree_vector[i]<span class="sc">}</span><span class="ss"> (adjacency matrix)"</span>)</span>
+<span id="cb9-9"><a aria-hidden="true" href="#cb9-9" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>burr has degree: 13 (networkx) and 13 (adjacency matrix)
@@ -628,7 +604,7 @@ Exercise
 </div>
 </div>
 </section>
-<section id="regular-graphs" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="regular-graphs">
 <h3 class="anchored" data-anchor-id="regular-graphs">Regular Graphs</h3>
 <p>The degree sequence can contain a lot of information about the graph structure. One important class of graphs has constant degree:</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -637,25 +613,24 @@ Exercise
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-regulargraph" class="theorem definition">
+<div class="theorem definition" id="def-regulargraph">
 <p><span class="theorem-title"><strong>Definition 2.3</strong></span> A network in which all nodes have the same degree is called a <strong>regular graph</strong> or <strong>regular network</strong>. A regular graph where all nodes have degree <span class="math inline">\(k\)</span> is called <strong><span class="math inline">\(k\)</span>-regular</strong>.</p>
 </div>
 </div>
 </div>
 </div>
 <p>Some special cases of regular graphs are <strong>lattices</strong> (e.g., a square lattice is 4-regular) and the <strong>complete graph</strong> where every node is connected to every other node (which is <span class="math inline">\((n-1)\)</span>-regular).</p>
-<div id="0e44070d" class="cell page-columns page-full" data-execution_count="8">
+<div class="cell page-columns page-full" data-execution_count="8" id="1acbdbae">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.complete_graph(<span class="dv">5</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>nx.draw(G, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a>G <span class="op">=</span> nx.complete_graph(<span class="dv">5</span>)</span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a>nx.draw(G, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
-
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-degree-walks-paths_files/figure-html/cell-9-output-1.png" class="figure-img" width="168" height="167"></p>
+<p><img class="figure-img" height="167" src="02-degree-walks-paths_files/figure-html/cell-9-output-1.png" width="168"/></p>
 <figcaption>A complete graph on 5 nodes. Each node has degree exactly equal to <span class="math inline">\(5-1 = 4\)</span>.</figcaption>
 </figure>
 </div>
@@ -663,7 +638,7 @@ Exercise
 <p>Regular graphs are of great interst in theoretical mathematics and computer science. We don’t <em>usually</em> spend a lot of time studying them in network science because most interesting systems and data sets are not regular.</p>
 </section>
 </section>
-<section id="density-and-sparsity" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="density-and-sparsity">
 <h2 class="anchored" data-anchor-id="density-and-sparsity">Density and Sparsity</h2>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -671,7 +646,7 @@ Exercise
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-density" class="theorem definition">
+<div class="theorem definition" id="def-density">
 <p><span class="theorem-title"><strong>Definition 2.4</strong></span> The <strong>density</strong> or <strong>connectance</strong> <span class="math inline">\(\rho\)</span> of a simple network is the fraction of possible edges that are actually present. That is,</p>
 <p><span class="math display">\[
     \rho = \frac{\text{number of edges}}{\text{possible edges}} = \frac{m}{\binom{n}{2}} \,.
@@ -697,38 +672,38 @@ Exercise
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div id="a64f7cac" class="cell" data-execution_count="9">
+<div class="cell" data-execution_count="9" id="3d5cc8ee">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an unweighted version of the Les Mis network</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> G_LesMis</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate density directly using number of edges and number of nodes</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> G.number_of_nodes()</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> G.number_of_edges()</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Density using nodes and edges: </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>m<span class="op">/</span>(n<span class="op">*</span>(n<span class="op">-</span><span class="dv">1</span>))<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate density directly using mean degree and number of nodes</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: you may want to calculate degree from the adjacency matrix so that you can calculate mean using numpy</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G)</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>degree <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> np.mean(degree)</span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calculating using mean degree </span><span class="sc">{</span>c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">#----</span></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the built-in NetworkX function nx.density()</span></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>density <span class="op">=</span> nx.density(G)</span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Density with NetworkX built-in: </span><span class="sc">{</span>density<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-4"><a aria-hidden="true" href="#cb12-4" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb12-5"><a aria-hidden="true" href="#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a aria-hidden="true" href="#cb12-6" tabindex="-1"></a><span class="co"># Create an unweighted version of the Les Mis network</span></span>
+<span id="cb12-7"><a aria-hidden="true" href="#cb12-7" tabindex="-1"></a>G <span class="op">=</span> G_LesMis</span>
+<span id="cb12-8"><a aria-hidden="true" href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a aria-hidden="true" href="#cb12-9" tabindex="-1"></a><span class="co"># This is a coding exercise in the live notes.</span></span>
+<span id="cb12-10"><a aria-hidden="true" href="#cb12-10" tabindex="-1"></a></span>
+<span id="cb12-11"><a aria-hidden="true" href="#cb12-11" tabindex="-1"></a><span class="co"># Calculate density directly using number of edges and number of nodes</span></span>
+<span id="cb12-12"><a aria-hidden="true" href="#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a aria-hidden="true" href="#cb12-13" tabindex="-1"></a>n <span class="op">=</span> G.number_of_nodes()</span>
+<span id="cb12-14"><a aria-hidden="true" href="#cb12-14" tabindex="-1"></a>m <span class="op">=</span> G.number_of_edges()</span>
+<span id="cb12-15"><a aria-hidden="true" href="#cb12-15" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Density using nodes and edges: </span><span class="sc">{</span><span class="dv">2</span><span class="op">*</span>m<span class="op">/</span>(n<span class="op">*</span>(n<span class="op">-</span><span class="dv">1</span>))<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb12-16"><a aria-hidden="true" href="#cb12-16" tabindex="-1"></a></span>
+<span id="cb12-17"><a aria-hidden="true" href="#cb12-17" tabindex="-1"></a><span class="co"># Calculate density directly using mean degree and number of nodes</span></span>
+<span id="cb12-18"><a aria-hidden="true" href="#cb12-18" tabindex="-1"></a><span class="co"># Hint: you may want to calculate degree from the adjacency matrix so that you can calculate mean using numpy</span></span>
+<span id="cb12-19"><a aria-hidden="true" href="#cb12-19" tabindex="-1"></a></span>
+<span id="cb12-20"><a aria-hidden="true" href="#cb12-20" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G)</span>
+<span id="cb12-21"><a aria-hidden="true" href="#cb12-21" tabindex="-1"></a>degree <span class="op">=</span> np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb12-22"><a aria-hidden="true" href="#cb12-22" tabindex="-1"></a>c <span class="op">=</span> np.mean(degree)</span>
+<span id="cb12-23"><a aria-hidden="true" href="#cb12-23" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calculating using mean degree </span><span class="sc">{</span>c<span class="op">/</span>(n<span class="op">-</span><span class="dv">1</span>)<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb12-24"><a aria-hidden="true" href="#cb12-24" tabindex="-1"></a><span class="co">#----</span></span>
+<span id="cb12-25"><a aria-hidden="true" href="#cb12-25" tabindex="-1"></a></span>
+<span id="cb12-26"><a aria-hidden="true" href="#cb12-26" tabindex="-1"></a><span class="co"># Use the built-in NetworkX function nx.density()</span></span>
+<span id="cb12-27"><a aria-hidden="true" href="#cb12-27" tabindex="-1"></a></span>
+<span id="cb12-28"><a aria-hidden="true" href="#cb12-28" tabindex="-1"></a>density <span class="op">=</span> nx.density(G)</span>
+<span id="cb12-29"><a aria-hidden="true" href="#cb12-29" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Density with NetworkX built-in: </span><span class="sc">{</span>density<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Density using nodes and edges: 0.0868
@@ -750,9 +725,9 @@ Exercise
 <p>Let <span class="math inline">\(\{G_n\}\)</span> be a sequence of networks on <span class="math inline">\(n\)</span> nodes which are <span class="math inline">\(k\)</span>-regular for some fixed constant <span class="math inline">\(k\)</span>. Show that this sequence is sparse in the sense defined above. </p>
 </div>
 </div>
-
+<div class="no-row-height column-margin column-container"><span class="margin-aside callout-margin-content callout-margin-content-simple">There is a small cheat in this problem statement, since if <span class="math inline">\(k\)</span> and <span class="math inline">\(n\)</span> are both odd then it is not possible to form a valid network (since <span class="math inline">\(kn = 2m\)</span>, <span class="math inline">\(kn\)</span> must always ben even). This kind of detail does not usually pose difficulties in the study of sparse network.</span></div>
 </section>
-<section id="walks-and-paths" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="walks-and-paths">
 <h2 class="anchored" data-anchor-id="walks-and-paths">Walks and Paths</h2>
 <p>We may like to know if it it is possible to reach one node from another by traversing edges. For this task, we introduce the notion of a <em>walk</em>.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -761,7 +736,7 @@ Exercise
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-walk" class="theorem definition">
+<div class="theorem definition" id="def-walk">
 <p><span class="theorem-title"><strong>Definition 2.5</strong></span> A <strong>walk</strong> of length <span class="math inline">\(k \geq 2\)</span> is a set of edges <span class="math inline">\(\{ (i_1,j_1), (i_2, j_2), \dots, (i_k, j_k)\}\)</span> with the property that <span class="math inline">\(i_l = j_{l-1}\)</span> for each <span class="math inline">\(2 \leq l \leq k\)</span>. We say this is a walk from node <span class="math inline">\(i_1\)</span> to node <span class="math inline">\(j_k.\)</span></p>
 <p>The <strong>length</strong> of a walk is the number of edges it contains.</p>
 <p>A single edge <span class="math inline">\((i,j)\)</span> is always considered a walk of length 1 from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>.</p>
@@ -769,43 +744,42 @@ Exercise
 </div>
 </div>
 </div>
-<div id="cell-fig-walk-nonexample" class="cell page-columns page-full" data-out.width="80%" data-execution_count="10">
+<div class="cell page-columns page-full" data-execution_count="10" data-out.width="80%" id="cell-fig-walk-nonexample">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>graph_dict <span class="op">=</span> {<span class="dv">1</span>: [<span class="dv">2</span>], <span class="dv">2</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="dv">3</span>:[<span class="dv">2</span>], <span class="dv">4</span>:[<span class="dv">5</span>,<span class="dv">6</span>], <span class="dv">7</span>: [<span class="dv">4</span>]}</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.Graph(graph_dict) </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>nx.draw(G, with_labels <span class="op">=</span> <span class="va">True</span>, font_color <span class="op">=</span> <span class="st">'white'</span>, font_weight <span class="op">=</span> <span class="st">'bold'</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>, ax <span class="op">=</span> ax, node_size <span class="op">=</span> <span class="dv">200</span>, font_size <span class="op">=</span> <span class="dv">10</span>, edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" href="#cb14-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb14-2"><a aria-hidden="true" href="#cb14-2" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb14-3"><a aria-hidden="true" href="#cb14-3" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb14-4"><a aria-hidden="true" href="#cb14-4" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb14-5"><a aria-hidden="true" href="#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a aria-hidden="true" href="#cb14-6" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb14-7"><a aria-hidden="true" href="#cb14-7" tabindex="-1"></a></span>
+<span id="cb14-8"><a aria-hidden="true" href="#cb14-8" tabindex="-1"></a>graph_dict <span class="op">=</span> {<span class="dv">1</span>: [<span class="dv">2</span>], <span class="dv">2</span>: [<span class="dv">1</span>, <span class="dv">3</span>], <span class="dv">3</span>:[<span class="dv">2</span>], <span class="dv">4</span>:[<span class="dv">5</span>,<span class="dv">6</span>], <span class="dv">7</span>: [<span class="dv">4</span>]}</span>
+<span id="cb14-9"><a aria-hidden="true" href="#cb14-9" tabindex="-1"></a>G <span class="op">=</span> nx.Graph(graph_dict) </span>
+<span id="cb14-10"><a aria-hidden="true" href="#cb14-10" tabindex="-1"></a>nx.draw(G, with_labels <span class="op">=</span> <span class="va">True</span>, font_color <span class="op">=</span> <span class="st">'white'</span>, font_weight <span class="op">=</span> <span class="st">'bold'</span>, edgecolors <span class="op">=</span> <span class="st">"white"</span>, ax <span class="op">=</span> ax, node_size <span class="op">=</span> <span class="dv">200</span>, font_size <span class="op">=</span> <span class="dv">10</span>, edge_color <span class="op">=</span> <span class="st">"darkgrey"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
-
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-walk-nonexample" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-walk-nonexample">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-walk-nonexample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="02-degree-walks-paths_files/figure-html/fig-walk-nonexample-output-1.png" width="242" height="241" class="figure-img">
+<img class="figure-img" height="241" src="02-degree-walks-paths_files/figure-html/fig-walk-nonexample-output-1.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-walk-nonexample-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.3: Not all pairs of nodes in this network have a walk between them.
+Figure 2.3: Not all pairs of nodes in this network have a walk between them.
 </figcaption>
 </figure>
 </div>
 </div></div></div>
-<section id="connected-graphs" class="level3">
+<section class="level3" id="connected-graphs">
 <h3 class="anchored" data-anchor-id="connected-graphs">Connected Graphs</h3>
-<p>It is not always the case that there exists a walk between two specified nodes, as shown in <a href="#fig-walk-nonexample" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>. In many networks, it’s very important that there exist a walk between any two nodes (think, for example, of a power grid!), and we have a special definition to reflect this:</p>
+<p>It is not always the case that there exists a walk between two specified nodes, as shown in <a class="quarto-xref" href="#fig-walk-nonexample">Figure <span>2.3</span></a>. In many networks, it’s very important that there exist a walk between any two nodes (think, for example, of a power grid!), and we have a special definition to reflect this:</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-tree" class="theorem definition">
+<div class="theorem definition" id="def-tree">
 <p><span class="theorem-title"><strong>Definition 2.6</strong></span> A <strong>connected graph</strong> is a graph with the property that, between every pair of nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, there exists a walk from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>.</p>
 </div>
 </div>
@@ -826,7 +800,7 @@ Exercise
 </div>
 </div>
 </section>
-<section id="counting-walks" class="level3">
+<section class="level3" id="counting-walks">
 <h3 class="anchored" data-anchor-id="counting-walks">Counting Walks</h3>
 <p>A question that pops up a lot in network analysis is “How many walks of length <span class="math inline">\(r\)</span> exist between nodes <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>?” The adjacency matrix gives a concise way to address this question. First, let’s consider <span class="math inline">\(r=1\)</span>. That’s just the number of edges from node <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span>, which is exactly <span class="math inline">\(A_{ij}\)</span>. Said in a slightly more cumbersome way,</p>
 <blockquote class="blockquote">
@@ -839,7 +813,7 @@ Exercise
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="thm-walks" class="theorem">
+<div class="theorem" id="thm-walks">
 <p><span class="theorem-title"><strong>Theorem 2.1 (Counting Walks with Powers of <span class="math inline">\(\mathbf{A}\)</span>)</strong></span> The <span class="math inline">\(ij\)</span>th entry of the matrix <span class="math inline">\({\bf A}^r\)</span> contains the number of walks of length <span class="math inline">\(r\)</span> from <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span>.</p>
 </div>
 </div>
@@ -879,7 +853,7 @@ Exercise
 </div>
 
 </section>
-<section id="paths" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="paths">
 <h3 class="anchored" data-anchor-id="paths">Paths</h3>
 <p>Paths are special walks which do not repeat any edges.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -888,36 +862,36 @@ Exercise
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-path" class="theorem definition">
+<div class="theorem definition" id="def-path">
 <p><span class="theorem-title"><strong>Definition 2.7</strong></span> A <strong>path</strong> is a walk that is not self-intersecting. That is, any edge <span class="math inline">\((i,j)\)</span> shows up in a path at most once.</p>
-<p>A <strong>geodesic path</strong> or <strong>shortest path</strong> is from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> is a path fom <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> of minimum length; i.e.&nbsp;a path such that no other path has shorter length.</p>
+<p>A <strong>geodesic path</strong> or <strong>shortest path</strong> is from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> is a path fom <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> of minimum length; i.e. a path such that no other path has shorter length.</p>
 <p>The length of a geodesic path is called the <strong>(geodesic) distance</strong> between <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>. If two nodes are not path-connected, their geodesic distance is undefined.</p>
 </div>
 </div>
 </div>
 </div>
 <p>Here is an example of a geodesic path between two nodes in Zachary’s Karate Club network. The geodesic distance between these two nodes is 5.</p>
-<div id="829686e5" class="cell page-columns page-full" data-execution_count="11">
+<div class="cell page-columns page-full" data-execution_count="11" id="6feb01b8">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># code example adapted from: https://stackoverflow.com/questions/24024411/highlighting-the-shortest-path-in-a-networkx-graph</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.karate_club_graph()</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>nx.draw(G,pos, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> nx.shortest_path(G, source <span class="op">=</span> <span class="dv">14</span>, target <span class="op">=</span> <span class="dv">16</span>)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>pos_path <span class="op">=</span> {i: pos[i] <span class="cf">for</span> i <span class="kw">in</span> path}</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>path_edges <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(path,path[<span class="dv">1</span>:]))</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_nodes(G,pos_path,nodelist<span class="op">=</span>path,node_color<span class="op">=</span><span class="st">'steelblue'</span>, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">"black"</span>)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>nx.draw_networkx_edges(G,pos_path,edgelist<span class="op">=</span>path_edges,edge_color<span class="op">=</span><span class="st">'k'</span>,width<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" href="#cb15-1" tabindex="-1"></a><span class="co"># code example adapted from: https://stackoverflow.com/questions/24024411/highlighting-the-shortest-path-in-a-networkx-graph</span></span>
+<span id="cb15-2"><a aria-hidden="true" href="#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a aria-hidden="true" href="#cb15-3" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb15-4"><a aria-hidden="true" href="#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a aria-hidden="true" href="#cb15-5" tabindex="-1"></a>G <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb15-6"><a aria-hidden="true" href="#cb15-6" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G)</span>
+<span id="cb15-7"><a aria-hidden="true" href="#cb15-7" tabindex="-1"></a>nx.draw(G,pos, <span class="op">**</span>plot_kwargs)</span>
+<span id="cb15-8"><a aria-hidden="true" href="#cb15-8" tabindex="-1"></a></span>
+<span id="cb15-9"><a aria-hidden="true" href="#cb15-9" tabindex="-1"></a>path <span class="op">=</span> nx.shortest_path(G, source <span class="op">=</span> <span class="dv">14</span>, target <span class="op">=</span> <span class="dv">16</span>)</span>
+<span id="cb15-10"><a aria-hidden="true" href="#cb15-10" tabindex="-1"></a>pos_path <span class="op">=</span> {i: pos[i] <span class="cf">for</span> i <span class="kw">in</span> path}</span>
+<span id="cb15-11"><a aria-hidden="true" href="#cb15-11" tabindex="-1"></a>path_edges <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(path,path[<span class="dv">1</span>:]))</span>
+<span id="cb15-12"><a aria-hidden="true" href="#cb15-12" tabindex="-1"></a>nx.draw_networkx_nodes(G,pos_path,nodelist<span class="op">=</span>path,node_color<span class="op">=</span><span class="st">'steelblue'</span>, node_size <span class="op">=</span> <span class="dv">100</span>, edgecolors <span class="op">=</span> <span class="st">"black"</span>)</span>
+<span id="cb15-13"><a aria-hidden="true" href="#cb15-13" tabindex="-1"></a>nx.draw_networkx_edges(G,pos_path,edgelist<span class="op">=</span>path_edges,edge_color<span class="op">=</span><span class="st">'k'</span>,width<span class="op">=</span><span class="dv">1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="02-degree-walks-paths_files/figure-html/cell-12-output-1.png" class="figure-img" width="691" height="499"></p>
+<p><img class="figure-img" height="499" src="02-degree-walks-paths_files/figure-html/cell-12-output-1.png" width="691"/></p>
 <figcaption class="margin-caption">A geodesic path between two nodes in the Karate Club network.</figcaption>
 </figure>
 </div>
@@ -941,7 +915,7 @@ Exercise
 
 </section>
 </section>
-<section id="cyclic-and-acyclic-graphs" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="cyclic-and-acyclic-graphs">
 <h2 class="anchored" data-anchor-id="cyclic-and-acyclic-graphs">Cyclic and Acyclic graphs</h2>
 <p>Many algorithms and measures of graph structure reflect the existence of <em>cycles</em> within a graph.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -950,7 +924,7 @@ Exercise
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-cycle" class="theorem definition">
+<div class="theorem definition" id="def-cycle">
 <p><span class="theorem-title"><strong>Definition 2.8 (Cycles)</strong></span> A <strong>cycle</strong> is a path from a node <span class="math inline">\(i\)</span> to itself.</p>
 <p>A network with no cycles is <strong>acyclic</strong>.</p>
 </div>
@@ -975,7 +949,7 @@ Exercise
 <p>In some cases, it is useful to check a network to determine whether it contains <em>any</em> cycles. While the adjacency matrix can be used to count cycles of a specific length, it could be quite inefficient to use to detect whether we have a cycle of any length (because we may have to check the diagonal entries of <span class="math inline">\({\bf A}^r\)</span> for all possible cycle lengths <span class="math inline">\(r\)</span>). We can construct a simple algorithm to determine computationally whether a network is cyclic or acyclic. For the purposes of this algorithm, we’ll consider directed graphs; the algorithm can be easily adapted to undirected graphs. Here it is:</p>
 <p>While <span class="math inline">\(n &gt; 0\)</span>:</p>
 <ul>
-<li>Find a node <span class="math inline">\(i\)</span> with no out-edges (i.e.&nbsp;<span class="math inline">\(k_i^{\mathrm{out}} = 0\)</span>).
+<li>Find a node <span class="math inline">\(i\)</span> with no out-edges (i.e. <span class="math inline">\(k_i^{\mathrm{out}} = 0\)</span>).
 <ul>
 <li>If no such node exists, <em>then the network is cyclic</em>.</li>
 </ul></li>
@@ -1000,78 +974,76 @@ Exercise
 </div>
 </div>
 <p>Now that we’re convinced that the algorithm works, let’s go ahead and implement it in Python. Our implementation accepts a NetworkX <code>DiGraph</code> object as an argument, returning <code>True</code> if the network is cyclic and <code>False</code> if the network is acyclic.</p>
-<div id="9bde19a8" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_cyclic(G):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> G.number_of_nodes() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        zero_out_degree <span class="op">=</span> [node <span class="cf">for</span> node <span class="kw">in</span> G.nodes <span class="cf">if</span> G.out_degree(node) <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(zero_out_degree) <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        G.remove_nodes_from(zero_out_degree)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>: </span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="12" id="d1a65e2e">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" href="#cb16-1" tabindex="-1"></a><span class="kw">def</span> is_cyclic(G):</span>
+<span id="cb16-2"><a aria-hidden="true" href="#cb16-2" tabindex="-1"></a>    <span class="cf">while</span> G.number_of_nodes() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb16-3"><a aria-hidden="true" href="#cb16-3" tabindex="-1"></a>        zero_out_degree <span class="op">=</span> [node <span class="cf">for</span> node <span class="kw">in</span> G.nodes <span class="cf">if</span> G.out_degree(node) <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb16-4"><a aria-hidden="true" href="#cb16-4" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(zero_out_degree) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb16-5"><a aria-hidden="true" href="#cb16-5" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb16-6"><a aria-hidden="true" href="#cb16-6" tabindex="-1"></a>        G.remove_nodes_from(zero_out_degree)</span>
+<span id="cb16-7"><a aria-hidden="true" href="#cb16-7" tabindex="-1"></a>    <span class="cf">else</span>: </span>
+<span id="cb16-8"><a aria-hidden="true" href="#cb16-8" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s test our algorithm on a few examples. First, we’ll construct a random toy directed graph that we know does not possess any cycles by its construction. Indeed, our implemented cycle detector indicates that no cycles are present.</p>
-<div id="cell-fig-check-acyclic" class="cell page-columns page-full" data-out.width="80%" data-execution_count="13">
+<div class="cell page-columns page-full" data-execution_count="13" data-out.width="80%" id="cell-fig-check-acyclic">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Binomial Tree:'</span>, end <span class="op">=</span> <span class="st">" "</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>G_Tree <span class="op">=</span> nx.binomial_tree(<span class="dv">4</span>, create_using <span class="op">=</span> nx.DiGraph)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Tree,  <span class="op">**</span>plot_kwargs)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> is_cyclic(G_Tree): </span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"cyclic."</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"acyclic."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" href="#cb17-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Binomial Tree:'</span>, end <span class="op">=</span> <span class="st">" "</span>)</span>
+<span id="cb17-2"><a aria-hidden="true" href="#cb17-2" tabindex="-1"></a></span>
+<span id="cb17-3"><a aria-hidden="true" href="#cb17-3" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb17-4"><a aria-hidden="true" href="#cb17-4" tabindex="-1"></a>G_Tree <span class="op">=</span> nx.binomial_tree(<span class="dv">4</span>, create_using <span class="op">=</span> nx.DiGraph)</span>
+<span id="cb17-5"><a aria-hidden="true" href="#cb17-5" tabindex="-1"></a>nx.draw(G_Tree,  <span class="op">**</span>plot_kwargs)</span>
+<span id="cb17-6"><a aria-hidden="true" href="#cb17-6" tabindex="-1"></a><span class="cf">if</span> is_cyclic(G_Tree): </span>
+<span id="cb17-7"><a aria-hidden="true" href="#cb17-7" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"cyclic."</span>)</span>
+<span id="cb17-8"><a aria-hidden="true" href="#cb17-8" tabindex="-1"></a><span class="cf">else</span>: </span>
+<span id="cb17-9"><a aria-hidden="true" href="#cb17-9" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"acyclic."</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre data-cap-location="margin"><code>Binomial Tree: acyclic.</code></pre>
 </div>
-
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-check-acyclic" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-check-acyclic">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-check-acyclic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="02-degree-walks-paths_files/figure-html/fig-check-acyclic-output-2.png" width="242" height="241" class="figure-img">
+<img class="figure-img" height="241" src="02-degree-walks-paths_files/figure-html/fig-check-acyclic-output-2.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-check-acyclic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.4: The binomial tree, a directed network containing no cycles.
+Figure 2.4: The binomial tree, a directed network containing no cycles.
 </figcaption>
 </figure>
 </div>
 </div></div></div>
 <p>On the other hand, the Hamilton mentions network contains at least one cycle:</p>
-<div id="cell-fig-hamilton-again" class="cell page-columns page-full" data-out.width="80%" data-execution_count="14">
+<div class="cell page-columns page-full" data-execution_count="14" data-out.width="80%" id="cell-fig-hamilton-again">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hamilton Network:'</span>, end <span class="op">=</span> <span class="st">" "</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> nx.arf_layout(G_Hamilton)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Hamilton, layout, <span class="op">**</span>plot_kwargs)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>is_cyclic(G_Hamilton)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> is_cyclic(G_Hamilton): </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"cyclic."</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>: </span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"acyclic."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" href="#cb19-1" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hamilton Network:'</span>, end <span class="op">=</span> <span class="st">" "</span>)</span>
+<span id="cb19-2"><a aria-hidden="true" href="#cb19-2" tabindex="-1"></a>layout <span class="op">=</span> nx.arf_layout(G_Hamilton)</span>
+<span id="cb19-3"><a aria-hidden="true" href="#cb19-3" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb19-4"><a aria-hidden="true" href="#cb19-4" tabindex="-1"></a>nx.draw(G_Hamilton, layout, <span class="op">**</span>plot_kwargs)</span>
+<span id="cb19-5"><a aria-hidden="true" href="#cb19-5" tabindex="-1"></a>is_cyclic(G_Hamilton)</span>
+<span id="cb19-6"><a aria-hidden="true" href="#cb19-6" tabindex="-1"></a><span class="cf">if</span> is_cyclic(G_Hamilton): </span>
+<span id="cb19-7"><a aria-hidden="true" href="#cb19-7" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"cyclic."</span>)</span>
+<span id="cb19-8"><a aria-hidden="true" href="#cb19-8" tabindex="-1"></a><span class="cf">else</span>: </span>
+<span id="cb19-9"><a aria-hidden="true" href="#cb19-9" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"acyclic."</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre data-cap-location="margin"><code>Hamilton Network: cyclic.</code></pre>
 </div>
-
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
-<div id="fig-hamilton-again" class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin">
+<div class="quarto-float quarto-figure quarto-figure-center anchored" data-cap-location="margin" id="fig-hamilton-again">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hamilton-again-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="02-degree-walks-paths_files/figure-html/fig-hamilton-again-output-2.png" width="242" height="241" class="figure-img">
+<img class="figure-img" height="241" src="02-degree-walks-paths_files/figure-html/fig-hamilton-again-output-2.png" width="242"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig" id="fig-hamilton-again-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2.5: The Hamilton mention network, a directed network which contains many cycles.
+Figure 2.5: The Hamilton mention network, a directed network which contains many cycles.
 </figcaption>
 </figure>
 </div>
 </div></div></div>
 <p>This algorithm has a nice mathematical consequence. If we label the nodes in an acyclic network according to the order we removed them, we will end up with an adjacency matrix that is <em>strictly upper triangular</em>. This is because each node that is removed could only have out-edges that were already removed previously, i.e., nonzero entries of the <span class="math inline">\(i\)</span>th column could only occur between columns 1 and <span class="math inline">\(i-1\)</span>. There exists at least one such labeling for any acyclic network.</p>
-<section id="trees" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="trees">
 <h3 class="anchored" data-anchor-id="trees">Trees</h3>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -1079,7 +1051,7 @@ Figure&nbsp;2.5: The Hamilton mention network, a directed network which contains
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-tree" class="theorem definition">
+<div class="theorem definition" id="def-tree">
 <p><span class="theorem-title"><strong>Definition 2.9</strong></span> A <strong>tree</strong> is a connected, acyclic network. By “connected”, we mean every node is reachable from every other node by traversing a sequence of edges, i.e., there exists a walk between any two nodes.</p>
 <p>Trees can be both directed and undirected. When we refer to <em>trees</em> with no further descriptors, we usually mean undirected trees.</p>
 </div>
@@ -1088,32 +1060,31 @@ Figure&nbsp;2.5: The Hamilton mention network, a directed network which contains
 </div>
 <p>All trees are necessarily simple graphs, because self- and multiedges would create cycles. Trees always have exactly <span class="math inline">\(n-1\)</span> edges, as can be proven via induction. Furthermore, any connected graph with <span class="math inline">\(n-1\)</span> edges is a tree.</p>
 <p>Trees are often drawn as <em>rooted trees</em> with a <em>root node</em> at the top and <em>leaf nodes</em> below. Any node can be chosen as the root of a tree.</p>
-<div id="227a04b9" class="cell page-columns page-full" data-out.width="80%" data-execution_count="15">
+<div class="cell page-columns page-full" data-execution_count="15" data-out.width="80%" id="ad9a7847">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">4</span>), (<span class="dv">2</span>,<span class="dv">5</span>), (<span class="dv">2</span>,<span class="dv">6</span>), (<span class="dv">2</span>, <span class="dv">7</span>), (<span class="dv">7</span>, <span class="dv">8</span>)]</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> {</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span> : (<span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> : (<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>),</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span> : (<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>),</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span> : (<span class="op">-</span><span class="fl">1.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span> : (<span class="op">-</span><span class="fl">0.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span> : (<span class="fl">0.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span> : (<span class="fl">1.0</span>, <span class="op">-</span><span class="dv">2</span>), </span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span> : (<span class="fl">1.5</span>, <span class="op">-</span><span class="dv">2</span>), </span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">8</span>:  (<span class="fl">1.5</span>, <span class="op">-</span><span class="dv">3</span>)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>G_Tree <span class="op">=</span> nx.Graph(edges)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Tree, pos <span class="op">=</span> pos, <span class="op">**</span>plot_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" href="#cb21-1" tabindex="-1"></a>edges <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">4</span>), (<span class="dv">2</span>,<span class="dv">5</span>), (<span class="dv">2</span>,<span class="dv">6</span>), (<span class="dv">2</span>, <span class="dv">7</span>), (<span class="dv">7</span>, <span class="dv">8</span>)]</span>
+<span id="cb21-2"><a aria-hidden="true" href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a aria-hidden="true" href="#cb21-3" tabindex="-1"></a>pos <span class="op">=</span> {</span>
+<span id="cb21-4"><a aria-hidden="true" href="#cb21-4" tabindex="-1"></a>    <span class="dv">0</span> : (<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb21-5"><a aria-hidden="true" href="#cb21-5" tabindex="-1"></a>    <span class="dv">1</span> : (<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>),</span>
+<span id="cb21-6"><a aria-hidden="true" href="#cb21-6" tabindex="-1"></a>    <span class="dv">2</span> : (<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>),</span>
+<span id="cb21-7"><a aria-hidden="true" href="#cb21-7" tabindex="-1"></a>    <span class="dv">3</span> : (<span class="op">-</span><span class="fl">1.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
+<span id="cb21-8"><a aria-hidden="true" href="#cb21-8" tabindex="-1"></a>    <span class="dv">4</span> : (<span class="op">-</span><span class="fl">0.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
+<span id="cb21-9"><a aria-hidden="true" href="#cb21-9" tabindex="-1"></a>    <span class="dv">5</span> : (<span class="fl">0.5</span>, <span class="op">-</span><span class="dv">2</span>),</span>
+<span id="cb21-10"><a aria-hidden="true" href="#cb21-10" tabindex="-1"></a>    <span class="dv">6</span> : (<span class="fl">1.0</span>, <span class="op">-</span><span class="dv">2</span>), </span>
+<span id="cb21-11"><a aria-hidden="true" href="#cb21-11" tabindex="-1"></a>    <span class="dv">7</span> : (<span class="fl">1.5</span>, <span class="op">-</span><span class="dv">2</span>), </span>
+<span id="cb21-12"><a aria-hidden="true" href="#cb21-12" tabindex="-1"></a>    <span class="dv">8</span>:  (<span class="fl">1.5</span>, <span class="op">-</span><span class="dv">3</span>)</span>
+<span id="cb21-13"><a aria-hidden="true" href="#cb21-13" tabindex="-1"></a>}</span>
+<span id="cb21-14"><a aria-hidden="true" href="#cb21-14" tabindex="-1"></a></span>
+<span id="cb21-15"><a aria-hidden="true" href="#cb21-15" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb21-16"><a aria-hidden="true" href="#cb21-16" tabindex="-1"></a>G_Tree <span class="op">=</span> nx.Graph(edges)</span>
+<span id="cb21-17"><a aria-hidden="true" href="#cb21-17" tabindex="-1"></a>nx.draw(G_Tree, pos <span class="op">=</span> pos, <span class="op">**</span>plot_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
-
 <div class="no-row-height column-margin column-container"><div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-degree-walks-paths_files/figure-html/cell-16-output-1.png" class="figure-img" width="242" height="241"></p>
+<p><img class="figure-img" height="241" src="02-degree-walks-paths_files/figure-html/cell-16-output-1.png" width="242"/></p>
 <figcaption>A simple rooted tree with 9 nodes.</figcaption>
 </figure>
 </div>
@@ -1121,21 +1092,18 @@ Figure&nbsp;2.5: The Hamilton mention network, a directed network which contains
 <p>Trees play important roles, especially in math and computer science. Trees have many useful properties that we can exploit for network analysis. One of the most important ones is the uniqueness of paths: there is exactly one path between any pair of nodes (as long as we don’t allow “backtracking”). Many calculations on networks with this property are simple(r).</p>
 </section>
 </section>
-<section id="references" class="level2">
+<section class="level2" id="references">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-dijkstra2022note" class="csl-entry" role="listitem">
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-dijkstra2022note" role="listitem">
 Dijkstra, Edsger W. 1956. <span>“A Note on Two Problems in Connexion with Graphs.”</span> In <em>Edsger Wybe Dijkstra: His Life, Work, and Legacy</em>, 287–90.
 </div>
-<div id="ref-rosen2011discrete" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-rosen2011discrete" role="listitem">
 Rosen, Kenneth H. 2011. <em>Discrete Mathematics and Its Applications (7th Edition)</em>. William C Brown Publishing.
 </div>
 </div>
 </section>
-
-<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1557,20 +1525,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 <nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../chapters/01-networkrepresentations.html" class="pagination-link" aria-label="Networks and Their Representations">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../chapters/03-components-laplacian.html" class="pagination-link" aria-label="Components and the Graph Laplacian">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
+<div class="nav-page nav-page-previous">
+<a aria-label="Networks and Their Representations" class="pagination-link" href="../chapters/01-networkrepresentations.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+<a aria-label="Components and the Graph Laplacian" class="pagination-link" href="../chapters/03-components-laplacian.html">
+<span class="nav-page-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span> <i class="bi bi-arrow-right-short"></i>
+</a>
+</div>
 </nav>
 </div> <!-- /content -->
-
-
-
-
 </body></html>

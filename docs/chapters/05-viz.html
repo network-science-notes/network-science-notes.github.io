@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.10">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>5&nbsp; Visualizing Networks and Why You Shouldn’t – Network Science: Models, Mathematics, and Computation</title>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>5  Visualizing Networks and Why You Shouldn’t – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,26 +72,24 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }</style>
-
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../chapters/07-real-world.html" rel="next">
-<link href="../chapters/04-centrality.html" rel="prev">
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/07-real-world.html" rel="next"/>
+<link href="../chapters/04-centrality.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,10 +117,8 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -152,283 +145,266 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
-<link rel="stylesheet" href="../styles.css">
+<link href="../styles.css" rel="stylesheet"/>
 </head>
-
 <body class="nav-sidebar floating slimcontent">
-
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/05-viz.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/05-viz.html"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
-  </div>
+</ul>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
-  </li>
-    </ul>
-    </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#network-drawing-as-network-embedding" id="toc-network-drawing-as-network-embedding" class="nav-link active" data-scroll-target="#network-drawing-as-network-embedding">Network Drawing as Network Embedding</a></li>
-  <li><a href="#spectral-embedding" id="toc-spectral-embedding" class="nav-link" data-scroll-target="#spectral-embedding">Spectral Embedding</a></li>
-  <li><a href="#isometry-approximation-the-kamada-kawai-algorithm" id="toc-isometry-approximation-the-kamada-kawai-algorithm" class="nav-link" data-scroll-target="#isometry-approximation-the-kamada-kawai-algorithm">Isometry Approximation: The Kamada-Kawai Algorithm</a>
-  <ul class="collapse">
-  <li><a href="#an-adjustment" id="toc-an-adjustment" class="nav-link" data-scroll-target="#an-adjustment">An Adjustment</a></li>
-  </ul></li>
-  <li><a href="#why-you-shouldnt-draw-networks" id="toc-why-you-shouldnt-draw-networks" class="nav-link" data-scroll-target="#why-you-shouldnt-draw-networks">Why You Shouldn’t Draw Networks</a>
-  <ul class="collapse">
-  <li><a href="#what-you-should-do-instead" id="toc-what-you-should-do-instead" class="nav-link" data-scroll-target="#what-you-should-do-instead">What You Should Do Instead</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#network-drawing-as-network-embedding" href="#network-drawing-as-network-embedding" id="toc-network-drawing-as-network-embedding">Network Drawing as Network Embedding</a></li>
+<li><a class="nav-link" data-scroll-target="#spectral-embedding" href="#spectral-embedding" id="toc-spectral-embedding">Spectral Embedding</a></li>
+<li><a class="nav-link" data-scroll-target="#isometry-approximation-the-kamada-kawai-algorithm" href="#isometry-approximation-the-kamada-kawai-algorithm" id="toc-isometry-approximation-the-kamada-kawai-algorithm">Isometry Approximation: The Kamada-Kawai Algorithm</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#an-adjustment" href="#an-adjustment" id="toc-an-adjustment">An Adjustment</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#why-you-shouldnt-draw-networks" href="#why-you-shouldnt-draw-networks" id="toc-why-you-shouldnt-draw-networks">Why You Shouldn’t Draw Networks</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#what-you-should-do-instead" href="#what-you-should-do-instead" id="toc-what-you-should-do-instead">What You Should Do Instead</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#references" href="#references" id="toc-references">References</a></li>
+</ul>
 </nav>
-    </div>
+</div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/05-viz.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/01-networkrepresentations.html">Network Fundamentals</a></li><li class="breadcrumb-item"><a href="../chapters/05-viz.html"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
+</div>
 </header>
-
-
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/05-viz.ipynb">here</a>.</em></p>
 <p>We’ve drawn networks several times in this course so far. Here’s one of our favorite running examples, the Karate Club graph. Let’s compare two ways to draw this network. On the left, we’ve drawn the graph by assigning every node to a location in the unit square <span class="math inline">\([0,1]^2\)</span> uniformly at random. On the right, we have used the default layout algorithm in NetworkX, which is invoked automatically when we call <code>nx.draw</code>.</p>
-<div id="43da0b7c" class="cell page-columns page-full" data-execution_count="2">
+<div class="cell page-columns page-full" data-execution_count="2" id="43da0b7c">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1" data-cap-location="margin"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.karate_club_graph())</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>draw_kwargs <span class="op">=</span> {<span class="st">"node_color"</span>: <span class="st">"steelblue"</span>, <span class="st">"node_size"</span>: <span class="dv">100</span>, <span class="st">"edge_color"</span>: <span class="st">"grey"</span>, <span class="st">"edgecolors"</span> : <span class="st">"white"</span>, <span class="st">"width"</span>: <span class="fl">0.5</span>}</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax[<span class="dv">1</span>], <span class="op">**</span>draw_kwargs)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"NetworkX default layout"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> random_layout(G):</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.rand(G.number_of_nodes(), <span class="dv">2</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>random_layout(G)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> random_layout(G), ax <span class="op">=</span> ax[<span class="dv">0</span>], <span class="op">**</span>draw_kwargs)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>title <span class="op">=</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Random layout"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" data-cap-location="margin" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt </span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a><span class="kw">def</span> unweight(G):</span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a>    <span class="cf">for</span> source, target <span class="kw">in</span> G.edges():</span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>        G[source][target][<span class="st">'weight'</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb1-11"><a aria-hidden="true" href="#cb1-11" tabindex="-1"></a>    <span class="cf">return</span> G</span>
+<span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a aria-hidden="true" href="#cb1-13" tabindex="-1"></a>G <span class="op">=</span> unweight(nx.karate_club_graph())</span>
+<span id="cb1-14"><a aria-hidden="true" href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a aria-hidden="true" href="#cb1-15" tabindex="-1"></a>draw_kwargs <span class="op">=</span> {<span class="st">"node_color"</span>: <span class="st">"steelblue"</span>, <span class="st">"node_size"</span>: <span class="dv">100</span>, <span class="st">"edge_color"</span>: <span class="st">"grey"</span>, <span class="st">"edgecolors"</span> : <span class="st">"white"</span>, <span class="st">"width"</span>: <span class="fl">0.5</span>}</span>
+<span id="cb1-16"><a aria-hidden="true" href="#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a aria-hidden="true" href="#cb1-17" tabindex="-1"></a>nx.draw(G, ax <span class="op">=</span> ax[<span class="dv">1</span>], <span class="op">**</span>draw_kwargs)</span>
+<span id="cb1-18"><a aria-hidden="true" href="#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a aria-hidden="true" href="#cb1-19" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">"NetworkX default layout"</span>)</span>
+<span id="cb1-20"><a aria-hidden="true" href="#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a aria-hidden="true" href="#cb1-21" tabindex="-1"></a><span class="kw">def</span> random_layout(G):</span>
+<span id="cb1-22"><a aria-hidden="true" href="#cb1-22" tabindex="-1"></a>    <span class="cf">return</span> np.random.rand(G.number_of_nodes(), <span class="dv">2</span>)</span>
+<span id="cb1-23"><a aria-hidden="true" href="#cb1-23" tabindex="-1"></a></span>
+<span id="cb1-24"><a aria-hidden="true" href="#cb1-24" tabindex="-1"></a>random_layout(G)</span>
+<span id="cb1-25"><a aria-hidden="true" href="#cb1-25" tabindex="-1"></a></span>
+<span id="cb1-26"><a aria-hidden="true" href="#cb1-26" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> random_layout(G), ax <span class="op">=</span> ax[<span class="dv">0</span>], <span class="op">**</span>draw_kwargs)</span>
+<span id="cb1-27"><a aria-hidden="true" href="#cb1-27" tabindex="-1"></a>title <span class="op">=</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Random layout"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
-<p><img src="05-viz_files/figure-html/cell-2-output-1.png" class="figure-img" width="614" height="335"></p>
+<p><img class="figure-img" height="335" src="05-viz_files/figure-html/cell-2-output-1.png" width="614"/></p>
 <figcaption class="margin-caption">Two ways to draw the Karate Club graph.</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Which of these drawings look better to you? Which do you feel better helps you understand the structure of the graph?</p>
-<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class=""><img src="https://www.data-imaginist.com/assets/img/edge_meme_wide.jpg" class="img-fluid"> <em>Image credit: <a href="https://www.data-imaginist.com/posts/2017-02-16-ggraph-introduction-edges/">Thomas Lin Pedersen</a></em></span></div></div>
-<section id="network-drawing-as-network-embedding" class="level2">
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class=""><img class="img-fluid" src="https://www.data-imaginist.com/assets/img/edge_meme_wide.jpg"/> <em>Image credit: <a href="https://www.data-imaginist.com/posts/2017-02-16-ggraph-introduction-edges/">Thomas Lin Pedersen</a></em></span></div></div>
+<section class="level2" id="network-drawing-as-network-embedding">
 <h2 class="anchored" data-anchor-id="network-drawing-as-network-embedding">Network Drawing as Network Embedding</h2>
 <p>While there are many aspects of network drawing (colors, shapes, etc), we’ll focus in these notes on one of the most fundamental ones: where should the nodes be placed? Mathematically, placing the nodes in a graph is equivalent to the following task:</p>
 <blockquote class="blockquote">
@@ -438,7 +414,7 @@ window.Quarto = {
 <p>For drawing on a computer screen or chalkboard, <span class="math inline">\(d = 2\)</span>. The general task of placing nodes in Euclidean space is often called <em>graph embedding</em> (or even more specifically <em>node embedding</em>), and has applications in deep learning for much higher values of <span class="math inline">\(d\)</span>.</p>
 <p>In this set of notes, we’ll motivate and implement two algorithms for performing the embedding task. We’ll then discuss some of the significant limitations associated with drawing networks as points connected by line segments, and consider some alternatives.</p>
 </section>
-<section id="spectral-embedding" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="spectral-embedding">
 <h2 class="anchored" data-anchor-id="spectral-embedding">Spectral Embedding</h2>
 <p>In Section 6.14.2, <span class="citation" data-cites="newman2018networks">Newman (<a href="#ref-newman2018networks" role="doc-biblioref">2018</a>)</span> gives some heuristic reasons to suggest that our friend the Laplacian matrix might be useful for drawing networks. Specifically, if <span class="math inline">\(\mathbf{x} \mathbb{R}\)</span> is a vector giving the locations of nodes on a 1-d interval, the quadratic form <span class="math inline">\(S(\mathbf{x}) = \mathbf{x}^T\mathbf{L}\mathbf{x}\)</span> defined by the Laplacian matrix <span class="math inline">\(\mathbf{L}\)</span> is proportional to the sum of squared lengths on this interval. So, we might reasonably expect that minimizing <span class="math inline">\(S(\mathbf{x})\)</span> in some way will give us a drawing of the network in which edges are short. Since we know that the small eigenvalues of a symmetric matrix are related to the problem of minimizing the quadratic form <span class="math inline">\(S(\mathbf{x})\)</span>, this suggests that finding the small eigenvalues of the Laplacian could be a useful way to proceed. As we’ve seen before, the Laplacian <span class="math inline">\(\mathbf{L}\)</span> has a 0 eigenvalue with an eigenvector of all 1’s, which doesn’t help us much. So, let’s consider the <em>next</em> smallest eigenvalues. Since we want to draw the network in 2d, we’ll take the two smallest eigenvalues of <span class="math inline">\(\mathbf{L}\)</span>, and use their corresponding eigenvectors to give us 2d coordinates for each node.</p>
 <p>This algorithm is called <em>Laplacian spectral embedding</em>. Formally,</p>
@@ -448,35 +424,35 @@ window.Quarto = {
 <li>Position the nodes in <span class="math inline">\(\mathbb{R}^2\)</span> according to the values of these eigenvectors: the first coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_2\)</span>, and the second coordinate is given by the entries of <span class="math inline">\(\mathbf{v}_3\)</span>.</li>
 </ol>
 <div class="no-row-height column-margin column-container"><span class="margin-aside">Recall that, if <span class="math inline">\(G\)</span> is connected, then the very smallest eigenvalue of the Laplacian is always equal to 0 and corresponds to an eigenvector with constant entries.</span></div><p>This elegant algorithm is important enough to be implemented in NetworkX: it’s <code>nx.spectral_layout</code>. But we can implement a full version (for connected graphs) of it ourselves.</p>
-<div id="0ff0a4a6" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> <span class="bu">tuple</span>(np.linalg.eig(L)) <span class="co"># compatibility with numpy 2.0.0</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>_, i, j <span class="op">=</span> np.argsort(E[<span class="dv">0</span>])[:<span class="dv">3</span>]</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>v_1 <span class="op">=</span> E[<span class="dv">1</span>][:, i]</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>v_2 <span class="op">=</span> E[<span class="dv">1</span>][:, j]</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.column_stack([v_1, v_2])</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> {i: v[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())} <span class="co"># convert to dict</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="3" id="0ff0a4a6">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>L <span class="op">=</span> D <span class="op">-</span> A</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>E <span class="op">=</span> <span class="bu">tuple</span>(np.linalg.eig(L)) <span class="co"># compatibility with numpy 2.0.0</span></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>_, i, j <span class="op">=</span> np.argsort(E[<span class="dv">0</span>])[:<span class="dv">3</span>]</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a>v_1 <span class="op">=</span> E[<span class="dv">1</span>][:, i]</span>
+<span id="cb2-9"><a aria-hidden="true" href="#cb2-9" tabindex="-1"></a>v_2 <span class="op">=</span> E[<span class="dv">1</span>][:, j]</span>
+<span id="cb2-10"><a aria-hidden="true" href="#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a aria-hidden="true" href="#cb2-11" tabindex="-1"></a>v <span class="op">=</span> np.column_stack([v_1, v_2])</span>
+<span id="cb2-12"><a aria-hidden="true" href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a aria-hidden="true" href="#cb2-13" tabindex="-1"></a>pos <span class="op">=</span> {i: v[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())} <span class="co"># convert to dict</span></span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>How’d we do?</p>
-<div id="d6db0e88" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos , <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="4" id="d6db0e88">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>nx.draw(G, pos , <span class="op">**</span>draw_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-viz_files/figure-html/cell-4-output-1.png" class="figure-img" width="691" height="499"></p>
+<p><img class="figure-img" height="499" src="05-viz_files/figure-html/cell-4-output-1.png" width="691"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Oh dear, that doesn’t look very good at all! This is a good mini-lesson in applied mathematics: sometimes the most elegant solution is outstanding, and sometimes it just doesn’t work very well in computational practice.</p>
 </section>
-<section id="isometry-approximation-the-kamada-kawai-algorithm" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="isometry-approximation-the-kamada-kawai-algorithm">
 <h2 class="anchored" data-anchor-id="isometry-approximation-the-kamada-kawai-algorithm">Isometry Approximation: The Kamada-Kawai Algorithm</h2>
 <p>Let’s try a better approach: we’ll have the distance between nodes in our drawing correspond the distance between nodes in the graph.There are multiple ways to operationalize this idea, but in these notes, we are going to follow the approach of <span class="citation" data-cites="kamada1989algorithm">Kamada and Kawai (<a href="#ref-kamada1989algorithm" role="doc-biblioref">1989</a>)</span>. Their mathematical version of this motivation is:</p>
 <blockquote class="blockquote">
@@ -492,10 +468,10 @@ window.Quarto = {
 \tag{5.1}\]</span></span></p>
 <p>This objective function is also sometimes called an “energy” of the problem. Importantly, this objective function is minimized (at 0) when the Euclidean distances are exactly equal to the graph geodesic distances. This is not usually possible, and so we’ll often need to settle for a nonzero value of <span class="math inline">\(f(\mathbf{X}, G)\)</span>.</p>
 <p>Let’s implement a function that computes the energy, given a matrix of distances <span class="math inline">\(\mathbf{D}\)</span> and a matrix of node positions <span class="math inline">\(\mathbf{X}\)</span>.</p>
-<div id="eac2c47f" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy(X, D):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="5" id="eac2c47f">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="kw">def</span> energy(X, D):</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n)])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are multiple ways to solve the problem of minimizing the energy. In our approach, we are going to use a greedy algorithm in which we minimize the energy with respect to the position of one node at a time. To this end, it’s also helpful to define a <em>partial energy</em> which measures the contribution of a single node to the total energy. This is the function that we’ll actually minimize in our inner loop.</p>
 <div class="callout callout-style-simple callout-important no-icon callout-titled">
@@ -508,49 +484,49 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Give a formula for the partial energy for node <span class="math inline">\(k\)</span>: the terms in <a href="#eq-energy" class="quarto-xref">Equation&nbsp;<span>5.1</span></a> that depend on node <span class="math inline">\(k\)</span>.</p>
+<p>Give a formula for the partial energy for node <span class="math inline">\(k\)</span>: the terms in <a class="quarto-xref" href="#eq-energy">Equation <span>5.1</span></a> that depend on node <span class="math inline">\(k\)</span>.</p>
 </div>
 </div>
 <div class="page-columns page-full"><p>With a formula in hand, we can implement: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">There is some redundancy in this function signature: we are passing the current position <span class="math inline">\(\mathbf{x}\)</span> of node <span class="math inline">\(k\)</span>, the positions <span class="math inline">\(\mathbf{X}\)</span> of all nodes, the matrix <span class="math inline">\(\mathbf{D}\)</span> of distances, and the index <span class="math inline">\(k\)</span> of node <span class="math inline">\(k\)</span>. The reason we are doing this is so that the minimization function we will soon employ works correctly.</span></div></div>
-<div id="d9f4441a" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial_energy(x, X, D, k):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="6" id="d9f4441a">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> partial_energy(x, X, D, k):</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll implement an algorithm that attempts to minimize the energy by moving the position of each node, one at a time. We cycle through all the nodes, updating each of them, and then we repeat the process for some specified number of iterations. First, let’s visualize how this looks. Then, we’ll implement this algorithm ourselves.</p>
-<div id="72ecbf21" class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="7" id="72ecbf21">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-viz_files/figure-html/cell-7-output-1.png" class="figure-img" width="662" height="375"></p>
+<p><img class="figure-img" height="375" src="05-viz_files/figure-html/cell-7-output-1.png" width="662"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Note that the energy very quickly shrinks after the first iteration. The structure of the visualization is resolved fairly clearly after just a small number of iterations.</p>
 <p>Ok, let’s implement a complete function.</p>
-<div id="98ed70c1" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">100</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    D <span class="op">=</span> nx.floyd_warshall_numpy(G) <span class="co"># matrix of Euclidean distances</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> random_layout(G) <span class="co"># initialization</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter): <span class="co"># specified number of iterations</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Current energy : </span><span class="sc">{</span>energy_fun(X, D)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()):</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            <span class="co"># minimize the partial energy with respect to the position of node k</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            res <span class="op">=</span> minimize(partial_energy_fun, X[k], args <span class="op">=</span> (X, D, k), method <span class="op">=</span> <span class="st">'BFGS'</span>)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update the position of node k</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            X[k] <span class="op">=</span> res.x</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="8" id="98ed70c1">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="kw">def</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">100</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy):</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>    D <span class="op">=</span> nx.floyd_warshall_numpy(G) <span class="co"># matrix of Euclidean distances</span></span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a>    X <span class="op">=</span> random_layout(G) <span class="co"># initialization</span></span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a aria-hidden="true" href="#cb6-6" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter): <span class="co"># specified number of iterations</span></span>
+<span id="cb6-7"><a aria-hidden="true" href="#cb6-7" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Current energy : </span><span class="sc">{</span>energy_fun(X, D)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-8"><a aria-hidden="true" href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a aria-hidden="true" href="#cb6-9" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()):</span>
+<span id="cb6-10"><a aria-hidden="true" href="#cb6-10" tabindex="-1"></a></span>
+<span id="cb6-11"><a aria-hidden="true" href="#cb6-11" tabindex="-1"></a>            <span class="co"># minimize the partial energy with respect to the position of node k</span></span>
+<span id="cb6-12"><a aria-hidden="true" href="#cb6-12" tabindex="-1"></a>            res <span class="op">=</span> minimize(partial_energy_fun, X[k], args <span class="op">=</span> (X, D, k), method <span class="op">=</span> <span class="st">'BFGS'</span>)</span>
+<span id="cb6-13"><a aria-hidden="true" href="#cb6-13" tabindex="-1"></a></span>
+<span id="cb6-14"><a aria-hidden="true" href="#cb6-14" tabindex="-1"></a>            <span class="co"># update the position of node k</span></span>
+<span id="cb6-15"><a aria-hidden="true" href="#cb6-15" tabindex="-1"></a>            X[k] <span class="op">=</span> res.x</span>
+<span id="cb6-16"><a aria-hidden="true" href="#cb6-16" tabindex="-1"></a>    </span>
+<span id="cb6-17"><a aria-hidden="true" href="#cb6-17" tabindex="-1"></a>    <span class="cf">return</span> X</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try it out:</p>
-<div id="e07384e3" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="9" id="e07384e3">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy, partial_energy_fun <span class="op">=</span> partial_energy)</span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Current energy : 5000.168189470243
 Current energy : 512.5556496405022
@@ -566,17 +542,17 @@ Current energy : 316.0329566359886</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-viz_files/figure-html/cell-9-output-2.png" class="figure-img" width="691" height="499"></p>
+<p><img class="figure-img" height="499" src="05-viz_files/figure-html/cell-9-output-2.png" width="691"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Our result looks pretty reasonable. Nodes that “should” be close to each other do indeed appear to be drawn close together in the graph.</p>
 <p>The results are not always reliable; if we check the Les Miserables graph, we might argue that a lot of the nodes in the dense center of the graph are a little too squished together:</p>
-<div id="5e5f4400" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(nx.les_miserables_graph())</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="10" id="5e5f4400">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(nx.les_miserables_graph())</span>
+<span id="cb9-2"><a aria-hidden="true" href="#cb9-2" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb9-3"><a aria-hidden="true" href="#cb9-3" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Current energy : 147198.63092443955
 Current energy : 9148.84484168652
@@ -592,12 +568,12 @@ Current energy : 6514.462629028778</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-viz_files/figure-html/cell-10-output-2.png" class="figure-img" width="691" height="499"></p>
+<p><img class="figure-img" height="499" src="05-viz_files/figure-html/cell-10-output-2.png" width="691"/></p>
 </figure>
 </div>
 </div>
 </div>
-<section id="an-adjustment" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="an-adjustment">
 <h3 class="anchored" data-anchor-id="an-adjustment">An Adjustment</h3>
 <p>We can compensate for this by weighting pairs of nodes differently. In the final form of the Kamada-Kawai algorithm, we modify the objective function by incorporating an inverse-square distance weighting. The modified objective function is</p>
 <p><span class="math display">\[
@@ -606,17 +582,17 @@ Current energy : 6514.462629028778</code></pre>
 \end{aligned}
 \]</span></p>
 <p>The implementation here is very similar to our unweighted implementation: we just need to divide by <span class="math inline">\(d_{ij}^2\)</span>.</p>
-<div id="f08b2b82" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> energy_weighted(X, D):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span><span class="op">/</span>D[i, j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">if</span> j <span class="op">!=</span> i])</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> partial_energy_weighted(x, X, D, k):</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> D[k,j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()) <span class="cf">if</span> j <span class="op">!=</span> k])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="11" id="f08b2b82">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a><span class="kw">def</span> energy_weighted(X, D):</span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a>    n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(X[i] <span class="op">-</span> X[j]) <span class="op">-</span> D[i, j])<span class="op">**</span><span class="dv">2</span><span class="op">/</span>D[i, j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n) <span class="cf">if</span> j <span class="op">!=</span> i])</span>
+<span id="cb11-4"><a aria-hidden="true" href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a aria-hidden="true" href="#cb11-5" tabindex="-1"></a><span class="kw">def</span> partial_energy_weighted(x, X, D, k):</span>
+<span id="cb11-6"><a aria-hidden="true" href="#cb11-6" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>([(np.linalg.norm(x <span class="op">-</span> X[j]) <span class="op">-</span> D[k, j])<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> D[k,j]<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes()) <span class="cf">if</span> j <span class="op">!=</span> k])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e9293546" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy_weighted, partial_energy_fun <span class="op">=</span> partial_energy_weighted)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="12" id="e9293546">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a>X <span class="op">=</span> optimization_layout(G, n_iter <span class="op">=</span> <span class="dv">10</span>, energy_fun <span class="op">=</span> energy_weighted, partial_energy_fun <span class="op">=</span> partial_energy_weighted)</span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a>nx.draw(G, pos <span class="op">=</span> {i: X[i] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(G.number_of_nodes())}, <span class="op">**</span>draw_kwargs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Current energy : 4343.433609052276
 Current energy : 740.3912423246394
@@ -632,13 +608,12 @@ Current energy : 427.66680257229547</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-viz_files/figure-html/cell-12-output-2.png" class="figure-img" width="691" height="499"></p>
+<p><img class="figure-img" height="499" src="05-viz_files/figure-html/cell-12-output-2.png" width="691"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>This version resolves the nodes in the dense core of the network somewhat more cleanly.</p>
-
 <div class="no-row-height column-margin column-container"><div class="">
 <p>A few caveats related to this algorithm:</p>
 <ol type="1">
@@ -649,23 +624,23 @@ Current energy : 427.66680257229547</code></pre>
 </div></div><p>There are many other ways to draw networks, several of which are implemented as built-in methods in NetworkX. See the <a href="https://networkx.org/documentation/stable/reference/drawing.html#module-networkx.drawing.layout">documentation</a> for various other possibilities.</p>
 </section>
 </section>
-<section id="why-you-shouldnt-draw-networks" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="why-you-shouldnt-draw-networks">
 <h2 class="anchored" data-anchor-id="why-you-shouldnt-draw-networks">Why You Shouldn’t Draw Networks</h2>
 <div class="page-columns page-full"><p>Making attractive visualizations of large networks is a very fun and satisfying thing to do, and some software packages like <a href="https://gephi.org/">Gephi</a> are specifically designed for this task. We encourage you to put network visualizations on your phone wallpaper, t-shirts, posters, websites, etc. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Indeed, we put a particularly appealing network visualization by HZB’s students on our <a href="index.qmd">landing page</a>, and PSC made a graph visualization as the image background of <a href="https://www.philchodrow.prof/">his website</a>.</span></div></div>
 <p>So, what do we mean when we say that you shouldn’t draw networks? In general, it’s very difficult to extract reliable structural insights about networks by eye. This means that the one place drawings of networks <em>usually</em> don’t belong is in scientific papers. It’s just too easy for the eye to be drawn to structural features that may or may not actually be present in the data. For this reason, node-edge visualizations of large networks have been called names like “<a href="https://petterhol.me/2018/05/28/ridiculograms-a-ridiculous-dialogue/">ridiculograms</a>” and <a href="https://skewed.de/tiago/posts/hairball/">hairballs</a> by prominent network scientists.</p>
-<section id="what-you-should-do-instead" class="level3">
+<section class="level3" id="what-you-should-do-instead">
 <h3 class="anchored" data-anchor-id="what-you-should-do-instead">What You Should Do Instead</h3>
 <p>The right way to visualize the structure of your network is <em>very</em> context-dependent, and there are many, many possibilities. Here we’ll point out just one: the adjacency matrix. This is a common strategy for visualizing networks that separate into one or more distinct clusters, sometimes also called “communities.” For example, simply inspecting the adjacency matrix of the Les Miserables graph can reveal a lot about its structure:</p>
-<div id="0e64d489" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> unweight(G)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.imshow(A, cmap <span class="op">=</span> <span class="st">"Greys"</span>, vmax <span class="op">=</span> <span class="fl">1.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="13" id="0e64d489">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" href="#cb14-1" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
+<span id="cb14-2"><a aria-hidden="true" href="#cb14-2" tabindex="-1"></a>G <span class="op">=</span> unweight(G)</span>
+<span id="cb14-3"><a aria-hidden="true" href="#cb14-3" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span>
+<span id="cb14-4"><a aria-hidden="true" href="#cb14-4" tabindex="-1"></a>A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb14-5"><a aria-hidden="true" href="#cb14-5" tabindex="-1"></a>plt.imshow(A, cmap <span class="op">=</span> <span class="st">"Greys"</span>, vmax <span class="op">=</span> <span class="fl">1.2</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-viz_files/figure-html/cell-13-output-1.png" class="figure-img" width="415" height="414"></p>
+<p><img class="figure-img" height="414" src="05-viz_files/figure-html/cell-13-output-1.png" width="415"/></p>
 </figure>
 </div>
 </div>
@@ -674,21 +649,18 @@ Current energy : 427.66680257229547</code></pre>
 <p>In this case, the adjacency matrix was already sorted by node in a way that made the structure clear. In more complicated cases, we may need to use a <em>community detection algorithm</em> to find a way to sort the nodes that reveals useful structure. This is a complicated (and thorny) topic which we’ll touch on later in this course.</p>
 </section>
 </section>
-<section id="references" class="level2">
+<section class="level2" id="references">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-kamada1989algorithm" class="csl-entry" role="listitem">
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-kamada1989algorithm" role="listitem">
 Kamada, Tomihisa, and Satoru Kawai. 1989. <span>“An Algorithm for Drawing General Undirected Graphs.”</span> <em>Information Processing Letters</em> 31 (1): 7–15.
 </div>
-<div id="ref-newman2018networks" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-newman2018networks" role="listitem">
 Newman, Mark E. J. 2018. <em>Networks</em>. Oxford University Press.
 </div>
 </div>
 </section>
-
-<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1110,20 +1082,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 <nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../chapters/04-centrality.html" class="pagination-link" aria-label="Centrality and Importance">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../chapters/07-real-world.html" class="pagination-link" aria-label="Structure of Empirical Networks">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
+<div class="nav-page nav-page-previous">
+<a aria-label="Centrality and Importance" class="pagination-link" href="../chapters/04-centrality.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+<a aria-label="Structure of Empirical Networks" class="pagination-link" href="../chapters/07-real-world.html">
+<span class="nav-page-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span> <i class="bi bi-arrow-right-short"></i>
+</a>
+</div>
 </nav>
 </div> <!-- /content -->
-
-
-
-
 </body></html>

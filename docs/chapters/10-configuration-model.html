@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.10">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>8&nbsp; Degree-Preserving Random Graphs – Network Science: Models, Mathematics, and Computation</title>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>8  Degree-Preserving Random Graphs – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,26 +72,24 @@ div.csl-right-inline {
 div.csl-indent {
   margin-left: 2em;
 }</style>
-
-
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../chapters/11-generating-functions.html" rel="next">
-<link href="../chapters/09-random-graphs.html" rel="prev">
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/11-generating-functions.html" rel="next"/>
+<link href="../chapters/09-random-graphs.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,10 +117,8 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
 const typesetMath = (el) => {
   if (window.MathJax) {
@@ -152,243 +145,226 @@ window.Quarto = {
   typesetMath
 };
 </script>
-
-<link rel="stylesheet" href="../styles.css">
+<link href="../styles.css" rel="stylesheet"/>
 </head>
-
 <body class="nav-sidebar floating slimcontent">
-
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/10-configuration-model.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/10-configuration-model.html"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Network Science: Models, Mathematics, and Computation</a> 
-    </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
-  </div>
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Fundamentals</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/01-networkrepresentations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Networks and Their Representations</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/02-degree-walks-paths.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/03-components-laplacian.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/04-centrality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Centrality and Importance</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/05-viz.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/07-real-world.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Structure of Empirical Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Models of Networks</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/09-random-graphs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/10-configuration-model.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/11-generating-functions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/120-preferential-attachment.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Network Algorithms</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/06-modularity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/13-modularity-maximization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
-  </div>
+</ul>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/19-spectral-clustering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Spectral Clustering</span></span></a>
-  </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/41-link-prediction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Applications and Extensions</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/50-random-walks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Random Walks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/51-agent-based-modeling.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
-  </div>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../chapters/52-epidemiology.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Epidemic Models on Networks</span></span></a>
-  </div>
+</ul>
 </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">Appendices</span></span>
-  </li>
-    </ul>
-    </div>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contents</h2>
-   
-  <ul>
-  <li><a href="#fixing-a-degree-sequence-the-configuration-model" id="toc-fixing-a-degree-sequence-the-configuration-model" class="nav-link active" data-scroll-target="#fixing-a-degree-sequence-the-configuration-model">Fixing a Degree Sequence: The Configuration Model</a>
-  <ul class="collapse">
-  <li><a href="#sampling-from-configuration-models" id="toc-sampling-from-configuration-models" class="nav-link" data-scroll-target="#sampling-from-configuration-models">Sampling From Configuration Models</a></li>
-  </ul></li>
-  <li><a href="#expected-degree-sequences-the-chunglu-model" id="toc-expected-degree-sequences-the-chunglu-model" class="nav-link" data-scroll-target="#expected-degree-sequences-the-chunglu-model">Expected Degree Sequences: The Chung–Lu Model</a></li>
-  <li><a href="#fixed-degree-distributions" id="toc-fixed-degree-distributions" class="nav-link" data-scroll-target="#fixed-degree-distributions">Fixed Degree Distributions</a></li>
-  <li><a href="#excess-degree-distribution" id="toc-excess-degree-distribution" class="nav-link" data-scroll-target="#excess-degree-distribution">Excess Degree Distribution</a>
-  <ul class="collapse">
-  <li><a href="#the-friendship-paradox" id="toc-the-friendship-paradox" class="nav-link" data-scroll-target="#the-friendship-paradox">The Friendship Paradox</a></li>
-  </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#fixing-a-degree-sequence-the-configuration-model" href="#fixing-a-degree-sequence-the-configuration-model" id="toc-fixing-a-degree-sequence-the-configuration-model">Fixing a Degree Sequence: The Configuration Model</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#sampling-from-configuration-models" href="#sampling-from-configuration-models" id="toc-sampling-from-configuration-models">Sampling From Configuration Models</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#expected-degree-sequences-the-chunglu-model" href="#expected-degree-sequences-the-chunglu-model" id="toc-expected-degree-sequences-the-chunglu-model">Expected Degree Sequences: The Chung–Lu Model</a></li>
+<li><a class="nav-link" data-scroll-target="#fixed-degree-distributions" href="#fixed-degree-distributions" id="toc-fixed-degree-distributions">Fixed Degree Distributions</a></li>
+<li><a class="nav-link" data-scroll-target="#excess-degree-distribution" href="#excess-degree-distribution" id="toc-excess-degree-distribution">Excess Degree Distribution</a>
+<ul class="collapse">
+<li><a class="nav-link" data-scroll-target="#the-friendship-paradox" href="#the-friendship-paradox" id="toc-the-friendship-paradox">The Friendship Paradox</a></li>
+</ul></li>
+<li><a class="nav-link" data-scroll-target="#references" href="#references" id="toc-references">References</a></li>
+</ul>
 </nav>
-    </div>
+</div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/10-configuration-model.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/09-random-graphs.html">Models of Networks</a></li><li class="breadcrumb-item"><a href="../chapters/10-configuration-model.html"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Degree-Preserving Random Graphs</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
+</div>
 </header>
-
-
 <!-- PC NOTE: MAYBE DO SOME COMPUTATIONAL VALIDATION OF THE APPROXIMATION k_ik_j/2m? -->
 <p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/10-configuration-model.ipynb">here</a>.</em></p>
 <p>Many properties of graphs are at least partially determined by the degree sequence of the graph. As we saw in <a href="../chapters/04-centrality.html">our discussion of centrality</a>, for example, the centrality of a node is highly-correlated to its degree. As we’ll see later in these notes, the degree sequence also plays a major role in determining whether, for example, an epidemic can spread on a network. On the other hand, not all properties of graphs are so constrained by the degree sequence. For example, when we studied the <a href="../chapters/07-real-world.html">structure of empirical networks</a>, we saw that the density of triangles (as measured by the transitivity) varies strongly between real-world networks and their degree-preserving random counterparts.</p>
 <p>So, which properties of a graph are controlled by the degree sequence? One way to approach this problem is to study models of random graphs in which the degree sequence is held constant, either exactly or approximately. In this set of notes, we’ll introduce several such models and develop some of their properties.</p>
-<section id="fixing-a-degree-sequence-the-configuration-model" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="fixing-a-degree-sequence-the-configuration-model">
 <h2 class="anchored" data-anchor-id="fixing-a-degree-sequence-the-configuration-model">Fixing a Degree Sequence: The Configuration Model</h2>
 <p>In the configuration model, we choose a degree sequence. We then attempt to generate a random graph that has <em>exactly</em> that degree sequence.</p>
 <div class="callout callout-style-simple callout-note no-icon">
@@ -397,7 +373,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<div id="def-config-model-sequence" class="theorem definition">
+<div class="theorem definition" id="def-config-model-sequence">
 <p><span class="theorem-title"><strong>Definition 8.1 (Configuration Model)</strong></span> Consider a graph with <span class="math inline">\(n\)</span> nodes. Let <span class="math inline">\({\bf k} \in \mathbb{N}^n\)</span> be the degree sequence, where <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>.</p>
 <p>A <strong>configuration model</strong> is a uniform distribution over graphs with degree sequence <span class="math inline">\({\bf k}.\)</span></p>
 </div>
@@ -419,43 +395,43 @@ Exercise
 </div>
 </div>
 <p>In fact, it is possible to give a complete characterization of the degree sequences <span class="math inline">\(\mathbf{k}\)</span> which can be realized as simple undirected graphs; this characterization is given by the <a href="https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93Gallai_theorem">Erdős-Gallai theorem</a> <span class="citation" data-cites="erdos1960graphs">(<a href="#ref-erdos1960graphs" role="doc-biblioref">Erdös and Gallai 1960</a>)</span>.</p>
-<section id="sampling-from-configuration-models" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="sampling-from-configuration-models">
 <h3 class="anchored" data-anchor-id="sampling-from-configuration-models">Sampling From Configuration Models</h3>
 <p>It’s surprisingly complicated to draw a sample from a configuration model random graph. We can draw <em>approximate</em> samples from the configuration model using the <em>stub-matching</em> algorithm.</p>
 <p>In stub-matching, we create a list of “stubs,” or half-edges. Each node <span class="math inline">\(i\)</span> with degree <span class="math inline">\(k_i\)</span> appears in this list <span class="math inline">\(k_i\)</span> times. We form edges by picking two stubs at a time out of the list and forming an edge between them. Let’s implement this stub-matching algorithm. Before we do, we’ll load in our favorite example graph and extract its degree sequence.</p>
-<div id="cell-fig-karate-club-degree-sequence" class="cell page-columns page-full" data-execution_count="1">
+<div class="cell page-columns page-full" data-execution_count="1" id="cell-fig-karate-club-degree-sequence">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">100</span>, <span class="st">"edgecolors"</span> : <span class="st">'white'</span>, <span class="st">"node_color"</span> : <span class="st">"steelblue"</span>, <span class="st">"width"</span> : <span class="fl">0.5</span>, <span class="st">"edge_color"</span> : <span class="st">"darkgrey"</span>}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>G_Karate <span class="op">=</span> nx.karate_club_graph()</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>deg_seq <span class="op">=</span> [k <span class="cf">for</span> n, k <span class="kw">in</span> G_Karate.degree()]</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">3</span>))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.scatter(np.arange(<span class="dv">0</span>, <span class="bu">len</span>(deg_seq)), np.sort(deg_seq),  s <span class="op">=</span> <span class="dv">10</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>labs <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Node (sorted by degree)"</span>, ylabel <span class="op">=</span> <span class="st">"Degree"</span>, title <span class="op">=</span> <span class="st">"Karate Club Degree Sequence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a>plot_kwargs <span class="op">=</span> {<span class="st">"node_size"</span> : <span class="dv">100</span>, <span class="st">"edgecolors"</span> : <span class="st">'white'</span>, <span class="st">"node_color"</span> : <span class="st">"steelblue"</span>, <span class="st">"width"</span> : <span class="fl">0.5</span>, <span class="st">"edge_color"</span> : <span class="st">"darkgrey"</span>}</span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a>G_Karate <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a>deg_seq <span class="op">=</span> [k <span class="cf">for</span> n, k <span class="kw">in</span> G_Karate.degree()]</span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">3</span>))</span>
+<span id="cb1-11"><a aria-hidden="true" href="#cb1-11" tabindex="-1"></a>ax.scatter(np.arange(<span class="dv">0</span>, <span class="bu">len</span>(deg_seq)), np.sort(deg_seq),  s <span class="op">=</span> <span class="dv">10</span>)</span>
+<span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a>labs <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Node (sorted by degree)"</span>, ylabel <span class="op">=</span> <span class="st">"Degree"</span>, title <span class="op">=</span> <span class="st">"Karate Club Degree Sequence"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-karate-club-degree-sequence" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-karate-club-degree-sequence">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-karate-club-degree-sequence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-configuration-model_files/figure-html/fig-karate-club-degree-sequence-output-1.png" width="365" height="294" class="figure-img">
+<img class="figure-img" height="294" src="10-configuration-model_files/figure-html/fig-karate-club-degree-sequence-output-1.png" width="365"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-degree-sequence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.1: Sorted degree sequence of the karate club graph.
+Figure 8.1: Sorted degree sequence of the karate club graph.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Now we’ll implement an algorithm to perform stub-matching. First, we create the list of stubs. Each node appears a number of times equal to its degree.</p>
-<div id="f2ad17e5" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stubs <span class="op">=</span> np.repeat(np.arange(<span class="bu">len</span>(deg_seq)), deg_seq)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stubs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="2" id="442185fd">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>stubs <span class="op">=</span> np.repeat(np.arange(<span class="bu">len</span>(deg_seq)), deg_seq)</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="bu">print</span>(stubs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[ 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1
   1  2  2  2  2  2  2  2  2  2  2  3  3  3  3  3  3  4  4  4  5  5  5  5
@@ -467,37 +443,37 @@ Figure&nbsp;8.1: Sorted degree sequence of the karate club graph.
 </div>
 </div>
 <p>Now we need to take random pairs from this list of stubs. We could do this with a loop, but another way is to shuffle the list and then reshape it into a list of pairs:</p>
-<div id="503f995a" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mixed_stubs <span class="op">=</span> np.random.permutation(stubs)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>edge_list <span class="op">=</span> mixed_stubs.reshape(<span class="bu">len</span>(mixed_stubs)<span class="op">//</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="3" id="028486dc">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>mixed_stubs <span class="op">=</span> np.random.permutation(stubs)</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>edge_list <span class="op">=</span> mixed_stubs.reshape(<span class="bu">len</span>(mixed_stubs)<span class="op">//</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can create a graph from our newly-constructed edge-list. Importantly, this graph might contain both self-loops and multi-edges, and so we need to use the <code>nx.MultiGraph</code> constructor.</p>
-<div id="dcccc887" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.MultiGraph()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> G.add_edges_from(edge_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="4" id="0c2ef671">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>G <span class="op">=</span> nx.MultiGraph()</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>edges <span class="op">=</span> G.add_edges_from(edge_list)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s how our random graph compares to our original:</p>
-<div id="cell-fig-karate-stub-matching" class="cell page-columns page-full" data-execution_count="5">
+<div class="cell page-columns page-full" data-execution_count="5" id="cell-fig-karate-stub-matching">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G_Karate)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Configuration Model Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a>pos <span class="op">=</span> nx.spring_layout(G_Karate)</span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a aria-hidden="true" href="#cb6-6" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb6-7"><a aria-hidden="true" href="#cb6-7" tabindex="-1"></a></span>
+<span id="cb6-8"><a aria-hidden="true" href="#cb6-8" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb6-9"><a aria-hidden="true" href="#cb6-9" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Configuration Model Graph"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-karate-stub-matching" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-karate-stub-matching">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-karate-stub-matching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-configuration-model_files/figure-html/fig-karate-stub-matching-output-1.png" width="466" height="260" class="figure-img">
+<img class="figure-img" height="260" src="10-configuration-model_files/figure-html/fig-karate-stub-matching-output-1.png" width="466"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-stub-matching-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.2: Original karate club graph alongside a random graph formed via stub-matching. The random graph has the same degree sequence, but also self-loops and multi-edges.
+Figure 8.2: Original karate club graph alongside a random graph formed via stub-matching. The random graph has the same degree sequence, but also self-loops and multi-edges.
 </figcaption>
 </figure>
 </div>
@@ -505,29 +481,29 @@ Figure&nbsp;8.2: Original karate club graph alongside a random graph formed via 
 </div>
 <p>The stub-matching algorithm can produce multiedges and self-loops, which can cause the graph to not be simple. However, <span class="citation" data-cites="bollobas1980probabilistic">Bollobás (<a href="#ref-bollobas1980probabilistic" role="doc-biblioref">1980</a>)</span> proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. In practical terms, we often discard the self-loops and multi-edges when constructing the graph; this results in the degree sequence no longer being <em>exactly</em> preserved, but the effect is u sually small.</p>
 <p><span class="citation" data-cites="fosdick2018configuring">Fosdick et al. (<a href="#ref-fosdick2018configuring" role="doc-biblioref">2018</a>)</span> discuss the subtleties that arise due to whether we allow or disallow multiedges and self-loops and whether we choose to label stubs distinctly (as opposed to only labeling vertices). These choices result in different spaces of graphs from which we are sampling. If we want to sample a simple graph from a configuration model with exactly the specified degree sequence, stub-matching is no longer sufficient. Instead, we need to rely on edge-rewiring algorithms, which randomly swap edges between nodes of the graph to randomize the graph while ensuring that the degrees of nodes remain constant. NetworkX implements a version of such an algorithm. The user needs to specify how many rewiring steps should be performed.</p>
-<div id="1ba0b7f0" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.random_reference(G_Karate, connectivity <span class="op">=</span> <span class="va">False</span>, niter <span class="op">=</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="6" id="9c60f915">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>G <span class="op">=</span> nx.random_reference(G_Karate, connectivity <span class="op">=</span> <span class="va">False</span>, niter <span class="op">=</span> <span class="dv">1000</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s how this looks:</p>
-<div id="cell-fig-karate-club-rewiring" class="cell page-columns page-full" data-execution_count="7">
+<div class="cell page-columns page-full" data-execution_count="7" id="cell-fig-karate-club-rewiring">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Configuration Model </span><span class="ch">\n</span><span class="st">Graph (Rewiring)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb8-7"><a aria-hidden="true" href="#cb8-7" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Configuration Model </span><span class="ch">\n</span><span class="st">Graph (Rewiring)"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-karate-club-rewiring" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-karate-club-rewiring">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-karate-club-rewiring-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-configuration-model_files/figure-html/fig-karate-club-rewiring-output-1.png" width="466" height="277" class="figure-img">
+<img class="figure-img" height="277" src="10-configuration-model_files/figure-html/fig-karate-club-rewiring-output-1.png" width="466"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-rewiring-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.3: Karate club graph alongside a random graph formed by many successive rewirings. The random graph has the same degree sequence as the karate club graph and is simple, but is not guaranteed to be a uniform sample from the set of all such graphs.
+Figure 8.3: Karate club graph alongside a random graph formed by many successive rewirings. The random graph has the same degree sequence as the karate club graph and is simple, but is not guaranteed to be a uniform sample from the set of all such graphs.
 </figcaption>
 </figure>
 </div>
@@ -536,7 +512,7 @@ Figure&nbsp;8.3: Karate club graph alongside a random graph formed by many succe
 <div class="page-columns page-full"><p>This algorithm is guaranteed not to produce multiedges or self-loops and therefore exactly preserves the degree sequence. However, it can be much slower to generate random graphs this way, and it is difficult to know how many iterations are necessary to ensure that the resulting graph is “random enough.” </p><div class="no-row-height column-margin column-container"><span class="margin-aside">Technically, the rewiring process creates a <em>Markov chain</em> on the space of graphs, and the question of whether the graph is “random enough” is a question about the <em>mixing time</em> of the Markov chain.</span></div></div>
 </section>
 </section>
-<section id="expected-degree-sequences-the-chunglu-model" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="expected-degree-sequences-the-chunglu-model">
 <h2 class="anchored" data-anchor-id="expected-degree-sequences-the-chunglu-model">Expected Degree Sequences: The Chung–Lu Model</h2>
 <p>Some of the challenges with stub-matching arise from the requirement that we generate a graph with a specified degree sequence <span class="math inline">\({\bf k}.\)</span> <span class="citation" data-cites="chung2002connected">Chung and Lu (<a href="#ref-chung2002connected" role="doc-biblioref">2002</a>)</span> relax this constraint and generate networks whose degree sequences are <em>approximately</em> <span class="math inline">\({\bf k}\)</span> <em>in expectation</em>, which avoids some of these issues.</p>
 <p>Suppose that we want to generate a graph with <span class="math inline">\(n\)</span> nodes where the degree of node <span class="math inline">\(i\)</span> is approximately equal to <span class="math inline">\(k_i\)</span>. We’ll again think with stubs: if node <span class="math inline">\(i\)</span> has degree <span class="math inline">\(k_i\)</span>, then it has <span class="math inline">\(k_i\)</span> stubs. There are a total of <span class="math inline">\(2m\)</span> stubs, of which <span class="math inline">\(k_i\)</span> are already attached to <span class="math inline">\(i\)</span>, so the number of stubs <span class="math inline">\(i\)</span> could attach to is <span class="math inline">\(2m-k_i\)</span>. Of these, <span class="math inline">\(k_j\)</span> are attached to node <span class="math inline">\(j\)</span>. So, the probability that a given stub of <span class="math inline">\(i\)</span> connects to node <span class="math inline">\(j\)</span> is approximately <span class="math inline">\(k_j/(2m-k_i)\)</span>, and there are <span class="math inline">\(k_i\)</span> such stubs: <span class="math display">\[
@@ -565,56 +541,54 @@ Exercise
 </div>
 </div>
 
-</div>
-</div>
 <p>NetworkX supplies a built-in Chung-Lu implementation:</p>
-<div id="be65c312" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>G <span class="op">=</span> nx.expected_degree_graph(deg_seq, selfloops<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="9" id="ea34df36">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>G <span class="op">=</span> nx.expected_degree_graph(deg_seq, selfloops<span class="op">=</span><span class="va">False</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Visually, this looks fairly similar to the configuration model and quite different from the original graph:</p>
-<div id="cell-fig-karate-club-chung-lu" class="cell page-columns page-full" data-execution_count="10">
+<div class="cell page-columns page-full" data-execution_count="10" id="cell-fig-karate-club-chung-lu">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Chung-Lu Model </span><span class="ch">\n</span><span class="st">Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">3</span>))</span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a>axarr[<span class="dv">0</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Karate Club Graph"</span>)</span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a aria-hidden="true" href="#cb11-4" tabindex="-1"></a>nx.draw(G_Karate, pos, ax <span class="op">=</span> axarr[<span class="dv">0</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb11-5"><a aria-hidden="true" href="#cb11-5" tabindex="-1"></a></span>
+<span id="cb11-6"><a aria-hidden="true" href="#cb11-6" tabindex="-1"></a>nx.draw(G, pos, ax <span class="op">=</span> axarr[<span class="dv">1</span>], <span class="op">**</span>plot_kwargs)</span>
+<span id="cb11-7"><a aria-hidden="true" href="#cb11-7" tabindex="-1"></a>axarr[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="st">"Chung-Lu Model </span><span class="ch">\n</span><span class="st">Graph"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-karate-club-chung-lu" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-karate-club-chung-lu">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-karate-club-chung-lu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-configuration-model_files/figure-html/fig-karate-club-chung-lu-output-1.png" width="466" height="277" class="figure-img">
+<img class="figure-img" height="277" src="10-configuration-model_files/figure-html/fig-karate-club-chung-lu-output-1.png" width="466"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-chung-lu-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.4: Karate club graph alongside a Chung-Lu random graph.
+Figure 8.4: Karate club graph alongside a Chung-Lu random graph.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>We can compare the degree sequence of the random graph we constructed to that of the original graph:</p>
-<div id="cell-fig-karate-club-chung-lu-degree-comparison" class="cell page-columns page-full" data-execution_count="11">
+<div class="cell page-columns page-full" data-execution_count="11" id="cell-fig-karate-club-chung-lu-degree-comparison">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>chung_lu_deg_seq <span class="op">=</span> [k <span class="cf">for</span> n, k <span class="kw">in</span> G.degree()]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">4</span>))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>ax.scatter(deg_seq, chung_lu_deg_seq,  s <span class="op">=</span> <span class="dv">10</span>, label <span class="op">=</span> <span class="st">"Karate Club"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Original Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Degree in Chung-Lu Random Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a>chung_lu_deg_seq <span class="op">=</span> [k <span class="cf">for</span> n, k <span class="kw">in</span> G.degree()]</span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">4</span>))</span>
+<span id="cb12-4"><a aria-hidden="true" href="#cb12-4" tabindex="-1"></a>plt.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
+<span id="cb12-5"><a aria-hidden="true" href="#cb12-5" tabindex="-1"></a>ax.scatter(deg_seq, chung_lu_deg_seq,  s <span class="op">=</span> <span class="dv">10</span>, label <span class="op">=</span> <span class="st">"Karate Club"</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb12-6"><a aria-hidden="true" href="#cb12-6" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Original Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Degree in Chung-Lu Random Graph"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-karate-club-chung-lu-degree-comparison" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-karate-club-chung-lu-degree-comparison">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-karate-club-chung-lu-degree-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-configuration-model_files/figure-html/fig-karate-club-chung-lu-degree-comparison-output-1.png" width="365" height="349" class="figure-img">
+<img class="figure-img" height="349" src="10-configuration-model_files/figure-html/fig-karate-club-chung-lu-degree-comparison-output-1.png" width="365"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-chung-lu-degree-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.5: Comparison of the degree sequences of the karate club graph and a Chung-Lu random version. The line of equality, corresponding to nodes which have the same degree in both graphs, is shown.
+Figure 8.5: Comparison of the degree sequences of the karate club graph and a Chung-Lu random version. The line of equality, corresponding to nodes which have the same degree in both graphs, is shown.
 </figcaption>
 </figure>
 </div>
@@ -635,7 +609,7 @@ Exercise
 </div>
 </div>
 </section>
-<section id="fixed-degree-distributions" class="level2">
+<section class="level2" id="fixed-degree-distributions">
 <h2 class="anchored" data-anchor-id="fixed-degree-distributions">Fixed Degree Distributions</h2>
 <p>When making mathematical arguments, you may want to consider a “general graph with degree distribution <span class="math inline">\(p_k\)</span>.” That is, we’re interested in a graph in which proportion <span class="math inline">\(p_k\)</span> of all nodes have degree <span class="math inline">\(k\)</span>. This is a more flexible approach than specifying the degree <span class="math inline">\(k_i\)</span> of each individual node in a graph via the degree sequence <span class="math inline">\(\mathbf{k}_i\)</span>.</p>
 <p>We can do this using a slight modification to the strategy described above.</p>
@@ -655,7 +629,7 @@ Exercise
 </ul>
 <p>With this approximation scheme, we can go on to study one of the most important properties of random graphs: the excess degree distribution.</p>
 </section>
-<section id="excess-degree-distribution" class="level2 page-columns page-full">
+<section class="level2 page-columns page-full" id="excess-degree-distribution">
 <h2 class="anchored" data-anchor-id="excess-degree-distribution">Excess Degree Distribution</h2>
 <p>Consider a configuration model with degree distribution <span class="math inline">\(p_k\)</span> (so a fraction <span class="math inline">\(p_k\)</span> of nodes have degree <span class="math inline">\(k\)</span>). This means that <span class="math inline">\(p_k\)</span> can be viewed as the probability that a node chosen uniformly at random from our network has degree <span class="math inline">\(k\)</span>. We’ll let <span class="math inline">\(n_k = np_k\)</span> be the expected number of nodes of degree <span class="math inline">\(k\)</span>.</p>
 <p>Now, suppose we choose a node uniformly at random and follow an edges to this node’s neighbor (if it has one). What is the probability that the neighbor will have degree <span class="math inline">\(k\)</span>?</p>
@@ -692,7 +666,7 @@ Exercise
 \end{align}
 \]</span></p>
 <p>This quantity is called the <strong>excess degree distribution.</strong></p>
-<section id="the-friendship-paradox" class="level3 page-columns page-full">
+<section class="level3 page-columns page-full" id="the-friendship-paradox">
 <h3 class="anchored" data-anchor-id="the-friendship-paradox">The Friendship Paradox</h3>
 <p>Suppose we model a social network of friends with degree-preserving random graph. How many friends does your friend have?</p>
 <p>To see this, let’s calculate the average degree of a neighbor of a randomly chosen node using the edge-biased degree distribution.</p>
@@ -726,34 +700,34 @@ Exercise
 <p>The intuition behind this idea is that a node with degree <span class="math inline">\(k\)</span> appears as a neighbor to <span class="math inline">\(k\)</span> other nodes, so high degree nodes are over-represented in the calculations.</p>
 <p>The friendship paradox has some practical applications in network analysis and interventions. For example, to interrupt the spread of an illness with a limited number of vaccines, it’s useful to target high-degree nodes in social networks, as they are more likely to be infected and to infect others. But how to identify the high-degree nodes? The friendship paradox suggests a simple way: pick some people at random and ask them to recommend one of their friends. This is sometimes called <em>acquaintance immunization</em> and can be a relative effective strategy for vaccine distribution. See <span class="citation" data-cites="rosenblatt2020immunization">Rosenblatt et al. (<a href="#ref-rosenblatt2020immunization" role="doc-biblioref">2020</a>)</span> for some discussion of this and related strategies.</p>
 <p>Let’s visualize the degree of each node in comparison to the average degree of its neighbors to get a feel for this result:</p>
-<div id="cell-fig-karate-club-friendship-paradox" class="cell page-columns page-full" data-execution_count="12">
+<div class="cell page-columns page-full" data-execution_count="12" id="cell-fig-karate-club-friendship-paradox">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mean_degree <span class="op">=</span> np.mean(deg_seq)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>neighbor_degrees <span class="op">=</span> <span class="bu">list</span>(nx.average_neighbor_degree(G_Karate).values())</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">5</span>, <span class="dv">4</span>))</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ax.scatter(deg_seq, neighbor_degrees, s <span class="op">=</span> <span class="dv">10</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>ax.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Node Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Mean degree of neighbors"</span>, title <span class="op">=</span> <span class="st">"Friendship Paradox in the Karate Club Graph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" href="#cb13-1" tabindex="-1"></a>mean_degree <span class="op">=</span> np.mean(deg_seq)</span>
+<span id="cb13-2"><a aria-hidden="true" href="#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a aria-hidden="true" href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a aria-hidden="true" href="#cb13-4" tabindex="-1"></a>neighbor_degrees <span class="op">=</span> <span class="bu">list</span>(nx.average_neighbor_degree(G_Karate).values())</span>
+<span id="cb13-5"><a aria-hidden="true" href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a aria-hidden="true" href="#cb13-6" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb13-7"><a aria-hidden="true" href="#cb13-7" tabindex="-1"></a>ax.scatter(deg_seq, neighbor_degrees, s <span class="op">=</span> <span class="dv">10</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>)</span>
+<span id="cb13-8"><a aria-hidden="true" href="#cb13-8" tabindex="-1"></a>ax.plot([<span class="dv">0</span>, <span class="dv">17</span>], [<span class="dv">0</span>, <span class="dv">17</span>], color <span class="op">=</span> <span class="st">"grey"</span>, linestyle <span class="op">=</span> <span class="st">"--"</span>, linewidth <span class="op">=</span> <span class="fl">0.75</span>)</span>
+<span id="cb13-9"><a aria-hidden="true" href="#cb13-9" tabindex="-1"></a>t <span class="op">=</span> ax.<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Node Degree"</span>, ylabel <span class="op">=</span> <span class="st">"Mean degree of neighbors"</span>, title <span class="op">=</span> <span class="st">"Friendship Paradox in the Karate Club Graph"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-display page-columns page-full">
-<div id="fig-karate-club-friendship-paradox" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-karate-club-friendship-paradox">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-karate-club-friendship-paradox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="10-configuration-model_files/figure-html/fig-karate-club-friendship-paradox-output-1.png" width="445" height="368" class="figure-img">
+<img class="figure-img" height="368" src="10-configuration-model_files/figure-html/fig-karate-club-friendship-paradox-output-1.png" width="445"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-karate-club-friendship-paradox-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.6: Computational illustration of the friendship paradox in the karate club graph. The average degree of the neighbors of a node tends to be higher than the degree of the node itself, with a few exceptions.
+Figure 8.6: Computational illustration of the friendship paradox in the karate club graph. The average degree of the neighbors of a node tends to be higher than the degree of the node itself, with a few exceptions.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>For most nodes (but not all), the mean degree of their neighbors is higher than their own degree. On average, the mean degree of a node in this graph is just half of the mean degree of that node’s neighbors.</p>
-<p>We can verify <a href="#eq-friendship-paradox-1" class="quarto-xref">Equation&nbsp;<span>8.1</span></a> by computing the appropriate quantities in two ways.</p>
+<p>We can verify <a class="quarto-xref" href="#eq-friendship-paradox-1">Equation <span>8.1</span></a> by computing the appropriate quantities in two ways.</p>
 <div class="callout callout-style-simple callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -768,11 +742,6 @@ Exercise
 </div>
 </div>
 
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>np.float64(7.769230769230769)</code></pre>
-</div>
-</div>
-</div>
 <p>Let’s compare our computational result to the result expected by theory.</p>
 <div class="callout callout-style-simple callout-warning no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -784,41 +753,33 @@ Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Implement the mathematical calculation of the average neighbor degree using <a href="#eq-friendship-paradox-1" class="quarto-xref">Equation&nbsp;<span>8.1</span></a> and show that it agrees with your function in the previous exercise.</p>
+<p>Implement the mathematical calculation of the average neighbor degree using <a class="quarto-xref" href="#eq-friendship-paradox-1">Equation <span>8.1</span></a> and show that it agrees with your function in the previous exercise.</p>
 </div>
 </div>
 
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>np.float64(7.76923076923077)</code></pre>
-</div>
-</div>
-</div>
 </section>
 </section>
-<section id="references" class="level2">
+<section class="level2" id="references">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-bollobas1980probabilistic" class="csl-entry" role="listitem">
+<div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
+<div class="csl-entry" id="ref-bollobas1980probabilistic" role="listitem">
 Bollobás, Béla. 1980. <span>“A Probabilistic Proof of an Asymptotic Formula for the Number of Labelled Regular Graphs.”</span> <em>European Journal of Combinatorics</em> 1 (4): 311–16.
 </div>
-<div id="ref-chung2002connected" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-chung2002connected" role="listitem">
 Chung, Fan, and Linyuan Lu. 2002. <span>“Connected Components in Random Graphs with Given Expected Degree Sequences.”</span> <em>Annals of Combinatorics</em> 6 (2): 125–45.
 </div>
-<div id="ref-erdos1960graphs" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-erdos1960graphs" role="listitem">
 Erdös, Paul, and Tibor Gallai. 1960. <span>“Graphs with Given Degrees of Vertices.”</span> <em>Math. Lapok</em> 11: 264–74.
 </div>
-<div id="ref-fosdick2018configuring" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-fosdick2018configuring" role="listitem">
 Fosdick, Bailey K, Daniel B Larremore, Joel Nishimura, and Johan Ugander. 2018. <span>“Configuring Random Graph Models with Fixed Degree Sequences.”</span> <em>Siam Review</em> 60 (2): 315–55.
 </div>
-<div id="ref-rosenblatt2020immunization" class="csl-entry" role="listitem">
+<div class="csl-entry" id="ref-rosenblatt2020immunization" role="listitem">
 Rosenblatt, Samuel F, Jeffrey A Smith, G Robin Gauthier, and Laurent Hébert-Dufresne. 2020. <span>“Immunization Strategies in Networks with Missing Data.”</span> <em>PLoS Computational Biology</em> 16 (7): e1007897.
 </div>
 </div>
 </section>
-
-<p><br> <br> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1240,20 +1201,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 <nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../chapters/09-random-graphs.html" class="pagination-link" aria-label="Random Graphs: Erdős–Rényi">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../chapters/11-generating-functions.html" class="pagination-link" aria-label="Probability Generating Functions">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Probability Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
+<div class="nav-page nav-page-previous">
+<a aria-label="Random Graphs: Erdős–Rényi" class="pagination-link" href="../chapters/09-random-graphs.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+<a aria-label="Probability Generating Functions" class="pagination-link" href="../chapters/11-generating-functions.html">
+<span class="nav-page-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span> <i class="bi bi-arrow-right-short"></i>
+</a>
+</div>
 </nav>
 </div> <!-- /content -->
-
-
-
-
 </body></html>
