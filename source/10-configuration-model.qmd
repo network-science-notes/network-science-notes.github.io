@@ -246,6 +246,8 @@ Show that the expected degree $\mathbb{E}[K_i]$ of node $i$ in the Chung-Lu mode
 
 :::
 
+
+
 ## Fixed Degree Distributions
 
 When making mathematical arguments, you may want to consider a "general graph with degree distribution $p_k$." That is, we're interested in a graph in which proportion $p_k$ of all nodes have degree $k$. This is a more flexible approach than specifying the degree $k_i$ of each individual node in a graph via the degree sequence $\mathbf{k}_i$. 
@@ -257,6 +259,60 @@ We can do this using a slight modification to the strategy described above.
 2. Construct a graph with this degree sequence either exactly (configuration model) or approximately and in expectation (Chung-Lu) as described above.
 
 Once again, we can easily run into some challenges here. With the algorithm described above it is very possible to generate a degree sequence with an odd number of stubs, and such degree sequences would need to be discarded. The concerns about self-edges, multiedges, and labeling that apply to the configuration model and Chung-Lu models still apply here. 
+
+::: {.callout-important }
+
+## Exercise
+
+Write a function `degree_dist_random_graph(n, p)` which accepts a number of nodes `n` and a desired degree distribution `p`, which can be passed as a `numpy` array. Your function should (a) sample a degree sequence of length `n` from the desired degree distribution `p` and then (b) construct a graph with approximately this degree sequence using the Chung-Lu model.
+
+We assume that `p` is a valid probability vector: its entries are nonnegative and sum to 1. `p[0]` is assumed to be the proportion of nodes of degree 0, `p[1]` the proportion of nodes of degree 1, and so on. Passing `p = np.array([0, 0, 0, 0])`, for example, would result in a regular graph where all nodes have degree 3. 
+
+*Hint*: `np.random.choice(np.arange(len(p)), n, p = p)` will sample `n` random integers from `0, 1, ..., len(p) - 1` with probabilities given by `p`. 
+
+
+
+Once you've completed your implementation, generate some graphs with numbers of nodes ranging from 10 to 1000. Compare the degree distribution of the generated graphs to the desired degree distribution. You can plot the full distributions, check the means and variances, or any other comparison method you find interesting. 
+
+:::
+
+::: {.solution .hide}
+
+```{python}
+#| eval: false
+#| code-fold: false
+#---
+def degree_dist_random_graph(n,p):
+    deg_seq = np.random.choice(np.arange(len(p)), n, p = p)
+    G = chung_lu(deg_seq)
+    # or G = nx.expected_degree_graph(deg_seq, selfloops=False)
+    return G
+
+
+# comparison
+p = np.array([0, 0, 0.1, 0.2, 0.4, 0.3])
+G = degree_dist_random_graph(1000, p)
+
+deg_seq = np.array([d for n, d in G.degree()])
+
+# the exact distributions are pretty different
+deg, counts = np.unique(deg_seq, return_counts = True)
+counts = counts/counts.sum()
+plt.scatter(np.arange(len(p)), p, label = "Desired")
+plt.scatter(deg, counts, label = "Actual")
+
+# the means are similar though
+deg_seq.mean(), p@np.arange(len(p))
+#---
+```
+
+
+:::
+
+:::{.content-hidden when-meta="solution"}
+\vspace{4cm}
+:::
+
 
 While the two models we describe here are different, we expect them to behave similarly in the large-$n$ limit, where a sequence drawn from a degree distribution more accurately captures the underlying distribution. This approximation is justifiable using formal asymptotic reasoning when $n$ grows large and the degree distribution $p_k$ has variance that doesn't grow too rapidly with $n$. 
 
