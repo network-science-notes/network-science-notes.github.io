@@ -506,7 +506,7 @@ Figure 3.2: A undirected graph.
 </div>
 </div></div></div>
 <div class="page-columns page-full"><p>Now we’ll take a look at the Laplacian matrix. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">It is also possible to extract the Laplacian matrix using the NetworkX built-in <code>nx.laplacian_matrix(G)</code>.</span></div></div>
-<div class="cell" data-execution_count="3" id="f3dad3da">
+<div class="cell" data-execution_count="3" id="6c7154d2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> laplacian(G): </span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
 <span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>    D <span class="op">=</span> np.diag(np.<span class="bu">sum</span>(A, axis <span class="op">=</span> <span class="dv">1</span>))</span>
@@ -627,7 +627,7 @@ Figure 3.3: A graph with three connected components.
 </div>
 </div></div></div>
 <p>Now we can check that there are exactly 3 zero eigenvalues.</p>
-<div class="cell" data-execution_count="5" id="28bc4a0b">
+<div class="cell" data-execution_count="5" id="2a175c0b">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>L <span class="op">=</span> laplacian(G)</span>
 <span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a></span>
 <span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>eigvals, eigvecs <span class="op">=</span> np.linalg.eig(L)</span>
@@ -705,7 +705,7 @@ Figure 3.4: (Left) A graph which is almost disconnected into two components; de
 \]</span></p>
 <p>So, our smoothness measure is the quadratic form <span class="math inline">\(\mathbf{x}^T\mathbf{Lx}\)</span>. The role of the Laplacian in measuring the smoothness of functions defined on graphs is another perspective on its use in both algorithms and modeling of dynamical systems.</p>
 <p>To operationalize this, let’s implement a smoothness score:</p>
-<div class="cell" data-execution_count="7" id="97249366">
+<div class="cell" data-execution_count="7" id="4004b7e5">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a><span class="kw">def</span> smoothness(G, x): </span>
@@ -763,7 +763,7 @@ Figure 3.5: Two functions defined on the nodes of a graph and their correspondi
 \end{aligned}
 \]</span></p>
 <p>where <span class="math inline">\(\alpha\)</span> is some constant that describes the rate of heat transfer. Let’s see how this looks:</p>
-<div class="cell page-columns page-full" data-execution_count="9" id="3245621a">
+<div class="cell page-columns page-full" data-execution_count="9" id="4d8a8736">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>

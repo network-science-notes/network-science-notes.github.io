@@ -569,13 +569,13 @@ window.Quarto = {
 <p>Let’s compute the probabilities appearing on the righthand side. With probability <span class="math inline">\(\alpha\)</span>, we select a node from <span class="math inline">\(G_t\)</span> proportional to its degree. This means that, if a <em>specific</em> node <span class="math inline">\(u\)</span> has degree <span class="math inline">\(k-1\)</span>, the probability of picking <span class="math inline">\(u\)</span> is</p>
 <p><span class="math display">\[
 \begin{aligned}
-    \mathbb{P}[u \text{ is picked}] = \frac{k-1}{\sum_{w \in G} l_w} = \frac{k-1}{2m^{(t)}}\;.
+    \mathbb{P}[u \text{ is picked}] = \frac{k-1}{\sum_{w \in G} k_w} = \frac{k-1}{2m^{(t)}}\;.
 \end{aligned}
 \]</span></p>
-<p>Of all the nodew we could pick, <span class="math inline">\(p_{k-1}^{(t)}n\)</span> of them have degree <span class="math inline">\(k-1\)</span>. So, the probability of picking a node with degree <span class="math inline">\(k-1\)</span> is <span class="math inline">\(n p_{k-1}^{(t)}\frac{k-1}{2m}\)</span>. On the other hand, if we flipped a tails (with probability <span class="math inline">\(1-\alpha\)</span>), then we pick a node uniformly at random; each one is equally probable and <span class="math inline">\(p_{k-1}^{(t)}\)</span> of them have degree <span class="math inline">\(k-1\)</span>. So, in this case the probability is simply <span class="math inline">\(p_{k-1}^{(t)}\)</span>. Combining using the law of total probability, we have</p>
+<p>Of all the nodes we could pick, <span class="math inline">\(p_{k-1}^{(t)}n\)</span> of them have degree <span class="math inline">\(k-1\)</span>. So, the probability of picking a node with degree <span class="math inline">\(k-1\)</span> is <span class="math inline">\(n p_{k-1}^{(t)}\frac{k-1}{2m}\)</span>. On the other hand, if we flipped a tails (with probability <span class="math inline">\(1-\alpha\)</span>), then we pick a node uniformly at random; each one is equally probable and <span class="math inline">\(p_{k-1}^{(t)}\)</span> of them have degree <span class="math inline">\(k-1\)</span>. So, in this case the probability is simply <span class="math inline">\(p_{k-1}^{(t)}\)</span>. Combining using the law of total probability, we have</p>
 <p><span class="math display">\[
 \begin{aligned}
-    \mathbb{P}[d_u = k-1] &amp;= \alpha n p_{k-1}^{(t)}\frac{k-1}{2m^{(t)}} + (1-\alpha)p_{k-1}^{(t)} \\
+    \mathbb{P}[k_u = k-1] &amp;= \alpha n p_{k-1}^{(t)}\frac{k-1}{2m^{(t)}} + (1-\alpha)p_{k-1}^{(t)} \\
                           &amp;= \left[\alpha n \frac{k-1}{2m} + (1-\alpha)\right]p_{k-1}^{(t)}\;.
 \end{aligned}
 \]</span></p>
@@ -621,15 +621,15 @@ window.Quarto = {
 <p><span class="math display">\[
 \begin{aligned}
     p_k &amp;\doteq \frac{\alpha  \frac{k-1}{2} + (1-\alpha)}{1 + \alpha \frac{k}{2} + (1-\alpha)} p_{k-1} \\
-    &amp;= \frac{2(1-\alpha) + (k-1)\alpha}{2(1-\alpha) + 2 + d\alpha }p_{k-1} \\
-    &amp;= \left(1 - \frac{2 + \alpha }{2(1-\alpha) + 2 + d\alpha }\right)p_{k-1}\;.
+    &amp;= \frac{2(1-\alpha) + (k-1)\alpha}{2(1-\alpha) + 2 + k\alpha }p_{k-1} \\
+    &amp;= \left(1 - \frac{2 + \alpha }{2(1-\alpha) + 2 + k\alpha }\right)p_{k-1}\;.
 \end{aligned}
-\]</span> When <span class="math inline">\(d\)</span> grows large, this expression is approximately <span class="math display">\[
+\]</span> When <span class="math inline">\(k\)</span> grows large, this expression is approximately <span class="math display">\[
 \begin{aligned}
     p_k \simeq \left(1 - \frac{1}{k}\frac{2+\alpha}{\alpha}\right) p_{k-1}\;.
 \end{aligned}
 \]</span></p>
-<p>Now for a trick “out of thin air.” As <span class="math inline">\(d\)</span> grows large,</p>
+<p>Now for a trick “out of thin air.” As <span class="math inline">\(k\)</span> grows large,</p>
 <p><span class="math display">\[
 \begin{aligned}
     1 - \frac{1}{k}\frac{2+\alpha}{\alpha} \rightarrow \left(\frac{k-1}{k} \right)^{\frac{2 + \alpha}{\alpha}}

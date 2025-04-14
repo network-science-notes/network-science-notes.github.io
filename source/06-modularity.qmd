@@ -172,6 +172,7 @@ def modularity(G, z):
 Let's test this function on the Zachary Karate Club network, which famously fissioned into two groups. First, we'll get the graph and converted it unweighted form: 
 
 ```{python}
+#| code-fold: false
 #---
 G = nx.karate_club_graph()
 G = unweight(G)
@@ -182,6 +183,7 @@ We can extract the labels of the two fissioned clubs using `nx.get_node_attribut
 
 
 ```{python}
+#| code-fold: false
 #---
 nx.get_node_attributes(G, 'club')
 z = np.array([G.nodes[i]['club'] for i in G.nodes])
@@ -191,6 +193,7 @@ z = np.array([G.nodes[i]['club'] for i in G.nodes])
 Before we compute the modularity with respect to the label vector `z`, let's also compare to a random label vector. 
 
 ```{python}
+#| code-fold: false
 #---
 z_random = z.copy()
 np.random.shuffle(z_random)
@@ -201,7 +204,6 @@ Now we can compare the modularity of the graph under the random labels and the t
 
 ```{python}
 #| code-fold: false 
-
 #---
 Q        = modularity(G, z)
 Q_random = modularity(G, z_random)

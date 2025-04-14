@@ -368,7 +368,7 @@ window.Quarto = {
 <li>PSI* was one class focusing on engineering.</li>
 </ol>
 <p>We might reasonably expect that students in the same class would interact more with each other than with students in other classes. Let’s acquire the data and visualize the network to begin to develop a feel for this idea.</p>
-<div class="cell" data-execution_count="1" id="b3280916">
+<div class="cell" data-execution_count="1" id="4b8734ca">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -439,7 +439,7 @@ window.Quarto = {
 </div>
 <div class="no-row-height column-margin column-container"><div class="">
 <p>This hidden code cell implements a number of utilities for processing and node labels associated with them. It also has a lot of plotting implementations.</p>
-</div></div><div class="cell" data-execution_count="2" id="e03cd47c">
+</div></div><div class="cell" data-execution_count="2" id="4b7cd37d">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>G <span class="op">=</span> acquire_contact_data()</span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>clusters <span class="op">=</span> nx.get_node_attributes(G, <span class="st">"class"</span>)</span>
 <span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
@@ -458,7 +458,7 @@ window.Quarto = {
 <p>Recall that we can quantify the extent to which a network is assortative with respect to some attribute by calculating the <em>modularity</em> of the network with respect to that attribute. Let <span class="math inline">\(\mathcal{Z}\)</span> be a finite set of possible node labels, and let <span class="math inline">\(\mathbf{z} \in \mathcal{Z}^n\)</span> be a vector whose <span class="math inline">\(i\)</span>th entry gives the label of the <span class="math inline">\(i\)</span>th node. Then, the modularity functional of <span class="math inline">\(G\)</span> with respect to <span class="math inline">\(\mathbf{z}\)</span> as defined by <span class="citation" data-cites="newman2004finding">M. E. J. Newman and Girvan (<a href="#ref-newman2004finding" role="doc-biblioref">2004</a>)</span> is given by the formula</p>
 <p><span class="math display">\[
 \begin{aligned}
-    Q(G, \mathbf{z}) = \frac{1}{2m} \sum_{i,j \in N} \left[ a_{ij} - \frac{k_i k_j}{2m} \right] \delta_{z_i z_j} \,,
+    Q(G, \mathbf{z}) = \frac{1}{2m} \sum_{\substack{i,j \in N \\ i \neq j}} \left[ a_{ij} - \frac{k_i k_j}{2m} \right] \delta_{z_i z_j} \,,
 \end{aligned}
 \]</span></p>
 <p>This formula can be motivated in several ways.</p>
@@ -469,7 +469,7 @@ window.Quarto = {
 </ol>
 <div class="page-columns page-full"><p>We often informally say that the network is <em>assortative</em> or <em>has modular structure</em> when <span class="math inline">\(Q\)</span> is substantially larger than 0. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The question of what counts as “substantially larger” can be tricky; for example; see discussion in <span class="citation" data-cites="zhang2014scalable">Zhang and Moore (<a href="#ref-zhang2014scalable" role="doc-biblioref">2014</a>)</span> for cases in which Erdős–Rényi random graphs can have high modularity with respect to a carefully-chosen partition.</span></div></div>
 <p>Networkx implements a function to compute the modularity, but it’s not difficult to implement our own either. We’ll structure our function to accept a vector of characters giving the class labels.</p>
-<div class="cell" data-execution_count="3" id="53abfe87">
+<div class="cell" data-execution_count="3" id="12122485">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> modularity(G, z):</span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>    <span class="co"># converts z from a dict to an array if it isn't one already</span></span>
@@ -486,14 +486,14 @@ window.Quarto = {
 <span id="cb3-14"><a aria-hidden="true" href="#cb3-14" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>m)<span class="op">*</span>((A <span class="op">-</span> np.outer(k, k) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> m))<span class="op">*</span>delta).<span class="bu">sum</span>()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s try calling our function to find the modularity of the graph and its labels:</p>
-<div class="cell" data-execution_count="4" id="e0fe997d">
+<div class="cell" data-execution_count="4" id="2aa625c1">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>modularity(G, clusters)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>np.float64(0.5039115128642156)</code></pre>
 </div>
 </div>
 <p>Let’s do a quick check against the built-in implementation of modularity in Networkx. This implementation works just a bit differently: we need to pass a list of sets in which each set represents a community.</p>
-<div class="cell" data-execution_count="5" id="ed0c117f">
+<div class="cell" data-execution_count="5" id="c9d72841">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>communities <span class="op">=</span> [{node <span class="cf">for</span> node <span class="kw">in</span> G.nodes() <span class="cf">if</span> clusters[node] <span class="op">==</span> i} <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
 <span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>nx.community.modularity(G, communities)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -507,7 +507,7 @@ window.Quarto = {
 <div class="page-columns page-full"><p>In the community detection problem, we consider a graph <span class="math inline">\(G\)</span> which we <em>suspect</em> to have some interesting modular structure, but we do not have access to the label vector <span class="math inline">\(\mathbf{z}\)</span>. Instead, we attempt to <em>find</em> a good label vector based on the graph structure itself. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This kind of task is also often called “graph clustering” or “graph partitioning.” The idea that networks have community structure and that algorithms can find this structure was popularized by <span class="citation" data-cites="girvan2002community">Girvan and Newman (<a href="#ref-girvan2002community" role="doc-biblioref">2002</a>)</span>.</span></div></div>
 <div class="no-row-height column-margin column-container"><div class="">
 <p>So, in the community detection problem, we have access to an <em>unlabeled graph</em> like this one.</p>
-<div class="cell" data-execution_count="6" id="6cbb198b">
+<div class="cell" data-execution_count="6" id="09478845">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -530,86 +530,100 @@ window.Quarto = {
 <section class="level2" id="a-community-detection-algorithm-greedy-agglomerative-clustering">
 <h2 class="anchored" data-anchor-id="a-community-detection-algorithm-greedy-agglomerative-clustering">A Community Detection Algorithm: Greedy Agglomerative Clustering</h2>
 <p>Unfortunately, exactly maximizing the modularity is NP-hard <span class="citation" data-cites="brandes2007modularity">(<a href="#ref-brandes2007modularity" role="doc-biblioref">Brandes et al. 2007</a>)</span>, and so we need to consider tractable heuristic algorithms that we hope may lead us to solutions which are close to optimal.</p>
-<p>One simple algorithm for heuristic modularity maximization is the <em>greedy agglomerative clustering</em> algorithm. The idea is to start with each node in its own community, and then iteratively swap the labels of nodes until no improvement in the modularity can be obtained. An important computational feature of this algorithm is that we don’t need to always recalculate the modularity from scratch. Instead, we can simply <em>update</em> the modularity with the change that results from swapping a node <span class="math inline">\(h\)</span> from community <span class="math inline">\(x\)</span> to community <span class="math inline">\(y\)</span>. Let <span class="math inline">\(\mathbf{z}\)</span> be the label vector before the swap and let <span class="math inline">\(\mathbf{z}'\)</span> be the label vector after the swap. Then,</p>
-<p><span class="math display">\[
-\begin{aligned}
-    Q(G, \mathbf{z}') - Q(G, \mathbf{z}) &amp;=  \frac{1}{2m}\sum_{i\neq j} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \delta_{z_i', z_j'} - \frac{1}{2m}\sum_{i\neq j} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \delta_{z_i, z_j} \\
-    &amp;= \frac{1}{2m}\sum_{i\neq j} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \left(\delta_{z_i', z_j'} - \delta_{z_i, z_j}\right)\;.
-\end{aligned}
-\]</span></p>
-<p>We only have <span class="math inline">\(\delta_{z_i', z_j'} - \delta_{z_i, z_j} \neq 0\)</span> when either <span class="math inline">\(i\)</span> or <span class="math inline">\(j\)</span> is equal to <span class="math inline">\(h\)</span>. If <span class="math inline">\(i = h\)</span>, then <span class="math inline">\(z_i = x\)</span>, <span class="math inline">\(z_i' = y\)</span>, and <span class="math inline">\(z_j' = z_j\)</span> for all <span class="math inline">\(j \neq h\)</span>. So,</p>
-<p><span class="math display">\[
-\begin{aligned}
-    Q(G, \mathbf{z}') - Q(G, \mathbf{z}) &amp;= \frac{1}{2m}\left(\sum_{j\neq h} \left[ a_{hj} - \frac{k_hk_j}{2m} \right] \left(\delta_{y, z_j} - \delta_{x, z_j}\right) + \sum_{i\neq h} \left[ a_{ih} - \frac{k_ik_h}{2m} \right] \left(\delta_{z_i, y} - \delta_{z_i, x}\right) \right) \\
-    &amp;= \frac{1}{m}\left(\sum_{j\neq h} \left[ a_{hj} - \frac{k_hk_j}{2m} \right] \left(\delta_{y, z_j} - \delta_{x, z_j}\right)  \right)\;,
-\end{aligned}
-\]</span></p>
-<p>where in the second line we have used the fact that the two sums appearing are just re-indexed copies of each other. Here’s our implementation:</p>
-<div class="cell" data-execution_count="7" id="833299ec">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="kw">def</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e4</span>)):</span>
-<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a></span>
-<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a>    <span class="co"># initialize every node in its own cluster</span></span>
-<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a>    labels <span class="op">=</span> np.arange(G.number_of_nodes()) </span>
-<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a></span>
-<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a>    <span class="co"># compute the modularity initially -- we'll update it as we go</span></span>
-<span id="cb8-7"><a aria-hidden="true" href="#cb8-7" tabindex="-1"></a>    progress <span class="op">=</span> [modularity(G, labels)]</span>
-<span id="cb8-8"><a aria-hidden="true" href="#cb8-8" tabindex="-1"></a></span>
-<span id="cb8-9"><a aria-hidden="true" href="#cb8-9" tabindex="-1"></a>    <span class="co"># matrices and vectors we'll need</span></span>
-<span id="cb8-10"><a aria-hidden="true" href="#cb8-10" tabindex="-1"></a>    m <span class="op">=</span> G.number_of_edges()</span>
-<span id="cb8-11"><a aria-hidden="true" href="#cb8-11" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
-<span id="cb8-12"><a aria-hidden="true" href="#cb8-12" tabindex="-1"></a>    k <span class="op">=</span> A.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>)</span>
-<span id="cb8-13"><a aria-hidden="true" href="#cb8-13" tabindex="-1"></a>    </span>
-<span id="cb8-14"><a aria-hidden="true" href="#cb8-14" tabindex="-1"></a>    <span class="co"># main loop</span></span>
-<span id="cb8-15"><a aria-hidden="true" href="#cb8-15" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_steps):</span>
-<span id="cb8-16"><a aria-hidden="true" href="#cb8-16" tabindex="-1"></a></span>
-<span id="cb8-17"><a aria-hidden="true" href="#cb8-17" tabindex="-1"></a>        <span class="co"># pick two nodes at random and retrieve their labels</span></span>
-<span id="cb8-18"><a aria-hidden="true" href="#cb8-18" tabindex="-1"></a>        i, j <span class="op">=</span> np.random.choice(G.number_of_nodes(), <span class="dv">2</span>, replace <span class="op">=</span> <span class="va">False</span>)</span>
-<span id="cb8-19"><a aria-hidden="true" href="#cb8-19" tabindex="-1"></a></span>
-<span id="cb8-20"><a aria-hidden="true" href="#cb8-20" tabindex="-1"></a>        <span class="co"># prospective swap is that i will change its label from x to y</span></span>
-<span id="cb8-21"><a aria-hidden="true" href="#cb8-21" tabindex="-1"></a>        x <span class="op">=</span> labels[i]</span>
-<span id="cb8-22"><a aria-hidden="true" href="#cb8-22" tabindex="-1"></a>        y <span class="op">=</span> labels[j]</span>
-<span id="cb8-23"><a aria-hidden="true" href="#cb8-23" tabindex="-1"></a></span>
-<span id="cb8-24"><a aria-hidden="true" href="#cb8-24" tabindex="-1"></a>        <span class="cf">if</span> x <span class="op">==</span> y: </span>
-<span id="cb8-25"><a aria-hidden="true" href="#cb8-25" tabindex="-1"></a>            <span class="cf">continue</span></span>
-<span id="cb8-26"><a aria-hidden="true" href="#cb8-26" tabindex="-1"></a></span>
-<span id="cb8-27"><a aria-hidden="true" href="#cb8-27" tabindex="-1"></a>        <span class="cf">else</span>: </span>
-<span id="cb8-28"><a aria-hidden="true" href="#cb8-28" tabindex="-1"></a>            <span class="co"># compute the change in modularity of the prospective swap</span></span>
-<span id="cb8-29"><a aria-hidden="true" href="#cb8-29" tabindex="-1"></a>            change_vec <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>m <span class="op">*</span>  ((A[i] <span class="op">-</span> k[i]<span class="op">*</span>k<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>m))<span class="op">*</span>(<span class="dv">1</span><span class="op">*</span>(y <span class="op">==</span> labels) <span class="op">-</span> <span class="dv">1</span><span class="op">*</span>(x <span class="op">==</span> labels)))</span>
-<span id="cb8-30"><a aria-hidden="true" href="#cb8-30" tabindex="-1"></a>            change_vec[i] <span class="op">=</span> <span class="dv">0</span> <span class="co"># zero out the term corresponding to i</span></span>
-<span id="cb8-31"><a aria-hidden="true" href="#cb8-31" tabindex="-1"></a>            change <span class="op">=</span> change_vec.<span class="bu">sum</span>()</span>
-<span id="cb8-32"><a aria-hidden="true" href="#cb8-32" tabindex="-1"></a></span>
-<span id="cb8-33"><a aria-hidden="true" href="#cb8-33" tabindex="-1"></a>            <span class="co"># if positive, update the labels and store the new modularity for visualization later</span></span>
-<span id="cb8-34"><a aria-hidden="true" href="#cb8-34" tabindex="-1"></a>            <span class="cf">if</span> change <span class="op">&gt;</span> <span class="dv">0</span>: </span>
-<span id="cb8-35"><a aria-hidden="true" href="#cb8-35" tabindex="-1"></a>                labels[i] <span class="op">=</span> y</span>
-<span id="cb8-36"><a aria-hidden="true" href="#cb8-36" tabindex="-1"></a>                progress.append(progress[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> change)</span>
-<span id="cb8-37"><a aria-hidden="true" href="#cb8-37" tabindex="-1"></a>        </span>
-<span id="cb8-38"><a aria-hidden="true" href="#cb8-38" tabindex="-1"></a>    <span class="co"># postprocessing: we need to convert the labels into a dict for visualization etc. </span></span>
-<span id="cb8-39"><a aria-hidden="true" href="#cb8-39" tabindex="-1"></a></span>
-<span id="cb8-40"><a aria-hidden="true" href="#cb8-40" tabindex="-1"></a>    distinct_labels <span class="op">=</span> np.unique(labels)</span>
-<span id="cb8-41"><a aria-hidden="true" href="#cb8-41" tabindex="-1"></a>    label_map <span class="op">=</span> {<span class="bu">int</span>(distinct_label) : i <span class="cf">for</span> i, distinct_label <span class="kw">in</span> <span class="bu">enumerate</span>(distinct_labels)}</span>
-<span id="cb8-42"><a aria-hidden="true" href="#cb8-42" tabindex="-1"></a></span>
-<span id="cb8-43"><a aria-hidden="true" href="#cb8-43" tabindex="-1"></a>    greedy_clusters <span class="op">=</span> {i : label_map[label] <span class="cf">for</span> i, label <span class="kw">in</span> <span class="bu">enumerate</span>(labels)}</span>
-<span id="cb8-44"><a aria-hidden="true" href="#cb8-44" tabindex="-1"></a></span>
-<span id="cb8-45"><a aria-hidden="true" href="#cb8-45" tabindex="-1"></a>    <span class="cf">return</span> greedy_clusters, np.array(progress)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<p>One simple algorithm for heuristic modularity maximization is the <em>greedy agglomerative clustering</em> algorithm. The idea is to start with each node in its own community, and then iteratively swap the labels of nodes until no improvement in the modularity can be obtained. An important computational feature of this algorithm is that we don’t need to always recalculate the modularity from scratch.</p>
+<p>Instead, we can simply <em>update</em> the modularity with the change that results from swapping a node <span class="math inline">\(h\)</span> from community <span class="math inline">\(x\)</span> to community <span class="math inline">\(y\)</span>. Let <span class="math inline">\(\mathbf{z}\)</span> be the label vector before the swap and let <span class="math inline">\(\mathbf{z}'\)</span> be the label vector after the swap. Importantly, this quantity can be evaluated much more efficiently than the complete modularity.</p>
+<div class="callout callout-style-simple callout-important no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Prove that <span class="math inline">\(Q(G, \mathbf{z}') - Q(G, \mathbf{z}) = \sum_{j \neq h} b_{hj}(x,y)\)</span> for some numbers <span class="math inline">\(b_{hj}(x,y)\)</span> which depend on the node <span class="math inline">\(j\)</span>, its original community <span class="math inline">\(x\)</span>, and its proposed new community <span class="math inline">\(y\)</span>, and which can be computed in <span class="math inline">\(O(1)\)</span> time.</p>
+</div>
+</div>
+
+<p>Our implementation of the main loop relies on the following function which calculates the change in modularity from swapping a node <span class="math inline">\(h\)</span> from community <span class="math inline">\(x\)</span> to community <span class="math inline">\(y\)</span>.</p>
+<div class="cell" data-execution_count="7" id="a2996671">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="kw">def</span> modularity_change(A, k, m, i, x, y, labels):    </span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a><span class="co">    compute the change in modularity associated with moving the current label of node i (assumed to be labels[i]) from x to y</span></span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a>    change_vec <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>m <span class="op">*</span>((A[i] <span class="op">-</span> k[i]<span class="op">*</span>k<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>m))<span class="op">*</span>(<span class="dv">1</span><span class="op">*</span>(y <span class="op">==</span> labels) <span class="op">-</span> <span class="dv">1</span><span class="op">*</span>(x <span class="op">==</span> labels)))</span>
+<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a>    change_vec[i] <span class="op">=</span> <span class="dv">0</span> <span class="co"># zero out the term corresponding to i</span></span>
+<span id="cb8-7"><a aria-hidden="true" href="#cb8-7" tabindex="-1"></a>    change <span class="op">=</span> change_vec.<span class="bu">sum</span>()</span>
+<span id="cb8-8"><a aria-hidden="true" href="#cb8-8" tabindex="-1"></a>    <span class="cf">return</span> change</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can use this function in a loop to iteratively swap node labels until no improvement can be made (or until the step limit is exceeded).</p>
+<div class="cell" data-execution_count="8" id="1ee0e1db">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a><span class="kw">def</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e4</span>)):</span>
+<span id="cb9-2"><a aria-hidden="true" href="#cb9-2" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb9-3"><a aria-hidden="true" href="#cb9-3" tabindex="-1"></a><span class="co">    Return a label vector of integers from greedy agglomerative clustering</span></span>
+<span id="cb9-4"><a aria-hidden="true" href="#cb9-4" tabindex="-1"></a><span class="co">    Also return a list showing the progress of the modularity at each step</span></span>
+<span id="cb9-5"><a aria-hidden="true" href="#cb9-5" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb9-6"><a aria-hidden="true" href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a aria-hidden="true" href="#cb9-7" tabindex="-1"></a>    <span class="co"># initialize every node in its own cluster</span></span>
+<span id="cb9-8"><a aria-hidden="true" href="#cb9-8" tabindex="-1"></a>    labels <span class="op">=</span> np.arange(G.number_of_nodes()) </span>
+<span id="cb9-9"><a aria-hidden="true" href="#cb9-9" tabindex="-1"></a></span>
+<span id="cb9-10"><a aria-hidden="true" href="#cb9-10" tabindex="-1"></a>    <span class="co"># compute the modularity initially -- we'll update it as we go</span></span>
+<span id="cb9-11"><a aria-hidden="true" href="#cb9-11" tabindex="-1"></a>    progress <span class="op">=</span> [modularity(G, labels)]</span>
+<span id="cb9-12"><a aria-hidden="true" href="#cb9-12" tabindex="-1"></a></span>
+<span id="cb9-13"><a aria-hidden="true" href="#cb9-13" tabindex="-1"></a>    <span class="co"># matrices and vectors we'll need</span></span>
+<span id="cb9-14"><a aria-hidden="true" href="#cb9-14" tabindex="-1"></a>    m <span class="op">=</span> G.number_of_edges()</span>
+<span id="cb9-15"><a aria-hidden="true" href="#cb9-15" tabindex="-1"></a>    A <span class="op">=</span> nx.to_numpy_array(G)</span>
+<span id="cb9-16"><a aria-hidden="true" href="#cb9-16" tabindex="-1"></a>    k <span class="op">=</span> A.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb9-17"><a aria-hidden="true" href="#cb9-17" tabindex="-1"></a>    </span>
+<span id="cb9-18"><a aria-hidden="true" href="#cb9-18" tabindex="-1"></a>    <span class="co"># main loop</span></span>
+<span id="cb9-19"><a aria-hidden="true" href="#cb9-19" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_steps):</span>
+<span id="cb9-20"><a aria-hidden="true" href="#cb9-20" tabindex="-1"></a></span>
+<span id="cb9-21"><a aria-hidden="true" href="#cb9-21" tabindex="-1"></a>        <span class="co"># pick two nodes at random and retrieve their labels</span></span>
+<span id="cb9-22"><a aria-hidden="true" href="#cb9-22" tabindex="-1"></a>        i, j <span class="op">=</span> np.random.choice(G.number_of_nodes(), <span class="dv">2</span>, replace <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb9-23"><a aria-hidden="true" href="#cb9-23" tabindex="-1"></a></span>
+<span id="cb9-24"><a aria-hidden="true" href="#cb9-24" tabindex="-1"></a>        <span class="co"># prospective swap is that i will change its label from x to y</span></span>
+<span id="cb9-25"><a aria-hidden="true" href="#cb9-25" tabindex="-1"></a>        x <span class="op">=</span> labels[i]</span>
+<span id="cb9-26"><a aria-hidden="true" href="#cb9-26" tabindex="-1"></a>        y <span class="op">=</span> labels[j]</span>
+<span id="cb9-27"><a aria-hidden="true" href="#cb9-27" tabindex="-1"></a></span>
+<span id="cb9-28"><a aria-hidden="true" href="#cb9-28" tabindex="-1"></a>        <span class="cf">if</span> x <span class="op">==</span> y: </span>
+<span id="cb9-29"><a aria-hidden="true" href="#cb9-29" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb9-30"><a aria-hidden="true" href="#cb9-30" tabindex="-1"></a></span>
+<span id="cb9-31"><a aria-hidden="true" href="#cb9-31" tabindex="-1"></a>        <span class="cf">else</span>: </span>
+<span id="cb9-32"><a aria-hidden="true" href="#cb9-32" tabindex="-1"></a>            <span class="co"># compute the change in modularity of the prospective swap</span></span>
+<span id="cb9-33"><a aria-hidden="true" href="#cb9-33" tabindex="-1"></a>            change <span class="op">=</span> modularity_change(A, k, m, i, x, y, labels)</span>
+<span id="cb9-34"><a aria-hidden="true" href="#cb9-34" tabindex="-1"></a></span>
+<span id="cb9-35"><a aria-hidden="true" href="#cb9-35" tabindex="-1"></a>            <span class="co"># if positive, update the labels and store the new modularity for visualization later</span></span>
+<span id="cb9-36"><a aria-hidden="true" href="#cb9-36" tabindex="-1"></a>            <span class="cf">if</span> change <span class="op">&gt;</span> <span class="dv">0</span>: </span>
+<span id="cb9-37"><a aria-hidden="true" href="#cb9-37" tabindex="-1"></a>                labels[i] <span class="op">=</span> y</span>
+<span id="cb9-38"><a aria-hidden="true" href="#cb9-38" tabindex="-1"></a>                progress.append(progress[<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> change)</span>
+<span id="cb9-39"><a aria-hidden="true" href="#cb9-39" tabindex="-1"></a>        </span>
+<span id="cb9-40"><a aria-hidden="true" href="#cb9-40" tabindex="-1"></a>    <span class="co"># postprocessing: we need to convert the labels into a dict for visualization etc. </span></span>
+<span id="cb9-41"><a aria-hidden="true" href="#cb9-41" tabindex="-1"></a>    distinct_labels <span class="op">=</span> np.unique(labels)</span>
+<span id="cb9-42"><a aria-hidden="true" href="#cb9-42" tabindex="-1"></a>    label_map <span class="op">=</span> {<span class="bu">int</span>(distinct_label) : i <span class="cf">for</span> i, distinct_label <span class="kw">in</span> <span class="bu">enumerate</span>(distinct_labels)}</span>
+<span id="cb9-43"><a aria-hidden="true" href="#cb9-43" tabindex="-1"></a></span>
+<span id="cb9-44"><a aria-hidden="true" href="#cb9-44" tabindex="-1"></a>    greedy_clusters <span class="op">=</span> {i : label_map[label] <span class="cf">for</span> i, label <span class="kw">in</span> <span class="bu">enumerate</span>(labels)}</span>
+<span id="cb9-45"><a aria-hidden="true" href="#cb9-45" tabindex="-1"></a></span>
+<span id="cb9-46"><a aria-hidden="true" href="#cb9-46" tabindex="-1"></a>    <span class="cf">return</span> greedy_clusters, np.array(progress)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s run our algorithm…</p>
-<div class="cell" data-execution_count="8" id="b0f3394a">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>greedy_clusters, progress <span class="op">=</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e5</span>))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="9" id="87c64803">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>greedy_clusters, progress <span class="op">=</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e5</span>))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>…and visualize how we did.</p>
-<div class="cell" data-execution_count="9" id="86333a79">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">3.5</span>))</span>
-<span id="cb10-2"><a aria-hidden="true" href="#cb10-2" tabindex="-1"></a></span>
-<span id="cb10-3"><a aria-hidden="true" href="#cb10-3" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(progress)</span>
-<span id="cb10-4"><a aria-hidden="true" href="#cb10-4" tabindex="-1"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Number of swaps performed"</span>, ylabel <span class="op">=</span> <span class="st">"Modularity"</span>, title <span class="op">=</span> <span class="st">"Progress over swaps"</span>)</span>
-<span id="cb10-5"><a aria-hidden="true" href="#cb10-5" tabindex="-1"></a></span>
-<span id="cb10-6"><a aria-hidden="true" href="#cb10-6" tabindex="-1"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"Modularity of greedy partition = </span><span class="sc">{</span>modularity(G, greedy_clusters)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb10-7"><a aria-hidden="true" href="#cb10-7" tabindex="-1"></a>ax[<span class="dv">1</span>].axis(<span class="st">"off"</span>)</span>
-<span id="cb10-8"><a aria-hidden="true" href="#cb10-8" tabindex="-1"></a>draw_graph(G, clusters <span class="op">=</span> greedy_clusters, ax <span class="op">=</span> ax[<span class="dv">1</span>], legend <span class="op">=</span> <span class="va">False</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="10" id="a080ef34">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">3.5</span>))</span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(progress)</span>
+<span id="cb11-4"><a aria-hidden="true" href="#cb11-4" tabindex="-1"></a>ax[<span class="dv">0</span>].<span class="bu">set</span>(xlabel <span class="op">=</span> <span class="st">"Number of swaps performed"</span>, ylabel <span class="op">=</span> <span class="st">"Modularity"</span>, title <span class="op">=</span> <span class="st">"Progress over swaps"</span>)</span>
+<span id="cb11-5"><a aria-hidden="true" href="#cb11-5" tabindex="-1"></a></span>
+<span id="cb11-6"><a aria-hidden="true" href="#cb11-6" tabindex="-1"></a>ax[<span class="dv">1</span>].<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"Modularity of greedy partition = </span><span class="sc">{</span>modularity(G, greedy_clusters)<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb11-7"><a aria-hidden="true" href="#cb11-7" tabindex="-1"></a>ax[<span class="dv">1</span>].axis(<span class="st">"off"</span>)</span>
+<span id="cb11-8"><a aria-hidden="true" href="#cb11-8" tabindex="-1"></a>draw_graph(G, clusters <span class="op">=</span> greedy_clusters, ax <span class="op">=</span> ax[<span class="dv">1</span>], legend <span class="op">=</span> <span class="va">False</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img class="figure-img" height="331" src="13-modularity-maximization_files/figure-html/cell-10-output-1.png" width="594"/></p>
+<p><img class="figure-img" height="331" src="13-modularity-maximization_files/figure-html/cell-11-output-1.png" width="594"/></p>
 </figure>
 </div>
 </div>
@@ -640,90 +654,90 @@ window.Quarto = {
 \]</span></p>
 <div class="page-columns page-full"><p>Roughly, <span class="math inline">\(H(\mathbf{z})\)</span> measures the “diversity” of labels represented in <span class="math inline">\(\mathbf{z}\)</span>, while <span class="math inline">\(I(\mathbf{z}, \mathbf{z}')\)</span> measures the extent to which knowing a node’s label in <span class="math inline">\(\mathbf{z}\)</span> helps you guess its label in <span class="math inline">\(\mathbf{z}'\)</span>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The entropy and mutual information are both quantities introduced by <span class="citation" data-cites="shannon1948mathematical">Shannon (<a href="#ref-shannon1948mathematical" role="doc-biblioref">1948</a>)</span> in a famous paper that launched the field of <em>information theory</em>. Information theory is widely used in electrical engineering, statistics, statistical physics, and machine learning. See <span class="citation" data-cites="cover2006elements">Cover and Thomas (<a href="#ref-cover2006elements" role="doc-biblioref">2006</a>)</span> for a modern treatment of the topic.</span></div></div>
 <p>Here are implementations of the entropy, mutual information, and normalized mutual information:</p>
-<div class="cell" data-execution_count="10" id="7dd26af3">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a><span class="kw">def</span> H(z, G): </span>
-<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a>    z <span class="op">=</span> labels_to_array(z, G)</span>
-<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(z)</span>
-<span id="cb11-4"><a aria-hidden="true" href="#cb11-4" tabindex="-1"></a>    p <span class="op">=</span> np.array([np.mean(z <span class="op">==</span> i) <span class="cf">for</span> i <span class="kw">in</span> np.unique(z)])</span>
-<span id="cb11-5"><a aria-hidden="true" href="#cb11-5" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.<span class="bu">sum</span>(p<span class="op">*</span>np.log(p))</span>
-<span id="cb11-6"><a aria-hidden="true" href="#cb11-6" tabindex="-1"></a></span>
-<span id="cb11-7"><a aria-hidden="true" href="#cb11-7" tabindex="-1"></a><span class="kw">def</span> I(z, z_, G):</span>
-<span id="cb11-8"><a aria-hidden="true" href="#cb11-8" tabindex="-1"></a>    z  <span class="op">=</span> labels_to_array(z, G)</span>
-<span id="cb11-9"><a aria-hidden="true" href="#cb11-9" tabindex="-1"></a>    z_ <span class="op">=</span> labels_to_array(z_, G)</span>
-<span id="cb11-10"><a aria-hidden="true" href="#cb11-10" tabindex="-1"></a></span>
-<span id="cb11-11"><a aria-hidden="true" href="#cb11-11" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(z)</span>
-<span id="cb11-12"><a aria-hidden="true" href="#cb11-12" tabindex="-1"></a></span>
-<span id="cb11-13"><a aria-hidden="true" href="#cb11-13" tabindex="-1"></a>    <span class="co"># we're going to accumulate the joint distribution of labels </span></span>
-<span id="cb11-14"><a aria-hidden="true" href="#cb11-14" tabindex="-1"></a>    <span class="co"># in a for-loop. </span></span>
-<span id="cb11-15"><a aria-hidden="true" href="#cb11-15" tabindex="-1"></a>    <span class="co"># an alternative would be to form it as an array and then reduce</span></span>
-<span id="cb11-16"><a aria-hidden="true" href="#cb11-16" tabindex="-1"></a>    info <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb11-17"><a aria-hidden="true" href="#cb11-17" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.unique(z): </span>
-<span id="cb11-18"><a aria-hidden="true" href="#cb11-18" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> np.unique(z_): </span>
-<span id="cb11-19"><a aria-hidden="true" href="#cb11-19" tabindex="-1"></a>            p <span class="op">=</span> np.mean((z <span class="op">==</span> i) <span class="op">&amp;</span> (z_ <span class="op">==</span> j))</span>
-<span id="cb11-20"><a aria-hidden="true" href="#cb11-20" tabindex="-1"></a>            <span class="cf">if</span> p <span class="op">==</span> <span class="dv">0</span>: </span>
-<span id="cb11-21"><a aria-hidden="true" href="#cb11-21" tabindex="-1"></a>                <span class="cf">continue</span></span>
-<span id="cb11-22"><a aria-hidden="true" href="#cb11-22" tabindex="-1"></a>            info <span class="op">+=</span> p<span class="op">*</span>np.log(p<span class="op">/</span>(np.mean(z <span class="op">==</span> i)<span class="op">*</span>np.mean(z_ <span class="op">==</span> j)))</span>
-<span id="cb11-23"><a aria-hidden="true" href="#cb11-23" tabindex="-1"></a>    <span class="cf">return</span> info</span>
-<span id="cb11-24"><a aria-hidden="true" href="#cb11-24" tabindex="-1"></a></span>
-<span id="cb11-25"><a aria-hidden="true" href="#cb11-25" tabindex="-1"></a><span class="kw">def</span> NMI(z, z_, G): </span>
-<span id="cb11-26"><a aria-hidden="true" href="#cb11-26" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">2</span><span class="op">*</span>I(z, z_, G)<span class="op">/</span>(H(z, G) <span class="op">+</span> H(z_, G))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="11" id="089c3533">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> H(z, G): </span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a>    z <span class="op">=</span> labels_to_array(z, G)</span>
+<span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(z)</span>
+<span id="cb12-4"><a aria-hidden="true" href="#cb12-4" tabindex="-1"></a>    p <span class="op">=</span> np.array([np.mean(z <span class="op">==</span> i) <span class="cf">for</span> i <span class="kw">in</span> np.unique(z)])</span>
+<span id="cb12-5"><a aria-hidden="true" href="#cb12-5" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">-</span>np.<span class="bu">sum</span>(p<span class="op">*</span>np.log(p))</span>
+<span id="cb12-6"><a aria-hidden="true" href="#cb12-6" tabindex="-1"></a></span>
+<span id="cb12-7"><a aria-hidden="true" href="#cb12-7" tabindex="-1"></a><span class="kw">def</span> I(z, z_, G):</span>
+<span id="cb12-8"><a aria-hidden="true" href="#cb12-8" tabindex="-1"></a>    z  <span class="op">=</span> labels_to_array(z, G)</span>
+<span id="cb12-9"><a aria-hidden="true" href="#cb12-9" tabindex="-1"></a>    z_ <span class="op">=</span> labels_to_array(z_, G)</span>
+<span id="cb12-10"><a aria-hidden="true" href="#cb12-10" tabindex="-1"></a></span>
+<span id="cb12-11"><a aria-hidden="true" href="#cb12-11" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(z)</span>
+<span id="cb12-12"><a aria-hidden="true" href="#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a aria-hidden="true" href="#cb12-13" tabindex="-1"></a>    <span class="co"># we're going to accumulate the joint distribution of labels </span></span>
+<span id="cb12-14"><a aria-hidden="true" href="#cb12-14" tabindex="-1"></a>    <span class="co"># in a for-loop. </span></span>
+<span id="cb12-15"><a aria-hidden="true" href="#cb12-15" tabindex="-1"></a>    <span class="co"># an alternative would be to form it as an array and then reduce</span></span>
+<span id="cb12-16"><a aria-hidden="true" href="#cb12-16" tabindex="-1"></a>    info <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-17"><a aria-hidden="true" href="#cb12-17" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.unique(z): </span>
+<span id="cb12-18"><a aria-hidden="true" href="#cb12-18" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> np.unique(z_): </span>
+<span id="cb12-19"><a aria-hidden="true" href="#cb12-19" tabindex="-1"></a>            p <span class="op">=</span> np.mean((z <span class="op">==</span> i) <span class="op">&amp;</span> (z_ <span class="op">==</span> j))</span>
+<span id="cb12-20"><a aria-hidden="true" href="#cb12-20" tabindex="-1"></a>            <span class="cf">if</span> p <span class="op">==</span> <span class="dv">0</span>: </span>
+<span id="cb12-21"><a aria-hidden="true" href="#cb12-21" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb12-22"><a aria-hidden="true" href="#cb12-22" tabindex="-1"></a>            info <span class="op">+=</span> p<span class="op">*</span>np.log(p<span class="op">/</span>(np.mean(z <span class="op">==</span> i)<span class="op">*</span>np.mean(z_ <span class="op">==</span> j)))</span>
+<span id="cb12-23"><a aria-hidden="true" href="#cb12-23" tabindex="-1"></a>    <span class="cf">return</span> info</span>
+<span id="cb12-24"><a aria-hidden="true" href="#cb12-24" tabindex="-1"></a></span>
+<span id="cb12-25"><a aria-hidden="true" href="#cb12-25" tabindex="-1"></a><span class="kw">def</span> NMI(z, z_, G): </span>
+<span id="cb12-26"><a aria-hidden="true" href="#cb12-26" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">2</span><span class="op">*</span>I(z, z_, G)<span class="op">/</span>(H(z, G) <span class="op">+</span> H(z_, G))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can assess the performance of our greedy clustering algorithm against ground truth:</p>
-<div class="cell" data-execution_count="11" id="d16c58ca">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a>NMI(clusters, greedy_clusters, G)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>np.float64(0.8738072317938035)</code></pre>
+<div class="cell" data-execution_count="12" id="bbc452f0">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" href="#cb13-1" tabindex="-1"></a>NMI(clusters, greedy_clusters, G)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>np.float64(0.867517624203057)</code></pre>
 </div>
 </div>
 <p>Frequently when assessing a clustering method, it’s not really easy to tell out of context whether it’s useful or not. We often assess the method against competing methods, and often on several data sets.</p>
-<div class="cell" data-execution_count="12" id="6305a55d">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" href="#cb14-1" tabindex="-1"></a><span class="kw">def</span> test_suite(G, clusters):</span>
-<span id="cb14-2"><a aria-hidden="true" href="#cb14-2" tabindex="-1"></a></span>
-<span id="cb14-3"><a aria-hidden="true" href="#cb14-3" tabindex="-1"></a>    <span class="co"># retrieve our own greedy clusters and assess</span></span>
-<span id="cb14-4"><a aria-hidden="true" href="#cb14-4" tabindex="-1"></a>    greedy_clusters <span class="op">=</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e4</span>))[<span class="dv">0</span>]</span>
-<span id="cb14-5"><a aria-hidden="true" href="#cb14-5" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Our greedy agglomeration clustering has NMI = </span><span class="sc">{</span>NMI(clusters, greedy_clusters, G)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb14-6"><a aria-hidden="true" href="#cb14-6" tabindex="-1"></a></span>
-<span id="cb14-7"><a aria-hidden="true" href="#cb14-7" tabindex="-1"></a>    <span class="co"># now compare against an array of built-in methods. </span></span>
-<span id="cb14-8"><a aria-hidden="true" href="#cb14-8" tabindex="-1"></a>    <span class="kw">def</span> cluster_from_partition(partition):</span>
-<span id="cb14-9"><a aria-hidden="true" href="#cb14-9" tabindex="-1"></a>        <span class="cf">return</span> {node : i <span class="cf">for</span> i, nodes <span class="kw">in</span> <span class="bu">enumerate</span>(partition) <span class="cf">for</span> node <span class="kw">in</span> nodes}</span>
-<span id="cb14-10"><a aria-hidden="true" href="#cb14-10" tabindex="-1"></a></span>
-<span id="cb14-11"><a aria-hidden="true" href="#cb14-11" tabindex="-1"></a>    methods <span class="op">=</span> [nx.community.greedy_modularity_communities, nx.community.asyn_lpa_communities, nx.community.label_propagation_communities, nx.community.louvain_communities]</span>
-<span id="cb14-12"><a aria-hidden="true" href="#cb14-12" tabindex="-1"></a></span>
-<span id="cb14-13"><a aria-hidden="true" href="#cb14-13" tabindex="-1"></a>    <span class="cf">for</span> method <span class="kw">in</span> methods:</span>
-<span id="cb14-14"><a aria-hidden="true" href="#cb14-14" tabindex="-1"></a>        partition <span class="op">=</span> method(G)</span>
-<span id="cb14-15"><a aria-hidden="true" href="#cb14-15" tabindex="-1"></a>        inferred_clusters <span class="op">=</span> cluster_from_partition(partition)</span>
-<span id="cb14-16"><a aria-hidden="true" href="#cb14-16" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Method </span><span class="sc">{</span>method<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> has NMI = </span><span class="sc">{</span>NMI(clusters, inferred_clusters, G)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="13" id="94f790e2">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" href="#cb15-1" tabindex="-1"></a><span class="kw">def</span> test_suite(G, clusters):</span>
+<span id="cb15-2"><a aria-hidden="true" href="#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a aria-hidden="true" href="#cb15-3" tabindex="-1"></a>    <span class="co"># retrieve our own greedy clusters and assess</span></span>
+<span id="cb15-4"><a aria-hidden="true" href="#cb15-4" tabindex="-1"></a>    greedy_clusters <span class="op">=</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e4</span>))[<span class="dv">0</span>]</span>
+<span id="cb15-5"><a aria-hidden="true" href="#cb15-5" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Our greedy agglomeration clustering has NMI = </span><span class="sc">{</span>NMI(clusters, greedy_clusters, G)<span class="sc">:.3f}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb15-6"><a aria-hidden="true" href="#cb15-6" tabindex="-1"></a></span>
+<span id="cb15-7"><a aria-hidden="true" href="#cb15-7" tabindex="-1"></a>    <span class="co"># now compare against an array of built-in methods. </span></span>
+<span id="cb15-8"><a aria-hidden="true" href="#cb15-8" tabindex="-1"></a>    <span class="kw">def</span> cluster_from_partition(partition):</span>
+<span id="cb15-9"><a aria-hidden="true" href="#cb15-9" tabindex="-1"></a>        <span class="cf">return</span> {node : i <span class="cf">for</span> i, nodes <span class="kw">in</span> <span class="bu">enumerate</span>(partition) <span class="cf">for</span> node <span class="kw">in</span> nodes}</span>
+<span id="cb15-10"><a aria-hidden="true" href="#cb15-10" tabindex="-1"></a></span>
+<span id="cb15-11"><a aria-hidden="true" href="#cb15-11" tabindex="-1"></a>    methods <span class="op">=</span> [nx.community.greedy_modularity_communities, nx.community.asyn_lpa_communities, nx.community.label_propagation_communities, nx.community.louvain_communities]</span>
+<span id="cb15-12"><a aria-hidden="true" href="#cb15-12" tabindex="-1"></a></span>
+<span id="cb15-13"><a aria-hidden="true" href="#cb15-13" tabindex="-1"></a>    <span class="cf">for</span> method <span class="kw">in</span> methods:</span>
+<span id="cb15-14"><a aria-hidden="true" href="#cb15-14" tabindex="-1"></a>        partition <span class="op">=</span> method(G)</span>
+<span id="cb15-15"><a aria-hidden="true" href="#cb15-15" tabindex="-1"></a>        inferred_clusters <span class="op">=</span> cluster_from_partition(partition)</span>
+<span id="cb15-16"><a aria-hidden="true" href="#cb15-16" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Method </span><span class="sc">{</span>method<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> has NMI = </span><span class="sc">{</span>NMI(clusters, inferred_clusters, G)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s run our test suite:</p>
-<div class="cell" data-execution_count="13" id="721f056b">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" href="#cb15-1" tabindex="-1"></a>test_suite(G, clusters)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="14" id="e00eb119">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" href="#cb16-1" tabindex="-1"></a>test_suite(G, clusters)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Our greedy agglomeration clustering has NMI = 0.767
+<pre><code>Our greedy agglomeration clustering has NMI = 0.845
 
 Method greedy_modularity_communities has NMI = 0.748
-Method asyn_lpa_communities has NMI = 0.849
+Method asyn_lpa_communities has NMI = 0.688
 Method label_propagation_communities has NMI = 0.868
 Method louvain_communities has NMI = 0.868</code></pre>
 </div>
 </div>
 <p>Our algorithm appears to be competitive with several of the built-in methods for community detection implemented in Networkx.</p>
 <p>Would we get different results on another graph? Let’s load up our friend the Karate Club graph:</p>
-<div class="cell" data-execution_count="14" id="30167e44">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a aria-hidden="true" href="#cb17-1" tabindex="-1"></a>G_karate <span class="op">=</span> nx.karate_club_graph()</span>
-<span id="cb17-2"><a aria-hidden="true" href="#cb17-2" tabindex="-1"></a>G_karate <span class="op">=</span> nx.convert_node_labels_to_integers(G_karate)</span>
-<span id="cb17-3"><a aria-hidden="true" href="#cb17-3" tabindex="-1"></a>clusters_karate <span class="op">=</span> nx.get_node_attributes(G_karate, <span class="st">"club"</span>)</span>
-<span id="cb17-4"><a aria-hidden="true" href="#cb17-4" tabindex="-1"></a>clusters_karate <span class="op">=</span> {node : <span class="dv">0</span> <span class="cf">if</span> club <span class="op">==</span> <span class="st">"Mr. Hi"</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> node, club <span class="kw">in</span> clusters_karate.items()}</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="15" id="bb238623">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" href="#cb18-1" tabindex="-1"></a>G_karate <span class="op">=</span> nx.karate_club_graph()</span>
+<span id="cb18-2"><a aria-hidden="true" href="#cb18-2" tabindex="-1"></a>G_karate <span class="op">=</span> nx.convert_node_labels_to_integers(G_karate)</span>
+<span id="cb18-3"><a aria-hidden="true" href="#cb18-3" tabindex="-1"></a>clusters_karate <span class="op">=</span> nx.get_node_attributes(G_karate, <span class="st">"club"</span>)</span>
+<span id="cb18-4"><a aria-hidden="true" href="#cb18-4" tabindex="-1"></a>clusters_karate <span class="op">=</span> {node : <span class="dv">0</span> <span class="cf">if</span> club <span class="op">==</span> <span class="st">"Mr. Hi"</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> node, club <span class="kw">in</span> clusters_karate.items()}</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll run our test suite again:</p>
-<div class="cell" data-execution_count="15" id="64dfb149">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" href="#cb18-1" tabindex="-1"></a>test_suite(G_karate, clusters_karate)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="16" id="0de62694">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" href="#cb19-1" tabindex="-1"></a>test_suite(G_karate, clusters_karate)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Our greedy agglomeration clustering has NMI = 0.425
+<pre><code>Our greedy agglomeration clustering has NMI = 0.417
 
 Method greedy_modularity_communities has NMI = 0.565
-Method asyn_lpa_communities has NMI = 0.576
+Method asyn_lpa_communities has NMI = 0.495
 Method label_propagation_communities has NMI = 0.364
-Method louvain_communities has NMI = 0.600</code></pre>
+Method louvain_communities has NMI = 0.588</code></pre>
 </div>
 </div>
 <p>Our algorithm appears to be a bit less impressive in this context, although results may vary due to randomness. A full test suite would often involve averaging the NMI over many runs of each algorithm.</p>

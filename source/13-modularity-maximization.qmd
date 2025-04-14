@@ -95,12 +95,10 @@ This hidden code cell implements a number of utilities for processing and node l
 :::
 
 ```{python}
-#---
 G = acquire_contact_data()
 clusters = nx.get_node_attributes(G, "class")
 fig, ax = plt.subplots(1, 1)
 draw_graph(G, clusters = clusters, ax = ax)
-#---
 ```
 
 There are 5 classes in the network: MP\*1, MP\*2, PC, PC\*, and PSI\*. Visual inspection of the plot suggests that the network may be assortative with respect to class: there are many edges between nodes of the same class, and fewer edges between nodes of different classes. There is even some *nested* assortative structure. The MP\*1 and MP\*2 classes seem to form a distinct subgraph. Students in MP\*1 are more likely interact amongst themselves, but if they do interact with anyone outside their own class, it is likely to be with students in MP\*2. 
@@ -111,7 +109,7 @@ Recall that we can quantify the extent to which a network is assortative with re
 
 $$
 \begin{aligned}
-    Q(G, \mathbf{z}) = \frac{1}{2m} \sum_{i,j \in N} \left[ a_{ij} - \frac{k_i k_j}{2m} \right] \delta_{z_i z_j} \,,
+    Q(G, \mathbf{z}) = \frac{1}{2m} \sum_{\substack{i,j \in N \\ i \neq j}} \left[ a_{ij} - \frac{k_i k_j}{2m} \right] \delta_{z_i z_j} \,,
 \end{aligned}
 $$
 
@@ -127,7 +125,6 @@ We often informally say that the network is *assortative* or *has modular struct
 Networkx implements a function to compute the modularity, but it's not difficult to implement our own either. We'll structure our function to accept a vector of characters giving the class labels.  
 
 ```{python}
-#---
 def modularity(G, z):
 
     # converts z from a dict to an array if it isn't one already
@@ -142,7 +139,6 @@ def modularity(G, z):
     delta = z[:, None] == z[None, :] 
 
     return 1/(2*m)*((A - np.outer(k, k) / (2 * m))*delta).sum()
-#---
 ```
 
 Now let's try calling our function to find the modularity of the graph and its labels: 
@@ -189,12 +185,25 @@ Roughly, criterion 1 says that we are "optimizing the right thing," while criter
 
 Unfortunately, exactly maximizing the modularity is NP-hard [@brandes2007modularity], and so we need to consider tractable heuristic algorithms that we hope may lead us to solutions which are close to optimal. 
 
-One simple algorithm for heuristic modularity maximization is the *greedy agglomerative clustering* algorithm. The idea is to start with each node in its own community, and then iteratively swap the labels of nodes until no improvement in the modularity can be obtained. An important computational feature of this algorithm is that we don't need to always recalculate the modularity from scratch. Instead, we can simply *update* the modularity with the change that results from swapping a node $h$ from community $x$ to community $y$. Let $\mathbf{z}$ be the label vector before the swap and let $\mathbf{z}'$ be the label vector after the swap. Then, 
+One simple algorithm for heuristic modularity maximization is the *greedy agglomerative clustering* algorithm. The idea is to start with each node in its own community, and then iteratively swap the labels of nodes until no improvement in the modularity can be obtained. An important computational feature of this algorithm is that we don't need to always recalculate the modularity from scratch. 
 
+Instead, we can simply *update* the modularity with the change that results from swapping a node $h$ from community $x$ to community $y$. Let $\mathbf{z}$ be the label vector before the swap and let $\mathbf{z}'$ be the label vector after the swap. Importantly, this quantity can be evaluated much more efficiently than the complete modularity. 
+
+::: {.callout-important}
+
+## Exercise
+
+Prove that $Q(G, \mathbf{z}') - Q(G, \mathbf{z}) = \sum_{j \neq h} b_{hj}(x,y)$ for some numbers $b_{hj}(x,y)$ which depend on the node $j$, its original community $x$, and its proposed new community $y$, and which can be computed in $O(1)$ time.
+
+:::
+
+::: {.solution .hide}
+
+We compute directly: 
 $$
 \begin{aligned}
-    Q(G, \mathbf{z}') - Q(G, \mathbf{z}) &=  \frac{1}{2m}\sum_{i\neq j} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \delta_{z_i', z_j'} - \frac{1}{2m}\sum_{i\neq j} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \delta_{z_i, z_j} \\ 
-    &= \frac{1}{2m}\sum_{i\neq j} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \left(\delta_{z_i', z_j'} - \delta_{z_i, z_j}\right)\;.
+    Q(G, \mathbf{z}') - Q(G, \mathbf{z}) &=  \frac{1}{2m}\sum_{\substack{i,j \in N \\ i \neq j}} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \delta_{z_i', z_j'} - \frac{1}{2m}\sum_{\substack{i,j \in N \\ i \neq j}} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \delta_{z_i, z_j} \\ 
+    &= \frac{1}{2m}\sum_{\substack{i,j \in N \\ i \neq j}} \left[ a_{ij} - \frac{k_ik_j}{2m} \right] \left(\delta_{z_i', z_j'} - \delta_{z_i, z_j}\right)\;.
 \end{aligned}
 $$
 
@@ -207,10 +216,34 @@ $$
 \end{aligned}
 $$
 
-where in the second line we have used the fact that the two sums appearing are just re-indexed copies of each other. Here's our implementation: 
+where in the second line we have used the fact that the two sums appearing are just re-indexed copies of each other. 
+
+:::
+
+Our implementation of the main loop relies on the following function which calculates the change in modularity from swapping a node $h$ from community $x$ to community $y$. 
+
+
+```{python}
+def modularity_change(A, k, m, i, x, y, labels):    
+    """
+    compute the change in modularity associated with moving the current label of node i (assumed to be labels[i]) from x to y
+    """
+#---
+    change_vec = 1/m *((A[i] - k[i]*k/(2*m))*(1*(y == labels) - 1*(x == labels)))
+    change_vec[i] = 0 # zero out the term corresponding to i
+    change = change_vec.sum()
+    return change
+#---
+```
+
+Now we can use this function in a loop to iteratively swap node labels until no improvement can be made (or until the step limit is exceeded).
 
 ```{python}
 def greedy_clustering(G, num_steps = int(1e4)):
+    """
+    Return a label vector of integers from greedy agglomerative clustering
+    Also return a list showing the progress of the modularity at each step
+    """
 
     # initialize every node in its own cluster
     labels = np.arange(G.number_of_nodes()) 
@@ -238,9 +271,7 @@ def greedy_clustering(G, num_steps = int(1e4)):
 
         else: 
             # compute the change in modularity of the prospective swap
-            change_vec = 1/m *  ((A[i] - k[i]*k/(2*m))*(1*(y == labels) - 1*(x == labels)))
-            change_vec[i] = 0 # zero out the term corresponding to i
-            change = change_vec.sum()
+            change = modularity_change(A, k, m, i, x, y, labels)
 
             # if positive, update the labels and store the new modularity for visualization later
             if change > 0: 
@@ -248,7 +279,6 @@ def greedy_clustering(G, num_steps = int(1e4)):
                 progress.append(progress[-1] + change)
         
     # postprocessing: we need to convert the labels into a dict for visualization etc. 
-
     distinct_labels = np.unique(labels)
     label_map = {int(distinct_label) : i for i, distinct_label in enumerate(distinct_labels)}
 
