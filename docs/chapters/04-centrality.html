@@ -318,8 +318,14 @@ window.Quarto = {
 </li>
 <li class="sidebar-item">
 <div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/53-epidemiology-computational.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
 <a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
-<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+<span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
 </div>
 </li>
 </ul>
@@ -399,7 +405,7 @@ Exercise
 </div>
 </div>
 <p>Let’s visualize degree centrality in the Zachary karate club network. In the hidden code cell below, we import some libraries, acquire the data, and define a useful plotting function that will make it easy to visualize different centrality measures on this network.</p>
-<div class="cell" data-execution_count="1" id="92136770">
+<div class="cell" data-execution_count="1" id="11e6a582">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -422,15 +428,14 @@ Exercise
 <span id="cb1-18"><a aria-hidden="true" href="#cb1-18" tabindex="-1"></a>    <span class="st">"edgecolors"</span>: <span class="st">"white"</span>,</span>
 <span id="cb1-19"><a aria-hidden="true" href="#cb1-19" tabindex="-1"></a>    <span class="st">"cmap"</span> : <span class="st">"Blues"</span>,</span>
 <span id="cb1-20"><a aria-hidden="true" href="#cb1-20" tabindex="-1"></a>    <span class="st">"width"</span> : <span class="fl">0.3</span></span>
-<span id="cb1-21"><a aria-hidden="true" href="#cb1-21" tabindex="-1"></a>    </span>
-<span id="cb1-22"><a aria-hidden="true" href="#cb1-22" tabindex="-1"></a>}</span>
-<span id="cb1-23"><a aria-hidden="true" href="#cb1-23" tabindex="-1"></a></span>
-<span id="cb1-24"><a aria-hidden="true" href="#cb1-24" tabindex="-1"></a>pos <span class="op">=</span> nx.kamada_kawai_layout(G)</span>
-<span id="cb1-25"><a aria-hidden="true" href="#cb1-25" tabindex="-1"></a></span>
-<span id="cb1-26"><a aria-hidden="true" href="#cb1-26" tabindex="-1"></a><span class="kw">def</span> plot_centrality(G, pos, c): </span>
-<span id="cb1-27"><a aria-hidden="true" href="#cb1-27" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
-<span id="cb1-28"><a aria-hidden="true" href="#cb1-28" tabindex="-1"></a>    font_color <span class="op">=</span> {i : [<span class="st">"black"</span>, <span class="st">"white"</span>][<span class="bu">int</span>(c[i] <span class="op">&gt;</span> <span class="fl">0.8</span><span class="op">*</span>c.<span class="bu">max</span>())] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(c))}</span>
-<span id="cb1-29"><a aria-hidden="true" href="#cb1-29" tabindex="-1"></a>    nx.draw(G, pos, <span class="op">**</span>plot_kwargs, node_color <span class="op">=</span> c, font_color <span class="op">=</span> font_color)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a aria-hidden="true" href="#cb1-21" tabindex="-1"></a>}</span>
+<span id="cb1-22"><a aria-hidden="true" href="#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a aria-hidden="true" href="#cb1-23" tabindex="-1"></a>pos <span class="op">=</span> nx.kamada_kawai_layout(G)</span>
+<span id="cb1-24"><a aria-hidden="true" href="#cb1-24" tabindex="-1"></a></span>
+<span id="cb1-25"><a aria-hidden="true" href="#cb1-25" tabindex="-1"></a><span class="kw">def</span> plot_centrality(G, pos, c): </span>
+<span id="cb1-26"><a aria-hidden="true" href="#cb1-26" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb1-27"><a aria-hidden="true" href="#cb1-27" tabindex="-1"></a>    font_color <span class="op">=</span> {i : [<span class="st">"black"</span>, <span class="st">"white"</span>][<span class="bu">int</span>(c[i] <span class="op">&gt;</span> <span class="fl">0.8</span><span class="op">*</span>c.<span class="bu">max</span>())] <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(c))}</span>
+<span id="cb1-28"><a aria-hidden="true" href="#cb1-28" tabindex="-1"></a>    nx.draw(G, pos, <span class="op">**</span>plot_kwargs, node_color <span class="op">=</span> c, font_color <span class="op">=</span> font_color)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Now we’ll compute the degree centrality (using the <code>nx.degree_centrality</code> builtin) and visualize it on the network.</p>
@@ -847,7 +852,7 @@ Figure 4.6: Visualiation of closeness centrality. Node size and color are propo
 </div>
 <p>Direction of travel is accounted for in this definition, and so this can be used without modification in directed networks.</p>
 <p>Computation of betweenness centrality requires that we enumerate all shortest paths between all pairs of nodes in the graph. This is often computationally prohibitive, although for a small network like this one it’s not too bad.</p>
-<div class="cell" data-execution_count="8" id="15881042">
+<div class="cell" data-execution_count="8" id="bd89bd10">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>paths <span class="op">=</span> <span class="bu">list</span>(nx.all_pairs_all_shortest_paths(G))</span>
 <span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a></span>
 <span id="cb7-3"><a aria-hidden="true" href="#cb7-3" tabindex="-1"></a><span class="co"># example of how to access the paths between a specific pair of nodes</span></span>

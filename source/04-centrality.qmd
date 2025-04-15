@@ -63,7 +63,6 @@ plot_kwargs = {
     "edgecolors": "white",
     "cmap" : "Blues",
     "width" : 0.3
-    
 }
 
 pos = nx.kamada_kawai_layout(G)

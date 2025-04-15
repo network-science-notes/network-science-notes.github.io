@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta charset="utf-8"/>
+<meta content="quarto-1.6.10" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>17  Models of Disease-Spread – Network Science: Models, Mathematics, and Computation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta content="../" name="quarto:offset"/>
+<link href="../chapters/52-epidemiology.html" rel="next"/>
+<link href="../chapters/51-agent-based-modeling.html" rel="prev"/>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet"/>
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2d9718c933debafcce942f9b212640bc.css" id="quarto-text-highlighting-styles" rel="stylesheet"/>
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet"/>
+<link append-hash="true" data-mode="light" href="../site_libs/bootstrap/bootstrap-c1bdd270c1c0708cd2ff05417efafcc5.min.css" id="quarto-bootstrap" rel="stylesheet"/>
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<meta content="neutral" name="mermaid-theme"/>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+<link href="../styles.css" rel="stylesheet"/>
+</head>
+<body class="nav-sidebar floating slimcontent">
+<div id="quarto-search-results"></div>
+<header class="headroom fixed-top" id="quarto-header">
+<nav class="quarto-secondary-nav">
+<div class="container-fluid d-flex">
+<button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
+<i class="bi bi-layout-text-sidebar-reverse"></i>
+</button>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/53-epidemiology-computational.html"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></a></li></ol></nav>
+<a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
+</a>
+</div>
+</nav>
+</header>
+<!-- content -->
+<div class="quarto-container page-columns page-rows-contents page-layout-article" id="quarto-content">
+<!-- sidebar -->
+<nav class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto" id="quarto-sidebar">
+<div class="pt-lg-2 mt-2 text-left sidebar-header">
+<div class="sidebar-title mb-0 py-0">
+<a href="../">Network Science: Models, Mathematics, and Computation</a>
+</div>
+</div>
+<div class="sidebar-menu-container">
+<ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../index.html">
+<span class="menu-text">Welcome</span></a>
+</div>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Fundamentals</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-1" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-1">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/01-networkrepresentations.html">
+<span class="menu-text"><span class="chapter-number">1</span>  <span class="chapter-title">Networks and Their Representations</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/02-degree-walks-paths.html">
+<span class="menu-text"><span class="chapter-number">2</span>  <span class="chapter-title">Degree, Walks, and Paths</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/03-components-laplacian.html">
+<span class="menu-text"><span class="chapter-number">3</span>  <span class="chapter-title">Components and the Graph Laplacian</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/04-centrality.html">
+<span class="menu-text"><span class="chapter-number">4</span>  <span class="chapter-title">Centrality and Importance</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/05-viz.html">
+<span class="menu-text"><span class="chapter-number">5</span>  <span class="chapter-title">Visualizing Networks and Why You Shouldn’t</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/07-real-world.html">
+<span class="menu-text"><span class="chapter-number">6</span>  <span class="chapter-title">Structure of Empirical Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Models of Networks</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-2" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-2">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/09-random-graphs.html">
+<span class="menu-text"><span class="chapter-number">7</span>  <span class="chapter-title">Random Graphs: Erdős–Rényi</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/10-configuration-model.html">
+<span class="menu-text"><span class="chapter-number">8</span>  <span class="chapter-title">Degree-Preserving Random Graphs</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/11-generating-functions.html">
+<span class="menu-text"><span class="chapter-number">9</span>  <span class="chapter-title">Probability Generating Functions</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/120-preferential-attachment.html">
+<span class="menu-text"><span class="chapter-number">10</span>  <span class="chapter-title">Preferential Attachment and Power Laws</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Network Algorithms</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-3" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-3">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/06-modularity.html">
+<span class="menu-text"><span class="chapter-number">11</span>  <span class="chapter-title">Homophily, Assortativity, and Modularity</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/13-modularity-maximization.html">
+<span class="menu-text"><span class="chapter-number">12</span>  <span class="chapter-title">Community Detection and Modularity Maximization</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/19-spectral-clustering.html">
+<span class="menu-text"><span class="chapter-number">13</span>  <span class="chapter-title">Spectral Clustering</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/41-link-prediction.html">
+<span class="menu-text"><span class="chapter-number">14</span>  <span class="chapter-title">Link Prediction and Feedback Loops</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<div class="sidebar-item-container">
+<a aria-expanded="true" class="sidebar-item-text sidebar-link text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<span class="menu-text">Applications and Extensions</span></a>
+<a aria-expanded="true" aria-label="Toggle section" class="sidebar-item-toggle text-start" data-bs-target="#quarto-sidebar-section-4" data-bs-toggle="collapse" role="navigation">
+<i class="bi bi-chevron-right ms-2"></i>
+</a>
+</div>
+<ul class="collapse list-unstyled sidebar-section depth1 show" id="quarto-sidebar-section-4">
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/50-random-walks.html">
+<span class="menu-text"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/51-agent-based-modeling.html">
+<span class="menu-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link active" href="../chapters/53-epidemiology-computational.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
+<span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+</div>
+</li>
+</ul>
+</li>
+<li class="sidebar-item sidebar-item-section">
+<span class="sidebar-item-text sidebar-link text-start">
+<span class="menu-text">Appendices</span></span>
+</li>
+</ul>
+</div>
+</nav>
+<div class="quarto-sidebar-collapse-item" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" id="quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+<div class="sidebar margin-sidebar" id="quarto-margin-sidebar">
+<nav class="toc-active" id="TOC" role="doc-toc">
+<h2 id="toc-title">Contents</h2>
+<ul>
+<li><a class="nav-link active" data-scroll-target="#contact-networks" href="#contact-networks" id="toc-contact-networks">Contact Networks</a></li>
+<li><a class="nav-link" data-scroll-target="#compartmental-modeling" href="#compartmental-modeling" id="toc-compartmental-modeling">Compartmental Modeling</a></li>
+<li><a class="nav-link" data-scroll-target="#implementation-in-mesa" href="#implementation-in-mesa" id="toc-implementation-in-mesa">Implementation in Mesa</a></li>
+<li><a class="nav-link" data-scroll-target="#the-si-model" href="#the-si-model" id="toc-the-si-model">The SI Model</a></li>
+<li><a class="nav-link" data-scroll-target="#the-sir-model" href="#the-sir-model" id="toc-the-sir-model">The SIR Model</a></li>
+<li><a class="nav-link" data-scroll-target="#theory-whats-going-on" href="#theory-whats-going-on" id="toc-theory-whats-going-on">Theory: What’s Going On?</a></li>
+</ul>
+</nav>
+</div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/53-epidemiology-computational.html"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></h1>
+</div>
+<div class="quarto-title-meta">
+</div>
+</header>
+<p><em>Open the live notebook in Google Colab <a href="https://colab.research.google.com/github/network-science-notes/network-science-notes.github.io/blob/main/docs/live-notebooks/53-epidemiology-computational.ipynb">here</a>.</em></p>
+<p>In this set of notes, we’ll study several simple models of disease spread on networks. We’ll implement and simulate these models using the <code>mesa</code> library for agent-based modeling. Then, we’ll give an informal derivation of the <em>epidemic threshold</em> on networks, which describes the condition under which a disease can spread to a large portion of a networked population.</p>
+<p><em>This is a set of simulation-driven nodes on agent-based modeling of epidemics on networks. Readers familiar with differential equations and probability generating functions may be interested in consulting the <a href="../chapters/52-epidemiology.html">advanced notes</a> for a more theoretical discussion of the epidemic threshold and the SIR model.</em></p>
+<section class="level2 page-columns page-full" id="contact-networks">
+<h2 class="anchored" data-anchor-id="contact-networks">Contact Networks</h2>
+<p>We’re going to consider two simple models of <em>contact networks</em>. In a contact network, edges model pathways through infection can spread between two individuals. Real contact networks are <em>temporal</em>: interactions occur at a specific point in time, and it is not possible to spread disease outside the time in which the interaction took place. For simplicity, we’ll instead model contact networks as static graphs. This can be viewed as an approximation of social life in which we are exposed to the same people over time or every day.</p>
+<p>We’ll construct two networks on which to run our simulations. By comparing results on these two networks, we’ll ask and then give one answer to the question:</p>
+<blockquote class="blockquote">
+<p>How does the structure of the social contact network influence the spread of disease?</p>
+</blockquote>
+<p>We’ll form our two networks as follows:</p>
+<ul>
+<li>For <span class="math inline">\(G_1\)</span>, we’ll use a power-law distribution to generate expected node degrees.</li>
+<li>For <span class="math inline">\(G_2\)</span>, we’ll use a Poisson distribution to generate expected node degrees. The Poisson will be tuned to have the same mean degree as the power law.</li>
+</ul>
+<p>Once we have the expected node degrees, we’ll use the Chung-Lu model to construct the graphs. Here are the degree distributions of the resulting graphs:</p>
+<div class="cell page-columns page-full" data-execution_count="1" id="cell-fig-degree-distributions">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> mesa <span class="im">import</span> Model, Agent                 <span class="co"># core mesa classes</span></span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">from</span> mesa.space <span class="im">import</span> NetworkGrid             </span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="im">from</span> mesa.datacollection <span class="im">import</span> DataCollector</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx                         </span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np                            </span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt          </span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>alpha <span class="op">=</span> <span class="dv">2</span> <span class="co"># power law parameter</span></span>
+<span id="cb1-11"><a aria-hidden="true" href="#cb1-11" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">500</span>   <span class="co"># number of nodes</span></span>
+<span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a aria-hidden="true" href="#cb1-13" tabindex="-1"></a><span class="kw">def</span> degree_sequence(G):</span>
+<span id="cb1-14"><a aria-hidden="true" href="#cb1-14" tabindex="-1"></a>    degrees <span class="op">=</span> nx.degree(G)</span>
+<span id="cb1-15"><a aria-hidden="true" href="#cb1-15" tabindex="-1"></a>    degree_sequence <span class="op">=</span> np.array([deg[<span class="dv">1</span>] <span class="cf">for</span> deg <span class="kw">in</span> degrees])</span>
+<span id="cb1-16"><a aria-hidden="true" href="#cb1-16" tabindex="-1"></a>    <span class="cf">return</span> degree_sequence</span>
+<span id="cb1-17"><a aria-hidden="true" href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a aria-hidden="true" href="#cb1-18" tabindex="-1"></a><span class="co"># form the two degree graphs</span></span>
+<span id="cb1-19"><a aria-hidden="true" href="#cb1-19" tabindex="-1"></a>power_law_degs <span class="op">=</span> np.random.zipf(alpha, n) </span>
+<span id="cb1-20"><a aria-hidden="true" href="#cb1-20" tabindex="-1"></a>G_1 <span class="op">=</span> nx.expected_degree_graph(power_law_degs, selfloops <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb1-21"><a aria-hidden="true" href="#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a aria-hidden="true" href="#cb1-22" tabindex="-1"></a><span class="co"># we can get zero-degree nodes through this process; this code ensures that every node has degree at least 1</span></span>
+<span id="cb1-23"><a aria-hidden="true" href="#cb1-23" tabindex="-1"></a>done <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-24"><a aria-hidden="true" href="#cb1-24" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> done: </span>
+<span id="cb1-25"><a aria-hidden="true" href="#cb1-25" tabindex="-1"></a>    degree_seq_G_1 <span class="op">=</span> degree_sequence(G_1)</span>
+<span id="cb1-26"><a aria-hidden="true" href="#cb1-26" tabindex="-1"></a>    zero_deg_nodes <span class="op">=</span> np.where(degree_seq_G_1 <span class="op">==</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb1-27"><a aria-hidden="true" href="#cb1-27" tabindex="-1"></a>    node_to_link <span class="op">=</span> np.random.choice(G_1.nodes)</span>
+<span id="cb1-28"><a aria-hidden="true" href="#cb1-28" tabindex="-1"></a>    G_1.add_edge(node_to_link, zero_deg_nodes[<span class="dv">0</span>])</span>
+<span id="cb1-29"><a aria-hidden="true" href="#cb1-29" tabindex="-1"></a>    <span class="cf">if</span> degree_sequence(G_1).<span class="bu">min</span>() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb1-30"><a aria-hidden="true" href="#cb1-30" tabindex="-1"></a>        done <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-31"><a aria-hidden="true" href="#cb1-31" tabindex="-1"></a>    </span>
+<span id="cb1-32"><a aria-hidden="true" href="#cb1-32" tabindex="-1"></a>poisson_mean <span class="op">=</span> degree_sequence(G_1).mean()</span>
+<span id="cb1-33"><a aria-hidden="true" href="#cb1-33" tabindex="-1"></a>poisson_degs <span class="op">=</span> np.random.poisson(poisson_mean, n)</span>
+<span id="cb1-34"><a aria-hidden="true" href="#cb1-34" tabindex="-1"></a>G_2 <span class="op">=</span> nx.expected_degree_graph(poisson_degs, selfloops <span class="op">=</span> <span class="va">False</span>)</span>
+<span id="cb1-35"><a aria-hidden="true" href="#cb1-35" tabindex="-1"></a></span>
+<span id="cb1-36"><a aria-hidden="true" href="#cb1-36" tabindex="-1"></a><span class="co"># plotting degree distributions</span></span>
+<span id="cb1-37"><a aria-hidden="true" href="#cb1-37" tabindex="-1"></a><span class="kw">def</span> log_binned_histogram(degree_sequence, interval <span class="op">=</span> <span class="dv">5</span>, num_bins <span class="op">=</span> <span class="dv">20</span>):</span>
+<span id="cb1-38"><a aria-hidden="true" href="#cb1-38" tabindex="-1"></a>    nonzero <span class="op">=</span> degree_sequence[degree_sequence <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb1-39"><a aria-hidden="true" href="#cb1-39" tabindex="-1"></a></span>
+<span id="cb1-40"><a aria-hidden="true" href="#cb1-40" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(nonzero, bins <span class="op">=</span> <span class="bu">min</span>(<span class="bu">int</span>(<span class="bu">len</span>(nonzero)<span class="op">/</span>interval), num_bins))</span>
+<span id="cb1-41"><a aria-hidden="true" href="#cb1-41" tabindex="-1"></a>    bins <span class="op">=</span> np.logspace(np.log10(bins[<span class="dv">0</span>]),np.log10(bins[<span class="op">-</span><span class="dv">1</span>]),<span class="bu">len</span>(bins))</span>
+<span id="cb1-42"><a aria-hidden="true" href="#cb1-42" tabindex="-1"></a>    hist, bins <span class="op">=</span> np.histogram(nonzero, bins <span class="op">=</span> bins)</span>
+<span id="cb1-43"><a aria-hidden="true" href="#cb1-43" tabindex="-1"></a>    binwidths <span class="op">=</span> bins[<span class="dv">1</span>:] <span class="op">-</span> bins[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-44"><a aria-hidden="true" href="#cb1-44" tabindex="-1"></a>    hist <span class="op">=</span> hist <span class="op">/</span> binwidths</span>
+<span id="cb1-45"><a aria-hidden="true" href="#cb1-45" tabindex="-1"></a>    p <span class="op">=</span> hist<span class="op">/</span>hist.<span class="bu">sum</span>()</span>
+<span id="cb1-46"><a aria-hidden="true" href="#cb1-46" tabindex="-1"></a></span>
+<span id="cb1-47"><a aria-hidden="true" href="#cb1-47" tabindex="-1"></a>    <span class="cf">return</span> bins[:<span class="op">-</span><span class="dv">1</span>], p</span>
+<span id="cb1-48"><a aria-hidden="true" href="#cb1-48" tabindex="-1"></a></span>
+<span id="cb1-49"><a aria-hidden="true" href="#cb1-49" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb1-50"><a aria-hidden="true" href="#cb1-50" tabindex="-1"></a></span>
+<span id="cb1-51"><a aria-hidden="true" href="#cb1-51" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb1-52"><a aria-hidden="true" href="#cb1-52" tabindex="-1"></a>    G <span class="op">=</span> [G_1, G_2][i]</span>
+<span id="cb1-53"><a aria-hidden="true" href="#cb1-53" tabindex="-1"></a>    color <span class="op">=</span> [<span class="st">"slategrey"</span>, <span class="st">"firebrick"</span>][i]</span>
+<span id="cb1-54"><a aria-hidden="true" href="#cb1-54" tabindex="-1"></a>    deg_seq <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb1-55"><a aria-hidden="true" href="#cb1-55" tabindex="-1"></a>    x, p <span class="op">=</span> log_binned_histogram(deg_seq, interval <span class="op">=</span> <span class="dv">5</span>, num_bins <span class="op">=</span> <span class="dv">20</span>)</span>
+<span id="cb1-56"><a aria-hidden="true" href="#cb1-56" tabindex="-1"></a>    ix <span class="op">=</span> p <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb1-57"><a aria-hidden="true" href="#cb1-57" tabindex="-1"></a></span>
+<span id="cb1-58"><a aria-hidden="true" href="#cb1-58" tabindex="-1"></a>    ax.plot(x[ix], p[ix],  label <span class="op">=</span> [<span class="vs">r"$G_1$: Power Law"</span>, <span class="vs">r"$G_2$: Poisson"</span>][i], linestyle <span class="op">=</span> <span class="st">"--"</span>, color <span class="op">=</span> color)</span>
+<span id="cb1-59"><a aria-hidden="true" href="#cb1-59" tabindex="-1"></a>    ax.loglog()</span>
+<span id="cb1-60"><a aria-hidden="true" href="#cb1-60" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Degree"</span>)</span>
+<span id="cb1-61"><a aria-hidden="true" href="#cb1-61" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Density"</span>)</span>
+<span id="cb1-62"><a aria-hidden="true" href="#cb1-62" tabindex="-1"></a>    ax.legend()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-degree-distributions">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-degree-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="figure-img" height="360" src="53-epidemiology-computational_files/figure-html/fig-degree-distributions-output-1.png" width="440"/>
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-degree-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 17.1: Degree distributions for the power law and Poisson random graphs used for our experiments. Several nodes with degree 0 in the power law graph are not shown.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section class="level2" id="compartmental-modeling">
+<h2 class="anchored" data-anchor-id="compartmental-modeling">Compartmental Modeling</h2>
+<p>Now that we have our structure in place, it’s time to set the dynamics of the model. We are going to use the common framework of <em>compartmental modeling</em>. In compartmental models, each agent can be in one of several discrete <em>compartments</em>. These compartments represent the possible states in which an agent can exist. For example, in the <strong>SI</strong> model, there are two compartments: <strong>S</strong>usceptible and <strong>I</strong>nfected. In the <strong>SIR</strong> model, there are three compartments: <strong>S</strong>usceptible, <strong>I</strong>nfected, and <strong>R</strong>ecovered.</p>
+<p>A model framework can be specified at a high level by describing the compartments which exist as well as the rules by which agents move between states.</p>
+<p>In the models that we consider here, we’ll usually assume a <strong>S</strong>usceptible population. We’ll assume that one individual (“Patient Zero”) starts out <strong>I</strong>nfected, and then track the course of the disease over time.</p>
+</section>
+<section class="level2 page-columns page-full" id="implementation-in-mesa">
+<h2 class="anchored" data-anchor-id="implementation-in-mesa">Implementation in Mesa</h2>
+<div class="page-columns page-full"><p>We’ll implement our epidemic models using the <code>mesa</code> library. The <code>CompartmentalModel</code> with asynchronous updating that we introduced last time for modeling opinion dynamics with the voter model will also work for epidemic modeling with just a few minor tweaks. The main work is to define new agents with new states and transitions.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">In the <a href="../chapters/52-epidemiology.html">advanced notes</a> on the theory of epidemiology on graphs, you can learn more about how things look if we assume that infection takes place in continuous rather than discrete time.</span></div></div>
+<div class="cell" data-execution_count="2" id="30ebf833">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="kw">class</span> CompartmentalModel(Model):</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>    <span class="co"># model setup</span></span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, G, agent_class, infection_rate <span class="op">=</span> <span class="fl">0.1</span>, recovery_rate <span class="op">=</span> <span class="va">None</span>):</span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a>        <span class="va">self</span>.grid <span class="op">=</span> NetworkGrid(G)    </span>
+<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a>        <span class="va">self</span>.infection_rate <span class="op">=</span> infection_rate       </span>
+<span id="cb2-9"><a aria-hidden="true" href="#cb2-9" tabindex="-1"></a>        <span class="va">self</span>.recovery_rate <span class="op">=</span> recovery_rate</span>
+<span id="cb2-10"><a aria-hidden="true" href="#cb2-10" tabindex="-1"></a>        </span>
+<span id="cb2-11"><a aria-hidden="true" href="#cb2-11" tabindex="-1"></a>        <span class="co"># populate the graph</span></span>
+<span id="cb2-12"><a aria-hidden="true" href="#cb2-12" tabindex="-1"></a>        <span class="cf">for</span> node <span class="kw">in</span> <span class="bu">list</span>(G.nodes):</span>
+<span id="cb2-13"><a aria-hidden="true" href="#cb2-13" tabindex="-1"></a>            state <span class="op">=</span> <span class="st">"S"</span></span>
+<span id="cb2-14"><a aria-hidden="true" href="#cb2-14" tabindex="-1"></a>            agent <span class="op">=</span> agent_class(<span class="va">self</span>, state)</span>
+<span id="cb2-15"><a aria-hidden="true" href="#cb2-15" tabindex="-1"></a>            <span class="va">self</span>.grid.place_agent(agent, node)</span>
+<span id="cb2-16"><a aria-hidden="true" href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a aria-hidden="true" href="#cb2-17" tabindex="-1"></a>        <span class="co"># track the states of each agent over time</span></span>
+<span id="cb2-18"><a aria-hidden="true" href="#cb2-18" tabindex="-1"></a>        <span class="va">self</span>.collector <span class="op">=</span> DataCollector(</span>
+<span id="cb2-19"><a aria-hidden="true" href="#cb2-19" tabindex="-1"></a>            agent_reporters <span class="op">=</span> {</span>
+<span id="cb2-20"><a aria-hidden="true" href="#cb2-20" tabindex="-1"></a>                <span class="st">"state"</span> : <span class="kw">lambda</span> a: a.state</span>
+<span id="cb2-21"><a aria-hidden="true" href="#cb2-21" tabindex="-1"></a>            }</span>
+<span id="cb2-22"><a aria-hidden="true" href="#cb2-22" tabindex="-1"></a>        )</span>
+<span id="cb2-23"><a aria-hidden="true" href="#cb2-23" tabindex="-1"></a></span>
+<span id="cb2-24"><a aria-hidden="true" href="#cb2-24" tabindex="-1"></a>        <span class="co"># seed infected individual </span></span>
+<span id="cb2-25"><a aria-hidden="true" href="#cb2-25" tabindex="-1"></a>        <span class="va">self</span>.seed_infection()</span>
+<span id="cb2-26"><a aria-hidden="true" href="#cb2-26" tabindex="-1"></a></span>
+<span id="cb2-27"><a aria-hidden="true" href="#cb2-27" tabindex="-1"></a>    <span class="co"># pick a single agent uniformly at random who will start out infected</span></span>
+<span id="cb2-28"><a aria-hidden="true" href="#cb2-28" tabindex="-1"></a>    <span class="kw">def</span> seed_infection(<span class="va">self</span>):</span>
+<span id="cb2-29"><a aria-hidden="true" href="#cb2-29" tabindex="-1"></a>        patient_zero <span class="op">=</span> np.random.choice(<span class="va">self</span>.grid.agents)</span>
+<span id="cb2-30"><a aria-hidden="true" href="#cb2-30" tabindex="-1"></a>        patient_zero.state <span class="op">=</span> <span class="st">"I"</span></span>
+<span id="cb2-31"><a aria-hidden="true" href="#cb2-31" tabindex="-1"></a>        <span class="va">self</span>.collector.collect(<span class="va">self</span>)</span>
+<span id="cb2-32"><a aria-hidden="true" href="#cb2-32" tabindex="-1"></a></span>
+<span id="cb2-33"><a aria-hidden="true" href="#cb2-33" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):</span>
+<span id="cb2-34"><a aria-hidden="true" href="#cb2-34" tabindex="-1"></a>        <span class="va">self</span>.agents.do(<span class="st">"step"</span>)</span>
+<span id="cb2-35"><a aria-hidden="true" href="#cb2-35" tabindex="-1"></a>        <span class="va">self</span>.agents.do(<span class="st">"advance"</span>)</span>
+<span id="cb2-36"><a aria-hidden="true" href="#cb2-36" tabindex="-1"></a>        <span class="va">self</span>.collector.collect(<span class="va">self</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>It now remains to specify the compartmental dynamics, which we do in the <code>Agent</code> class.</p>
+</section>
+<section class="level2 page-columns page-full" id="the-si-model">
+<h2 class="anchored" data-anchor-id="the-si-model">The SI Model</h2>
+<p>In the SI model, agents can be in one of two states: <em>susceptible</em> (S) or <em>infected</em> (I). Infected agents can infect their neighbors, and once an agent is infected, they are infected forever. The <em>state diagram</em> for the SI model looks like this:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    S --&gt;|infection| I;
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>There are many ways to implement this general idea. For our implementation, we’ll just assume that in each timestep, an agent has probability <span class="math inline">\(p\)</span> to be infected by each of their infected neighbors independently. This means that the probability of an agent being infected in a given timestep is <span class="math inline">\(1 - (1-p)^k\)</span>, where <span class="math inline">\(k\)</span> is the number of infected neighbors. It is also possible to implement this update simply by looping through the neighbors and making updates depending on their states.</p>
+<div class="cell" data-execution_count="3" id="bf3a783d">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">class</span> SIAgent(Agent):</span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model, state):</span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(model)</span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> state</span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a>        <span class="va">self</span>.new_state <span class="op">=</span> <span class="va">self</span>.state</span>
+<span id="cb3-6"><a aria-hidden="true" href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a aria-hidden="true" href="#cb3-7" tabindex="-1"></a>    <span class="kw">def</span> get_infected(<span class="va">self</span>):</span>
+<span id="cb3-8"><a aria-hidden="true" href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a aria-hidden="true" href="#cb3-9" tabindex="-1"></a>        neighbors <span class="op">=</span> <span class="va">self</span>.model.grid.get_neighbors(<span class="va">self</span>.pos,  </span>
+<span id="cb3-10"><a aria-hidden="true" href="#cb3-10" tabindex="-1"></a>                                                include_center <span class="op">=</span> <span class="va">False</span>) </span>
+<span id="cb3-11"><a aria-hidden="true" href="#cb3-11" tabindex="-1"></a>        </span>
+<span id="cb3-12"><a aria-hidden="true" href="#cb3-12" tabindex="-1"></a>        <span class="va">self</span>.new_state <span class="op">=</span> <span class="va">self</span>.state</span>
+<span id="cb3-13"><a aria-hidden="true" href="#cb3-13" tabindex="-1"></a>        <span class="cf">for</span> neighbor <span class="kw">in</span> neighbors:</span>
+<span id="cb3-14"><a aria-hidden="true" href="#cb3-14" tabindex="-1"></a>            <span class="cf">if</span> neighbor.state <span class="op">==</span> <span class="st">"I"</span>:</span>
+<span id="cb3-15"><a aria-hidden="true" href="#cb3-15" tabindex="-1"></a>                <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> <span class="va">self</span>.model.infection_rate:</span>
+<span id="cb3-16"><a aria-hidden="true" href="#cb3-16" tabindex="-1"></a>                    <span class="va">self</span>.new_state <span class="op">=</span> <span class="st">"I"</span></span>
+<span id="cb3-17"><a aria-hidden="true" href="#cb3-17" tabindex="-1"></a>            </span>
+<span id="cb3-18"><a aria-hidden="true" href="#cb3-18" tabindex="-1"></a></span>
+<span id="cb3-19"><a aria-hidden="true" href="#cb3-19" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):</span>
+<span id="cb3-20"><a aria-hidden="true" href="#cb3-20" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.state <span class="op">==</span> <span class="st">"S"</span>:</span>
+<span id="cb3-21"><a aria-hidden="true" href="#cb3-21" tabindex="-1"></a>            <span class="va">self</span>.get_infected()</span>
+<span id="cb3-22"><a aria-hidden="true" href="#cb3-22" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.state <span class="op">==</span> <span class="st">"I"</span>:</span>
+<span id="cb3-23"><a aria-hidden="true" href="#cb3-23" tabindex="-1"></a>            <span class="cf">pass</span> </span>
+<span id="cb3-24"><a aria-hidden="true" href="#cb3-24" tabindex="-1"></a>    </span>
+<span id="cb3-25"><a aria-hidden="true" href="#cb3-25" tabindex="-1"></a>    <span class="kw">def</span> advance(<span class="va">self</span>):</span>
+<span id="cb3-26"><a aria-hidden="true" href="#cb3-26" tabindex="-1"></a>        <span class="va">self</span>.state <span class="op">=</span> <span class="va">self</span>.new_state</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, let’s look at the progress of our simulation in a small, simple network:</p>
+<div class="cell page-columns page-full" data-execution_count="4" id="cell-fig-SI-illustration">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>np.random.seed(<span class="dv">1234</span>)</span>
+<span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>G <span class="op">=</span> nx.random_geometric_graph(<span class="dv">50</span>, <span class="fl">0.25</span>)</span>
+<span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>pos <span class="op">=</span> nx.kamada_kawai_layout(G)</span>
+<span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a aria-hidden="true" href="#cb4-5" tabindex="-1"></a>sim <span class="op">=</span> CompartmentalModel(G, SIAgent, infection_rate <span class="op">=</span> <span class="fl">0.2</span>)</span>
+<span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">8</span>, <span class="fl">4.5</span>))</span>
+<span id="cb4-8"><a aria-hidden="true" href="#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a>state_colors <span class="op">=</span> {</span>
+<span id="cb4-10"><a aria-hidden="true" href="#cb4-10" tabindex="-1"></a>    <span class="st">"S"</span> : <span class="st">"lightgrey"</span>, </span>
+<span id="cb4-11"><a aria-hidden="true" href="#cb4-11" tabindex="-1"></a>    <span class="st">"I"</span> : <span class="st">"orange"</span>, </span>
+<span id="cb4-12"><a aria-hidden="true" href="#cb4-12" tabindex="-1"></a>    <span class="st">"R"</span> : <span class="st">"steelblue"</span></span>
+<span id="cb4-13"><a aria-hidden="true" href="#cb4-13" tabindex="-1"></a>}</span>
+<span id="cb4-14"><a aria-hidden="true" href="#cb4-14" tabindex="-1"></a></span>
+<span id="cb4-15"><a aria-hidden="true" href="#cb4-15" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>):</span>
+<span id="cb4-16"><a aria-hidden="true" href="#cb4-16" tabindex="-1"></a>    ax <span class="op">=</span> axarr.ravel()[i]</span>
+<span id="cb4-17"><a aria-hidden="true" href="#cb4-17" tabindex="-1"></a>    sim.step()</span>
+<span id="cb4-18"><a aria-hidden="true" href="#cb4-18" tabindex="-1"></a>    states <span class="op">=</span> sim.collector.get_agent_vars_dataframe()</span>
+<span id="cb4-19"><a aria-hidden="true" href="#cb4-19" tabindex="-1"></a>    colors <span class="op">=</span> [state_colors[s] <span class="cf">for</span> s <span class="kw">in</span> states.loc[i].values.ravel()]</span>
+<span id="cb4-20"><a aria-hidden="true" href="#cb4-20" tabindex="-1"></a>    nx.draw(G, pos, node_color <span class="op">=</span> colors, ax <span class="op">=</span> ax, node_size <span class="op">=</span> <span class="dv">20</span>, edge_color <span class="op">=</span> <span class="st">"grey"</span>, width <span class="op">=</span> <span class="fl">0.1</span>, edgecolors <span class="op">=</span> <span class="st">"black"</span>)</span>
+<span id="cb4-21"><a aria-hidden="true" href="#cb4-21" tabindex="-1"></a>    ax.<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"Step </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span>, xticks <span class="op">=</span> [], yticks <span class="op">=</span> [])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-si-illustration">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-si-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="figure-img" height="371" src="53-epidemiology-computational_files/figure-html/fig-si-illustration-output-1.png" width="614"/>
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-si-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 17.2: Progress of the SI model in a small network. Grey nodes are susceptible and orange nodes are infected.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>How representative is this visualization? Would we see something similar on our two model networks <span class="math inline">\(G_1\)</span> and <span class="math inline">\(G_2\)</span>? To address these questions, let’s define a function to run the simulation on a specified network and compute the total number of agents in each compartment over time:</p>
+<div class="cell" data-execution_count="5" id="bda77a34">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> epi_experiment(G, agent_type, timesteps, infection_rate, ax, recovery_rate <span class="op">=</span> <span class="va">None</span>, label <span class="op">=</span> <span class="va">True</span>, <span class="op">**</span>kwargs):</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a>    <span class="co"># initialize and run the model</span></span>
+<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>    sim <span class="op">=</span> CompartmentalModel(G, agent_type, infection_rate <span class="op">=</span> infection_rate, recovery_rate <span class="op">=</span> recovery_rate)</span>
+<span id="cb5-5"><a aria-hidden="true" href="#cb5-5" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(timesteps): </span>
+<span id="cb5-6"><a aria-hidden="true" href="#cb5-6" tabindex="-1"></a>        sim.step()</span>
+<span id="cb5-7"><a aria-hidden="true" href="#cb5-7" tabindex="-1"></a>    </span>
+<span id="cb5-8"><a aria-hidden="true" href="#cb5-8" tabindex="-1"></a>    <span class="co"># gather counts of states over time</span></span>
+<span id="cb5-9"><a aria-hidden="true" href="#cb5-9" tabindex="-1"></a>    df <span class="op">=</span> sim.collector.get_agent_vars_dataframe()</span>
+<span id="cb5-10"><a aria-hidden="true" href="#cb5-10" tabindex="-1"></a>    counts <span class="op">=</span> df.groupby([<span class="st">"Step"</span>, <span class="st">"state"</span>]).size().unstack().fillna(<span class="dv">0</span>)</span>
+<span id="cb5-11"><a aria-hidden="true" href="#cb5-11" tabindex="-1"></a>    proportions <span class="op">=</span> counts <span class="op">/</span> counts.<span class="bu">sum</span>(axis <span class="op">=</span> <span class="dv">1</span>).values[:, <span class="va">None</span>]</span>
+<span id="cb5-12"><a aria-hidden="true" href="#cb5-12" tabindex="-1"></a>    </span>
+<span id="cb5-13"><a aria-hidden="true" href="#cb5-13" tabindex="-1"></a>    <span class="co"># plotting</span></span>
+<span id="cb5-14"><a aria-hidden="true" href="#cb5-14" tabindex="-1"></a>    states <span class="op">=</span> <span class="bu">list</span>(proportions.columns)</span>
+<span id="cb5-15"><a aria-hidden="true" href="#cb5-15" tabindex="-1"></a>    </span>
+<span id="cb5-16"><a aria-hidden="true" href="#cb5-16" tabindex="-1"></a></span>
+<span id="cb5-17"><a aria-hidden="true" href="#cb5-17" tabindex="-1"></a>    <span class="cf">for</span> i, state <span class="kw">in</span> <span class="bu">enumerate</span>([<span class="st">"I"</span>, <span class="st">"R"</span>]):</span>
+<span id="cb5-18"><a aria-hidden="true" href="#cb5-18" tabindex="-1"></a>        <span class="cf">if</span> state <span class="kw">in</span> proportions.columns: </span>
+<span id="cb5-19"><a aria-hidden="true" href="#cb5-19" tabindex="-1"></a>            <span class="cf">if</span> label:   </span>
+<span id="cb5-20"><a aria-hidden="true" href="#cb5-20" tabindex="-1"></a>                ax.plot(proportions[state], label <span class="op">=</span> state, color <span class="op">=</span> state_colors[state], <span class="op">**</span>kwargs)</span>
+<span id="cb5-21"><a aria-hidden="true" href="#cb5-21" tabindex="-1"></a>            <span class="cf">else</span>: </span>
+<span id="cb5-22"><a aria-hidden="true" href="#cb5-22" tabindex="-1"></a>                ax.plot(proportions[state], color <span class="op">=</span> state_colors[state], <span class="op">**</span>kwargs)</span>
+<span id="cb5-23"><a aria-hidden="true" href="#cb5-23" tabindex="-1"></a></span>
+<span id="cb5-24"><a aria-hidden="true" href="#cb5-24" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Time"</span>)</span>
+<span id="cb5-25"><a aria-hidden="true" href="#cb5-25" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Number of Agents"</span>)</span>
+<span id="cb5-26"><a aria-hidden="true" href="#cb5-26" tabindex="-1"></a>    ax.<span class="bu">set</span>(ylim <span class="op">=</span> (<span class="op">-</span><span class="fl">0.02</span>, <span class="fl">1.02</span>))</span>
+<span id="cb5-27"><a aria-hidden="true" href="#cb5-27" tabindex="-1"></a>    ax.legend()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can run simulations and plot the total number of infected nodes like this:</p>
+<div class="cell" data-execution_count="6" id="97f7f783">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">5</span>, <span class="dv">3</span>))</span>
+<span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>infection_rate <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb6-4"><a aria-hidden="true" href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a aria-hidden="true" href="#cb6-5" tabindex="-1"></a>epi_experiment(G_1, SIAgent, timesteps, infection_rate <span class="op">=</span> infection_rate, ax <span class="op">=</span> ax)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img class="figure-img" height="275" src="53-epidemiology-computational_files/figure-html/cell-7-output-1.png" width="432"/></p>
+</figure>
+</div>
+</div>
+</div>
+<p>After an initial quiet period, the disease rapidly takes over a large fraction of the population.</p>
+<p>Is this typical behavior? Let’s run 20 simulations on both graphs and compare:</p>
+<div class="cell page-columns page-full" data-execution_count="7" id="cell-fig-SI-batch-sims">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="fl">2.8</span>))</span>
+<span id="cb7-2"><a aria-hidden="true" href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a aria-hidden="true" href="#cb7-3" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb7-4"><a aria-hidden="true" href="#cb7-4" tabindex="-1"></a>    epi_experiment(G_1, SIAgent, timesteps, infection_rate <span class="op">=</span> infection_rate,   ax <span class="op">=</span> ax[<span class="dv">0</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>, label <span class="op">=</span> i <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb7-5"><a aria-hidden="true" href="#cb7-5" tabindex="-1"></a>    epi_experiment(G_2, SIAgent, timesteps, infection_rate <span class="op">=</span> infection_rate,   ax <span class="op">=</span> ax[<span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>, label <span class="op">=</span> i <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb7-6"><a aria-hidden="true" href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a aria-hidden="true" href="#cb7-7" tabindex="-1"></a>plt.tight_layout()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-si-batch-sims">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-si-batch-sims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="figure-img" height="259" src="53-epidemiology-computational_files/figure-html/fig-si-batch-sims-output-1.png" width="565"/>
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-si-batch-sims-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 17.3: Proportion of Infected individuals over time in the SI model on the two networks <span class="math inline">\(G_1\)</span> (left) and <span class="math inline">\(G_2\)</span> (right). The proportion of Susceptible individuals is equal to <span class="math inline">\(1\)</span> minus the proportion of Infected individuals and is not shown.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Several features stand out:</p>
+<ol type="1">
+<li>The disease does not inevitably take over the entirety of <span class="math inline">\(G_1\)</span>: in some cases, it seems that only very few agents are infected, while in others a very large fraction of the population is infected.</li>
+<li>It appears that the disease tends to work its way slightly more quickly thorough <span class="math inline">\(G_1\)</span> and <span class="math inline">\(G_2\)</span>. An interesting qualitative feature is the apparent explosive growth in the infection rate from a seeming period of calm in <span class="math inline">\(G_1\)</span>. In <span class="math inline">\(G_2\)</span>, on the other hand, the increase in infection is somewhat more gradual.</li>
+</ol>
+<div class="callout callout-style-simple callout-important no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Can you explain observation 1? What determines the final size of the epidemic?</p>
+<p><em>Hint</em>: think about the initial condition and the graph structure.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="level2 page-columns page-full" id="the-sir-model">
+<h2 class="anchored" data-anchor-id="the-sir-model">The SIR Model</h2>
+<p>Now we’ll suppose that agents can also <em>recover</em> from infection. A recovered (R) agent is no longer susceptible to disease and can therefore never become infected again. The corresponding state diagram looks like this:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    S --&gt;|infection| I --&gt;|recovery| R;
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>In most implementations of the SIR model, the recovery rate does not depend on the status of one’s neighbors: an infected node simply becomes recovered with some fixed probability each day. Once an agent is recovered, they are considered to be immune and no longer susceptible to infection. To implement this behavior, we just need to implement a <code>recover</code> method and lightly modify the <code>step</code> method to incorporate recovery. We can save a few lines of code by inheriting from the previous <code>SIAgent</code> class.</p>
+<div class="cell" data-execution_count="8" id="547d5393">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="kw">class</span> SIRAgent(SIAgent):</span>
+<span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a>    <span class="kw">def</span> recover(<span class="va">self</span>):</span>
+<span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a aria-hidden="true" href="#cb8-5" tabindex="-1"></a>        <span class="co"># recover with fixed specified probability</span></span>
+<span id="cb8-6"><a aria-hidden="true" href="#cb8-6" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> <span class="va">self</span>.model.recovery_rate:</span>
+<span id="cb8-7"><a aria-hidden="true" href="#cb8-7" tabindex="-1"></a>            <span class="va">self</span>.new_state <span class="op">=</span> <span class="st">"R"</span></span>
+<span id="cb8-8"><a aria-hidden="true" href="#cb8-8" tabindex="-1"></a></span>
+<span id="cb8-9"><a aria-hidden="true" href="#cb8-9" tabindex="-1"></a>    <span class="kw">def</span> step(<span class="va">self</span>):</span>
+<span id="cb8-10"><a aria-hidden="true" href="#cb8-10" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.new_state <span class="op">==</span> <span class="st">"S"</span>:</span>
+<span id="cb8-11"><a aria-hidden="true" href="#cb8-11" tabindex="-1"></a>            <span class="va">self</span>.get_infected()</span>
+<span id="cb8-12"><a aria-hidden="true" href="#cb8-12" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.new_state <span class="op">==</span> <span class="st">"I"</span>:</span>
+<span id="cb8-13"><a aria-hidden="true" href="#cb8-13" tabindex="-1"></a>            <span class="va">self</span>.recover()</span>
+<span id="cb8-14"><a aria-hidden="true" href="#cb8-14" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.new_state <span class="op">==</span> <span class="st">"R"</span>:</span>
+<span id="cb8-15"><a aria-hidden="true" href="#cb8-15" tabindex="-1"></a>            <span class="cf">pass</span>            </span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now there are three states that an agent could have at any given time. The evolution of the disease states now looks more like this:</p>
+<div class="cell page-columns page-full" data-execution_count="9" id="cell-fig-SIR-illustration">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>np.random.seed(<span class="dv">1234</span>)</span>
+<span id="cb9-2"><a aria-hidden="true" href="#cb9-2" tabindex="-1"></a>G <span class="op">=</span> nx.random_geometric_graph(<span class="dv">50</span>, <span class="fl">0.25</span>)</span>
+<span id="cb9-3"><a aria-hidden="true" href="#cb9-3" tabindex="-1"></a><span class="co"># pos = nx.fruchterman_reingold_layout(G)</span></span>
+<span id="cb9-4"><a aria-hidden="true" href="#cb9-4" tabindex="-1"></a>pos <span class="op">=</span> nx.kamada_kawai_layout(G)</span>
+<span id="cb9-5"><a aria-hidden="true" href="#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a aria-hidden="true" href="#cb9-6" tabindex="-1"></a>sim <span class="op">=</span> CompartmentalModel(G, SIRAgent, infection_rate <span class="op">=</span> <span class="fl">0.5</span>, recovery_rate <span class="op">=</span> <span class="fl">0.3</span>)</span>
+<span id="cb9-7"><a aria-hidden="true" href="#cb9-7" tabindex="-1"></a></span>
+<span id="cb9-8"><a aria-hidden="true" href="#cb9-8" tabindex="-1"></a>fig, axarr <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">9</span>, <span class="fl">7.5</span>))</span>
+<span id="cb9-9"><a aria-hidden="true" href="#cb9-9" tabindex="-1"></a></span>
+<span id="cb9-10"><a aria-hidden="true" href="#cb9-10" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">9</span>):</span>
+<span id="cb9-11"><a aria-hidden="true" href="#cb9-11" tabindex="-1"></a>    ax <span class="op">=</span> axarr.ravel()[i]</span>
+<span id="cb9-12"><a aria-hidden="true" href="#cb9-12" tabindex="-1"></a>    sim.step()</span>
+<span id="cb9-13"><a aria-hidden="true" href="#cb9-13" tabindex="-1"></a>    states <span class="op">=</span> sim.collector.get_agent_vars_dataframe()</span>
+<span id="cb9-14"><a aria-hidden="true" href="#cb9-14" tabindex="-1"></a>    colors <span class="op">=</span> [state_colors[s] <span class="cf">for</span> s <span class="kw">in</span> states.loc[i].values.ravel()]</span>
+<span id="cb9-15"><a aria-hidden="true" href="#cb9-15" tabindex="-1"></a>    nx.draw(G, pos, node_color <span class="op">=</span> colors, ax <span class="op">=</span> ax, node_size <span class="op">=</span> <span class="dv">20</span>, edge_color <span class="op">=</span> <span class="st">"grey"</span>, width <span class="op">=</span> <span class="fl">0.1</span>, edgecolors <span class="op">=</span> <span class="st">"black"</span>)</span>
+<span id="cb9-16"><a aria-hidden="true" href="#cb9-16" tabindex="-1"></a>    ax.<span class="bu">set</span>(title <span class="op">=</span> <span class="ss">f"Step </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span>, xticks <span class="op">=</span> [], yticks <span class="op">=</span> [])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display page-columns page-full">
+<div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-sir-illustration">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-sir-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img class="figure-img" height="593" src="53-epidemiology-computational_files/figure-html/fig-sir-illustration-output-1.png" width="689"/>
+</div>
+<figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-sir-illustration-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 17.4: Progress of the SIR model in a small network. Grey nodes are susceptible, orange nodes are infected, and blue nodes are recovered.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Over time, Infected nodes become Recovered, after which they cannot become Infected again. This causes the disease to travel across the graph, leaving groups of Recovered nodes in its wake.</p>
+<p>Let’s now do a batch experiment in which we observe the proportion of both Infected and Recovered individuals over many simulation runs. We’ll choose a recovery rate corresponding to an average illness duration of approximately two weeks.</p>
+<div class="cell" data-execution_count="10" id="10db2724">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>infection_rate <span class="op">=</span> <span class="fl">0.04</span></span>
+<span id="cb10-2"><a aria-hidden="true" href="#cb10-2" tabindex="-1"></a>recovery_rate <span class="op">=</span> <span class="dv">1</span><span class="op">/</span><span class="dv">14</span> </span>
+<span id="cb10-3"><a aria-hidden="true" href="#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a aria-hidden="true" href="#cb10-4" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb10-5"><a aria-hidden="true" href="#cb10-5" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="fl">2.8</span>))</span>
+<span id="cb10-6"><a aria-hidden="true" href="#cb10-6" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb10-7"><a aria-hidden="true" href="#cb10-7" tabindex="-1"></a>    epi_experiment(G_1, SIRAgent, timesteps, infection_rate <span class="op">=</span> infection_rate, recovery_rate <span class="op">=</span> recovery_rate, ax <span class="op">=</span> ax[<span class="dv">0</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>, label <span class="op">=</span> i <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb10-8"><a aria-hidden="true" href="#cb10-8" tabindex="-1"></a>    epi_experiment(G_2, SIRAgent, timesteps, infection_rate <span class="op">=</span> infection_rate, recovery_rate <span class="op">=</span> recovery_rate, ax <span class="op">=</span> ax[<span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>, label <span class="op">=</span> i <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb10-9"><a aria-hidden="true" href="#cb10-9" tabindex="-1"></a></span>
+<span id="cb10-10"><a aria-hidden="true" href="#cb10-10" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="vs">r"$G_1$: Power-Law Degree Distribution"</span>)</span>
+<span id="cb10-11"><a aria-hidden="true" href="#cb10-11" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="vs">r"$G_2$: Poisson Degree Distribution"</span>)</span>
+<span id="cb10-12"><a aria-hidden="true" href="#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a aria-hidden="true" href="#cb10-13" tabindex="-1"></a>plt.tight_layout()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img class="figure-img" height="257" src="53-epidemiology-computational_files/figure-html/cell-11-output-1.png" width="566"/></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here we can observe an interesting difference between the two network substrates:</p>
+<ul>
+<li>In the power law graph <span class="math inline">\(G_1\)</span>, the disease spreads rapidly in an early initial phase before dying out.</li>
+<li>In the Poisson graph <span class="math inline">\(G_2\)</span> on the other hand, the disease spreads more slowly through the population. In at least some simulations, however, the disease ultimately infects a larger fraction of individuals.</li>
+</ul>
+<p>There is an even more striking difference between the two models when the infection rate is lower:</p>
+<div class="cell" data-execution_count="11" id="4b03d14d">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a>infection_rate <span class="op">=</span> <span class="fl">0.015</span></span>
+<span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">6</span>, <span class="fl">2.8</span>))</span>
+<span id="cb11-4"><a aria-hidden="true" href="#cb11-4" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">20</span>):</span>
+<span id="cb11-5"><a aria-hidden="true" href="#cb11-5" tabindex="-1"></a>    epi_experiment(G_1, SIRAgent, timesteps, infection_rate <span class="op">=</span> infection_rate, recovery_rate <span class="op">=</span> recovery_rate, ax <span class="op">=</span> ax[<span class="dv">0</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>, label <span class="op">=</span> i <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb11-6"><a aria-hidden="true" href="#cb11-6" tabindex="-1"></a>    epi_experiment(G_2, SIRAgent, timesteps, infection_rate <span class="op">=</span> infection_rate, recovery_rate <span class="op">=</span> recovery_rate, ax <span class="op">=</span> ax[<span class="dv">1</span>], alpha <span class="op">=</span> <span class="fl">0.5</span>, label <span class="op">=</span> i <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb11-7"><a aria-hidden="true" href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a aria-hidden="true" href="#cb11-8" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="vs">r"$G_1$: Power-Law Degree Distribution"</span>)</span>
+<span id="cb11-9"><a aria-hidden="true" href="#cb11-9" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="vs">r"$G_2$: Poisson Degree Distribution"</span>)</span>
+<span id="cb11-10"><a aria-hidden="true" href="#cb11-10" tabindex="-1"></a></span>
+<span id="cb11-11"><a aria-hidden="true" href="#cb11-11" tabindex="-1"></a>plt.tight_layout()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img class="figure-img" height="257" src="53-epidemiology-computational_files/figure-html/cell-12-output-1.png" width="566"/></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Whereas in the Poisson random graph <span class="math inline">\(G_2\)</span> large outbreaks are rare and relatively slow-moving, in the power law graph <span class="math inline">\(G_1\)</span> we see that large outbreaks are possible and rip through the population much faster.</p>
+</section>
+<section class="level2 page-columns page-full" id="theory-whats-going-on">
+<h2 class="anchored" data-anchor-id="theory-whats-going-on">Theory: What’s Going On?</h2>
+<p>How can we explain the difference in behaviors between epidemic outbreaks on these two contact networks? The mean degree in these networks is relatively similar:</p>
+<div class="cell" data-execution_count="12" id="564d66f2">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a>mean_deg_1 <span class="op">=</span> degree_sequence(G_1).mean()</span>
+<span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a>mean_deg_2 <span class="op">=</span> degree_sequence(G_2).mean()</span>
+<span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a aria-hidden="true" href="#cb12-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean degree of G_1:  </span><span class="sc">{</span>mean_deg_1<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb12-5"><a aria-hidden="true" href="#cb12-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean degree of G_2:  </span><span class="sc">{</span>mean_deg_2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mean degree of G_1:  3.69
+Mean degree of G_2:  3.56</code></pre>
+</div>
+</div>
+<p>So, it’s not the case that <span class="math inline">\(G_1\)</span> is “more connected on average” than <span class="math inline">\(G_2\)</span>. Instead, we need to ask questions about <em>how</em> these two networks are connected.</p>
+<div class="page-columns page-full"><p>Let’s do some simple heuristic reasoning to understand the connectivity difference. . The question we’ll consider is: in expectation, how many infections are caused by each infectious agent before they recover? This is sometimes called the <em>basic reproduction number</em> of the disease, and is denoted by <span class="math inline">\(R_0\)</span>. If <span class="math inline">\(R_0 &lt; 1\)</span>, we expect the disease to die out quickly, while if <span class="math inline">\(R_0 &gt; 1\)</span>, we expect the disease to spread exponentially through the population.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">For a more theoretically rich discussion, see the <a href="../chapters/52-epidemiology.html">advanced nodes</a></span></div></div>
+<p>Here’s a first attempt to derive <span class="math inline">\(R_0\)</span>. Let <span class="math inline">\(\beta\)</span> be the probability that transmission occurs from an infected agent to a susceptible neighbor in a given timestep. The average amount of time that an individual spends infectious is <span class="math inline">\(1/\gamma\)</span>, where <span class="math inline">\(\gamma\)</span> is the recovery rate per day. Assuming that <span class="math inline">\(\beta\)</span> is relatively small, the probability that an infected individual passes the disease to a given susceptible neighbor before recovering is approximately <span class="math inline">\(\beta/\gamma\)</span>.</p>
+<p>So, if Patient 0 is node <span class="math inline">\(i\)</span>, then the expected number of infections caused directly by Patient 0 before they recover is <span class="math inline">\(\theta_i = \beta/\gamma k_i\)</span>, where <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>. If <span class="math inline">\(\theta_i \geq 1\)</span>, then, on average, Patient 0 will infect at least one of their neighbors before recovering. Averaging over all possible initial nodes <span class="math inline">\(i\)</span>, we derive our first attempt to measure <span class="math inline">\(R_0\)</span>: <span class="math display">\[
+\begin{aligned}
+    R_0 \stackrel{?}{=} \langle \theta_i \rangle = \frac{\beta}{\gamma} \langle k_i \rangle = \frac{\beta}{\gamma} \langle k \rangle
+\end{aligned}
+\]</span></p>
+<p>Let’s compute this measure for each of our graphs:</p>
+<div class="cell" data-execution_count="13" id="7fe51165">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" href="#cb14-1" tabindex="-1"></a>r_1 <span class="op">=</span> degree_sequence(G_1).mean() <span class="op">*</span> infection_rate <span class="op">/</span> recovery_rate </span>
+<span id="cb14-2"><a aria-hidden="true" href="#cb14-2" tabindex="-1"></a>r_2 <span class="op">=</span> degree_sequence(G_2).mean() <span class="op">*</span> infection_rate <span class="op">/</span> recovery_rate </span>
+<span id="cb14-3"><a aria-hidden="true" href="#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a aria-hidden="true" href="#cb14-4" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"beta/gamma * &lt;k&gt; in G_1:  </span><span class="sc">{</span>r_1<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb14-5"><a aria-hidden="true" href="#cb14-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"beta/gamma * &lt;k&gt; in G_2:  </span><span class="sc">{</span>r_2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>beta/gamma * &lt;k&gt; in G_1:  0.78
+beta/gamma * &lt;k&gt; in G_2:  0.75</code></pre>
+</div>
+</div>
+<p>The two graphs have very similar values of the measure $ k $, which makes sense since this measure differs between the two graphs only in the mean degree <span class="math inline">\(\langle k \rangle\)</span>, which we intentionally made similar between the graphs.</p>
+<div class="page-columns page-full"><p>To explain the difference, we need to return to our discussion of <a href="11-configuration-models.qmd">graphs with fixed degree distributions</a>. The number of neighbors of Patient 0 is distributed according to the degree distribution <span class="math inline">\(p_k\)</span> of the graph, and the mean is <span class="math inline">\(\langle k \rangle\)</span>. However, the number of neighbors <em>of those neighbors</em> is not distributed according to <span class="math inline">\(p_k\)</span>. Instead, as we saw when discussing graphs with fixed degree distribution, the distribution <span class="math inline">\(q_k\)</span> of the number of neighbors attached to a node (excluding the edge we traveled along to get there) is given by the formula </p><div class="no-row-height column-margin column-container"><span class="margin-aside">As a refresher, the intuition here is that for the node to have <span class="math inline">\(k\)</span> neighbors (excluding the edge we traveled on) it must have total degree <span class="math inline">\(k+1\)</span>. The probability that a given node has this degree is <span class="math inline">\(p_{k+1}\)</span> and there are <span class="math inline">\(k+1\)</span> ways to travel to that node along an edge. The <span class="math inline">\(\langle k \rangle\)</span> in the denominator is for normalization.</span></div></div>
+<p><span class="math display">\[
+\begin{aligned}
+    q_k = \frac{(k+1)p_{k+1}}{\langle k \rangle }\;.
+\end{aligned}
+\]</span></p>
+<p>So, the expected number of neighbors of a node in the second generation of infection is</p>
+<p><span class="math display">\[
+\begin{aligned}
+    \sum_{k = 0}^\infty k q_k &amp;= \sum_{k = 0}^\infty k \frac{(k+1)p_{k+1}}{\langle k \rangle} \\
+    &amp;= \frac{1}{\langle k \rangle} \sum_{k' = 1}^\infty (k'-1) k'p_{k'} &amp;\quad \text{(Let $k' = k+1$)} \\
+    &amp;= \frac{1}{\langle k \rangle} \sum_{k' = 0}^\infty (k'-1) k'p_{k'} \\
+    &amp;= \frac{\langle k^2 \rangle - \langle k \rangle}{\langle k \rangle}
+\end{aligned}
+\]</span></p>
+<p>This corresponds to an expected number of infections given by</p>
+<p><span id="eq-R0"><span class="math display">\[
+\begin{aligned}
+    R_0 = \frac{\beta}{\gamma} \frac{\langle k^2 \rangle - \langle k \rangle}{\langle k \rangle}
+\end{aligned}
+\tag{17.1}\]</span></span></p>
+<p>Let’s measure this for each of our two graphs:</p>
+<div class="cell" data-execution_count="14" id="7b991fc7">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" href="#cb16-1" tabindex="-1"></a><span class="kw">def</span> mean_excess_degree(G):</span>
+<span id="cb16-2"><a aria-hidden="true" href="#cb16-2" tabindex="-1"></a>    k <span class="op">=</span> degree_sequence(G)</span>
+<span id="cb16-3"><a aria-hidden="true" href="#cb16-3" tabindex="-1"></a>    mean_k <span class="op">=</span> k.mean()</span>
+<span id="cb16-4"><a aria-hidden="true" href="#cb16-4" tabindex="-1"></a>    mean_k_2 <span class="op">=</span> (k<span class="op">**</span><span class="dv">2</span>).mean()</span>
+<span id="cb16-5"><a aria-hidden="true" href="#cb16-5" tabindex="-1"></a>    <span class="cf">return</span> (mean_k_2 <span class="op">-</span> mean_k) <span class="op">/</span> mean_k</span>
+<span id="cb16-6"><a aria-hidden="true" href="#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a aria-hidden="true" href="#cb16-7" tabindex="-1"></a>R0_1 <span class="op">=</span> infection_rate <span class="op">/</span> recovery_rate <span class="op">*</span> mean_excess_degree(G_1)</span>
+<span id="cb16-8"><a aria-hidden="true" href="#cb16-8" tabindex="-1"></a>R0_2 <span class="op">=</span> infection_rate <span class="op">/</span> recovery_rate <span class="op">*</span> mean_excess_degree(G_2)</span>
+<span id="cb16-9"><a aria-hidden="true" href="#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a aria-hidden="true" href="#cb16-10" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"&lt;k^2&gt; in G_1:  </span><span class="sc">{</span>R0_1<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb16-11"><a aria-hidden="true" href="#cb16-11" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"&lt;k^2&gt; in G_2:  </span><span class="sc">{</span>R0_2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;k^2&gt; in G_1:  4.08
+&lt;k^2&gt; in G_2:  0.92</code></pre>
+</div>
+</div>
+<p>Now we can see a clearer difference between the two graph structures: <span class="math inline">\(R_0\)</span> in <span class="math inline">\(G_1\)</span> is indeed sufficient to support initial exponential growth of the outbreak, while <span class="math inline">\(R_0\)</span> in <span class="math inline">\(G_2\)</span> is not.</p>
+<p><a class="quarto-xref" href="#eq-R0">Equation <span>17.1</span></a> can be used to make predictions about when a disease has the capability to spread in a contact network. Note the condition <span class="math inline">\(R_0\)</span> does not <em>guarantee</em> that large-scale spread will occur, but does indicate risk.</p>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside">An interesting consequence of <a class="quarto-xref" href="#eq-R0">Equation <span>17.1</span></a> is that a theoretical network in which <span class="math inline">\(\langle k^2 \rangle = \infty\)</span>” (i.e. the sum <span class="math inline">\(\sum_{k}k^2 p_k\)</span> does not converge) <em>always</em> admits wide-scale spread of disease, no matter how transmissible the disease is or how quickly agents recover. Another way to say this is that the <em>epidemic threshold</em>, which is the critical value of the ratio <span class="math inline">\(\frac{\beta}{ \gamma}\)</span> that admits large-scale spread, is <span class="math inline">\(0\)</span>.</span></div></div>
+<p>Intuitively, what is happening here is that there are a small number of nodes in <span class="math inline">\(G_1\)</span> with <em>very</em> high degree. In the event that one of these nodes is infected, they have a large number of neighbors to which they may transmit disease. Even if the disease has a low transmission rate, the sheer number of people who come into contact with these nodes ensures spread. Such nodes are often called <em>super-spreaders</em>. A simple way to describe the difference between <span class="math inline">\(G_1\)</span> and <span class="math inline">\(G_2\)</span> is that <span class="math inline">\(G_1\)</span> has super-spreaders while <span class="math inline">\(G_2\)</span> does not.</p>
+</section>
+<p><br/> <br/> <span style="color:grey;">© Heather Zinn Brooks and Phil Chodrow, 2025</span></p></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+<div class="nav-page nav-page-previous">
+<a aria-label="Agent-Based Modeling on Networks" class="pagination-link" href="../chapters/51-agent-based-modeling.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span>
+</a>
+</div>
+<div class="nav-page nav-page-next">
+<a aria-label="Epidemic Models on Networks" class="pagination-link" href="../chapters/52-epidemiology.html">
+<span class="nav-page-text"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></span> <i class="bi bi-arrow-right-short"></i>
+</a>
+</div>
+</nav>
+</div> <!-- /content -->
+</body></html>

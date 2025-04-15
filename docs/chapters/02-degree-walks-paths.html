@@ -318,8 +318,14 @@ window.Quarto = {
 </li>
 <li class="sidebar-item">
 <div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/53-epidemiology-computational.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
 <a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
-<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+<span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
 </div>
 </li>
 </ul>
@@ -419,7 +425,7 @@ Exercise
 <section class="level3 page-columns page-full" id="computing-with-degrees">
 <h3 class="anchored" data-anchor-id="computing-with-degrees">Computing with Degrees</h3>
 <div class="page-columns page-full"><p>Let’s grab some sample data. We’ll use the <em>Les Miserables</em> network, which is a network of coappearances of characters in the book <em>Les Miserables</em> by Victor Hugo. Nodes represent characters and edges represent characters who appear within the same chapter. This data set is supplied as a built-in example in NetworkX, and for this reason we’ll use it several times throughout these notes. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This hidden code cell imports several packages and defines an <code>unweight</code> function which we’ll use to convert the network from its native weighted format to an unweighted format.</span></div></div>
-<div class="cell" data-execution_count="1" id="51efd7cc">
+<div class="cell" data-execution_count="1" id="95cd2f25">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" data-lst-cap="hidden code ahoy!" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -459,7 +465,7 @@ Figure 2.1: A network of coappearances of characters in the book Les Miserables
 </div>
 <p>Now let’s compute the degree of each node. There are multiple ways to achieve this task: we can work directly using the adjacency matrix, or we can use the built-in NetworkX function <code>nx.degree()</code>.</p>
 <div class="page-columns page-full"><p>One way to compute the degrees of the nodes in a graph is to use the adjacency matrix, as directly described by <a class="quarto-xref" href="#def-degree">Definition <span>2.1</span></a>. With convenient functions from NetworkX and NumPy, this is a two-liner: </p><div class="no-row-height column-margin column-container"><span class="margin-aside">For undirected graphs, we could equally do <code>np.sum(A, axis = 0)</code> because <span class="math inline">\(\mathbf{A}\)</span> is a symmetric matrix. When we discuss directed graphs soon, it will become necessary to be careful!</span></div></div>
-<div class="cell" data-execution_count="3" id="a81dec0a">
+<div class="cell" data-execution_count="3" id="8f7e21fa">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="co"># computing degrees directly from the adjacency matrix</span></span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_LesMis)   <span class="co"># extract the adjacency matrix</span></span>
@@ -470,12 +476,12 @@ Figure 2.1: A network of coappearances of characters in the book Les Miserables
 </div>
 </div>
 <p>Networkx also has a helpful built-in function to calculate the complete set of degrees:</p>
-<div class="cell" data-execution_count="4" id="b26917d7">
+<div class="cell" data-execution_count="4" id="2e71b278">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>degree_view <span class="op">=</span> G_LesMis.degree()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>The result is a <code>DegreeView</code> object which behaves much like a Python dictionary (and which can be easily converted to a dictionary using the <code>dict</code> constructor).</p>
 <p>Let’s take a moment to compare the first few nodes to make sure that our two methods agree:</p>
-<div class="cell" data-execution_count="5" id="a9c7c19a">
+<div class="cell" data-execution_count="5" id="bc345b85">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a><span class="cf">for</span> name, degree <span class="kw">in</span> <span class="bu">dict</span>(degree_view).items():</span>
 <span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span> <span class="dv">5</span>:</span>
@@ -569,7 +575,7 @@ Figure 2.2: A network of mentions in the musical Hamilton. Nodes represent char
 </div>
 </div>
 <p>Let’s calculate the in-degrees of the nodes in the Hamilton network using the adjacency matrix and compare to the networkx built-ins.</p>
-<div class="cell" data-execution_count="7" id="79b52cf8">
+<div class="cell" data-execution_count="7" id="964722f1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>A <span class="op">=</span> nx.adjacency_matrix(G_Hamilton)       <span class="co"># grab the adjacency matrix</span></span>
@@ -620,7 +626,7 @@ Exercise
 </div>
 </div>
 <p>Some special cases of regular graphs are <strong>lattices</strong> (e.g., a square lattice is 4-regular) and the <strong>complete graph</strong> where every node is connected to every other node (which is <span class="math inline">\((n-1)\)</span>-regular).</p>
-<div class="cell page-columns page-full" data-execution_count="8" id="ec482d45">
+<div class="cell page-columns page-full" data-execution_count="8" id="642d681c">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>, figsize <span class="op">=</span> (<span class="dv">2</span>, <span class="dv">2</span>))</span>
@@ -672,7 +678,7 @@ Exercise
 <li>Calculating directly using mean degree and number of nodes;</li>
 <li>Using the built-in NetworkX function <code>nx.density()</code>.</li>
 </ul>
-<div class="cell" data-execution_count="9" id="ff480453">
+<div class="cell" data-execution_count="9" id="e70a467d">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -871,7 +877,7 @@ Exercise
 </div>
 </div>
 <p>Here is an example of a geodesic path between two nodes in Zachary’s Karate Club network. The geodesic distance between these two nodes is 5.</p>
-<div class="cell page-columns page-full" data-execution_count="11" id="68a40da2">
+<div class="cell page-columns page-full" data-execution_count="11" id="7cdb68da">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" href="#cb15-1" tabindex="-1"></a><span class="co"># code example adapted from: https://stackoverflow.com/questions/24024411/highlighting-the-shortest-path-in-a-networkx-graph</span></span>
@@ -974,7 +980,7 @@ Exercise
 </div>
 </div>
 <p>Now that we’re convinced that the algorithm works, let’s go ahead and implement it in Python. Our implementation accepts a NetworkX <code>DiGraph</code> object as an argument, returning <code>True</code> if the network is cyclic and <code>False</code> if the network is acyclic.</p>
-<div class="cell" data-execution_count="12" id="7aff241e">
+<div class="cell" data-execution_count="12" id="bf5f01a3">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" href="#cb16-1" tabindex="-1"></a><span class="kw">def</span> is_cyclic(G):</span>
 <span id="cb16-2"><a aria-hidden="true" href="#cb16-2" tabindex="-1"></a>    <span class="cf">while</span> G.number_of_nodes() <span class="op">&gt;</span> <span class="dv">0</span>:</span>
 <span id="cb16-3"><a aria-hidden="true" href="#cb16-3" tabindex="-1"></a>        zero_out_degree <span class="op">=</span> [node <span class="cf">for</span> node <span class="kw">in</span> G.nodes <span class="cf">if</span> G.out_degree(node) <span class="op">==</span> <span class="dv">0</span>]</span>
@@ -1060,7 +1066,7 @@ Figure 2.5: The Hamilton mention network, a directed network which contains man
 </div>
 <p>All trees are necessarily simple graphs, because self- and multiedges would create cycles. Trees always have exactly <span class="math inline">\(n-1\)</span> edges, as can be proven via induction. Furthermore, any connected graph with <span class="math inline">\(n-1\)</span> edges is a tree.</p>
 <p>Trees are often drawn as <em>rooted trees</em> with a <em>root node</em> at the top and <em>leaf nodes</em> below. Any node can be chosen as the root of a tree.</p>
-<div class="cell page-columns page-full" data-execution_count="15" data-out.width="80%" id="9be68d7e">
+<div class="cell page-columns page-full" data-execution_count="15" data-out.width="80%" id="c12d9d5d">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a aria-hidden="true" href="#cb21-1" tabindex="-1"></a>edges <span class="op">=</span> [(<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">4</span>), (<span class="dv">2</span>,<span class="dv">5</span>), (<span class="dv">2</span>,<span class="dv">6</span>), (<span class="dv">2</span>, <span class="dv">7</span>), (<span class="dv">7</span>, <span class="dv">8</span>)]</span>

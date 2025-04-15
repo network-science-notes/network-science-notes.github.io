@@ -30,18 +30,21 @@ For our first agent-based model, we are going to code up an agent-based implemen
 
 Let's start by importing several tools that we'll use. 
 ```{python}
+#| code-fold: false
 from mesa import Model, Agent                 # core mesa classes
 from mesa.space import NetworkGrid             
 from mesa.datacollection import DataCollector
 
-import networkx as nx                         # for the grid
-import numpy as np                            # computations
-from matplotlib import pyplot as plt          # visualizing output
+import networkx as nx                         
+import numpy as np                            
+from matplotlib import pyplot as plt          
+plt.style.use('seaborn-v0_8-whitegrid')
 ```
 
 Since this is a networks class, we'll use a network-based grid. We imported the capability to do that above as the `mesa.space.NetworkGrid` class. Of course, we need a network to use. For this example, we'll use the Les Miserable Graph, which is built in to NetworkX: 
 
 ```{python}
+#| code-fold: false
 G = nx.les_miserables_graph()
 G = nx.convert_node_labels_to_integers(G)
 ```
@@ -99,24 +102,27 @@ class RWModel(Model):
 Now we're ready to define what the agent is supposed to do! In the SRW, the agent looks at all nodes adjacent to theirs, chooses one of them uniformly at random, and moves to it. We need to implement this behavior in the `step()` method. While there are some more mesa functions involved that you may not have seen before, the approach is very simple. 
 
 ```{python}
-
+#| code-fold: false
 class SRWAgent(Agent):
     def __init__(self, model):
         super().__init__(model)
-        self.unique_id = "Anakin Graphwalker"
+        self.unique_id = "Anakin Graphwalker"                             #<1>
 
     def step(self):
 
         # find all possible next steps
         # include_center determines whether or not we count the 
         # current position as a possibility
-        options = self.model.grid.get_neighborhood(self.pos, 
-                                                include_center = False)
+        options = self.model.grid.get_neighborhood(self.pos,  #<2>
+                                                include_center = False) 
 
         # pick a random one and go there
         new_node = self.random.choice(options)
-        self.model.grid.move_agent(self, new_node)
+        self.model.grid.move_agent(self, new_node)                       #<3>
 ```
+1. The unique id of the node helps us keep track of it and is useful when analyzing data from the simulation. 
+2. The `get_neighborhood` method of the `grid` object returns a list of all nodes adjacent to the current node. The `include_center` argument determines whether or not we include the current node in this list. In this case, since we always want to move to a new location, we do not include the current node. Note that the `grid` is an instance variable of the `model`, a reference to which  is in turn saved as an instance variable of the `agent`.
+3. The `move_agent` method of the `grid` object hands actually updating the position of the agent to the newly-chosen node. 
 
 Note that, in order to get information about the possible locations, and to move the agent, we needed to use the `grid` attribute of the `SRWModel` that we defined above. More generally, the grid handles all "spatial" operations that we usually need to do. 
 
@@ -125,6 +131,7 @@ Note that, in order to get information about the possible locations, and to move
 Phew, that's it! Once we've defined our model class, we can then run it for a bunch of timesteps:
 
 ```{python}
+#| code-fold: false
 model = RWModel(G, SRWAgent)
 
 for i in range(100000):
@@ -134,22 +141,24 @@ for i in range(100000):
 We can get data on the behavior of the simulation using the `collector` attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead. 
 
 ```{python}
+#| code-fold: false
 walk_report = model.collector.get_agent_vars_dataframe()
 walk_report.head()
 ```
 
+
 Now let's ask: is the simulation we just did lined up with what we know about the theory of the simple random walk? [We derived this theory in @sec-srw.]{.aside} Recall that the *stationary distribution* $\pi$ of the SRW is supposed to describe the long-term behavior of the walk, with $\pi_i$ giving the limiting probability that the walker is on node $i$. Recall further that the stationary distribution for the SRW is actually known in closed form: it's $\pi_i = k_i / 2m$, where $k_i$ is the degree of node $i$. So, we would expect this to be a good estimate of the fraction of time that the walker spent on node $i$. Let's check this!  
 
-First, we can compute the fraction of time that the agent spent on each node: 
+Let's compute the fraction of time that the agent spent on each node and compare it to the stationary distribution of the underlying graph: 
 
 ```{python}
+#| code-fold: false
+# simulation results
 counts = walk_report.groupby("node").size()
 freqs = counts / sum(counts)
 freqs.head()
-```
 
-Now we can compute the degree sequence and stationary distribution of the underlying graph: 
-```{python}
+# stationary distribution of graph
 degs = [G.degree(i) for i in freqs.index]
 stationary_dist = degs / np.sum(degs)
 ```
@@ -157,27 +166,36 @@ stationary_dist = degs / np.sum(degs)
 Finally, we can plot and see whether the prediction lines up with the observation: 
 
 ```{python}
-plt.plot([0, .12], 
-         [0, .12], 
-         color = "black", label = "prediction")
+#| fig-cap: Comparison of the experimental amount of time spent on each node to the theoretical stationary distribution of the simple random walk. 
 
-plt.scatter(stationary_dist, 
+fig, ax = plt.subplots(figsize = (4, 4)) 
+ax.plot([0, 0.08], 
+         [0, 0.08], 
+         color = "grey", label = "prediction", linestyle ="--")
+
+ax.scatter(stationary_dist, 
             freqs, 
-            zorder = 100, label = "ABM")
+            zorder = 100, label = "ABM", facecolors="steelblue", s = 50, edgecolors = "black")
 
-plt.gca().set(xlabel = r"$\frac{k_i}{2m}$", 
+ax.set(xlabel = r"$\frac{k_i}{2m}$", 
               ylabel = "% of time spent on node")
 
-plt.legend()
+ax.set_aspect('equal', 'box')
+
+ax.legend()
 ```
 
-That's a match! 
+That's a match! It is possible to provide probabilistic guarantees on how many simulation steps would be necessary to achieve a specified degree of tolerance in the difference between simulated proportions and the stationary distribution. 
 
 ### Variation: PageRank
 
-The reason that we parameterized the `RWModel` class with the argument `agent_class` is that we can now implement PageRank just by modifying the agent behavior. Let's now make a new kind of agent that does the PageRank step: 
+The reason that we parameterized the `RWModel` class with the argument `agent_class` is that we can now implement other random walks, like PageRank, just by modifying the agent behavior. Let's now make a new kind of agent that does the PageRank step. In a PageRank step: 
+
+- With probability $\alpha$, the agent teleports to a random node.
+- With probability $1 - \alpha$, the agent chooses a neighbor instead does a simple random walk step. 
 
 ```{python}
+#| code-fold: false
 
 class PageRankAgent(Agent):
 
@@ -186,9 +204,9 @@ class PageRankAgent(Agent):
         self.alpha = alpha
 
     def step(self):
-        if np.random.rand() < self.alpha:     # teleport
+        if np.random.rand() < self.alpha:                              #<1>
             options = list(self.model.grid.G.nodes.keys())
-        else:                              # standard RW step
+        else:                                                          #<2>
             options = self.model.grid.get_neighborhood(self.pos, 
                                                 include_center = False)
 
@@ -196,14 +214,17 @@ class PageRankAgent(Agent):
         new_node = np.random.choice(options)
         self.model.grid.move_agent(self, new_node)
 ```
+1. Teleportation step. 
+2. Simple random walk step.
 
-That's all we need to do in order to implement PageRank in this graph. Let's go ahead and run PageRank.
+
+That's all we need to do in order to implement PageRank. Let's go ahead and run: 
 ```{python}
+#| code-fold: false
 pagerank_model = RWModel(G, PageRankAgent, alpha = 0.15)
 
 for i in range(100000):
     pagerank_model.step()
-
 ```
 
 That's it! Now we could check the match with the stationary distribution like we did last time. Instead, let's simply draw the graph. 
@@ -214,42 +235,54 @@ walk_report = pagerank_model.collector.get_agent_vars_dataframe()
 counts = walk_report.groupby("node").size()
 freqs  = counts / np.sum(counts)
 
-nx.draw(G, 
-        node_size = [2000*freqs[i] for i in G.nodes], 
-        edge_color = "grey")
+plot_kwargs = {
+    "with_labels": True,
+    "font_size": 8,
+    "edge_color": "gray",
+    "edgecolors": "white",
+    "width" : 0.3, 
+    "node_color": "steelblue",
+}
+
+g = nx.draw(G, 
+        node_size = [10000*freqs[i] for i in G.nodes], 
+        **plot_kwargs)
 ```
 
-
-
-
-
-
+The simulation-based version of PageRank is actually similar to Google's original implementation of PageRank: rather than solving a linear system, it was sufficient to simply let a webcrawler randomly follow links (with occasional teleportation) and then simply report how often it visited each website. The theory of random walks guarantees that the results will be close to the theoretical PageRank values provided that the number of steps is sufficiently large. 
+ 
 ## Multi-Agent Models
 
-Now let's consider our first multi-agent model, the *voter model*. [In fact, there are many different models that are all called "the" voter model. The one we'll discuss here is the simplest and most common.]{.aside}
+Most of the interesting stuff to do with agent-based modeling involves interactions between multiple agents. For a first example of a multi-agent model with interactions, let's consider the *voter model* of opinion dynamics. 
+[In fact, there are many different models that are all called "the" voter model. The one we'll discuss here is the simplest and most common.]{.aside}
 
+In the voter model, every agent $i$ has a binary opinion $x_i \in \{0,1\}$. In each timestep, agents adopt the opinion of a randomly chosen neighbor. 
 
+A decision must be made about whether to update *synchronously* or *asynchronously*. In a synchronous update, every agent takes the same step at exactly the same time. In asynchronous updates, the agents act one at a time, usually in a randomly-selected order. The practical difference between synchronous and asynchronous updating is not *usually* large, but can in some cases make major modeling differences. 
 
+For this example, we'll use asynchronous updates. Mesa implements this conveniently using the `shuffle_do` method. 
+
+Let's now implement the voter model. We'll call the container model class a `CompartmentalModel`, because we'll reuse it when we get to other models in which agents can be sorted into categories. 
 
 ```{python}
-
-from mesa.time import RandomActivation           
-
+#| code-fold: false
 class CompartmentalModel(Model):
 
     # model setup
     def __init__(self, G, agent_class, possible_states = [0,1], state_density = [0.5, 0.5]):
 
         super().__init__()
-        # self.schedule = RandomActivation(self) # time structure
         self.grid = NetworkGrid(G)            # space structure
         
+        # populate the graph with nodes initialized with one of the two 
+        # possible states
         for node in list(G.nodes):
             state = np.random.choice(possible_states, p = state_density)
             agent = agent_class(self, state)
             self.grid.place_agent(agent, node)
             # self.schedule.add(agent)
 
+        # collect the states of each agent over time
         self.collector = DataCollector(
             agent_reporters = {
                 "state" : lambda a: a.state
@@ -257,15 +290,18 @@ class CompartmentalModel(Model):
         )
 
     def step(self):
-        # self.schedule.step()
-        self.agents.shuffle_do("step")
+        self.agents.shuffle_do("step") # asynchronous activation
         self.collector.collect(self)
 ```
 
 
-```{python}
+Now we'll implement a `VoterAgent`. In the `step` method of the `VoterAgent`, the agent inspects the set of its neighbors, chooses one uniformly at random, and then adapts its state. The structure of this step is very similar to the simple random walk; only instead of moving to a new location, the agent instead updates its `state` instance variable. 
 
-class CompartmentalAgent(Agent):
+
+```{python}
+#| code-fold: false
+
+class VoterAgent(Agent):
 
     def __init__(self, model, state):
         super().__init__(model)
@@ -275,25 +311,33 @@ class CompartmentalAgent(Agent):
         neighbors = self.model.grid.get_neighbors(self.pos, 
                                                 include_center = False)
 
-        # neighbors = self.model.grid.get_cell_list_contents(neighbor_locs)
-
         adopt_from = np.random.choice(neighbors)
-
         self.state = adopt_from.state
-
 ```
+
+Let's run an instance of the voter model and plot the proportion of nodes with opinion 1: 
 
 ```{python}
-for run in range(10):
-    voter_model = CompartmentalModel(G, CompartmentalAgent, [0, 1], [0.5, 0.5])
-    for i in range(50):
-        voter_model.step()
+#| fig-cap: Proportion of opinion-1 nodes in a binary voter model with asynchronous updating. 
+#| label: fig-voter-model
 
-    report = voter_model.collector.get_agent_vars_dataframe()
-    plt.plot(report.groupby("Step").mean())
+voter_model = CompartmentalModel(G, VoterAgent, [0, 1], [0.5, 0.5])
 
-plt.gca().set(xlabel = "Timestep", ylabel = "% of nodes with opinion 1")
+timesteps = 50
+for i in range(timesteps):
+    voter_model.step() # remember that each model step updates every agent
+report = voter_model.collector.get_agent_vars_dataframe()
+
+fig, ax = plt.subplots(1, 1, figsize = (5, 4))
+
+proportions = report.groupby("Step").mean()
+
+ax.plot(np.arange(timesteps), proportions, color = "steelblue")
+ax.scatter(np.arange(timesteps), proportions, color = "steelblue", facecolor = "white", zorder = 100)
+labs = ax.set(xlabel = "Timestep", ylabel = "% of nodes with opinion 1", ylim = (-0.1, 1.1))
 ```
+
+The proportion of nodes with opinion eventually reaches either 0 or 1 and then stops changing. This is guaranteed to happen in the voter model, with the eventual winning opinion depending on the density of opinions in the initial condition.
 
 
 ## References

@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="quarto-1.6.10" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
-<title>17  Epidemic Models on Networks – Network Science: Models, Mathematics, and Computation</title>
+<title>18  Epidemic Models on Networks – Network Science: Models, Mathematics, and Computation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -45,7 +45,7 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta content="../" name="quarto:offset"/>
-<link href="../chapters/51-agent-based-modeling.html" rel="prev"/>
+<link href="../chapters/53-epidemiology-computational.html" rel="prev"/>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -120,7 +120,7 @@ window.Quarto = {
 <button aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="quarto-btn-toggle btn" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="button" type="button">
 <i class="bi bi-layout-text-sidebar-reverse"></i>
 </button>
-<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
+<nav aria-label="breadcrumb" class="quarto-page-breadcrumbs"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
 <a aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" class="flex-grow-1" data-bs-target=".quarto-sidebar-collapse-item" data-bs-toggle="collapse" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }" role="navigation">
 </a>
 </div>
@@ -283,8 +283,14 @@ window.Quarto = {
 </li>
 <li class="sidebar-item">
 <div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/53-epidemiology-computational.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
 <a class="sidebar-item-text sidebar-link active" href="../chapters/52-epidemiology.html">
-<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+<span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
 </div>
 </li>
 </ul>
@@ -318,9 +324,9 @@ window.Quarto = {
 </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
+<header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/52-epidemiology.html"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></h1>
+<h1 class="title"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></h1>
 </div>
 <div class="quarto-title-meta">
 </div>
@@ -387,8 +393,8 @@ window.Quarto = {
     &amp;= \sum_{k=0}^\infty q_k - \phi \sum_{k=0}^\infty q_k + \phi \sum_{k=0}^\infty q_k u^k \nonumber \\
     &amp;= 1 - \phi + \phi g_1(u) \,,
 \end{aligned}
-\tag{17.1}\]</span></span></p>
-<p>where <span class="math inline">\(g_1(u)\)</span> is the generating function associated with the excess degree distribution for our network. In general, <a class="quarto-xref" href="#eq-u-prob">Equation <span>17.1</span></a> may be difficult to solve, or may not have a closed form solution. However, we can use a graphical method to get insight into the epidemic threshold.</p>
+\tag{18.1}\]</span></span></p>
+<p>where <span class="math inline">\(g_1(u)\)</span> is the generating function associated with the excess degree distribution for our network. In general, <a class="quarto-xref" href="#eq-u-prob">Equation <span>18.1</span></a> may be difficult to solve, or may not have a closed form solution. However, we can use a graphical method to get insight into the epidemic threshold.</p>
 <p>We know that <span class="math inline">\(g_1(u)\)</span> is a polynomial with nonnegative coefficients because it is a probability generating function. Therefore, for <span class="math inline">\(u \in [0,1]\)</span>, we know</p>
 <ul>
 <li><span class="math inline">\(g_1(u) \geq 0\)</span>,</li>
@@ -448,18 +454,18 @@ window.Quarto = {
 \]</span></p>
 <p>Writing <span class="math inline">\({\bf x}(t)\)</span> as the vector <span class="math inline">\((X_1(t), X_2(t), \dots X_n(t))^T\)</span> containing the probabilities for each node, we can write our system in matrix form <span id="eq-linearSI"><span class="math display">\[
     \frac{d}{dt}{\bf x} \approx \beta A {\bf x}\,.
-\tag{17.2}\]</span></span></p>
+\tag{18.2}\]</span></span></p>
 <p>We can study the solutions of the linearized system by studying the eigenvalues and eigenvectors of <span class="math inline">\(A\)</span>. Let <span class="math inline">\({\bf v}_r\)</span> be the eigenvector with associated eigenvalue <span class="math inline">\(\lambda_r\)</span>, so that <span class="math inline">\(A{\bf v}_r = \lambda_r {\bf v}_r\)</span>. If we write <span class="math inline">\({\bf x}\)</span> as a linear combination of the eigenvectors of <span class="math inline">\(A\)</span>, we have</p>
 <p><span id="eq-eigsLC"><span class="math display">\[
     {\bf x} = \sum_{r=1}^n c_r(t) {\bf v}_r \,,
-\tag{17.3}\]</span></span></p>
-<p>where <span class="math inline">\(c_r(t)\)</span> are the time-dependent coefficients of this linear combination. Substituting <a class="quarto-xref" href="#eq-eigsLC">Equation <span>17.3</span></a> into <a class="quarto-xref" href="#eq-linearSI">Equation <span>17.2</span></a> gives <span class="math display">\[
+\tag{18.3}\]</span></span></p>
+<p>where <span class="math inline">\(c_r(t)\)</span> are the time-dependent coefficients of this linear combination. Substituting <a class="quarto-xref" href="#eq-eigsLC">Equation <span>18.3</span></a> into <a class="quarto-xref" href="#eq-linearSI">Equation <span>18.2</span></a> gives <span class="math display">\[
     \frac{d}{dt} {\bf x} = \sum_{r=1}^n \frac{dc_r}{dt} {\bf v}_r = \beta \sum_{r=1}^n c_r(t) \lambda_r {\bf v}_r \,.
 \]</span></p>
 <p>Therefore, for each term, we have a first-order linear differential equation describing the coefficients <span class="math display">\[
     \frac{dc_r}{dt} = \beta \lambda_r c_r \ \Rightarrow \ c_r(t) = c_r(0)e^{\beta \lambda_r t} \,.
 \]</span></p>
-<p>Finally, substitute this expression for the time-dependent coefficients into <a class="quarto-xref" href="#eq-eigsLC">Equation <span>17.3</span></a> to get the solution for <span class="math inline">\({\bf x}\)</span>: <span class="math display">\[
+<p>Finally, substitute this expression for the time-dependent coefficients into <a class="quarto-xref" href="#eq-eigsLC">Equation <span>18.3</span></a> to get the solution for <span class="math inline">\({\bf x}\)</span>: <span class="math display">\[
     {\bf x} = \sum_{r=1}^n c_r(0)e^{\beta \lambda_r t}{\bf v}_r\,.
 \]</span></p>
 <p>Our solution will be dominated by the fasted growing term (i.e., the largest magnitude eigenvalue, which we will call <span class="math inline">\(\lambda_1\)</span>). <span class="math display">\[
@@ -904,8 +910,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
 <div class="nav-page nav-page-previous">
-<a aria-label="Agent-Based Modeling on Networks" class="pagination-link" href="../chapters/51-agent-based-modeling.html">
-<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>  <span class="chapter-title">Agent-Based Modeling on Networks</span></span>
+<a aria-label="Models of Disease-Spread" class="pagination-link" href="../chapters/53-epidemiology-computational.html">
+<i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></span>
 </a>
 </div>
 <div class="nav-page nav-page-next">

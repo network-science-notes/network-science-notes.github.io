@@ -318,8 +318,14 @@ window.Quarto = {
 </li>
 <li class="sidebar-item">
 <div class="sidebar-item-container">
+<a class="sidebar-item-text sidebar-link" href="../chapters/53-epidemiology-computational.html">
+<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Models of Disease-Spread</span></span></a>
+</div>
+</li>
+<li class="sidebar-item">
+<div class="sidebar-item-container">
 <a class="sidebar-item-text sidebar-link" href="../chapters/52-epidemiology.html">
-<span class="menu-text"><span class="chapter-number">17</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
+<span class="menu-text"><span class="chapter-number">18</span>  <span class="chapter-title">Epidemic Models on Networks</span></span></a>
 </div>
 </li>
 </ul>
@@ -368,7 +374,7 @@ window.Quarto = {
 <li>PSI* was one class focusing on engineering.</li>
 </ol>
 <p>We might reasonably expect that students in the same class would interact more with each other than with students in other classes. Let’s acquire the data and visualize the network to begin to develop a feel for this idea.</p>
-<div class="cell" data-execution_count="1" id="4b8734ca">
+<div class="cell" data-execution_count="1" id="b61ee147">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -439,7 +445,7 @@ window.Quarto = {
 </div>
 <div class="no-row-height column-margin column-container"><div class="">
 <p>This hidden code cell implements a number of utilities for processing and node labels associated with them. It also has a lot of plotting implementations.</p>
-</div></div><div class="cell" data-execution_count="2" id="4b7cd37d">
+</div></div><div class="cell" data-execution_count="2" id="4ab78dad">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>G <span class="op">=</span> acquire_contact_data()</span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>clusters <span class="op">=</span> nx.get_node_attributes(G, <span class="st">"class"</span>)</span>
 <span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
@@ -469,7 +475,7 @@ window.Quarto = {
 </ol>
 <div class="page-columns page-full"><p>We often informally say that the network is <em>assortative</em> or <em>has modular structure</em> when <span class="math inline">\(Q\)</span> is substantially larger than 0. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The question of what counts as “substantially larger” can be tricky; for example; see discussion in <span class="citation" data-cites="zhang2014scalable">Zhang and Moore (<a href="#ref-zhang2014scalable" role="doc-biblioref">2014</a>)</span> for cases in which Erdős–Rényi random graphs can have high modularity with respect to a carefully-chosen partition.</span></div></div>
 <p>Networkx implements a function to compute the modularity, but it’s not difficult to implement our own either. We’ll structure our function to accept a vector of characters giving the class labels.</p>
-<div class="cell" data-execution_count="3" id="12122485">
+<div class="cell" data-execution_count="3" id="acfa712f">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> modularity(G, z):</span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>    <span class="co"># converts z from a dict to an array if it isn't one already</span></span>
@@ -486,14 +492,14 @@ window.Quarto = {
 <span id="cb3-14"><a aria-hidden="true" href="#cb3-14" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>m)<span class="op">*</span>((A <span class="op">-</span> np.outer(k, k) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> m))<span class="op">*</span>delta).<span class="bu">sum</span>()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now let’s try calling our function to find the modularity of the graph and its labels:</p>
-<div class="cell" data-execution_count="4" id="2aa625c1">
+<div class="cell" data-execution_count="4" id="a983ac93">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>modularity(G, clusters)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>np.float64(0.5039115128642156)</code></pre>
 </div>
 </div>
 <p>Let’s do a quick check against the built-in implementation of modularity in Networkx. This implementation works just a bit differently: we need to pass a list of sets in which each set represents a community.</p>
-<div class="cell" data-execution_count="5" id="c9d72841">
+<div class="cell" data-execution_count="5" id="2472f48a">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>communities <span class="op">=</span> [{node <span class="cf">for</span> node <span class="kw">in</span> G.nodes() <span class="cf">if</span> clusters[node] <span class="op">==</span> i} <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
 <span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>nx.community.modularity(G, communities)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -507,7 +513,7 @@ window.Quarto = {
 <div class="page-columns page-full"><p>In the community detection problem, we consider a graph <span class="math inline">\(G\)</span> which we <em>suspect</em> to have some interesting modular structure, but we do not have access to the label vector <span class="math inline">\(\mathbf{z}\)</span>. Instead, we attempt to <em>find</em> a good label vector based on the graph structure itself. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">This kind of task is also often called “graph clustering” or “graph partitioning.” The idea that networks have community structure and that algorithms can find this structure was popularized by <span class="citation" data-cites="girvan2002community">Girvan and Newman (<a href="#ref-girvan2002community" role="doc-biblioref">2002</a>)</span>.</span></div></div>
 <div class="no-row-height column-margin column-container"><div class="">
 <p>So, in the community detection problem, we have access to an <em>unlabeled graph</em> like this one.</p>
-<div class="cell" data-execution_count="6" id="09478845">
+<div class="cell" data-execution_count="6" id="78ac7067">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -547,7 +553,7 @@ Exercise
 </div>
 
 <p>Our implementation of the main loop relies on the following function which calculates the change in modularity from swapping a node <span class="math inline">\(h\)</span> from community <span class="math inline">\(x\)</span> to community <span class="math inline">\(y\)</span>.</p>
-<div class="cell" data-execution_count="7" id="a2996671">
+<div class="cell" data-execution_count="7" id="724f1a64">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="kw">def</span> modularity_change(A, k, m, i, x, y, labels):    </span>
 <span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a><span class="co">    compute the change in modularity associated with moving the current label of node i (assumed to be labels[i]) from x to y</span></span>
@@ -558,7 +564,7 @@ Exercise
 <span id="cb8-8"><a aria-hidden="true" href="#cb8-8" tabindex="-1"></a>    <span class="cf">return</span> change</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can use this function in a loop to iteratively swap node labels until no improvement can be made (or until the step limit is exceeded).</p>
-<div class="cell" data-execution_count="8" id="1ee0e1db">
+<div class="cell" data-execution_count="8" id="685de5c8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a><span class="kw">def</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e4</span>)):</span>
 <span id="cb9-2"><a aria-hidden="true" href="#cb9-2" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb9-3"><a aria-hidden="true" href="#cb9-3" tabindex="-1"></a><span class="co">    Return a label vector of integers from greedy agglomerative clustering</span></span>
@@ -607,11 +613,11 @@ Exercise
 <span id="cb9-46"><a aria-hidden="true" href="#cb9-46" tabindex="-1"></a>    <span class="cf">return</span> greedy_clusters, np.array(progress)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s run our algorithm…</p>
-<div class="cell" data-execution_count="9" id="87c64803">
+<div class="cell" data-execution_count="9" id="b7dc5907">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>greedy_clusters, progress <span class="op">=</span> greedy_clustering(G, num_steps <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1e5</span>))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>…and visualize how we did.</p>
-<div class="cell" data-execution_count="10" id="a080ef34">
+<div class="cell" data-execution_count="10" id="97f96871">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">7</span>, <span class="fl">3.5</span>))</span>
 <span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a></span>
 <span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a>ax[<span class="dv">0</span>].plot(progress)</span>
@@ -654,7 +660,7 @@ Exercise
 \]</span></p>
 <div class="page-columns page-full"><p>Roughly, <span class="math inline">\(H(\mathbf{z})\)</span> measures the “diversity” of labels represented in <span class="math inline">\(\mathbf{z}\)</span>, while <span class="math inline">\(I(\mathbf{z}, \mathbf{z}')\)</span> measures the extent to which knowing a node’s label in <span class="math inline">\(\mathbf{z}\)</span> helps you guess its label in <span class="math inline">\(\mathbf{z}'\)</span>. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The entropy and mutual information are both quantities introduced by <span class="citation" data-cites="shannon1948mathematical">Shannon (<a href="#ref-shannon1948mathematical" role="doc-biblioref">1948</a>)</span> in a famous paper that launched the field of <em>information theory</em>. Information theory is widely used in electrical engineering, statistics, statistical physics, and machine learning. See <span class="citation" data-cites="cover2006elements">Cover and Thomas (<a href="#ref-cover2006elements" role="doc-biblioref">2006</a>)</span> for a modern treatment of the topic.</span></div></div>
 <p>Here are implementations of the entropy, mutual information, and normalized mutual information:</p>
-<div class="cell" data-execution_count="11" id="089c3533">
+<div class="cell" data-execution_count="11" id="830dfc0c">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> H(z, G): </span>
 <span id="cb12-2"><a aria-hidden="true" href="#cb12-2" tabindex="-1"></a>    z <span class="op">=</span> labels_to_array(z, G)</span>
 <span id="cb12-3"><a aria-hidden="true" href="#cb12-3" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(z)</span>
@@ -683,14 +689,14 @@ Exercise
 <span id="cb12-26"><a aria-hidden="true" href="#cb12-26" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">2</span><span class="op">*</span>I(z, z_, G)<span class="op">/</span>(H(z, G) <span class="op">+</span> H(z_, G))</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can assess the performance of our greedy clustering algorithm against ground truth:</p>
-<div class="cell" data-execution_count="12" id="bbc452f0">
+<div class="cell" data-execution_count="12" id="56c0b8d4">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a aria-hidden="true" href="#cb13-1" tabindex="-1"></a>NMI(clusters, greedy_clusters, G)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>np.float64(0.867517624203057)</code></pre>
+<pre><code>np.float64(0.8675176242030571)</code></pre>
 </div>
 </div>
 <p>Frequently when assessing a clustering method, it’s not really easy to tell out of context whether it’s useful or not. We often assess the method against competing methods, and often on several data sets.</p>
-<div class="cell" data-execution_count="13" id="94f790e2">
+<div class="cell" data-execution_count="13" id="95795ba6">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a aria-hidden="true" href="#cb15-1" tabindex="-1"></a><span class="kw">def</span> test_suite(G, clusters):</span>
 <span id="cb15-2"><a aria-hidden="true" href="#cb15-2" tabindex="-1"></a></span>
 <span id="cb15-3"><a aria-hidden="true" href="#cb15-3" tabindex="-1"></a>    <span class="co"># retrieve our own greedy clusters and assess</span></span>
@@ -709,10 +715,10 @@ Exercise
 <span id="cb15-16"><a aria-hidden="true" href="#cb15-16" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Method </span><span class="sc">{</span>method<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> has NMI = </span><span class="sc">{</span>NMI(clusters, inferred_clusters, G)<span class="sc">:.3f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s run our test suite:</p>
-<div class="cell" data-execution_count="14" id="e00eb119">
+<div class="cell" data-execution_count="14" id="e8bca636">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" href="#cb16-1" tabindex="-1"></a>test_suite(G, clusters)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Our greedy agglomeration clustering has NMI = 0.845
+<pre><code>Our greedy agglomeration clustering has NMI = 0.868
 
 Method greedy_modularity_communities has NMI = 0.748
 Method asyn_lpa_communities has NMI = 0.688
@@ -722,22 +728,22 @@ Method louvain_communities has NMI = 0.868</code></pre>
 </div>
 <p>Our algorithm appears to be competitive with several of the built-in methods for community detection implemented in Networkx.</p>
 <p>Would we get different results on another graph? Let’s load up our friend the Karate Club graph:</p>
-<div class="cell" data-execution_count="15" id="bb238623">
+<div class="cell" data-execution_count="15" id="e242d9bd">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a aria-hidden="true" href="#cb18-1" tabindex="-1"></a>G_karate <span class="op">=</span> nx.karate_club_graph()</span>
 <span id="cb18-2"><a aria-hidden="true" href="#cb18-2" tabindex="-1"></a>G_karate <span class="op">=</span> nx.convert_node_labels_to_integers(G_karate)</span>
 <span id="cb18-3"><a aria-hidden="true" href="#cb18-3" tabindex="-1"></a>clusters_karate <span class="op">=</span> nx.get_node_attributes(G_karate, <span class="st">"club"</span>)</span>
 <span id="cb18-4"><a aria-hidden="true" href="#cb18-4" tabindex="-1"></a>clusters_karate <span class="op">=</span> {node : <span class="dv">0</span> <span class="cf">if</span> club <span class="op">==</span> <span class="st">"Mr. Hi"</span> <span class="cf">else</span> <span class="dv">1</span> <span class="cf">for</span> node, club <span class="kw">in</span> clusters_karate.items()}</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll run our test suite again:</p>
-<div class="cell" data-execution_count="16" id="0de62694">
+<div class="cell" data-execution_count="16" id="009219d3">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a aria-hidden="true" href="#cb19-1" tabindex="-1"></a>test_suite(G_karate, clusters_karate)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Our greedy agglomeration clustering has NMI = 0.417
+<pre><code>Our greedy agglomeration clustering has NMI = 0.470
 
 Method greedy_modularity_communities has NMI = 0.565
-Method asyn_lpa_communities has NMI = 0.495
+Method asyn_lpa_communities has NMI = 0.677
 Method label_propagation_communities has NMI = 0.364
-Method louvain_communities has NMI = 0.588</code></pre>
+Method louvain_communities has NMI = 0.600</code></pre>
 </div>
 </div>
 <p>Our algorithm appears to be a bit less impressive in this context, although results may vary due to randomness. A full test suite would often involve averaging the NMI over many runs of each algorithm.</p>

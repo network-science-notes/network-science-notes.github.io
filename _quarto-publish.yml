@@ -25,6 +25,7 @@ book:
       chapters:
         - chapters/50-random-walks.qmd
         - chapters/51-agent-based-modeling.qmd
+        - chapters/53-epidemiology-computational.qmd
         - chapters/52-epidemiology.qmd
     - part: "Appendices"
       appendices: 
