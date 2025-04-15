@@ -4,7 +4,7 @@ code-summary: "Show code"
 jupyter: python3
 ---
 
-# Models of Disease-Spread
+# Agent-Based Models of Epidemics on Networks
 
 In this set of notes, we'll study several simple models of disease spread on networks. We'll implement and simulate these models using the `mesa` library for agent-based modeling. Then, we'll give an informal derivation of the *epidemic threshold* on networks, which describes the condition under which a disease can spread to a large portion of a networked population. 
 
@@ -103,7 +103,7 @@ In the models that we consider here, we'll usually assume a **S**usceptible popu
 
 ## Implementation in Mesa
 
-We'll implement our epidemic models using the `mesa` library. The `CompartmentalModel` with asynchronous updating that we introduced last time for modeling opinion dynamics with the voter model will also work for epidemic modeling with just a few minor tweaks. The main work is to define new agents with new states and transitions.[In the [advanced notes](52-epidemiology.qmd) on the theory of epidemiology on graphs, you can learn more about how things look if we assume that infection takes place in continuous rather than discrete time.]{.aside} 
+We'll implement our epidemic models using the `mesa` library. The `CompartmentalModel` with that we introduced last time for modeling opinion dynamics with the voter model will also work for epidemic modeling with just a few minor tweaks. The main work is to define new agents with new states and transitions.[In the [advanced notes](52-epidemiology.qmd) on the theory of epidemiology on graphs, you can learn more about how things look if we assume that infection takes place in continuous rather than discrete time.]{.aside} One small wrinkle is that this time we will use *synchronous* updating, in which each node performs its update simultaneously. This involves adding a second method (`advance`) to each agent; the `step` method will compute the new state of the node and the `advance` method will save it as the new current state. 
 
 ```{python}
 #| code-fold: false
@@ -178,13 +178,14 @@ class SIAgent(Agent):
                 if np.random.rand() < self.model.infection_rate:
                     self.new_state = "I"
             
-
+    # compute what the new state will be
     def step(self):
         if self.state == "S":
             self.get_infected()
         elif self.state == "I":
             pass 
     
+    # save the new state as the next current state
     def advance(self):
         self.state = self.new_state
 ```
@@ -216,8 +217,6 @@ for i in range(6):
     colors = [state_colors[s] for s in states.loc[i].values.ravel()]
     nx.draw(G, pos, node_color = colors, ax = ax, node_size = 20, edge_color = "grey", width = 0.1, edgecolors = "black")
     ax.set(title = f"Step {i}", xticks = [], yticks = [])
-
-
 ```
 
 How representative is this visualization? Would we see something similar on our two model networks $G_1$ and $G_2$? To address these questions, let's define a function to run the simulation on a specified network and compute the total number of agents in each compartment over time: 
@@ -251,6 +250,7 @@ def epi_experiment(G, agent_type, timesteps, infection_rate, ax, recovery_rate =
     ax.set_ylabel("Number of Agents")
     ax.set(ylim = (-0.02, 1.02))
     ax.legend()
+    return ax
 ```
 
 Now we can run simulations and plot the total number of infected nodes like this: 
@@ -258,7 +258,7 @@ Now we can run simulations and plot the total number of infected nodes like this
 ```{python}
 timesteps = 100
 fig, ax = plt.subplots(1, 1, figsize = (5, 3))
-infection_rate = 0.3
+infection_rate = 0.2
 
 epi_experiment(G_1, SIAgent, timesteps, infection_rate = infection_rate, ax = ax)
 ```
@@ -276,16 +276,20 @@ fig, ax = plt.subplots(1, 2, figsize = (6, 2.8))
 for i in range(20):
     epi_experiment(G_1, SIAgent, timesteps, infection_rate = infection_rate,   ax = ax[0], alpha = 0.5, label = i == 0)
     epi_experiment(G_2, SIAgent, timesteps, infection_rate = infection_rate,   ax = ax[1], alpha = 0.5, label = i == 0)
+ax[0].set(title = r"$G_1$: Power-Law Degree Distribution")
+ax[1].set(title = r"$G_2$: Poisson Degree Distribution")
 
 plt.tight_layout()
 ```
 
 Several features stand out: 
 
-1. The disease does not inevitably take over the entirety of $G_1$: in some cases, it seems that only very few agents are infected, while in others a very large fraction of the population is infected. 
+1. The disease does not inevitably take over the entirety of $G_1$: in some cases, it seems that only very few agents are infected, while in others a very large fraction of the population (but not the entire population) is infected. 
 2. It appears that the disease tends to work its way slightly more quickly thorough $G_1$ and $G_2$. An interesting qualitative feature is the apparent explosive growth in the infection rate from a seeming period of calm in $G_1$. In $G_2$, on the other hand, the increase in infection is somewhat more gradual. 
 
 ::: {.callout-important}
+
+## Exercise
 
 Can you explain observation 1? What determines the final size of the epidemic? 
 
