@@ -435,7 +435,7 @@ Figure 8.1: Sorted degree sequence of the karate club graph.
 </div>
 </div>
 <p>Now we’ll implement an algorithm to perform stub-matching. First, we create the list of stubs. Each node appears a number of times equal to its degree.</p>
-<div class="cell" data-execution_count="2" id="3f7971ae">
+<div class="cell" data-execution_count="2" id="e32b19c1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>stubs <span class="op">=</span> np.repeat(np.arange(<span class="bu">len</span>(deg_seq)), deg_seq)</span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="bu">print</span>(stubs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -449,12 +449,12 @@ Figure 8.1: Sorted degree sequence of the karate club graph.
 </div>
 </div>
 <p>Now we need to take random pairs from this list of stubs. We could do this with a loop, but another way is to shuffle the list and then reshape it into a list of pairs:</p>
-<div class="cell" data-execution_count="3" id="5b5ab542">
+<div class="cell" data-execution_count="3" id="062b3431">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>mixed_stubs <span class="op">=</span> np.random.permutation(stubs)</span>
 <span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a>edge_list <span class="op">=</span> mixed_stubs.reshape(<span class="bu">len</span>(mixed_stubs)<span class="op">//</span><span class="dv">2</span>, <span class="dv">2</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can create a graph from our newly-constructed edge-list. Importantly, this graph might contain both self-loops and multi-edges, and so we need to use the <code>nx.MultiGraph</code> constructor.</p>
-<div class="cell" data-execution_count="4" id="ab4d78c0">
+<div class="cell" data-execution_count="4" id="cd963f75">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>G <span class="op">=</span> nx.MultiGraph()</span>
 <span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>edges <span class="op">=</span> G.add_edges_from(edge_list)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
@@ -487,7 +487,7 @@ Figure 8.2: Original karate club graph alongside a random graph formed via stub
 </div>
 <p>The stub-matching algorithm can produce multiedges and self-loops, which can cause the graph to not be simple. However, <span class="citation" data-cites="bollobas1980probabilistic">Bollobás (<a href="#ref-bollobas1980probabilistic" role="doc-biblioref">1980</a>)</span> proved that, when the graph is sparse, the expected number of multi-edges and self-loops does not grow with network size. One can, as a result, show these structures are rare, and can often be ignored in arguments. In practical terms, we often discard the self-loops and multi-edges when constructing the graph; this results in the degree sequence no longer being <em>exactly</em> preserved, but the effect is u sually small.</p>
 <p><span class="citation" data-cites="fosdick2018configuring">Fosdick et al. (<a href="#ref-fosdick2018configuring" role="doc-biblioref">2018</a>)</span> discuss the subtleties that arise due to whether we allow or disallow multiedges and self-loops and whether we choose to label stubs distinctly (as opposed to only labeling vertices). These choices result in different spaces of graphs from which we are sampling. If we want to sample a simple graph from a configuration model with exactly the specified degree sequence, stub-matching is no longer sufficient. Instead, we need to rely on edge-rewiring algorithms, which randomly swap edges between nodes of the graph to randomize the graph while ensuring that the degrees of nodes remain constant. NetworkX implements a version of such an algorithm. The user needs to specify how many rewiring steps should be performed.</p>
-<div class="cell" data-execution_count="6" id="dd0d9db8">
+<div class="cell" data-execution_count="6" id="e0a33963">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>G <span class="op">=</span> nx.random_reference(G_Karate, connectivity <span class="op">=</span> <span class="va">False</span>, niter <span class="op">=</span> <span class="dv">1000</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s how this looks:</p>
@@ -548,7 +548,7 @@ Exercise
 </div>
 
 <p>NetworkX supplies a built-in Chung-Lu implementation:</p>
-<div class="cell" data-execution_count="9" id="ad0d84f5">
+<div class="cell" data-execution_count="9" id="cedcf88c">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>G <span class="op">=</span> nx.expected_degree_graph(deg_seq, selfloops<span class="op">=</span><span class="va">False</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Visually, this looks fairly similar to the configuration model and quite different from the original graph:</p>
