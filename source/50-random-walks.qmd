@@ -139,7 +139,7 @@ So, for simple random walks, $\mathbb{P}(X_t = i)$ when $t$ is large is approxim
 
 ## Exploration and Ranking: PageRank
 
-PageRank is the algorithm that originally made Google a dominant player in the domain of web search.[@brin1998anatomy]{.aside} The idea of PageRank is again to explore the graph using a random exploration process. The underlying process is closely related to the simple random walk that we described earlier. However, there are two important differences. 
+PageRank @brin1998anatomy is the algorithm that originally made Google a dominant player in the domain of web search. The idea of PageRank is again to explore the graph using a random exploration process. The underlying process is closely related to the simple random walk that we described earlier. However, there are two important differences. 
 
 1. First, PageRank works on *directed* graphs. This matches the original application area; the web can be viewed as a *directed* network of links between pages. The reason directedness is so important is that, if $i \rightarrow j$ ($i$ links to $j$), it doesn't follow that $j\rightarrow i$. Capturing these kinds of asymmetric relationships is very important for reasonable ranking procedures. 
 2. Unlike the SRW, PageRank is able to explore graphs that are non-ergodic. 
@@ -253,6 +253,7 @@ Suppose that there exists an integer power $t$ such that $\mathbf{P}^t$ has all 
 Let's code up a quick example to visualize PageRank. We'll use the Hamilton Mentions graph: 
 
 ```{python}
+#| code-fold: false
 import networkx as nx
 import numpy as np
 import pandas as pd
@@ -269,9 +270,10 @@ G = nx.from_pandas_edgelist(df,
                             create_using=nx.DiGraph())
 ```
 
-There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph. 
+There are a few nodes in this network with no outgoing edges. While there are modifications we can make to handle this kind of case, we can also just remove them from the graph. 
 
 ```{python}
+#| code-fold: false
 for i in range(2):
     G = G.subgraph([name for name, val in G.out_degree() if val > 0])
 ```
@@ -279,6 +281,9 @@ for i in range(2):
 Now we can write our PageRank function. We'll compute the transition matrix $\mathbf{P}$ and find its leading eigenvector. 
 
 ```{python}
+#| code-fold: false
+
+#---
 def pagerank(G, v, alpha = 0.15):
 
     assert np.isclose(v.sum(), 1.0)
@@ -295,10 +300,13 @@ def pagerank(G, v, alpha = 0.15):
     pi = eigs[1][:,np.isclose(eigs[0], 1.0)]
     pi = np.abs(pi) / np.abs(pi).sum()
     return pi
+#---
 ```
 
-```{python}
+Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector $\mathbf{v}$ and the teleportation rate $\alpha$: 
 
+```{python}
+#| code-fold: false
 def draw_pagerank(G, v,  layout, alpha = 0.15):
 
     pi = pagerank(G, v, alpha = alpha)
@@ -309,11 +317,6 @@ def draw_pagerank(G, v,  layout, alpha = 0.15):
             node_color = "lavender",
             edgecolors  = "darkgray")
 
-```
-
-Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector $\mathbf{v}$ and the teleportation rate $\alpha$: 
-
-```{python}
 layout = nx.fruchterman_reingold_layout(G)
 
 n = len(G.nodes())
@@ -321,12 +324,12 @@ v = 1/n*np.ones(n)
 draw_pagerank(G, v, layout, alpha = 0.1)
 ```
 
-
 ## Seeded PageRank
 
 A useful feature of the way we've defined PageRank is that we can choose different teleportation vectors $\mathbf{v}$ in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector $\mathbf{v}$ to highlight those specific characters. This approach is often called "personalized" or "seeded" PageRank. 
 
 ```{python}
+#| code-fold: false
 v = np.array([1 if i == "kingGeorge" else 0 for i in list(G.nodes())])
 draw_pagerank(G, v, layout, alpha = 0.1)
 ```
@@ -338,5 +341,5 @@ This kind of idea is often applied in marketing and search. Suppose we know that
 
 
 
-
+## References
 

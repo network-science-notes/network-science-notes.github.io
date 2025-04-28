@@ -147,7 +147,7 @@ window.Quarto = {
 </script>
 <link href="../styles.css" rel="stylesheet"/>
 </head>
-<body class="nav-sidebar floating slimcontent">
+<body class="nav-sidebar floating">
 <div id="quarto-search-results"></div>
 <header class="headroom fixed-top" id="quarto-header">
 <nav class="quarto-secondary-nav">
@@ -353,11 +353,12 @@ window.Quarto = {
 <li><a class="nav-link" data-scroll-target="#implementation" href="#implementation" id="toc-implementation">Implementation</a></li>
 </ul></li>
 <li><a class="nav-link" data-scroll-target="#seeded-pagerank" href="#seeded-pagerank" id="toc-seeded-pagerank">Seeded PageRank</a></li>
+<li><a class="nav-link" data-scroll-target="#references" href="#references" id="toc-references">References</a></li>
 </ul>
 </nav>
 </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 <header class="quarto-title-block default" id="title-block-header"><nav aria-label="breadcrumb" class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html">Applications and Extensions</a></li><li class="breadcrumb-item"><a href="../chapters/50-random-walks.html"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">15</span>  <span class="chapter-title">Random Walks</span></h1>
@@ -516,9 +517,9 @@ window.Quarto = {
 <p>So, for simple random walks, <span class="math inline">\(\mathbb{P}(X_t = i)\)</span> when <span class="math inline">\(t\)</span> is large is approximately <span class="math inline">\(k_i/2m\)</span>, proportional to the degree of node <span class="math inline">\(i\)</span>. The intuition here is that the amount of time I spend in state is directly proportional to the number of ways that I can enter that state.</p>
 </section>
 </section>
-<section class="level2 page-columns page-full" id="exploration-and-ranking-pagerank">
+<section class="level2" id="exploration-and-ranking-pagerank">
 <h2 class="anchored" data-anchor-id="exploration-and-ranking-pagerank">Exploration and Ranking: PageRank</h2>
-<div class="page-columns page-full"><p>PageRank is the algorithm that originally made Google a dominant player in the domain of web search. The idea of PageRank is again to explore the graph using a random exploration process. The underlying process is closely related to the simple random walk that we described earlier. However, there are two important differences.</p><div class="no-row-height column-margin column-container"><span class="margin-aside"><span class="citation" data-cites="brin1998anatomy">Brin and Page (<a href="#ref-brin1998anatomy" role="doc-biblioref">1998</a>)</span></span></div></div>
+<p>PageRank <span class="citation" data-cites="brin1998anatomy">Brin and Page (<a href="#ref-brin1998anatomy" role="doc-biblioref">1998</a>)</span> is the algorithm that originally made Google a dominant player in the domain of web search. The idea of PageRank is again to explore the graph using a random exploration process. The underlying process is closely related to the simple random walk that we described earlier. However, there are two important differences.</p>
 <ol type="1">
 <li>First, PageRank works on <em>directed</em> graphs. This matches the original application area; the web can be viewed as a <em>directed</em> network of links between pages. The reason directedness is so important is that, if <span class="math inline">\(i \rightarrow j\)</span> (<span class="math inline">\(i\)</span> links to <span class="math inline">\(j\)</span>), it doesn’t follow that <span class="math inline">\(j\rightarrow i\)</span>. Capturing these kinds of asymmetric relationships is very important for reasonable ranking procedures.</li>
 <li>Unlike the SRW, PageRank is able to explore graphs that are non-ergodic.</li>
@@ -644,9 +645,7 @@ window.Quarto = {
 <section class="level3" id="implementation">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <p>Let’s code up a quick example to visualize PageRank. We’ll use the Hamilton Mentions graph:</p>
-<div class="cell" data-execution_count="1" id="238a75b5">
-<details class="code-fold">
-<summary>Show code</summary>
+<div class="cell" data-execution_count="1" id="be0b3e47">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -661,20 +660,14 @@ window.Quarto = {
 <span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a>                            target <span class="op">=</span> <span class="st">"mentioned"</span>, </span>
 <span id="cb1-13"><a aria-hidden="true" href="#cb1-13" tabindex="-1"></a>                            edge_attr<span class="op">=</span><span class="va">None</span>, </span>
 <span id="cb1-14"><a aria-hidden="true" href="#cb1-14" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
-</details>
 </div>
-<p>There are a few nodes in this network with no outgoing edges. while there are modifications we can make to handle this kind of case, we can also just remove them from the graph.</p>
-<div class="cell" data-execution_count="2" id="fe1db7f8">
-<details class="code-fold">
-<summary>Show code</summary>
+<p>There are a few nodes in this network with no outgoing edges. While there are modifications we can make to handle this kind of case, we can also just remove them from the graph.</p>
+<div class="cell" data-execution_count="2" id="7bd4be5b">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>    G <span class="op">=</span> G.subgraph([name <span class="cf">for</span> name, val <span class="kw">in</span> G.out_degree() <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">0</span>])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <p>Now we can write our PageRank function. We’ll compute the transition matrix <span class="math inline">\(\mathbf{P}\)</span> and find its leading eigenvector.</p>
-<div class="cell" data-execution_count="3" id="2abb9afa">
-<details class="code-fold">
-<summary>Show code</summary>
+<div class="cell" data-execution_count="3" id="1e5d860d">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>    <span class="cf">assert</span> np.isclose(v.<span class="bu">sum</span>(), <span class="fl">1.0</span>)</span>
@@ -691,11 +684,9 @@ window.Quarto = {
 <span id="cb3-14"><a aria-hidden="true" href="#cb3-14" tabindex="-1"></a>    pi <span class="op">=</span> eigs[<span class="dv">1</span>][:,np.isclose(eigs[<span class="dv">0</span>], <span class="fl">1.0</span>)]</span>
 <span id="cb3-15"><a aria-hidden="true" href="#cb3-15" tabindex="-1"></a>    pi <span class="op">=</span> np.<span class="bu">abs</span>(pi) <span class="op">/</span> np.<span class="bu">abs</span>(pi).<span class="bu">sum</span>()</span>
 <span id="cb3-16"><a aria-hidden="true" href="#cb3-16" tabindex="-1"></a>    <span class="cf">return</span> pi</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
-</details>
 </div>
-<div class="cell" data-execution_count="4" id="f6a718f6">
-<details class="code-fold">
-<summary>Show code</summary>
+<p>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> and the teleportation rate <span class="math inline">\(\alpha\)</span>:</p>
+<div class="cell" data-execution_count="4" id="4738c1be">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
 <span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a></span>
 <span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>    pi <span class="op">=</span> pagerank(G, v, alpha <span class="op">=</span> alpha)</span>
@@ -704,23 +695,17 @@ window.Quarto = {
 <span id="cb4-6"><a aria-hidden="true" href="#cb4-6" tabindex="-1"></a>            with_labels <span class="op">=</span> <span class="va">True</span>,</span>
 <span id="cb4-7"><a aria-hidden="true" href="#cb4-7" tabindex="-1"></a>            edge_color <span class="op">=</span> <span class="st">"lightgray"</span>, </span>
 <span id="cb4-8"><a aria-hidden="true" href="#cb4-8" tabindex="-1"></a>            node_color <span class="op">=</span> <span class="st">"lavender"</span>,</span>
-<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a>            edgecolors  <span class="op">=</span> <span class="st">"darkgray"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> and the teleportation rate <span class="math inline">\(\alpha\)</span>:</p>
-<div class="cell" data-execution_count="5" id="a06a847c">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
-<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a></span>
-<span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(G.nodes())</span>
-<span id="cb5-4"><a aria-hidden="true" href="#cb5-4" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>n<span class="op">*</span>np.ones(n)</span>
-<span id="cb5-5"><a aria-hidden="true" href="#cb5-5" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb4-9"><a aria-hidden="true" href="#cb4-9" tabindex="-1"></a>            edgecolors  <span class="op">=</span> <span class="st">"darkgray"</span>)</span>
+<span id="cb4-10"><a aria-hidden="true" href="#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a aria-hidden="true" href="#cb4-11" tabindex="-1"></a>layout <span class="op">=</span> nx.fruchterman_reingold_layout(G)</span>
+<span id="cb4-12"><a aria-hidden="true" href="#cb4-12" tabindex="-1"></a></span>
+<span id="cb4-13"><a aria-hidden="true" href="#cb4-13" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(G.nodes())</span>
+<span id="cb4-14"><a aria-hidden="true" href="#cb4-14" tabindex="-1"></a>v <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>n<span class="op">*</span>np.ones(n)</span>
+<span id="cb4-15"><a aria-hidden="true" href="#cb4-15" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img class="figure-img" height="499" src="50-random-walks_files/figure-html/cell-6-output-1.png" width="691"/></p>
+<p><img class="figure-img" height="499" src="50-random-walks_files/figure-html/cell-5-output-1.png" width="691"/></p>
 </figure>
 </div>
 </div>
@@ -730,22 +715,22 @@ window.Quarto = {
 <section class="level2" id="seeded-pagerank">
 <h2 class="anchored" data-anchor-id="seeded-pagerank">Seeded PageRank</h2>
 <p>A useful feature of the way we’ve defined PageRank is that we can choose different teleportation vectors <span class="math inline">\(\mathbf{v}\)</span> in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> to highlight those specific characters. This approach is often called “personalized” or “seeded” PageRank.</p>
-<div class="cell" data-execution_count="6" id="02c50403">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>
-<span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
-</details>
+<div class="cell" data-execution_count="5" id="63b9b38f">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>
+<span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img class="figure-img" height="499" src="50-random-walks_files/figure-html/cell-7-output-1.png" width="691"/></p>
+<p><img class="figure-img" height="499" src="50-random-walks_files/figure-html/cell-6-output-1.png" width="691"/></p>
 </figure>
 </div>
 </div>
 </div>
 <p>This time, we’ve highlighted the node corresponding to the character King George. Whereas when using the “basic” version of PageRank Hamilton, Burr, Washington, and Jefferson are all very important characters, in the personalized versio, Washington emerges as clearly the most important.</p>
 <p>This kind of idea is often applied in marketing and search. Suppose we know that a user is interested in site <span class="math inline">\(A\)</span>. Then, if that user searches for something online, we can use that information by computing a PageRank ranking and returning the top nodes, <em>using a biased teleportation vector</em>. This would allow us to balance the objectives of returning webpages that are relevant <em>overall</em> and webpages that are especially relevant <em>for that user</em>.</p>
+</section>
+<section class="level2" id="references">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 <div class="references csl-bib-body hanging-indent" data-entry-spacing="0" id="refs" role="list">
 <div class="csl-entry" id="ref-brin1998anatomy" role="listitem">
 Brin, Sergey, and Lawrence Page. 1998. <span>“The Anatomy of a Large-Scale Hypertextual Web Search Engine.”</span> <em>Computer Networks and ISDN Systems</em> 30 (1-7): 107–17.

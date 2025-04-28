@@ -66,8 +66,8 @@ The model class actually has a lot more functionality than this. Fortunately, we
 ```{python}
 #| code-fold: false
 
+#---
 class RWModel(Model):
-
     # model setup
     def __init__(self, G, agent_class, **kwargs):                 # <1>
         
@@ -87,6 +87,7 @@ class RWModel(Model):
     def step(self):                                              # <6>
         self.agents.do("step") 
         self.collector.collect(self)                             # <7>
+#---
 ```
 1. We initialize the model and choose its arguments. In this case, the arguments are `G`. 
 2. The `self.grid` object defines the space on which agents move. In our case, we can make a `NetworkGrid` object directly out of a `NetworkX` graph `G`. 
@@ -103,6 +104,8 @@ Now we're ready to define what the agent is supposed to do! In the SRW, the agen
 
 ```{python}
 #| code-fold: false
+
+#---
 class SRWAgent(Agent):
     def __init__(self, model):
         super().__init__(model)
@@ -119,6 +122,7 @@ class SRWAgent(Agent):
         # pick a random one and go there
         new_node = self.random.choice(options)
         self.model.grid.move_agent(self, new_node)                       #<3>
+#---
 ```
 1. The unique id of the node helps us keep track of it and is useful when analyzing data from the simulation. 
 2. The `get_neighborhood` method of the `grid` object returns a list of all nodes adjacent to the current node. The `include_center` argument determines whether or not we include the current node in this list. In this case, since we always want to move to a new location, we do not include the current node. Note that the `grid` is an instance variable of the `model`, a reference to which  is in turn saved as an instance variable of the `agent`.
@@ -132,18 +136,22 @@ Phew, that's it! Once we've defined our model class, we can then run it for a bu
 
 ```{python}
 #| code-fold: false
+#---
 model = RWModel(G, SRWAgent)
 
 for i in range(100000):
     model.step()
+#---
 ```
 
 We can get data on the behavior of the simulation using the `collector` attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead. 
 
 ```{python}
 #| code-fold: false
+#---
 walk_report = model.collector.get_agent_vars_dataframe()
 walk_report.head()
+#---
 ```
 
 
@@ -196,7 +204,7 @@ The reason that we parameterized the `RWModel` class with the argument `agent_cl
 
 ```{python}
 #| code-fold: false
-
+#---
 class PageRankAgent(Agent):
 
     def __init__(self, model, alpha):
@@ -213,6 +221,7 @@ class PageRankAgent(Agent):
         # pick a random one and go there
         new_node = np.random.choice(options)
         self.model.grid.move_agent(self, new_node)
+#---
 ```
 1. Teleportation step. 
 2. Simple random walk step.
@@ -221,10 +230,12 @@ class PageRankAgent(Agent):
 That's all we need to do in order to implement PageRank. Let's go ahead and run: 
 ```{python}
 #| code-fold: false
+#---
 pagerank_model = RWModel(G, PageRankAgent, alpha = 0.15)
 
 for i in range(100000):
     pagerank_model.step()
+#---
 ```
 
 That's it! Now we could check the match with the stationary distribution like we did last time. Instead, let's simply draw the graph. 
@@ -266,6 +277,7 @@ Let's now implement the voter model. We'll call the container model class a `Com
 
 ```{python}
 #| code-fold: false
+#---
 class CompartmentalModel(Model):
 
     # model setup
@@ -292,6 +304,7 @@ class CompartmentalModel(Model):
     def step(self):
         self.agents.shuffle_do("step") # asynchronous activation
         self.collector.collect(self)
+#---
 ```
 
 
@@ -300,7 +313,7 @@ Now we'll implement a `VoterAgent`. In the `step` method of the `VoterAgent`, th
 
 ```{python}
 #| code-fold: false
-
+#---
 class VoterAgent(Agent):
 
     def __init__(self, model, state):
@@ -313,6 +326,7 @@ class VoterAgent(Agent):
 
         adopt_from = np.random.choice(neighbors)
         self.state = adopt_from.state
+#---
 ```
 
 Let's run an instance of the voter model and plot the proportion of nodes with opinion 1: 
