@@ -404,7 +404,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="page-columns page-full"><p>Here’s an example of a famous graph: the Zachary Karate Club. Each node represents a member of a university karate club, and each edge represents a friendly social relationship between them. This graph is supplied by <code>networkx</code>, the Python software package that we’ll use throughout these notes for network analysis. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The code in this collapsed cell imports packages and sets up various plotting options</span></div></div>
-<div class="cell" data-execution_count="1" id="018356a2">
+<div class="cell" data-execution_count="1" id="5c0dc0e9">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
@@ -704,7 +704,7 @@ Figure 1.6: A network built using a dictionary that maps nodes to neighbors.
 </div>
 </div></div></div>
 <p>It’s also possible to “go backwards” and obtain the dictionary representation from the graph object using</p>
-<div class="cell" data-execution_count="8" id="886edc2f">
+<div class="cell" data-execution_count="8" id="f1e90674">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>nx.to_dict_of_lists(G)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>{1: [2], 2: [1, 3, 4], 3: [2, 4], 4: [2, 3]}</code></pre>

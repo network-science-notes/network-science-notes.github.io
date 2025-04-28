@@ -107,6 +107,7 @@ We'll implement our epidemic models using the `mesa` library. The `Compartmental
 
 ```{python}
 #| code-fold: false
+#---
 class CompartmentalModel(Model):
 
     # model setup
@@ -143,6 +144,7 @@ class CompartmentalModel(Model):
         self.agents.do("step")
         self.agents.do("advance")
         self.collector.collect(self)
+#---
 ```
 
 It now remains to specify the compartmental dynamics, which we do in the `Agent` class.  
@@ -160,7 +162,7 @@ There are many ways to implement this general idea. For our implementation, we'l
 
 ```{python}
 #| code-fold: false
-
+#---
 class SIAgent(Agent):
     def __init__(self, model, state):
         super().__init__(model)
@@ -188,6 +190,7 @@ class SIAgent(Agent):
     # save the new state as the next current state
     def advance(self):
         self.state = self.new_state
+#---
 ```
 
 First, let's look at the progress of our simulation in a small, simple network: 
@@ -312,6 +315,7 @@ In most implementations of the SIR model, the recovery rate does not depend on t
 
 ```{python}
 #| code-fold: false
+#---
 class SIRAgent(SIAgent):
 
     def recover(self):
@@ -326,7 +330,8 @@ class SIRAgent(SIAgent):
         elif self.new_state == "I":
             self.recover()
         elif self.new_state == "R":
-            pass            
+            pass  
+#---          
 ```
 
 Now there are three states that an agent could have at any given time. The evolution of the disease states now looks more like this: 

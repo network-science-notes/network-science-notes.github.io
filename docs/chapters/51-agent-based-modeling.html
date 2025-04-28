@@ -365,7 +365,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="first-example-simple-random-walk">First Example: Simple Random Walk</h2>
 <p>For our first agent-based model, we are going to code up an agent-based implementation of the simple random walk. There are lots of reasonable ways to do this, and Mesa is actually a bit of overkill for this particular problem. Still, we’ll learn some important techniques and concepts along the way.</p>
 <p>Let’s start by importing several tools that we’ll use.</p>
-<div class="cell" data-execution_count="1" id="caa124dc">
+<div class="cell" data-execution_count="1" id="a9d09e46">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="im">from</span> mesa <span class="im">import</span> Model, Agent                 <span class="co"># core mesa classes</span></span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="im">from</span> mesa.space <span class="im">import</span> NetworkGrid             </span>
 <span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="im">from</span> mesa.datacollection <span class="im">import</span> DataCollector</span>
@@ -376,7 +376,7 @@ window.Quarto = {
 <span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8-whitegrid'</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Since this is a networks class, we’ll use a network-based grid. We imported the capability to do that above as the <code>mesa.space.NetworkGrid</code> class. Of course, we need a network to use. For this example, we’ll use the Les Miserable Graph, which is built in to NetworkX:</p>
-<div class="cell" data-execution_count="2" id="404dbd5a">
+<div class="cell" data-execution_count="2" id="9ac94de8">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>G <span class="op">=</span> nx.les_miserables_graph()</span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a>G <span class="op">=</span> nx.convert_node_labels_to_integers(G)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
@@ -394,7 +394,7 @@ window.Quarto = {
 <li>What happens in a single time-step of the model, via the <code>step()</code> method.</li>
 </ul>
 <p>The model class actually has a lot more functionality than this. Fortunately, we don’t usually need to define this functionality, because the model class we create inherits the needed functionality from <code>mesa.Model</code> (which we imported above). Here’s our <code>SRWModel</code> class. The syntax can look a little complicated whenever we work with a new package, but what’s going on is fundamentally pretty simple. We’ve added annotations next to the most important lines of code; other lines are also necessary for correct functioning but are more boilerplate than informative.</p>
-<div class="cell" data-execution_count="3" id="f005a0ff">
+<div class="cell" data-execution_count="3" id="d1750af8">
 <div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-4-1"><a aria-hidden="true" href="#annotated-cell-4-1" tabindex="-1"></a><span class="kw">class</span> RWModel(Model):</span>
 <span id="annotated-cell-4-2"><a aria-hidden="true" href="#annotated-cell-4-2" tabindex="-1"></a>    <span class="co"># model setup</span></span>
 <a class="code-annotation-anchor" data-target-annotation="1" data-target-cell="annotated-cell-4" onclick="event.preventDefault();">1</a><span class="code-annotation-target" id="annotated-cell-4-3"><a aria-hidden="true" href="#annotated-cell-4-3" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, G, agent_class, <span class="op">**</span>kwargs):</span>
@@ -448,7 +448,7 @@ window.Quarto = {
 <section class="level3" id="the-agent-class">
 <h3 class="anchored" data-anchor-id="the-agent-class">The Agent Class</h3>
 <p>Now we’re ready to define what the agent is supposed to do! In the SRW, the agent looks at all nodes adjacent to theirs, chooses one of them uniformly at random, and moves to it. We need to implement this behavior in the <code>step()</code> method. While there are some more mesa functions involved that you may not have seen before, the approach is very simple.</p>
-<div class="cell" data-execution_count="4" id="80eec518">
+<div class="cell" data-execution_count="4" id="c95bc907">
 <div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-5-1"><a aria-hidden="true" href="#annotated-cell-5-1" tabindex="-1"></a><span class="kw">class</span> SRWAgent(Agent):</span>
 <span id="annotated-cell-5-2"><a aria-hidden="true" href="#annotated-cell-5-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model):</span>
 <span id="annotated-cell-5-3"><a aria-hidden="true" href="#annotated-cell-5-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(model)</span>
@@ -487,14 +487,14 @@ window.Quarto = {
 <section class="level3 page-columns page-full" id="experiment">
 <h3 class="anchored" data-anchor-id="experiment">Experiment</h3>
 <p>Phew, that’s it! Once we’ve defined our model class, we can then run it for a bunch of timesteps:</p>
-<div class="cell" data-execution_count="5" id="f2a17396">
+<div class="cell" data-execution_count="5" id="d1630fe0">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>model <span class="op">=</span> RWModel(G, SRWAgent)</span>
 <span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a></span>
 <span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
 <span id="cb4-4"><a aria-hidden="true" href="#cb4-4" tabindex="-1"></a>    model.step()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can get data on the behavior of the simulation using the <code>collector</code> attribute of the model. We programmed the collector to gather only the position of the walker. There are lots of other possibilities we could have chosen instead.</p>
-<div class="cell" data-execution_count="6" id="22ea894b">
+<div class="cell" data-execution_count="6" id="ca1bb93f">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>walk_report <span class="op">=</span> model.collector.get_agent_vars_dataframe()</span>
 <span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>walk_report.head()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -516,27 +516,27 @@ window.Quarto = {
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>59</td>
+<td>2</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">2</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>66</td>
+<td>10</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">3</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>60</td>
+<td>14</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">4</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>58</td>
+<td>10</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">5</td>
 <td data-quarto-table-cell-role="th">Anakin Graphwalker</td>
-<td>59</td>
+<td>70</td>
 </tr>
 </tbody>
 </table>
@@ -545,7 +545,7 @@ window.Quarto = {
 </div>
 <div class="page-columns page-full"><p>Now let’s ask: is the simulation we just did lined up with what we know about the theory of the simple random walk?  Recall that the <em>stationary distribution</em> <span class="math inline">\(\pi\)</span> of the SRW is supposed to describe the long-term behavior of the walk, with <span class="math inline">\(\pi_i\)</span> giving the limiting probability that the walker is on node <span class="math inline">\(i\)</span>. Recall further that the stationary distribution for the SRW is actually known in closed form: it’s <span class="math inline">\(\pi_i = k_i / 2m\)</span>, where <span class="math inline">\(k_i\)</span> is the degree of node <span class="math inline">\(i\)</span>. So, we would expect this to be a good estimate of the fraction of time that the walker spent on node <span class="math inline">\(i\)</span>. Let’s check this!</p><div class="no-row-height column-margin column-container"><span class="margin-aside">We derived this theory in <a class="quarto-xref" href="50-random-walks.html#sec-srw"><span>Section 15.1</span></a>.</span></div></div>
 <p>Let’s compute the fraction of time that the agent spent on each node and compare it to the stationary distribution of the underlying graph:</p>
-<div class="cell" data-execution_count="7" id="4c040c4f">
+<div class="cell" data-execution_count="7" id="887c7eaa">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a><span class="co"># simulation results</span></span>
 <span id="cb6-2"><a aria-hidden="true" href="#cb6-2" tabindex="-1"></a>counts <span class="op">=</span> walk_report.groupby(<span class="st">"node"</span>).size()</span>
 <span id="cb6-3"><a aria-hidden="true" href="#cb6-3" tabindex="-1"></a>freqs <span class="op">=</span> counts <span class="op">/</span> <span class="bu">sum</span>(counts)</span>
@@ -556,7 +556,7 @@ window.Quarto = {
 <span id="cb6-8"><a aria-hidden="true" href="#cb6-8" tabindex="-1"></a>stationary_dist <span class="op">=</span> degs <span class="op">/</span> np.<span class="bu">sum</span>(degs)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Finally, we can plot and see whether the prediction lines up with the observation:</p>
-<div class="cell page-columns page-full" data-execution_count="8" id="4beb1f90">
+<div class="cell page-columns page-full" data-execution_count="8" id="3c570802">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-hidden="true" href="#cb7-1" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">4</span>, <span class="dv">4</span>)) </span>
@@ -593,7 +593,7 @@ window.Quarto = {
 <li>With probability <span class="math inline">\(\alpha\)</span>, the agent teleports to a random node.</li>
 <li>With probability <span class="math inline">\(1 - \alpha\)</span>, the agent chooses a neighbor instead does a simple random walk step.</li>
 </ul>
-<div class="cell" data-execution_count="9" id="d88271d4">
+<div class="cell" data-execution_count="9" id="a319cdc3">
 <div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode python code-annotation-code code-with-copy code-annotated"><code class="sourceCode python"><span id="annotated-cell-10-1"><a aria-hidden="true" href="#annotated-cell-10-1" tabindex="-1"></a><span class="kw">class</span> PageRankAgent(Agent):</span>
 <span id="annotated-cell-10-2"><a aria-hidden="true" href="#annotated-cell-10-2" tabindex="-1"></a></span>
 <span id="annotated-cell-10-3"><a aria-hidden="true" href="#annotated-cell-10-3" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model, alpha):</span>
@@ -624,14 +624,14 @@ window.Quarto = {
 </div>
 </div>
 <p>That’s all we need to do in order to implement PageRank. Let’s go ahead and run:</p>
-<div class="cell" data-execution_count="10" id="19d7aa01">
+<div class="cell" data-execution_count="10" id="2c821d98">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a>pagerank_model <span class="op">=</span> RWModel(G, PageRankAgent, alpha <span class="op">=</span> <span class="fl">0.15</span>)</span>
 <span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a></span>
 <span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>):</span>
 <span id="cb8-4"><a aria-hidden="true" href="#cb8-4" tabindex="-1"></a>    pagerank_model.step()</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>That’s it! Now we could check the match with the stationary distribution like we did last time. Instead, let’s simply draw the graph.</p>
-<div class="cell" data-execution_count="11" id="4c8a0492">
+<div class="cell" data-execution_count="11" id="6075133d">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a aria-hidden="true" href="#cb9-1" tabindex="-1"></a>walk_report <span class="op">=</span> pagerank_model.collector.get_agent_vars_dataframe()</span>
@@ -670,7 +670,7 @@ window.Quarto = {
 <p>A decision must be made about whether to update <em>synchronously</em> or <em>asynchronously</em>. In a synchronous update, every agent takes the same step at exactly the same time. In asynchronous updates, the agents act one at a time, usually in a randomly-selected order. The practical difference between synchronous and asynchronous updating is not <em>usually</em> large, but can in some cases make major modeling differences.</p>
 <p>For this example, we’ll use asynchronous updates. Mesa implements this conveniently using the <code>shuffle_do</code> method.</p>
 <p>Let’s now implement the voter model. We’ll call the container model class a <code>CompartmentalModel</code>, because we’ll reuse it when we get to other models in which agents can be sorted into categories.</p>
-<div class="cell" data-execution_count="12" id="2ab6e7df">
+<div class="cell" data-execution_count="12" id="b79173d2">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a><span class="kw">class</span> CompartmentalModel(Model):</span>
 <span id="cb10-2"><a aria-hidden="true" href="#cb10-2" tabindex="-1"></a></span>
 <span id="cb10-3"><a aria-hidden="true" href="#cb10-3" tabindex="-1"></a>    <span class="co"># model setup</span></span>
@@ -699,7 +699,7 @@ window.Quarto = {
 <span id="cb10-26"><a aria-hidden="true" href="#cb10-26" tabindex="-1"></a>        <span class="va">self</span>.collector.collect(<span class="va">self</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we’ll implement a <code>VoterAgent</code>. In the <code>step</code> method of the <code>VoterAgent</code>, the agent inspects the set of its neighbors, chooses one uniformly at random, and then adapts its state. The structure of this step is very similar to the simple random walk; only instead of moving to a new location, the agent instead updates its <code>state</code> instance variable.</p>
-<div class="cell" data-execution_count="13" id="e9ae5dbd">
+<div class="cell" data-execution_count="13" id="0f10d515">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a><span class="kw">class</span> VoterAgent(Agent):</span>
 <span id="cb11-2"><a aria-hidden="true" href="#cb11-2" tabindex="-1"></a></span>
 <span id="cb11-3"><a aria-hidden="true" href="#cb11-3" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model, state):</span>
