@@ -10,6 +10,7 @@ book:
   title: "Network Science: Models, Mathematics, and Computation"
   # author: "Heather Zinn Brooks and Phil Chodrow"
   # date: "07/19/2024"
+  google-analytics: "G-80H959492S"
   body-footer: |
         <br> <br> <span style="color:grey;">&#169; Heather Zinn Brooks and Phil Chodrow, 2025</span>
   sidebar: 

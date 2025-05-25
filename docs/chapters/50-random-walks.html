@@ -117,6 +117,14 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-80H959492S"></script>
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-80H959492S', { 'anonymize_ip': true});
+</script>
 <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -645,7 +653,7 @@ window.Quarto = {
 <section class="level3" id="implementation">
 <h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
 <p>Let’s code up a quick example to visualize PageRank. We’ll use the Hamilton Mentions graph:</p>
-<div class="cell" data-execution_count="1" id="ad9d8d9c">
+<div class="cell" data-execution_count="1" id="8a1712c8">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
 <span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -662,12 +670,12 @@ window.Quarto = {
 <span id="cb1-14"><a aria-hidden="true" href="#cb1-14" tabindex="-1"></a>                            create_using<span class="op">=</span>nx.DiGraph())</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are a few nodes in this network with no outgoing edges. While there are modifications we can make to handle this kind of case, we can also just remove them from the graph.</p>
-<div class="cell" data-execution_count="2" id="5c032f7f">
+<div class="cell" data-execution_count="2" id="3d8b684e">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>    G <span class="op">=</span> G.subgraph([name <span class="cf">for</span> name, val <span class="kw">in</span> G.out_degree() <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">0</span>])</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can write our PageRank function. We’ll compute the transition matrix <span class="math inline">\(\mathbf{P}\)</span> and find its leading eigenvector.</p>
-<div class="cell" data-execution_count="3" id="c5a4b535">
+<div class="cell" data-execution_count="3" id="f3379150">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> pagerank(G, v, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a></span>
 <span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>    <span class="cf">assert</span> np.isclose(v.<span class="bu">sum</span>(), <span class="fl">1.0</span>)</span>
@@ -686,7 +694,7 @@ window.Quarto = {
 <span id="cb3-16"><a aria-hidden="true" href="#cb3-16" tabindex="-1"></a>    <span class="cf">return</span> pi</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can visualize the PageRank stationary distribution for different choices of the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> and the teleportation rate <span class="math inline">\(\alpha\)</span>:</p>
-<div class="cell" data-execution_count="4" id="0dc79470">
+<div class="cell" data-execution_count="4" id="e3c2556a">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a><span class="kw">def</span> draw_pagerank(G, v,  layout, alpha <span class="op">=</span> <span class="fl">0.15</span>):</span>
 <span id="cb4-2"><a aria-hidden="true" href="#cb4-2" tabindex="-1"></a></span>
 <span id="cb4-3"><a aria-hidden="true" href="#cb4-3" tabindex="-1"></a>    pi <span class="op">=</span> pagerank(G, v, alpha <span class="op">=</span> alpha)</span>
@@ -715,7 +723,7 @@ window.Quarto = {
 <section class="level2" id="seeded-pagerank">
 <h2 class="anchored" data-anchor-id="seeded-pagerank">Seeded PageRank</h2>
 <p>A useful feature of the way we’ve defined PageRank is that we can choose different teleportation vectors <span class="math inline">\(\mathbf{v}\)</span> in order to explore different parts of the graph. For example, suppose that we are especially interested in the part of the network surrouding certain characters. We can just change the teleportation vector <span class="math inline">\(\mathbf{v}\)</span> to highlight those specific characters. This approach is often called “personalized” or “seeded” PageRank.</p>
-<div class="cell" data-execution_count="5" id="58f1d7fa">
+<div class="cell" data-execution_count="5" id="1d742d23">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span> <span class="cf">if</span> i <span class="op">==</span> <span class="st">"kingGeorge"</span> <span class="cf">else</span> <span class="dv">0</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">list</span>(G.nodes())])</span>
 <span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>draw_pagerank(G, v, layout, alpha <span class="op">=</span> <span class="fl">0.1</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">

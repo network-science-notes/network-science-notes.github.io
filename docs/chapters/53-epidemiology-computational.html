@@ -97,6 +97,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-80H959492S"></script>
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-80H959492S', { 'anonymize_ip': true});
+</script>
 <meta content="neutral" name="mermaid-theme"/>
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
@@ -431,7 +439,7 @@ window.Quarto = {
 <div class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" id="fig-degree-distributions">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <div aria-describedby="fig-degree-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img class="figure-img" height="360" src="53-epidemiology-computational_files/figure-html/fig-degree-distributions-output-1.png" width="441"/>
+<img class="figure-img" height="359" src="53-epidemiology-computational_files/figure-html/fig-degree-distributions-output-1.png" width="439"/>
 </div>
 <figcaption class="quarto-float-caption-margin quarto-float-caption quarto-float-fig margin-caption" id="fig-degree-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 17.1: Degree distributions for the power law and Poisson random graphs used for our experiments. Several nodes with degree 0 in the power law graph are not shown.
@@ -450,7 +458,7 @@ Figure 17.1: Degree distributions for the power law and Poisson random graphs u
 <section class="level2 page-columns page-full" id="implementation-in-mesa">
 <h2 class="anchored" data-anchor-id="implementation-in-mesa">Implementation in Mesa</h2>
 <div class="page-columns page-full"><p>We’ll implement our epidemic models using the <code>mesa</code> library. The <code>CompartmentalModel</code> with that we introduced last time for modeling opinion dynamics with the voter model will also work for epidemic modeling with just a few minor tweaks. The main work is to define new agents with new states and transitions. One small wrinkle is that this time we will use <em>synchronous</em> updating, in which each node performs its update simultaneously. This involves adding a second method (<code>advance</code>) to each agent; the <code>step</code> method will compute the new state of the node and the <code>advance</code> method will save it as the new current state.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">In the <a href="../chapters/52-epidemiology.html">advanced notes</a> on the theory of epidemiology on graphs, you can learn more about how things look if we assume that infection takes place in continuous rather than discrete time.</span></div></div>
-<div class="cell" data-execution_count="2" id="d260c28b">
+<div class="cell" data-execution_count="2" id="95ed0933">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="kw">class</span> CompartmentalModel(Model):</span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>    <span class="co"># model setup</span></span>
@@ -507,7 +515,7 @@ Figure 17.1: Degree distributions for the power law and Poisson random graphs u
 </div>
 </div>
 <p>There are many ways to implement this general idea. For our implementation, we’ll just assume that in each timestep, an agent has probability <span class="math inline">\(p\)</span> to be infected by each of their infected neighbors independently. This means that the probability of an agent being infected in a given timestep is <span class="math inline">\(1 - (1-p)^k\)</span>, where <span class="math inline">\(k\)</span> is the number of infected neighbors. It is also possible to implement this update simply by looping through the neighbors and making updates depending on their states.</p>
-<div class="cell" data-execution_count="3" id="1e59fd10">
+<div class="cell" data-execution_count="3" id="e7a1137f">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="kw">class</span> SIAgent(Agent):</span>
 <span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model, state):</span>
 <span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(model)</span>
@@ -576,7 +584,7 @@ Figure 17.2: Progress of the SI model in a small network. Grey nodes are suscep
 </div>
 </div>
 <p>How representative is this visualization? Would we see something similar on our two model networks <span class="math inline">\(G_1\)</span> and <span class="math inline">\(G_2\)</span>? To address these questions, let’s define a function to run the simulation on a specified network and compute the total number of agents in each compartment over time:</p>
-<div class="cell" data-execution_count="5" id="4cdb0acf">
+<div class="cell" data-execution_count="5" id="e1fdaf43">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> epi_experiment(G, agent_type, timesteps, infection_rate, ax, recovery_rate <span class="op">=</span> <span class="va">None</span>, label <span class="op">=</span> <span class="va">True</span>, <span class="op">**</span>kwargs):</span>
 <span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a></span>
 <span id="cb5-3"><a aria-hidden="true" href="#cb5-3" tabindex="-1"></a>    <span class="co"># initialize and run the model</span></span>
@@ -607,7 +615,7 @@ Figure 17.2: Progress of the SI model in a small network. Grey nodes are suscep
 <span id="cb5-28"><a aria-hidden="true" href="#cb5-28" tabindex="-1"></a>    <span class="cf">return</span> ax</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can run simulations and plot the total number of infected nodes like this:</p>
-<div class="cell" data-execution_count="6" id="bf33a59a">
+<div class="cell" data-execution_count="6" id="b2757f39">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a aria-hidden="true" href="#cb6-1" tabindex="-1"></a>timesteps <span class="op">=</span> <span class="dv">100</span></span>
@@ -689,7 +697,7 @@ Exercise
 </div>
 </div>
 <p>In most implementations of the SIR model, the recovery rate does not depend on the status of one’s neighbors: an infected node simply becomes recovered with some fixed probability each day. Once an agent is recovered, they are considered to be immune and no longer susceptible to infection. To implement this behavior, we just need to implement a <code>recover</code> method and lightly modify the <code>step</code> method to incorporate recovery. We can save a few lines of code by inheriting from the previous <code>SIAgent</code> class.</p>
-<div class="cell" data-execution_count="8" id="83be8dd7">
+<div class="cell" data-execution_count="8" id="9e86991c">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="kw">class</span> SIRAgent(SIAgent):</span>
 <span id="cb8-2"><a aria-hidden="true" href="#cb8-2" tabindex="-1"></a></span>
 <span id="cb8-3"><a aria-hidden="true" href="#cb8-3" tabindex="-1"></a>    <span class="kw">def</span> recover(<span class="va">self</span>):</span>
@@ -743,7 +751,7 @@ Figure 17.4: Progress of the SIR model in a small network. Grey nodes are susce
 </div>
 <p>Over time, Infected nodes become Recovered, after which they cannot become Infected again. This causes the disease to travel across the graph, leaving groups of Recovered nodes in its wake.</p>
 <p>Let’s now do a batch experiment in which we observe the proportion of both Infected and Recovered individuals over many simulation runs. We’ll choose a recovery rate corresponding to an average illness duration of approximately two weeks.</p>
-<div class="cell" data-execution_count="10" id="c3497076">
+<div class="cell" data-execution_count="10" id="9bda4493">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a aria-hidden="true" href="#cb10-1" tabindex="-1"></a>infection_rate <span class="op">=</span> <span class="fl">0.04</span></span>
@@ -774,7 +782,7 @@ Figure 17.4: Progress of the SIR model in a small network. Grey nodes are susce
 <li>In the Poisson graph <span class="math inline">\(G_2\)</span> on the other hand, the disease spreads more slowly through the population. In at least some simulations, however, the disease ultimately infects a larger fraction of individuals.</li>
 </ul>
 <p>There is an even more striking difference between the two models when the infection rate is lower:</p>
-<div class="cell" data-execution_count="11" id="53c5458a">
+<div class="cell" data-execution_count="11" id="a51d8b3a">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a aria-hidden="true" href="#cb11-1" tabindex="-1"></a>infection_rate <span class="op">=</span> <span class="fl">0.015</span></span>
@@ -802,7 +810,7 @@ Figure 17.4: Progress of the SIR model in a small network. Grey nodes are susce
 <section class="level2 page-columns page-full" id="theory-whats-going-on">
 <h2 class="anchored" data-anchor-id="theory-whats-going-on">Theory: What’s Going On?</h2>
 <p>How can we explain the difference in behaviors between epidemic outbreaks on these two contact networks? The mean degree in these networks is relatively similar:</p>
-<div class="cell" data-execution_count="12" id="be03b2fc">
+<div class="cell" data-execution_count="12" id="4c97e87f">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a aria-hidden="true" href="#cb12-1" tabindex="-1"></a>mean_deg_1 <span class="op">=</span> degree_sequence(G_1).mean()</span>
@@ -812,8 +820,8 @@ Figure 17.4: Progress of the SIR model in a small network. Grey nodes are susce
 <span id="cb12-5"><a aria-hidden="true" href="#cb12-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean degree of G_2:  </span><span class="sc">{</span>mean_deg_2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean degree of G_1:  3.64
-Mean degree of G_2:  3.72</code></pre>
+<pre><code>Mean degree of G_1:  3.36
+Mean degree of G_2:  3.08</code></pre>
 </div>
 </div>
 <p>So, it’s not the case that <span class="math inline">\(G_1\)</span> is “more connected on average” than <span class="math inline">\(G_2\)</span>. Instead, we need to ask questions about <em>how</em> these two networks are connected.</p>
@@ -825,7 +833,7 @@ Mean degree of G_2:  3.72</code></pre>
 \end{aligned}
 \]</span></p>
 <p>Let’s compute this measure for each of our graphs:</p>
-<div class="cell" data-execution_count="13" id="44405441">
+<div class="cell" data-execution_count="13" id="f43fe1fa">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a aria-hidden="true" href="#cb14-1" tabindex="-1"></a>r_1 <span class="op">=</span> degree_sequence(G_1).mean() <span class="op">*</span> infection_rate <span class="op">/</span> recovery_rate </span>
@@ -835,11 +843,11 @@ Mean degree of G_2:  3.72</code></pre>
 <span id="cb14-5"><a aria-hidden="true" href="#cb14-5" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"beta/gamma * &lt;k&gt; in G_2:  </span><span class="sc">{</span>r_2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>beta/gamma * &lt;k&gt; in G_1:  0.77
-beta/gamma * &lt;k&gt; in G_2:  0.78</code></pre>
+<pre><code>beta/gamma * &lt;k&gt; in G_1:  0.71
+beta/gamma * &lt;k&gt; in G_2:  0.65</code></pre>
 </div>
 </div>
-<p>The two graphs have very similar values of the measure $ k $, which makes sense since this measure differs between the two graphs only in the mean degree <span class="math inline">\(\langle k \rangle\)</span>, which we intentionally made similar between the graphs.</p>
+<p>The two graphs have very similar values of the measure <span class="math inline">\(\frac{\beta}{\gamma} \langle k \rangle\)</span>, which makes sense since this measure differs between the two graphs only in the mean degree <span class="math inline">\(\langle k \rangle\)</span>, which we intentionally made similar between the graphs.</p>
 <div class="page-columns page-full"><p>To explain the difference, we need to return to our discussion of <a href="11-configuration-models.qmd">graphs with fixed degree distributions</a>. The number of neighbors of Patient 0 is distributed according to the degree distribution <span class="math inline">\(p_k\)</span> of the graph, and the mean is <span class="math inline">\(\langle k \rangle\)</span>. However, the number of neighbors <em>of those neighbors</em> is not distributed according to <span class="math inline">\(p_k\)</span>. Instead, as we saw when discussing graphs with fixed degree distribution, the distribution <span class="math inline">\(q_k\)</span> of the number of neighbors attached to a node (excluding the edge we traveled along to get there) is given by the formula </p><div class="no-row-height column-margin column-container"><span class="margin-aside">As a refresher, the intuition here is that for the node to have <span class="math inline">\(k\)</span> neighbors (excluding the edge we traveled on) it must have total degree <span class="math inline">\(k+1\)</span>. The probability that a given node has this degree is <span class="math inline">\(p_{k+1}\)</span> and there are <span class="math inline">\(k+1\)</span> ways to travel to that node along an edge. The <span class="math inline">\(\langle k \rangle\)</span> in the denominator is for normalization.</span></div></div>
 <p><span class="math display">\[
 \begin{aligned}
@@ -862,7 +870,7 @@ beta/gamma * &lt;k&gt; in G_2:  0.78</code></pre>
 \end{aligned}
 \tag{17.1}\]</span></span></p>
 <p>Let’s measure this for each of our two graphs:</p>
-<div class="cell" data-execution_count="14" id="adf88549">
+<div class="cell" data-execution_count="14" id="13295904">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a aria-hidden="true" href="#cb16-1" tabindex="-1"></a><span class="kw">def</span> mean_excess_degree(G):</span>
@@ -878,8 +886,8 @@ beta/gamma * &lt;k&gt; in G_2:  0.78</code></pre>
 <span id="cb16-11"><a aria-hidden="true" href="#cb16-11" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"&lt;k^2&gt; in G_2:  </span><span class="sc">{</span>R0_2<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;k^2&gt; in G_1:  4.17
-&lt;k^2&gt; in G_2:  0.95</code></pre>
+<pre><code>&lt;k^2&gt; in G_1:  20.34
+&lt;k^2&gt; in G_2:  0.84</code></pre>
 </div>
 </div>
 <p>Now we can see a clearer difference between the two graph structures: <span class="math inline">\(R_0\)</span> in <span class="math inline">\(G_1\)</span> is indeed sufficient to support initial exponential growth of the outbreak, while <span class="math inline">\(R_0\)</span> in <span class="math inline">\(G_2\)</span> is not.</p>

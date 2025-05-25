@@ -117,6 +117,14 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-80H959492S"></script>
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-80H959492S', { 'anonymize_ip': true});
+</script>
 <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -408,7 +416,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="page-columns page-full"><p>We can imagine visiting each possible pair of edges <span class="math inline">\((i,j)\)</span> and flipping an independent coin with probability of heads <span class="math inline">\(p\)</span>. If heads, we add <span class="math inline">\((i,j) \in E\)</span>; otherwise, we don’t. Indeed, one (relatively inefficient) implementation of the <span class="math inline">\(G(n,p)\)</span> model works exactly like this. </p><div class="no-row-height column-margin column-container"><span class="margin-aside">The hidden code block prepares for our implementation of <span class="math inline">\(G(n,p)\)</span> by importing several libaries and setting plotting styles.</span></div></div>
-<div class="cell" data-execution_count="1" id="95fdb2be">
+<div class="cell" data-execution_count="1" id="d78c6ff4">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -420,7 +428,7 @@ window.Quarto = {
 <span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a>np.random.seed(<span class="dv">1234</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell" data-execution_count="2" id="e0c56b38">
+<div class="cell" data-execution_count="2" id="28e2c9bf">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="kw">def</span> gnp(n, p):</span>
 <span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>    G <span class="op">=</span> nx.Graph()</span>
 <span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>    <span class="cf">for</span> i, j <span class="kw">in</span> combinations(<span class="bu">range</span>(n), <span class="dv">2</span>): <span class="co"># all pairs of nodes</span></span>
@@ -429,7 +437,7 @@ window.Quarto = {
 <span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>    <span class="cf">return</span> G</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <p>Having implemented this function, we can now generate a graph.</p>
-<div class="cell" data-execution_count="3" id="082ede04">
+<div class="cell" data-execution_count="3" id="c77bd9c5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>G <span class="op">=</span> gnp(<span class="dv">100</span>, <span class="fl">0.03</span>)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell page-columns page-full" data-execution_count="4" id="cell-fig-ER-example">
@@ -496,11 +504,11 @@ Figure 7.1: A <span class="math inline">\(G(n,p)\)</span> random graph with <sp
 <p>On the other hand, how many wedges are there? We can again choose the base node <span class="math inline">\(i\)</span> and the two additional nodes in a total of <span class="math inline">\(n\binom{n-1}{2}\)</span> ways. A wedge (potential triangle) exists if the edges <span class="math inline">\((i,j)\)</span> and <span class="math inline">\((i,k)\)</span> are present, which occurs with probability <span class="math inline">\(p^2\)</span>.</p>
 <p>The ratio between these two expectations is <span class="math inline">\(p\)</span>. Indeed, it’s possible to prove using <em>concentration inequalities</em> that, in this case, the expected transitivity is indeed very close to this ratio of expectations.</p>
 <p>Let’s compute the transitivity of a <span class="math inline">\(G(n,p)\)</span> graph with NetworkX. We’ll use a larger graph size for this experiment:</p>
-<div class="cell" data-execution_count="5" id="ecbeebeb">
+<div class="cell" data-execution_count="5" id="bd8b464a">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a aria-hidden="true" href="#cb5-1" tabindex="-1"></a>G <span class="op">=</span> nx.fast_gnp_random_graph(<span class="dv">1000</span>, <span class="fl">0.03</span>)</span>
 <span id="cb5-2"><a aria-hidden="true" href="#cb5-2" tabindex="-1"></a>nx.transitivity(G)</span></code><button class="code-copy-button" title="Copy to Clipboard"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>0.03042967423741534</code></pre>
+<pre><code>0.029832725995521798</code></pre>
 </div>
 </div>
 <p>The observed value of the clustering coefficient is close to the prediction of our approximate calculation.</p>
@@ -784,7 +792,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </div>
 </div>
 <p>Let’s check this experimentally. The following code block computes the size of the component in an ER graph containing a random node, and averages the result across many realizations. The experimental result is quite close to the theoretical prediction.</p>
-<div class="cell" data-execution_count="8" id="c20a8701">
+<div class="cell" data-execution_count="8" id="852d29c2">
 <details class="code-fold">
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a aria-hidden="true" href="#cb8-1" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
@@ -806,7 +814,7 @@ X_t = \sum_{i = 1}^{X_{t-1}} Y_i\;,
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Average over experiments is 4.47.
+Average over experiments is 4.71.
 
 Theoretical expectation is 5.00.
 </code></pre>
