@@ -16,7 +16,7 @@ Networks represent entities, which we refer to as *nodes*, and *relationships*, 
 
 Here is an example of a particularly fun network: this network describes all the social relationships between penguins and their handlers at the Kyoto Aquarium. This network is quite complex, with many different types of nodes (female penguins, male penguins, and handlers) as well as many different types of edges (mate, antagonist, parent/child, etc). We recommend clicking through the provided link and carefully studying this network. 
 
-![Image source: [Kyoto Aquarium](https://www.kyoto-aquarium.com/sokanzu/en/2024/img/kyoto_sokanzu_2024_en.jpg)](https://www.kyoto-aquarium.com/sokanzu/en/2024/img/kyoto_sokanzu_2024_en.jpg)
+![Image source: [Kyoto Aquarium](https://www.kyoto-aquarium.com/special/sokanzu/en/2026/img/kyoto_sokanzu_2026_en.jpg)](https://www.kyoto-aquarium.com/special/sokanzu/en/2026/img/kyoto_sokanzu_2026_en.jpg)
 
 
 ### Networks as Graphs
